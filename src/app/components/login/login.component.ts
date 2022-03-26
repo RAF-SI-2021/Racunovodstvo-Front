@@ -47,10 +47,6 @@ export class LoginComponent implements OnInit {
       }
       this.loginForm.reset()
     })
-    this.userService.getPermissions().subscribe(permissions => {
-      localStorage.setItem( 'permissions', permissions.toString())
-
-    })
     this.router.navigate(['profile'])
   }
 
