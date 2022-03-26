@@ -30,8 +30,8 @@ export class AppComponent {
 
   loggedIn(): boolean {
     if (this.permissions.length == 0 && localStorage.getItem('jwt') != null) {
-      this.userService.getPermissions().subscribe(permissions => {
-        this.permissions = permissions
+      this.userService.getLoggedInUser().subscribe(user => {
+        this.permissions = user.authorities
       })
     }
     return localStorage.getItem('jwt') != null
