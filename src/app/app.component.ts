@@ -11,6 +11,7 @@ export class AppComponent {
   title = 'racunovodstvo';
 
   constructor(private router: Router, private userService: UserService) {
+    // localStorage.setItem('jwt', 'testjwt')
   }
 
 
