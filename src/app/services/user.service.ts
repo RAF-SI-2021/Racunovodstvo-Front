@@ -14,7 +14,13 @@ export class UserService {
   constructor(private httpClient: HttpClient) { }
 
   getPermissions(): Observable<Permission[]> {
+    let jwt = String(localStorage.getItem('jwt'))
     let url = `${this.apiUrl}/all`
-    return this.httpClient.get<Permission[]>(url)
+
+    return this.httpClient.get<Permission[]>(url, {
+      headers: {
+        'Authorization': 'Bearer '.concat(jwt.toString())
+      }
+    })
   }
 }
