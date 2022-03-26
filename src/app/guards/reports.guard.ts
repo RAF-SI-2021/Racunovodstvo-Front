@@ -17,7 +17,6 @@ export class ReportsGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     this.userService.getPermissions().subscribe(permissions => {
-      console.log(permissions)
       for (let i = 0; i < permissions.length; i++) {
         if (permissions[i].name.toLowerCase() == 'izvestaji')
           return true;
