@@ -8,3 +8,12 @@ export interface Permission {
   name: string
   authority: string
 }
+
+export interface User {
+  userId: number,
+  username: string,
+  firstName: string,
+  lastName: string,
+  authorities: Permission[]
+
+}
