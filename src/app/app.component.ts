@@ -19,7 +19,6 @@ export class AppComponent {
   isAdmin(): boolean {
     //TODO is this correct for admin?
     this.userService.getPermissions().subscribe(permissions => {
-      console.log(permissions)
       for (let i = 0; i < permissions.length; i++) {
         if (permissions[i].name.toLowerCase() == 'admin')
           return true;

@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
       this.loginForm.reset()
     })
     this.userService.getPermissions().subscribe(permissions => {
-      console.log(permissions)
       localStorage.setItem( 'permissions', permissions.toString())
 
     })
