@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {LoginService} from "../../services/login.service";
-import {HttpStatusCode} from "@angular/common/http";
 import {UserService} from "../../services/user.service";
 
 @Component({
@@ -34,19 +33,20 @@ export class LoginComponent implements OnInit {
     this.loginService.login(
       this.loginForm.get('email')?.value,
       this.loginForm.get('password')?.value,
-    ).subscribe(resp => {
-      if (resp.status != HttpStatusCode.Ok) {
-        this.wrongPasswordOrUsername  = true
-        return
-      }
-      let jwt = resp.body?.jwt
+    ).subscribe({
+      next: (resp) => {
 
-      console.log('logging in')
-      if (typeof jwt === "string") {
+        let jwt = resp.jwt
+
+        console.log('logging in')
         localStorage.setItem('jwt', jwt)
+        this.loginForm.reset()
+        this.wrongPasswordOrUsername = false
+        this.router.navigate(['profile'])
+      },
+      error: () => {
+        this.wrongPasswordOrUsername = true
       }
-      this.loginForm.reset()
-      this.router.navigate(['profile'])
     })
   }
 
