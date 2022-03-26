@@ -13,10 +13,10 @@ export class LoginService {
 
   constructor(private httpClient: HttpClient) { }
 
-  login(email: string, password: string): Observable<HttpResponse<LoginResponse>> {
+  login(username: string, password: string): Observable<HttpResponse<LoginResponse>> {
     let body =
       {
-        email: email,
+        username: username,
         password: password
       }
     let url = `${this.apiUrl}/login`
