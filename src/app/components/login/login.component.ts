@@ -46,8 +46,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('jwt', jwt)
       }
       this.loginForm.reset()
+      this.router.navigate(['profile'])
     })
-    this.router.navigate(['profile'])
   }
 
   loggedIn() {
