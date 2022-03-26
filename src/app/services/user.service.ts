@@ -2,22 +2,22 @@ import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Permission} from "../../model";
+import {User} from "../../model";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private readonly apiUrl = environment.permissionApi
+  private readonly apiUrl = environment.userApi
 
   constructor(private httpClient: HttpClient) { }
 
-  getPermissions(): Observable<Permission[]> {
+  getLoggedInUser(): Observable<User> {
     let jwt = String(localStorage.getItem('jwt'))
-    let url = `${this.apiUrl}/all`
+    let url = `${this.apiUrl}/loginuser`
 
-    return this.httpClient.get<Permission[]>(url, {
+    return this.httpClient.get<User>(url, {
       headers: {
         'Authorization': 'Bearer '.concat(jwt.toString())
       }
