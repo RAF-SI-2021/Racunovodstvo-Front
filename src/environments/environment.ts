@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   add_upd_del_user: "http://localhost:8080/api/users/",
   list_users: "http://localhost:8080/api/users/all",
+  authApi: 'http://localhost:8080/auth',
+  permissionApi: 'http://localhost:8080/api/permissions'
 };
 
 /*
