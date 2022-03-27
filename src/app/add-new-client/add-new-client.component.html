@@ -1,0 +1,51 @@
+  <div class="d-flex flex-column align-items-center">
+    <ngb-accordion [closeOthers]="true" class="w-75">
+      <ngb-panel *ngFor="let client of clients">
+        <ng-template ngbPanelHeader>
+          <button ngbPanelToggle class="accordion-button custom-header d-flex gap-5">
+            <div class="w-25" #name>{{client.naziv}}</div>
+            <div class="d-flex w-50 gap-5">
+              <input class="form-control" type="text" placeholder="{{client.pib}}" readonly #pib>
+              <input class="form-control" type="text" placeholder="{{client.adresa}}" readonly #address>
+              <input class="form-control" type="text" placeholder="{{client.grad}}" readonly #city>
+              <button type="button" class="btn btn-danger" (click)="deleteClient(client)">
+                Delete
+              </button>
+            </div>
+          </button>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <div class="d-flex flex-wrap gap-3">
+            <input class="form-control w-auto" type="text" value="{{client.naziv}}" #name>
+            <input class="form-control w-auto" type="text" value="{{client.pib}}" #pib>
+            <input class="form-control w-auto" type="text" value="{{client.racun}}" #accountNumber>
+            <input class="form-control w-auto" type="text" value="{{client.adresa}}" #address>
+            <input class="form-control w-auto" type="text" value="{{client.grad}}" #city>
+            <input class="form-control w-auto" type="text" value="{{client.telefon}}" #phone>
+            <input class="form-control w-auto" type="email" value="{{client.email}}" #email>
+            <input class="form-control w-auto" type="text" value="{{client.fax}}" #fax>
+            <input class="form-control w-auto" type="text" value="{{client.webAdresa}}" #website>
+            <input class="form-control w-auto" type="text" value="{{client.komentar}}" #comment>
+            <button type="button" ngbPanelToggle class="btn btn-primary"
+              (click)="updateClient({ preduzeceId:client.preduzeceId,
+                naziv:name.value, pib:pib.value, racun:accountNumber.value, adresa:address.value, grad:city.value, 
+                telefon:phone.value, email:email.value, fax:fax.value, webAdresa:website.value, komentar:comment.value})">
+              Update
+            </button>
+          </div>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+
+    <button type="button" class="btn btn-success my-3" (click)="openFormForAddingNewClient = true">Add new</button>
+    <div *ngIf="openFormForAddingNewClient === true" class="d-flex w-50 gap-5 border rounded p-3">
+      <input class="form-control" type="text" placeholder="Naziv" #name>
+      <input class="form-control" type="text" placeholder="PIB" #pib>
+      <input class="form-control" type="text" placeholder="Adresa" #address>
+      <input class="form-control" type="text" placeholder="Grad" #city>
+      <button type="button" class="btn btn-primary"
+        (click)="addNewClient({naziv:name.value, pib:pib.value, adresa:address.value, grad:city.value})">
+        Add
+      </button>
+    </div>
+  </div>
