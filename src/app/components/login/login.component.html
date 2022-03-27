@@ -8,6 +8,6 @@
       <input type="password" class="form-control" id="password" placeholder="Lozinka" [formControlName]="'password'">
       <div class="error-message text-danger" *ngIf="wrongPasswordOrUsername"> Pogresna lozinka ili korisnicko ime</div>
     </div>
-    <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Submit</button>
+    <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary">Uloguj se</button>
   </form>
 </div>
