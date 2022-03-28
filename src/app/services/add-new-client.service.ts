@@ -8,26 +8,32 @@ import { IClient } from '../shared/client.model';
 })
 export class AddNewClientService {
   private readonly api = 'http://localhost:8080/api/preduzece';
+  private readonly options = {
+    headers: {
+      Authorization:
+        'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImV4cCI6MTY0ODUxNjg4OCwiaWF0IjoxNjQ4NDgwODg4fQ.le2J43zIMiQnNZduou4VeUcOGThUYgZhuMjLPY4F76GdPczLdSgVOkRxEc40Zucjk-lRjlbTRw5MJMBLNWxZwQ',
+    },
+  };
 
   constructor(private httpClient: HttpClient) {}
 
   getAllClients(): Observable<IClient> {
     const request: string = `${this.api}/all`;
-    return this.httpClient.get<IClient>(request);
+    return this.httpClient.get<IClient>(request, this.options);
   }
 
   addNewClient(client: IClient): Observable<IClient> {
     const request: string = `${this.api}`;
-    return this.httpClient.post<IClient>(request, client);
+    return this.httpClient.post<IClient>(request, client, this.options);
   }
 
   updateClient(client: IClient): Observable<IClient> {
     const request: string = `${this.api}`;
-    return this.httpClient.put<IClient>(request, client);
+    return this.httpClient.put<IClient>(request, client, this.options);
   }
 
   deleteClient(clientId: number): Observable<IClient> {
     const request: string = `${this.api}/${clientId}`;
-    return this.httpClient.delete<IClient>(request);
+    return this.httpClient.delete<IClient>(request, this.options);
   }
 }
