@@ -27,9 +27,10 @@ export class User{
 export interface Users {
   users: User[];
 }
-export interface Permissions{
-  id: number,
-  name: string,
-  authority: string
+export class Permission{
+  name: string;
+  constructor(name: string) {
+    this.name = name
+  }
 }
 
