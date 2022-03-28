@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {UserService} from "./services/user.service";
 import {Permission} from "../model";
+import {Authority} from "./enums/permissions";
 
 @Component({
   selector: 'app-root',

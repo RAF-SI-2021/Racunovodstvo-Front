@@ -1,4 +1,4 @@
-enum Authority {
+export enum Authority {
   ADMIN = 'admin',
   PROFILE = 'profil',
   RECORDS = 'evidencije',
