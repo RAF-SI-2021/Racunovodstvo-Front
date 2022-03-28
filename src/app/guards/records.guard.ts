@@ -7,7 +7,7 @@ import {User} from "../../model";
 @Injectable({
   providedIn: 'root'
 })
-export class EvidencijeGuard implements CanActivate {
+export class RecordsGuard implements CanActivate {
   user!: User;
 
 
@@ -21,7 +21,7 @@ export class EvidencijeGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     for (let i = 0; i < this.user.authorities.length; i++) {
-      if (this.user.authorities[i].name === 'evidencije')
+      if (this.user.authorities[i].name === Authority.RECORDS)
         return true
     }
     return false

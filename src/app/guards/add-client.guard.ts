@@ -21,7 +21,7 @@ export class AddClientGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     for (let i = 0; i < this.user.authorities.length; i++) {
-      if (this.user.authorities[i].name === 'dodaj komitenta')
+      if (this.user.authorities[i].name === Authority.ADD_CLIENT)
         return true
     }
     return false
