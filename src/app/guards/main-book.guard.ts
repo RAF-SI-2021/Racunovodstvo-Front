@@ -21,7 +21,7 @@ export class MainBookGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     for (let i = 0; i < this.user.authorities.length; i++) {
-      if (this.user.authorities[i].name === 'glavna knjiga')
+      if (this.user.authorities[i].name === Authority.MAIN_BOOK)
         return true
     }
     return false

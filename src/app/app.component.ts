@@ -21,7 +21,7 @@ export class AppComponent {
     //TODO is this correct for admin?
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'admin')
+        if (this.permissions[i].name.toLowerCase() == Authority.ADMIN)
           return true;
       }
     }
@@ -46,7 +46,7 @@ export class AppComponent {
   canProfile(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'profil')
+        if (this.permissions[i].name.toLowerCase() == Authority.PROFILE)
           return true;
       }
     }
@@ -56,7 +56,7 @@ export class AppComponent {
   canEvidence(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'evidencija')
+        if (this.permissions[i].name.toLowerCase() == Authority.RECORDS)
           return true;
       }
     }
@@ -66,7 +66,7 @@ export class AppComponent {
   canAcquisitions(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'nabavke')
+        if (this.permissions[i].name.toLowerCase() == Authority.ACQUISITIONS)
           return true;
       }
     }
@@ -76,7 +76,7 @@ export class AppComponent {
   canSales(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'prodaja')
+        if (this.permissions[i].name.toLowerCase() == Authority.SALES)
           return true;
       }
     }
@@ -86,7 +86,7 @@ export class AppComponent {
   canReports(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'izvestaji')
+        if (this.permissions[i].name.toLowerCase() == Authority.REPORTS)
           return true;
       }
     }
@@ -96,7 +96,7 @@ export class AppComponent {
   canBookkeeping(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'knjizenje')
+        if (this.permissions[i].name.toLowerCase() == Authority.BOOKKEEPING)
           return true;
       }
     }
@@ -106,7 +106,7 @@ export class AppComponent {
   canAccountPlan(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'kontni plan')
+        if (this.permissions[i].name.toLowerCase() == Authority.ACCOUNT_PLAN)
           return true;
       }
     }
@@ -116,7 +116,7 @@ export class AppComponent {
   canBookkeepingJournal(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'dnevnik knjizenja')
+        if (this.permissions[i].name.toLowerCase() == Authority.BOOKKEEPING_JOURNAL)
           return true;
       }
     }
@@ -126,7 +126,7 @@ export class AppComponent {
   canMainBook(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'glavna knjiga')
+        if (this.permissions[i].name.toLowerCase() == Authority.MAIN_BOOK)
           return true;
       }
     }
@@ -136,7 +136,7 @@ export class AppComponent {
   canKUF(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'kuf')
+        if (this.permissions[i].name.toLowerCase() == Authority.KUF)
           return true;
       }
     }
@@ -146,7 +146,7 @@ export class AppComponent {
   canKIF(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'kif')
+        if (this.permissions[i].name.toLowerCase() == Authority.KIF)
           return true;
       }
     }
@@ -156,7 +156,7 @@ export class AppComponent {
   canAddNewInvoice(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'dodaj fakturu')
+        if (this.permissions[i].name.toLowerCase() == Authority.ADD_INVOICE)
           return true;
       }
     }
@@ -166,7 +166,7 @@ export class AppComponent {
   canAddNewClient(): boolean {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'dodaj komitenta')
+        if (this.permissions[i].name.toLowerCase() == Authority.ADD_CLIENT)
           return true;
       }
     }
@@ -176,7 +176,7 @@ export class AppComponent {
   canObracunZarade() {
     if (this.loggedIn()) {
       for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == 'obracun zarade')
+        if (this.permissions[i].name.toLowerCase() == Authority.PAYROLL)
           return true;
       }
     }

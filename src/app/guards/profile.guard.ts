@@ -22,7 +22,7 @@ export class ProfileGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     for (let i = 0; i < this.user.authorities.length; i++) {
-      if (this.user.authorities[i].name === 'profil')
+      if (this.user.authorities[i].name === Authority.PROFILE)
         return true
     }
     return false
