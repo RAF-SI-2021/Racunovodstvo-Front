@@ -17,3 +17,9 @@ export interface User {
   authorities: Permission[]
 
 }
+
+export interface Konto {
+  brojKonta: string
+  naziv: string
+}
+

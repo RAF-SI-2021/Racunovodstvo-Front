@@ -1,0 +1,33 @@
+<div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th style="width: 30%" scope="col">Broj Konta</th>
+      <th style="width: 50%" scope="col">Naziv</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let konto of kontos;">
+    <tr>
+      <td> {{konto.brojKonta}} </td>
+      <td> {{konto.naziv}} </td>
+      <td>
+        <button  mat-raised-button color="primary" (click)="updateKonto(konto)">Update</button>
+        <button  mat-raised-button color="warn" (click)="deleteKonto(konto)">Delete</button>
+      </td>
+    </tr>
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  </table>
+
+  <div class="offset-4 col-4">
+    <form [formGroup]="kontoForm" (submit)="createKonto()" class="mb-5">
+      <div class="form-group">
+        <label for="brojKonta">Broj Konta</label>
+        <input type="text" class="form-control" id="brojKonta" placeholder="Broj Konta" [formControlName]="'brojKonta'">
+        <label for="naziv">Naziv</label>
+        <input type="text" class="form-control" id="naziv" placeholder="Naziv" [formControlName]="'naziv'">
+      </div>
+      <button [disabled]="!kontoForm.valid" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
