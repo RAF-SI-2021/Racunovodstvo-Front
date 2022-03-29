@@ -1,36 +1,25 @@
+
+export interface LoginResponse {
+  jwt: string
+}
+
+export interface Permission {
+  id: number
+  name: string
+  authority: string
+}
+
 export interface User {
-  userId: number
+  userId: number,
   username: string,
   firstName: string,
   lastName: string,
-  permissions: Permissions[]
-}
-export class User{
-  userId: number
-  username: string;
-  firstName: string;
-  lastName: string;
+  authorities: Permission[]
 
-  constructor(
-    userId: number,
-    username: string,
-    firstName: string,
-    lastName: string,
+}
 
-  ) {
-    this.userId = userId
-    this.username = username
-    this.firstName = firstName
-    this.lastName = lastName
-  }
-}
-export interface Users {
-  users: User[];
-}
-export class Permission{
-  name: string;
-  constructor(name: string) {
-    this.name = name
-  }
+export interface Konto {
+  brojKonta: string
+  naziv: string
 }
 
