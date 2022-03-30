@@ -7,13 +7,15 @@ import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { AddNewClientComponent } from './add-new-client/add-new-client.component';
 import { ProfileTestComponent } from './components/profile-test/profile-test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    ProfileTestComponent
+    ProfileTestComponent,
+    AddNewClientComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +25,6 @@ import { ProfileTestComponent } from './components/profile-test/profile-test.com
     HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
