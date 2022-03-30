@@ -1,22 +1,7 @@
-
-
-
-<html>
-<head>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-</head>
-<body>
   <div class="container">
-    <div class="row col-md-6 " style=" position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);">
+    <div class="row col-md-6 "
+      style=" position:absolute; top:50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
       <div class="panel panel-primary">
-        <div class="panel-heading text-center">
-          <h1>Dodavanje nove fakture</h1>
-        </div>
         <div class="panel-body">
           <form [formGroup]="addingForm">
             <div class="form-group">
@@ -26,89 +11,102 @@
                 <option value="2">Izlazna Faktura</option>
               </select>
             </div>
-            <div class="form-group">
-              <input required formControlName="brojFaktureV" placeholder="Broj Fakture" type="text" class="form-control" id="brojFakture"/>
-              <span class="text-danger" *ngIf="addingForm.controls['brojFaktureV'].dirty && addingForm.hasError('required','brojFaktureV')">Polje broj fakture je obavezno</span>
-            </div>
-            <div class="form-group">
-              <label for="datumIzdavanja">Datum Izdavanja</label>
-              <input type="date" formControlName="datumIzdavanjaV" placeholder="Datum izdavanja" required class="form-control" id="datumIzdavanja"  />
-              <span class="text-danger" *ngIf="addingForm.controls['datumIzdavanjaV'].dirty && addingForm.hasError('required','datumIzdavanjaV')">Polje datum izdavanja je obavezno</span>
 
+            <div class="form-group mt-2">
+              <input required formControlName="brojFaktureV" placeholder="Broj Fakture" type="text" class="form-control"
+                id="brojFakture" />
+              <span class="text-danger"
+                *ngIf="addingForm.controls['brojFaktureV'].dirty && addingForm.hasError('required','brojFaktureV')">Polje
+                broj fakture je obavezno</span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mt-1">
+              <label for="datumIzdavanja">Datum Izdavanja</label>
+              <input type="date" formControlName="datumIzdavanjaV" placeholder="Datum izdavanja" required
+                class="form-control" id="datumIzdavanja" />
+              <span class="text-danger"
+                *ngIf="addingForm.controls['datumIzdavanjaV'].dirty && addingForm.hasError('required','datumIzdavanjaV')">Polje
+                datum izdavanja je obavezno</span>
+            </div>
+
+            <div class="form-group mt-1">
               <label for="komitent">Komitent</label>
-              <select formControlName="komitentV" id="komitent" class="form-control" required aria-label="Default select example">
+              <select formControlName="komitentV" id="komitent" class="form-control" required
+                aria-label="Default select example">
                 <option value="1">Test</option>
                 <option value="2">Test</option>
               </select>
-              <span class="text-danger" *ngIf="addingForm.controls['komitentV'].dirty && addingForm.hasError('required','komitentV')">Polje komitent je obavezno</span>
-
+              <span class="text-danger"
+                *ngIf="addingForm.controls['komitentV'].dirty && addingForm.hasError('required','komitentV')">Polje
+                komitent je obavezno</span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mt-1">
               <label for="datumPlacanja">Datum Placanja</label>
-              <input formControlName="datumPlacanjaV" required type="date" class="form-control" value="dd/mm/yyyy" placeholder="dd/mm/yyyy" id="datumPlacanja"/>
-              <span class="text-danger" *ngIf="addingForm.controls['datumPlacanjaV'].dirty && addingForm.hasError('required','datumPlacanjaV')">Polje datum placanja je obavezno</span>
+              <input formControlName="datumPlacanjaV" required type="date" class="form-control" value="dd/mm/yyyy"
+                placeholder="dd/mm/yyyy" id="datumPlacanja" />
+              <span class="text-danger"
+                *ngIf="addingForm.controls['datumPlacanjaV'].dirty && addingForm.hasError('required','datumPlacanjaV')">Polje
+                datum placanja je obavezno</span>
+            </div>
 
+            <div class="form-group mt-2">
+              <input formControlName="prodajnaVrednostV" type="number" class="form-control" required
+                placeholder="Prodajna vrednost" id="prodajnaVrednost" />
+              <span class="text-danger"
+                *ngIf="addingForm.controls['prodajnaVrednostV'].dirty && addingForm.hasError('required','prodajnaVrednostV')">Polje
+                prodajna vrednost je obavezno</span>
             </div>
-            <div class="form-group">
-              <input formControlName="prodajnaVrednostV" type="number" class="form-control" required placeholder="Prodajna vrednost" id="prodajnaVrednost"/>
-              <span class="text-danger" *ngIf="addingForm.controls['prodajnaVrednostV'].dirty && addingForm.hasError('required','prodajnaVrednostV')">Polje prodajna vrednost je obavezno</span>
 
-            </div>
-            <div class="form-group">
-            <div class="form-inline">
-                <input type="number"placeholder="Rabat %" style="width: 100%" class="form-control" id="rabatperc"/>
-<!--                <input type="number"placeholder="Rabat" style="width: 45%"class="form-control" id="rabat" />-->
-            </div>
-            </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
               <div class="form-inline">
-                <input type="number" formControlName="porezV" required placeholder="Porez %" style="width: 100%" class="form-control" id="porezperc"/>
-<!--                <input type="number" required placeholder="Porez" style="width: 45%"class="form-control" id="porez" />-->
-                <span class="text-danger" *ngIf="addingForm.controls['porezV'].dirty && addingForm.hasError('required','porezV')">Polje porez % je obavezno</span>
-
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="form-inline">
-<!--              <input  type="number" required placeholder="Iznos" class="form-control" style="width: 30%;margin-right: 5%" id="iznos" />-->
-              <input type="text" required formControlName="valutaV" minlength="3" maxlength="3" placeholder="Valuta" class="form-control" style="width: 45%;margin-right: 10%" id="valuta" />
-
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-                <script type="text/javascript">
-                  $(document).ready(function () {
-                    $(".floatNumberField").change(function() {
-                      $(this).val(parseFloat($(this).val()).toFixed(2));
-                    });
-                  });
-                </script>
-
-                <input
-                  type="number" step="0.01" class="floatNumberField"  required formControlName="kursV" name="kursV" placeholder="Kurs" class="form-control" style="width: 45%" id="kurs"/>
-                <span class="text-danger" *ngIf="addingForm.controls['kursV'].dirty && addingForm.hasError('required','kursV')">Polje kurs je obavezno</span>
-                <br>
-
-                <!--                <span class="text-danger" *ngIf="addingForm.controls['valutaV'].dirty && addingForm.hasError('required','valutaV')">Polje valuta je obavezno</span>-->
-                <span class="text-danger" *ngIf="addingForm.controls['valutaV'].invalid && addingForm.hasError('maxLength','valutaV')">ERROR</span>
-
+                <input type="number" placeholder="Rabat %" style="width: 100%" class="form-control" id="rabatperc" />
               </div>
             </div>
 
-            <div class="form-group">
-              <input type="number" formControlName="zaNaplatuV" required class="form-control" placeholder="Za naplatu" id="zaNaplatu"/>
-              <span class="text-danger" *ngIf="addingForm.controls['zaNaplatuV'].dirty && addingForm.hasError('required','zaNaplatuV')">Polje za naplatu je obavezno</span>
-
-            </div>
-            <div class="form-group">
-            <textarea class="form-control" placeholder="Komentar" id="komentar" rows="3"></textarea>
-            </div>
-            <div class="form-group">
+            <div class="form-group mt-2">
               <div class="form-inline">
-                <button [disabled]="!addingForm.valid" type="button" style="margin-left: 60%; width:19%" class="form-control btn btn-primary">Dodaj</button>
-                <button type="button" style="margin-left: 2%; width:19%"class="form-control btn btn-danger">Odustani</button>
+                <input type="number" formControlName="porezV" required placeholder="Porez %" style="width: 100%"
+                  class="form-control" id="porezperc" />
+                <span class="text-danger"
+                  *ngIf="addingForm.controls['porezV'].dirty && addingForm.hasError('required','porezV')">Polje porez %
+                  je obavezno</span>
               </div>
+            </div>
 
+            <div class="form-group mt-2">
+              <div class="d-flex gap-2">
+                <input type="text" required formControlName="valutaV" minlength="3" maxlength="3" placeholder="Valuta"
+                  class="form-control" id="valuta" />
+                <input type="number" step="0.01" class="floatNumberField" required formControlName="kursV" name="kursV"
+                  placeholder="Kurs" class="form-control" id="kurs" />
+                <span class="text-danger"
+                  *ngIf="addingForm.controls['kursV'].dirty && addingForm.hasError('required','kursV')">Polje kurs je
+                  obavezno</span>
+                <span class="text-danger"
+                  *ngIf="addingForm.controls['valutaV'].invalid && addingForm.hasError('maxLength','valutaV')">ERROR</span>
+              </div>
+            </div>
+
+            <div class="form-group mt-2">
+              <input type="number" formControlName="zaNaplatuV" required class="form-control" placeholder="Za naplatu"
+                id="zaNaplatu" />
+              <span class="text-danger"
+                *ngIf="addingForm.controls['zaNaplatuV'].dirty && addingForm.hasError('required','zaNaplatuV')">Polje za
+                naplatu je obavezno</span>
+            </div>
+
+            <div class="form-group mt-2">
+              <textarea class="form-control" placeholder="Komentar" id="komentar" rows="3"></textarea>
+            </div>
+
+            <div class="form-group mt-2">
+              <div class="form-inline">
+                <button [disabled]="!addingForm.valid" type="button" style="margin-left: 60%; width:19%"
+                  class="form-control btn btn-primary">Dodaj</button>
+                <button type="button" style="margin-left: 2%; width:19%"
+                  class="form-control btn btn-danger">Odustani</button>
+              </div>
             </div>
           </form>
         </div>
@@ -116,8 +114,11 @@
     </div>
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $(".floatNumberField").change(function () {
+        $(this).val(parseFloat($(this).val()).toFixed(2));
+      });
+    });
 
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</body>
-</html>
+  </script>
