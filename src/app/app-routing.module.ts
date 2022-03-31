@@ -4,6 +4,8 @@ import { AddNewClientComponent } from './add-new-client/add-new-client.component
 import {LoginComponent} from "./components/login/login.component";
 import {ProfileTestComponent} from "./components/profile-test/profile-test.component";
 import {ProfileGuard} from "./guards/profile.guard";
+import {AddNewInvoiceComponent} from "./add-new-invoice/add-new-invoice.component";
+import { AddInvoiceGuard } from './guards/add-invoice.guard';
 
 const routes: Routes = [
   {
@@ -23,6 +25,11 @@ const routes: Routes = [
     component: AddNewClientComponent,
     canActivate: [AddClientGuard]
   },
+  {
+    path: "add-new-invoice",
+    component:AddNewInvoiceComponent,
+    canActivate: [AddInvoiceGuard]
+  }
 ];
 
 @NgModule({
