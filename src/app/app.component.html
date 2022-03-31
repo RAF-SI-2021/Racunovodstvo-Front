@@ -1,16 +1,71 @@
-<header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a [routerLink]="'/'" class="navbar-brand">Home</a>
-      <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a [routerLink]="'/manage-users'" class="navbar-brand">Manage Users</a>
+<div class="d-flex flex-column justify-content-between flex-grow-1 min-vh-100">
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a [routerLink]="'/'" class="navbar-brand">Racunovodstvo</a>
+
+        <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+          <ul class="navbar-nav" role="tablist">
+            <!--TODO set up router links correctly-->
+            <li><a [hidden]="!canProfile()" [routerLink]="'profile'" class="nav-link active"
+                aria-current="page">PROFIL</a></li>
+            <li><a [hidden]="!canEvidence()" [routerLink]="'PLACEHOLDER'" class="nav-link active"
+                aria-current="page">EVIDENCIJE</a></li>
+            <li><a [hidden]="!canAcquisitions()" [routerLink]="'PLACEHOLDER'" class="nav-link active"
+                aria-current="page">NABAVKE</a></li>
+            <li><a [hidden]="!canSales()" [routerLink]="'PLACEHOLDER'" class="nav-link active"
+                aria-current="page">PRODAJA</a></li>
+            <li><a [hidden]="!canReports()" [routerLink]="'PLACEHOLDER'" class="nav-link active"
+                aria-current="page">IZVESTAJI</a></li>
+            <div ngbDropdown class="d-inline-block">
+              <a [hidden]="!canBookkeeping() && !canAccountPlan() && !canBookkeepingJournal() && !canMainBook()"
+                ngbDropdownToggle class="nav-link active" aria-current="page">FINANSIJSKO KNJIGOVODSTVO</a>
+
+              <ul ngbDropdownMenu>
+
+                <a [hidden]="!canBookkeeping()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Knjiženje</a>
+
+                <a [hidden]="!canAccountPlan()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Kontni plan</a>
+
+                <a [hidden]="!canBookkeepingJournal()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Dnevnik
+                  Knjiženja</a>
+
+                <a [hidden]="!canMainBook()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Glavna knjiga</a>
+
+              </ul>
+            </div>
+            <div ngbDropdown class="d-inline-block">
+              <a [hidden]="!canKUF() && !canKIF() && !canAddNewInvoice() && !canAddNewClient()" ngbDropdownToggle
+                class="nav-link active" aria-current="page">FINANSIJSKA OPERATIVA</a>
+
+              <ul ngbDropdownMenu>
+
+                <a [hidden]="!canKUF()" ngbDropdownItem [routerLink]="'KUF'">KUF</a>
+
+                <a [hidden]="!canKIF()" ngbDropdownItem [routerLink]="'KIF'">KIF</a>
+
+                <a [hidden]="!canAddNewInvoice()" ngbDropdownItem [routerLink]="'add-new-invoice'">Dodaj fakturu</a>
+
+                <a [hidden]="!canAddNewClient()" ngbDropdownItem [routerLink]="'add-new-client'">Dodaj komitenta</a>
+
+
+              </ul>
+            </div>
+
+            <li><a [hidden]="!canObracunZarade()" [routerLink]="'PLACEHOLDER'" class="nav-link active"
+                aria-current="page">OBRACUN ZARADE</a></li>
+            <li><a [hidden]="!isAdmin()" [routerLink]="'manage-users'" class="nav-link active"
+                aria-current="page">Upravljanje korisnicima</a></li>
+          </ul>
+          <button [hidden]="!loggedIn" (click)="logout()" type="button" class="btn btn-primary">Logout</button>
         </div>
       </div>
-    </div>
-  </nav>
-</header>
-
-<div class="container pt-3">
-  <router-outlet></router-outlet>
+    </nav>
+  </header>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+  <footer class="d-flex justify-content-center bg-dark text-white gap-3">
+    <div>© 2022 SI Racunovodstvo</div>
+  </footer>
 </div>
