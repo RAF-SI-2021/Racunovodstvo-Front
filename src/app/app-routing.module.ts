@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {ManageUsersComponent} from "../manage-users/manage-users.component";
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 
 const routes: Routes = [
   {
-    path: "manage-users",
+    path: 'manage-users',
     component: ManageUsersComponent,
-    canActivate: []
-  }
+    canActivate: [],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule {
-
-}
+export class AppRoutingModule {}
