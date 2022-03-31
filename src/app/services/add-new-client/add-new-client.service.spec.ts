@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AddNewClientService } from '../services/add-new-client.service';
+import { AddNewClientService } from './add-new-client.service';
 
 describe('AddNewClientService', () => {
   let service: AddNewClientService;

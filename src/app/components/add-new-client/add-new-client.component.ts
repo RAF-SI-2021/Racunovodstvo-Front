@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IClient } from 'src/app/shared/client.model';
-import { AddNewClientService } from '../services/add-new-client.service';
+import { AddNewClientService } from '../../services/add-new-client/add-new-client.service';
 
 @Component({
   selector: 'app-add-new-client',
