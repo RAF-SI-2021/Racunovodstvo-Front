@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AddNewClientComponent } from './add-new-client/add-new-client.component';
 import { AddNewInvoiceComponent } from './add-new-invoice/add-new-invoice.component';
 import { ProfileTestComponent } from './components/profile-test/profile-test.component';
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ProfileTestComponent } from './components/profile-test/profile-test.com
     ProfileTestComponent,
     AddNewClientComponent,
     AddNewInvoiceComponent,
+    ManageUsersComponent
   ],
   imports: [
     BrowserModule,
