@@ -6,14 +6,27 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { KufComponent } from './kuf/kuf.component';
 import { KifComponent } from './kif/kif.component';
+
+import { ManageUsersComponent } from '../manage-users/manage-users.component';
+
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
     AppComponent,
+
     KufComponent,
     KifComponent
+
+    ManageUsersComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
     imports: [
         BrowserModule,
