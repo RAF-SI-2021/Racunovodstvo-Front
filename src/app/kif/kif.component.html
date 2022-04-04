@@ -11,7 +11,7 @@
     <label for="opcije">Filter:</label>
 
     <select class="margin10" name="opcije" id="opcije" [(ngModel)]="input" (click)="setInputAsDate()" [formControlName]="'pretraga'">
-      <option value="komitent">Komitent</option>
+      <option value="preduzece">Komitent</option>
       <option value="datumIzdavanja">Datum izdavanja</option>
       <option value="datumPlacanja">Datum placanja</option>
       <option value="valuta">Valuta</option>
@@ -46,14 +46,14 @@
   <tbody>
   <tr *ngFor="let faktura of kif; index as i" (dblclick)="setEditable(faktura)">
     <td>{{ faktura.brojFakture }}</td>
-    <td>{{ datumIzdavanja(faktura) }}</td>
+    <td>{{ getAsDate(faktura.datumIzdavanja) }}</td>
     <td>{{ faktura.preduzece.naziv }}</td>
-    <td>{{ datumPlacanja(faktura) }}</td>
+    <td>{{ getAsDate(faktura.datumPlacanja) }}</td>
     <td>{{ faktura.prodajnaVrednost }}</td>
-    <td>{{ faktura.rabatProcenat }}</td>
-    <td>{{ faktura.rabat }}</td>
-    <td>{{ faktura.porezProcenat }}</td>
-    <td>{{ faktura.porez }}</td>
+    <td>{{ filterOfNull(faktura.rabatProcenat) }}</td>
+    <td>{{ filterOfNull(faktura.rabat) }}</td>
+    <td>{{ filterOfNull(faktura.porezProcenat) }}</td>
+    <td>{{ filterOfNull(faktura.porez) }}</td>
     <td>{{ faktura.iznos }}</td>
     <td>{{ faktura.valuta }}</td>
     <td>{{ faktura.kurs }}</td>
@@ -88,7 +88,7 @@
     <div class="row mt-4">
       <div class="col-4">
         <label class="labelClass" for="brFakture">Broj Fakture:</label>
-        <input class="" id="brFakture" [formControlName]="'brFakture'" [value]="selektovanaFaktura.brojFakture">
+        <input class="" id="brFakture" [formControlName]="'brojFakture'" [value]="selektovanaFaktura.brojFakture">
       </div>
 
       <div class="col-4">
@@ -105,9 +105,9 @@
     <div class="row mt-4">
       <div class="col-4">
         <label class="labelClass" for="komitent">Komitent:</label>
-        <select class="" id="komitent">
+        <select class="" id="komitent" [formControlName]="'komitent'">
           <option [value]="selektovanaFaktura.preduzece.naziv" selected disabled hidden>{{ selektovanaFaktura.preduzece.naziv }}</option>
-          <option *ngFor="let preduzece of preduzeca" [value]="preduzece" [formControlName]="'komitent'">{{ preduzece.naziv }}</option>
+          <option *ngFor="let preduzece of preduzeca" [value]="preduzece.naziv">{{ preduzece.naziv }}</option>
         </select>
       </div>
 

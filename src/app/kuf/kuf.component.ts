@@ -44,13 +44,14 @@ export class KufComponent implements OnInit {
   preduzeca: Preduzece[] = [this.preduzece1, this.preduzece2];
 
 
-  faktura1: Faktura = new Faktura(1,"3", new Date(), new Preduzece("NEBITNO"), new Date(), 10000, 0,
-    5, 500, 10500, 10500, "DIN", 1, 10500, "Komentar", "ULAZNA_FAKTURA");
+  faktura1: Faktura = new Faktura(1,"3", "22/03/2222", new Preduzece("NEBITNO"),"20/03/2000", 10000, 0,
+    5, 500, 10500, 10500, "DIN", 1, 10500, "Komentar", "ULAZNA_FAKTURA", 2, "FAKTURA");
 
-  faktura2: Faktura = new Faktura(2,"4", new Date(), new Preduzece("NEBITNO"), new Date(), 10000, 0,
-    5, 500, 10500, 10500, "DIN", 1, 10500, "Komentar", "ULAZNA_FAKTURA");
+  faktura2: Faktura = new Faktura(2,"4", "22/03/2222", new Preduzece("NEBITNO"), "20/03/2000", 10000, 0,
+    5, 500, 10500, 10500, "DIN", 1, 10500, "Komentar", "ULAZNA_FAKTURA", 2, "FAKTURA");
 
   kuf: Faktura[] = [this.faktura1, this.faktura2];
+
 
   selektovanaFaktura: Faktura = this.kuf[0];
 
@@ -61,15 +62,18 @@ export class KufComponent implements OnInit {
     this.service.svaPreduzeca().subscribe((preduzeca) =>{
       this.preduzeca = preduzeca;
     });
-
-    this.service.sveFakture().subscribe((fakture) =>{
-      this.kuf = fakture.filter((element) => { element.tipFakture === 'ULAZNA_FAKTURA'});
+    this.edit = false;
+    this.service.sveFakture().subscribe((response) =>{
+      this.kuf = response.content.filter( e => (e.tipFakture=='ULAZNA_FAKTURA'));
     });
   }
+
 
   setInputAsDate() {
     if (this.input.startsWith('datum')) {
       this.inputAsDate = 'date';
+    } else if(this.input.startsWith('preduzece')){
+      this.inputAsDate = 'number';
     } else {
       this.inputAsDate = 'text';
       this.vrednost = '';
@@ -109,22 +113,33 @@ export class KufComponent implements OnInit {
     return totalSum;
   }
 
-  datumPlacanja(faktura: Faktura) {
-    let day = faktura.datumPlacanja.getDate();
-    let month = faktura.datumIzdavanja.getMonth() + 1;
-    let year = faktura.datumPlacanja.getFullYear();
-    return day + "/" + month + "/" + year;
+  getAsDate(date: string) {
+    let newDate = new Date(date);
+    return newDate.getDate() + '/' + (newDate.getMonth() + 1) + '/' + newDate.getFullYear();
   }
 
-  datumIzdavanja(faktura: Faktura) {
-    let day = faktura.datumIzdavanja.getDate();
-    let month = faktura.datumIzdavanja.getMonth() + 1;
-    let year = faktura.datumIzdavanja.getFullYear();
-    return day + "/" + month + "/" + year;
+  filterOfNull(procenat : number){
+    if(procenat === null) {
+      return 0;
+    }
+    return procenat;
   }
 
   setEditable(faktura: Faktura) {
     this.selektovanaFaktura = faktura;
+    this.updateGroup = this.formBuilder.group({
+      brojFakture: [this.selektovanaFaktura.brojFakture],
+      datumIzdavanja: [new Date(this.selektovanaFaktura.datumIzdavanja)],
+      komitent: [this.selektovanaFaktura.preduzece.naziv, [Validators.required]],
+      datumPlacanja: [new Date(this.selektovanaFaktura.datumIzdavanja)],
+      prodajnaVrednost: [this.selektovanaFaktura.prodajnaVrednost, [Validators.required]],
+      rabatProcenat: [this.selektovanaFaktura.rabatProcenat,],
+      porezProcenat: [this.selektovanaFaktura.porezProcenat,],
+      valuta: [this.selektovanaFaktura.valuta, [Validators.required, Validators.minLength(3), Validators.maxLength(3)]],
+      kurs: [this.selektovanaFaktura.kurs, [Validators.required]],
+      naplata: [this.selektovanaFaktura.naplata, [Validators.required]],
+      komentar: [this.selektovanaFaktura.komentar],
+    });
     if (faktura.editable) {
       faktura.editable = false;
       this.edit = false;
@@ -144,7 +159,7 @@ export class KufComponent implements OnInit {
     console.log(filter)
     console.log(vrednost)
     //provera unosa
-    if (filter === 'komitent') {
+    if (filter === 'preduzece') {
       let proveraVrednosti = parseInt(vrednost);
       if (isNaN(proveraVrednosti)) {
         alert("Morate uneti broj kako bi pretrazili po komitentu")
@@ -152,6 +167,7 @@ export class KufComponent implements OnInit {
       }
     } else if (filter.startsWith('datum')) {
       let proveraVrednosti = new Date(vrednost);
+      vrednost = proveraVrednosti.getTime();
       if (isNaN(proveraVrednosti.getDate())) {
         alert("Morate uneti pravilan datum");
         return;
@@ -161,44 +177,64 @@ export class KufComponent implements OnInit {
         alert("Valuta mora sadrzati tacno 3 karaktera");
         return;
       }
+      if(!this.alphaOnly(vrednost)){
+        alert("Valuta se moze sastojati samo od karaktera");
+        return;
+      }
     }
-    this.service.filterKUF(filter, vrednost).subscribe((fakture) =>{
-      this.kuf = fakture;
+    this.service.filterKUF(filter, vrednost).subscribe((response) =>{
+      if(response.ok) {
+        this.kuf = response.body;
+      }
+    }, error => {
+      alert("Ne postoji nijedan rezultat za trazenu pretragu!");
     });
   }
 
-  alphaOnly(e : any) {
+
+  alphaOnly(valuta : string) {
     var regex = new RegExp("^[A-Z]+$");
-    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
-    if (regex.test(str)) {
+    if(regex.test(valuta.charAt(0))){
       return true;
     }
-    e.preventDefault();
+    if(regex.test(valuta.charAt(1))){
+      return true;
+    }
+    if(regex.test(valuta.charAt(2))){
+      return true;
+    }
     return false;
   }
 
   sacuvaj(){
-    let brojFakture = this.updateGroup.get('brFakture')?.value;
+    let brojFakture = this.updateGroup.get('brojFakture')?.value;
     let datumIzdavanja = this.updateGroup.get('datumIzdavanja')?.value;
     let komitent = this.updateGroup.get('komitent')?.value;
     let datumPlacanja = this.updateGroup.get('datumPlacanja')?.value;
-    let prodajnaVrednost = this.updateGroup.get('brFakture')?.value;
-    let rabatProcenat = this.updateGroup.get('brFakture')?.value;
-    let porezProcenat = this.updateGroup.get('brFakture')?.value;
-    let valuta = this.updateGroup.get('brFakture')?.value;
-    let kurs = this.updateGroup.get('brFakture')?.value;
-    let naplata = this.updateGroup.get('brFakture')?.value;
-    let komentar = this.updateGroup.get('brFakture')?.value;
+    let prodajnaVrednost = this.updateGroup.get('prodajnaVrednost')?.value;
+    let rabatProcenat = this.updateGroup.get('rabatProcenat')?.value;
+    let porezProcenat = this.updateGroup.get('porezProcenat')?.value;
+    let valuta = this.updateGroup.get('valuta')?.value;
+    let kurs = this.updateGroup.get('kurs')?.value;
+    let naplata = this.updateGroup.get('naplata')?.value;
+    let komentar = this.updateGroup.get('komentar')?.value;
     //provera
     if(brojFakture.length != 0){
       this.selektovanaFaktura.brojFakture = brojFakture;
     }
     this.selektovanaFaktura.datumIzdavanja = datumIzdavanja;
-    this.selektovanaFaktura.preduzece = komitent;
+    console.log(komitent)
+    if(komitent !== this.selektovanaFaktura.preduzece.naziv){
+      this.preduzeca.forEach((value) => {
+        if(komitent === value.naziv){
+          this.selektovanaFaktura.preduzece = value;
+        }
+      })
+    }
     this.selektovanaFaktura.datumPlacanja = datumPlacanja;
     this.selektovanaFaktura.prodajnaVrednost = prodajnaVrednost;
 
-    if(rabatProcenat != 0){
+    if(rabatProcenat !== undefined && rabatProcenat !== 0){
       this.selektovanaFaktura.rabatProcenat = rabatProcenat;
     }else{
       this.selektovanaFaktura.rabatProcenat = 0;
@@ -212,6 +248,7 @@ export class KufComponent implements OnInit {
 
     if(!this.alphaOnly(valuta)){
       alert('Valuta ne moze sadrzti brojeve!');
+      return;
     }
     this.selektovanaFaktura.valuta = valuta;
     this.selektovanaFaktura.kurs = parseFloat(kurs.toFixed(2));
@@ -220,20 +257,22 @@ export class KufComponent implements OnInit {
 
     this.service.izmeniFakturu(this.selektovanaFaktura).subscribe( (response) => {
       if(response.ok){
+        alert('Uspesno ste izmenili fakturu');
         this.ngOnInit();
-      }else{
-        alert('Nemate potrebnu autorizaciju');
       }
+    }, error => {
+      alert('Nemate potrebnu autorizaciju');
     })
   }
 
   delete(faktura : Faktura){
-    this.service.obrisiFakturu(faktura.fakturaId).subscribe( (response) => {
+    this.service.obrisiFakturu(faktura.dokumentId).subscribe( (response) => {
       if(response.ok){
+        alert('Uspesno ste obrisali fakturu');
         this.ngOnInit();
-      }else{
-        alert('Nemate potrebnu autorizaciju');
       }
+    }, error => {
+      alert('Nemate potrebnu autorizaciju');
     })
   }
 
