@@ -3,9 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+
+  APIEndpoint: "http://localhost:8080",
+  production: false
+
   add_upd_del_user: "http://localhost:8080/api/users/",
   list_users: "http://localhost:8080/api/users/all",
+
 };
 
 /*
