@@ -42,8 +42,20 @@
 
             </ul>
           </div>
+          <div ngbDropdown class="d-inline-block">
+            <a [hidden]="!canBrutoBilans() && !canBilansUspeha() && !canBilansStanja()" ngbDropdownToggle class="nav-link active" aria-current="page">Obracun zarade</a>
 
-          <li><a [hidden]="!canObracunZarade()" [routerLink]="'PLACEHOLDER'" class="nav-link active" aria-current="page">OBRACUN ZARADE</a></li>
+            <ul ngbDropdownMenu>
+
+              <a [hidden]="!canBrutoBilans()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bruto Bilans</a>
+
+              <a [hidden]="!canBilansUspeha()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bilans Uspeha</a>
+
+              <a [hidden]="!canBilansStanja()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bilans Stanja</a>
+
+
+            </ul>
+          </div>
           <li><a [hidden]="!isAdmin()" [routerLink]="'manage-users'" class="nav-link active" aria-current="page">Upravljanje korisnicima</a></li>
         </ul>
         <button [hidden]="!loggedIn()" (click)="logout()" type="button" class="btn btn-primary">Logout</button>
