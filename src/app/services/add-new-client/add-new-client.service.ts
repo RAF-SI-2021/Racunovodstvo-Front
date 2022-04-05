@@ -8,14 +8,11 @@ import { IClient } from '../../shared/client.model';
 })
 export class AddNewClientService {
   private readonly api = 'http://localhost:8080/api/preduzece';
-  private readonly options = {
-    headers: {
-      Authorization:
-        'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImV4cCI6MTY0ODUxNjg4OCwiaWF0IjoxNjQ4NDgwODg4fQ.le2J43zIMiQnNZduou4VeUcOGThUYgZhuMjLPY4F76GdPczLdSgVOkRxEc40Zucjk-lRjlbTRw5MJMBLNWxZwQ',
-    },
-  };
+  private readonly options = { headers: { Authorization: 'Bearer ' } };
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    this.options.headers.Authorization += localStorage.getItem('jwt') as string;
+  }
 
   getAllClients(): Observable<IClient> {
     const request: string = `${this.api}/all`;

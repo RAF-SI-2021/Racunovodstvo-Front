@@ -1,84 +1,87 @@
-<br>
-<h3 class="text-center">Upravljanje korisnicima</h3>
-<br>
-<div id="pozadina">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Korisničko ime</th>
-        <th scope="col">Ime</th>
-        <th scope="col">Prezime</th>
-        <th scope="col">Akcija</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users; index as i" (click)="toggleUser(user)">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>
-          {{ user.username }}
-        </td>
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.lastName }}</td>
-        <td> <button class="btn btn-outline-danger" (click)="delete(user)">-</button> </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div>
-  <button (click)="addToggle()" type="button" class="btn btn-outline-success">+</button>
-</div>
-<div [hidden]="hiddenEdit">
-  <hr>
-  <form [formGroup]="userEditForm" (submit)="edit()">
-    <div>
-      <h3 style="text-align: center">Ažuriranje</h3>
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control item" id="username" placeholder="Unesi korisničko ime"
-        [formControlName]="'username'">
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control item" id="InputName" placeholder="Unesi ime" [formControlName]="'name'">
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control item" id="InputSurname" placeholder="Unesi prezime"
-        [formControlName]="'surname'">
-    </div>
-    <div class="form-group">
-      <button type="button" [disabled]="!this.userEditForm.valid" (click)="edit()"
-        class="btn btn-block create-account">ažuriraj</button>
-      <button type="button" class="btn btn-danger ponisti" style="margin-left: 2px"
-        (click)="this.hiddenEdit = !this.hiddenEdit">poništi</button>
-    </div>
-  </form>
-</div>
+<div class="container d-flex flex-column">
+  <h3 class="text-center">Upravljanje korisnicima</h3>
+  <br>
+  <div id="pozadina">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Korisničko ime</th>
+          <th scope="col">Ime</th>
+          <th scope="col">Prezime</th>
+          <th scope="col">Akcija</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; index as i" (click)="toggleUser(user)">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>
+            {{ user.username }}
+          </td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td> <button class="btn btn-danger" (click)="delete(user)">Obriši</button> </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="align-self-center">
+    <button (click)="addToggle()" type="button" class="btn btn-success">Dodaj</button>
+  </div>
+  <div [hidden]="hiddenEdit">
+    <hr>
+    <form [formGroup]="userEditForm" (submit)="edit()">
+      <div>
+        <h3 style="text-align: center">Ažuriranje</h3>
+      </div>
+      <div class="d-flex flex-column gap-2">
+        <div class="form-group">
+          <input type="text" class="form-control item" id="username" placeholder="Unesi korisničko ime"
+            [formControlName]="'username'">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control item" id="InputName" placeholder="Unesi ime"
+            [formControlName]="'name'">
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control item" id="InputSurname" placeholder="Unesi prezime"
+            [formControlName]="'surname'">
+        </div>
+        <div class="form-group d-flex gap-2 align-self-center">
+          <button type="button" [disabled]="!this.userEditForm.valid" (click)="edit()"
+            class="btn btn-primary">Ažuriraj</button>
+          <button type="button" class="btn btn-danger" (click)="this.hiddenEdit = !this.hiddenEdit">Poništi</button>
+        </div>
+      </div>
+    </form>
+  </div>
 
-<div [hidden]="hiddenAdd">
-  <hr>
-  <form [formGroup]="userAddForm" (submit)="add()" class="d-flex flex-column gap-2">
-    <div>
-      <h3 style="text-align: center">Dodavanje korisnika</h3>
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control item" id="username2" placeholder="Korisničko ime"
-        [formControlName]="'username'">
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control item" id="InputName2" placeholder="Ime" [formControlName]="'name'">
-    </div>
-    <div class="form-group">
-      <input type="text" class="form-control item" id="InputSurname2" placeholder="Prezime"
-        [formControlName]="'surname'">
-    </div>
-    <div class="form-group">
-      <input type="password" class="form-control item" id="InputPassword" placeholder="Lozinka"
-        [formControlName]="'password'">
-    </div>
-    <div class="form-group d-flex gap-2 align-self-center">
-      <button type="button" [disabled]="!this.userAddForm.valid" (click)="add()"
-        class="btn btn-primary create-account">Dodaj</button>
-      <button type="button" class="btn btn-danger" (click)="this.hiddenAdd = !this.hiddenAdd">Poništi</button>
-    </div>
-  </form>
+  <div [hidden]="hiddenAdd">
+    <hr>
+    <form [formGroup]="userAddForm" (submit)="add()" class="d-flex flex-column gap-2">
+      <div>
+        <h3 style="text-align: center">Dodavanje korisnika</h3>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control item" id="username2" placeholder="Korisničko ime"
+          [formControlName]="'username'">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control item" id="InputName2" placeholder="Ime" [formControlName]="'name'">
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control item" id="InputSurname2" placeholder="Prezime"
+          [formControlName]="'surname'">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control item" id="InputPassword" placeholder="Lozinka"
+          [formControlName]="'password'">
+      </div>
+      <div class="form-group d-flex gap-2 align-self-center">
+        <button type="button" [disabled]="!this.userAddForm.valid" (click)="add()"
+          class="btn btn-primary create-account">Dodaj</button>
+        <button type="button" class="btn btn-danger" (click)="this.hiddenAdd = !this.hiddenAdd">Poništi</button>
+      </div>
+    </form>
+  </div>
 </div>

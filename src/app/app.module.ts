@@ -6,8 +6,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { AddNewClientComponent } from './add-new-client/add-new-client.component';
-import { AddNewInvoiceComponent } from './add-new-invoice/add-new-invoice.component';
+import { AddNewClientComponent } from './components/add-new-client/add-new-client.component';
+import { AddNewInvoiceComponent } from './components/add-new-invoice/add-new-invoice.component';
 import { ProfileTestComponent } from './components/profile-test/profile-test.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 
@@ -18,7 +18,7 @@ import { ManageUsersComponent } from './components/manage-users/manage-users.com
     ProfileTestComponent,
     AddNewClientComponent,
     AddNewInvoiceComponent,
-    ManageUsersComponent
+    ManageUsersComponent,
   ],
   imports: [
     BrowserModule,
