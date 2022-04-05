@@ -14,4 +14,7 @@ export enum Authority {
   MAIN_BOOK = 'glavna_knjiga',
   ADD_CLIENT = 'dodaj_komitenta',
   PAYROLL = 'obracun_zarade',
+  BRUTO_BILANS = 'bruto_bilans',
+  BILANS_USPEHA = 'bilans_uspeha',
+  BILANS_STANJA = 'bilans_stanja'
 }

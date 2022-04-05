@@ -14,172 +14,168 @@ export class AppComponent {
   title = 'racunovodstvo';
 
   constructor(private router: Router, private userService: UserService) {
-    // localStorage.setItem('jwt', 'testjwt')
+    // sessionStorage.setItem('jwt', 'testjwt')
   }
 
 
   isAdmin(): boolean {
-    //TODO is this correct for admin?
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.ADMIN)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.ADMIN) != null)
+        return true
     }
     return false;
   }
 
   loggedIn(): boolean {
-    if (this.permissions.length == 0 && localStorage.getItem('jwt') != null) {
+    if (this.permissions.length == 0 && sessionStorage.getItem('jwt') != null) {
       this.userService.getLoggedInUser().subscribe(user => {
         this.permissions = user.authorities
+        for (let i = 0; i < user.authorities.length; i++) {
+          sessionStorage.setItem(user.authorities[i].name, user.authorities[i].name)
+        }
       })
     }
-    return localStorage.getItem('jwt') != null
+    return sessionStorage.getItem('jwt') != null
   }
 
   logout() {
-    localStorage.removeItem('jwt')
+    sessionStorage.clear()
     this.permissions = []
     this.router.navigate(['login'])
   }
 
   canProfile(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.PROFILE)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.PROFILE) != null)
+        return true
     }
     return false;
   }
 
   canEvidence(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.RECORDS)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.RECORDS) != null)
+        return true
     }
     return false;
   }
 
   canAcquisitions(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.ACQUISITIONS)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.ACQUISITIONS) != null)
+        return true
     }
     return false;
   }
 
   canSales(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.SALES)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.SALES) != null)
+        return true
     }
     return false;
   }
 
   canReports(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.REPORTS)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.REPORTS) != null)
+        return true
     }
     return false;
   }
 
   canBookkeeping(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.BOOKKEEPING)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.BOOKKEEPING) != null)
+        return true
     }
     return false;
   }
 
   canAccountPlan(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.ACCOUNT_PLAN)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.ACCOUNT_PLAN) != null)
+        return true
     }
     return false;
   }
 
   canBookkeepingJournal(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.BOOKKEEPING_JOURNAL)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.BOOKKEEPING_JOURNAL) != null)
+        return true
     }
     return false;
   }
 
   canMainBook(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.MAIN_BOOK)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.MAIN_BOOK) != null)
+        return true
     }
     return false;
   }
 
   canKUF(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.KUF)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.KUF) != null)
+        return true
     }
     return false;
   }
 
   canKIF(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.KIF)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.KIF) != null)
+        return true
     }
     return false;
   }
 
   canAddNewInvoice(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.ADD_INVOICE)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.ADD_INVOICE) != null)
+        return true
     }
     return false;
   }
 
   canAddNewClient(): boolean {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.ADD_CLIENT)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.ADD_CLIENT) != null)
+        return true
     }
     return false;
   }
 
   canObracunZarade() {
     if (this.loggedIn()) {
-      for (let i = 0; i < this.permissions.length; i++) {
-        if (this.permissions[i].name.toLowerCase() == Authority.PAYROLL)
-          return true;
-      }
+      if (sessionStorage.getItem(Authority.PAYROLL) != null)
+        return true
+    }
+    return false;
+  }
+
+  canBilansStanja() {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.BILANS_STANJA) != null)
+        return true
+    }
+    return false;
+  }
+
+  canBilansUspeha() {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.BILANS_USPEHA) != null)
+        return true
+    }
+    return false;
+  }
+
+  canBrutoBilans() {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.BRUTO_BILANS) != null)
+        return true
     }
     return false;
   }

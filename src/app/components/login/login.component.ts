@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         let jwt = resp.jwt
 
         console.log('logging in')
-        localStorage.setItem('jwt', jwt)
+        sessionStorage.setItem('jwt', jwt)
         this.loginForm.reset()
         this.wrongPasswordOrUsername = false
         this.router.navigate(['profile'])
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
   }
 
   loggedIn() {
-    return localStorage.getItem("jwt") != null
+    return sessionStorage.getItem("jwt") != null
   }
 
 }
