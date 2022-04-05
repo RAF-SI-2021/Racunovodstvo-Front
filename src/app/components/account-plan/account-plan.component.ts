@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Konto} from "../../../model";
+import {KontnaGrupa} from "../../../model";
+import {KontnaGrupaService} from "../../services/kontna-grupa.service";
 
 @Component({
   selector: 'app-account-plan',
@@ -9,60 +10,63 @@ import {Konto} from "../../../model";
 })
 export class AccountPlanComponent implements OnInit {
 
-  kontoForm: FormGroup;
-  kontos: Konto[] = []
+  kontoCreateForm: FormGroup;
+  kontoUpdateForm: FormGroup;
+  kontos: KontnaGrupa[] = []
+  enableEditIndex = -1;
 
 
 
-  constructor(private formBuilder: FormBuilder) {
-    this.kontoForm = this.formBuilder.group({
-      brojKonta: ['', [Validators.required, Validators.pattern("[0-9]+"), Validators.maxLength(9)]],
+  constructor(private formBuilder: FormBuilder, private kontnaGrupaService: KontnaGrupaService) {
+    this.kontoCreateForm = this.formBuilder.group({
+      brojKonta: ['', [Validators.required, Validators.pattern("[0-9]+"), Validators.maxLength(3)]],
+      naziv: ['', Validators.required],
+    })
+    this.kontoUpdateForm = this.formBuilder.group({
+      brojKonta: ['', [Validators.required, Validators.pattern("[0-9]+"), Validators.maxLength(3)]],
       naziv: ['', Validators.required],
     })
   }
 
   ngOnInit(): void {
-    let konto1 = new class implements Konto {
-      brojKonta: string = '';
-      naziv: string = '';
-    }
-
-    let konto2 = new class implements Konto {
-      brojKonta: string = '';
-      naziv: string = '';
-    }
-    konto1.brojKonta = '032'
-    konto1.naziv = 'blabla'
-    this.kontos.push(konto1)
-    console.log(this.kontos)
-
-    konto2.brojKonta = '01222'
-    konto2.naziv = 'blablablablablabla'
-    this.kontos.push(konto2)
-    console.log(this.kontos)
-
     this.readKontos()
-    this.sortKontos()
   }
 
-  toggleShow() {
+  updateKonto(konto: KontnaGrupa) {
+    //FIXME wait for backend to fix UPDATE API route
 
   }
 
-  updateKonto(konto: Konto) {
-    //TODO wait for backend UPDATE API route
-  }
+  deleteKonto(konto: KontnaGrupa) {
+    this.kontnaGrupaService.delete(konto).subscribe(resp => {
 
-  deleteKonto(konto: Konto) {
-    //TODO wait for backend DELETE API route
+      let newKontos = []
+
+      for (let i = 0; i < this.kontos.length; i++) {
+        if (this.kontos[i] != konto) {
+          newKontos.push(this.kontos[i])
+        }
+      }
+      this.kontos = newKontos
+    })
   }
 
   createKonto() {
-    //TODO wait for backend CREATE API route
+    this.kontnaGrupaService.create(
+      this.kontoCreateForm.get('brojKonta')?.value,
+      this.kontoCreateForm.get('naziv')?.value
+    ).subscribe(konto => {
+      this.kontos.push(konto)
+      this.sortKontos()
+      this.kontoCreateForm.reset()
+    })
   }
 
   readKontos() {
-    //TODO wait for backend READ API route
+    this.kontnaGrupaService.readAll().subscribe(readKontoResp => {
+      this.kontos = readKontoResp.content
+      this.sortKontos()
+    })
   }
 
   sortKontos() {
@@ -82,5 +86,13 @@ export class AccountPlanComponent implements OnInit {
     console.log(knts)
 
     this.kontos = knts
+  }
+
+  toggleEditable(i: number) {
+    if (i == this.enableEditIndex)
+      this.enableEditIndex = -1
+    else
+      this.enableEditIndex = i
+
   }
 }
