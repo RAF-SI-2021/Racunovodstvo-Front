@@ -2,14 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import { AddNewInvoiceService } from './add-new-invoice.service';
 
 describe('AddNewInvoiceService', () => {
-  let service: AddNewInvoiceService;
+	let service: AddNewInvoiceService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AddNewInvoiceService);
-  });
+	beforeEach(() => {
+		TestBed.configureTestingModule({});
+		service = TestBed.inject(AddNewInvoiceService);
+	});
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+	it('should be created', () => {
+		expect(service).toBeTruthy();
+	});
 });

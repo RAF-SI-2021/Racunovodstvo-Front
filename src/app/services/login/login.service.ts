@@ -5,19 +5,19 @@ import { LoginResponse } from '../../shared/user.model';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root',
 })
 export class LoginService {
-  private readonly apiUrl = environment.authApi;
+	private readonly apiUrl = environment.authApi;
 
-  constructor(private httpClient: HttpClient) {}
+	constructor(private httpClient: HttpClient) {}
 
-  login(username: string, password: string): Observable<LoginResponse> {
-    let body = {
-      username: username,
-      password: password,
-    };
-    let url = `${this.apiUrl}/login`;
-    return this.httpClient.post<LoginResponse>(url, body);
-  }
+	login(username: string, password: string): Observable<LoginResponse> {
+		let body = {
+			username: username,
+			password: password,
+		};
+		let url = `${this.apiUrl}/login`;
+		return this.httpClient.post<LoginResponse>(url, body);
+	}
 }

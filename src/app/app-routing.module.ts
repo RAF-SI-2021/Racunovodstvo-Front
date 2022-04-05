@@ -16,48 +16,48 @@ import { KUFGuard } from './guards/kuf.guard';
 import { KIFGuard } from './guards/kif.guard';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: LoginComponent,
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'profile',
-    component: ProfileTestComponent,
-    canActivate: [ProfileGuard],
-  },
-  {
-    path: 'add-new-client',
-    component: AddNewClientComponent,
-    canActivate: [AddClientGuard],
-  },
-  {
-    path: 'add-new-invoice',
-    component: AddNewInvoiceComponent,
-    canActivate: [AddInvoiceGuard],
-  },
-  {
-    path: 'manage-users',
-    component: ManageUsersComponent,
-    canActivate: [],
-  },
-  {
-    path: 'KUF',
-    component: KufComponent,
-    canActivate: [KUFGuard],
-  },
-  {
-    path: 'KIF',
-    component: KifComponent,
-    canActivate: [KIFGuard],
-  },
+	{
+		path: '',
+		component: LoginComponent,
+	},
+	{
+		path: 'login',
+		component: LoginComponent,
+	},
+	{
+		path: 'profile',
+		component: ProfileTestComponent,
+		canActivate: [ProfileGuard],
+	},
+	{
+		path: 'add-new-client',
+		component: AddNewClientComponent,
+		canActivate: [AddClientGuard],
+	},
+	{
+		path: 'add-new-invoice',
+		component: AddNewInvoiceComponent,
+		canActivate: [AddInvoiceGuard],
+	},
+	{
+		path: 'manage-users',
+		component: ManageUsersComponent,
+		canActivate: [],
+	},
+	{
+		path: 'KUF',
+		component: KufComponent,
+		canActivate: [KUFGuard],
+	},
+	{
+		path: 'KIF',
+		component: KifComponent,
+		canActivate: [KIFGuard],
+	},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+	imports: [RouterModule.forRoot(routes)],
+	exports: [RouterModule],
 })
 export class AppRoutingModule {}

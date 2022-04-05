@@ -1,17 +1,17 @@
 export interface LoginResponse {
-  jwt: string;
+	jwt: string;
 }
 
 export interface Permission {
-  id: number;
-  name: string;
-  authority: string;
+	id: number;
+	name: string;
+	authority: string;
 }
 
 export interface User {
-  userId: number;
-  username: string;
-  firstName: string;
-  lastName: string;
-  authorities: Permission[];
+	userId: number;
+	username: string;
+	firstName: string;
+	lastName: string;
+	authorities: Permission[];
 }

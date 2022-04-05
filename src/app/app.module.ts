@@ -14,25 +14,25 @@ import { KufComponent } from './components/kuf/kuf.component';
 import { KifComponent } from './components/kif/kif.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    ProfileTestComponent,
-    AddNewClientComponent,
-    AddNewInvoiceComponent,
-    ManageUsersComponent,
-    KufComponent,
-    KifComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
+	declarations: [
+		AppComponent,
+		LoginComponent,
+		ProfileTestComponent,
+		AddNewClientComponent,
+		AddNewInvoiceComponent,
+		ManageUsersComponent,
+		KufComponent,
+		KifComponent,
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		NgbModule,
+		FormsModule,
+		ReactiveFormsModule,
+		HttpClientModule,
+	],
+	providers: [],
+	bootstrap: [AppComponent],
 })
 export class AppModule {}

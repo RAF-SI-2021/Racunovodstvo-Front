@@ -1,0 +1,19 @@
+{
+    "editor.defaultFormatter": "octref.vetur",
+    "editor.insertSpaces": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "scss.lint.boxModel": "warning",
+    "scss.lint.compatibleVendorPrefixes": "warning",
+    "scss.lint.duplicateProperties": "warning",
+    "scss.lint.float": "warning",
+    "editor.detectIndentation": false,
+    "workbench.editor.wrapTabs": true,
+    "prettier.useEditorConfig": false,
+    "editor.bracketPairColorization.enabled": true,
+    "vetur.format.defaultFormatter.js": "prettier",
+    "vetur.format.defaultFormatter.sass": "sass-formatter",
+    "vetur.format.defaultFormatter.ts": "prettier",
+    "vetur.format.defaultFormatter.html": "prettier",
+    "editor.tabSize": 4
+}
