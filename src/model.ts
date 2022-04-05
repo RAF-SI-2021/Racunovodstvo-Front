@@ -18,8 +18,13 @@ export interface User {
 
 }
 
-export interface Konto {
+export interface KontnaGrupa {
   brojKonta: string
   naziv: string
+  nazivKonta: string
+}
+
+export interface readKontoResponse {
+  content: KontnaGrupa[]
 }
 
