@@ -5,7 +5,7 @@
 export const environment = {
 
   APIEndpoint: "http://localhost:8080",
-  production: false
+  production: false,
 
   add_upd_del_user: "http://localhost:8080/api/users/",
   list_users: "http://localhost:8080/api/users/all",

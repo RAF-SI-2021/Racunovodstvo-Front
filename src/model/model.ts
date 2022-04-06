@@ -43,7 +43,42 @@ export class Preduzece {
 }
 
 export class ResponseObject{
-  public content : Faktura[] = [];
+  public content : any[] = [];
 
 }
+
+
+export class Konto{
+  kontnaGrupa: KontnaGrupa;
+  duguje: number;
+  potrazuje: number;
+  addOrDeleteEdit: boolean;
+  disabledKonto: boolean;
+  disabledDuguje: boolean ;
+  disabledPotrazuje: boolean;
+
+  constructor(konto: KontnaGrupa, duguje: number, potrazuje: number, addOrDeleteEdit: boolean,
+              disabledKonto:boolean,disabledDuguje:boolean,disabledPotrazuje:boolean) {
+    this.kontnaGrupa = konto;
+    this.duguje = duguje;
+    this.potrazuje = potrazuje;
+    this.addOrDeleteEdit = addOrDeleteEdit;
+    this.disabledKonto = disabledKonto;
+    this.disabledDuguje = disabledDuguje;
+    this.disabledPotrazuje = disabledPotrazuje;
+  }
+}
+
+export class KontnaGrupa {
+  nazivKonta: string;
+  brojKonta: string;
+  konto?: Konto;
+
+  constructor(nazivKonta: string, brojKonta: string) {
+    this.nazivKonta = nazivKonta;
+    this.brojKonta = brojKonta;
+
+  }
+}
+
 

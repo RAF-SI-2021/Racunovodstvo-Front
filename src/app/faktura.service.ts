@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Faktura, Preduzece, ResponseObject} from "../model/model";
+import {Faktura, Konto, Preduzece, ResponseObject} from "../model/model";
 import {environment} from "../environments/environment";
 
 @Injectable({
@@ -91,5 +91,24 @@ export class FakturaService {
       headers: this.httpHeaders,
       observe: 'response'
     });
+  }
+
+  getKontneGrupe(){
+    return this.http.get<ResponseObject>(environment.APIEndpoint+'/api/konto?sort=brojKonta', {
+      headers: this.httpHeaders
+    })
+  }
+
+  knjizenje(kontos : Konto[], ukupnoDuguje: number, ukupnoPotrazuje: number, saldo: number, dokumentId: string, brojNaloga: string, datum: string){
+    return this.http.post(environment.APIEndpoint+'/api/knjizenje', {
+      "datumKnjizenja": datum,
+      "dokument":{
+        "dokumentId": dokumentId,
+        "tipDokumenta": "FAKTURA"
+      },
+      "konto": kontos
+    },{
+      headers: this.httpHeaders
+    })
   }
 }

@@ -7,6 +7,7 @@ import {KifComponent} from "./kif/kif.component";
 const routes: Routes = [
   {path: 'KUF', component: KufComponent},
   {path: 'KIF', component: KifComponent}
+ ]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
