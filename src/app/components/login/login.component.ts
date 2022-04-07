@@ -44,16 +44,23 @@ export class LoginComponent implements OnInit {
 
 					console.log('logging in');
 					sessionStorage.setItem('jwt', jwt);
-					this.loginForm.reset();
+          console.log(jwt)
 					this.wrongPasswordOrUsername = false;
-					this.router.navigate(['profile']).then(value => {
-            window.location.reload();
-          });
-				},
+          this.userService.getLoggedInUser().subscribe(user => {
+            for (let i = 0; i < user.authorities.length; i++) {
+              sessionStorage.setItem(user.authorities[i].name, user.authorities[i].name)
+              this.router.navigate(['profile']).then(value => {
+                this.loginForm.reset();
+              });
+            }
+          })
+
+        },
 				error: () => {
 					this.wrongPasswordOrUsername = true;
 				},
 			});
+
 	}
 
 	loggedIn() {

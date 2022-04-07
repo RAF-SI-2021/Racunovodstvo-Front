@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 import {UserService} from "./services/user.service";
-import {Permission} from "../model";
 import {Authority} from "./enums/permissions";
 
 @Component({
@@ -10,7 +9,6 @@ import {Authority} from "./enums/permissions";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  permissions: Permission[] = []
   title = 'racunovodstvo';
 
   constructor(private router: Router, private userService: UserService) {
@@ -27,21 +25,11 @@ export class AppComponent {
   }
 
   loggedIn(): boolean {
-    if (this.permissions.length == 0 && sessionStorage.getItem('jwt') != null) {
-      this.userService.getLoggedInUser().subscribe(user => {
-        // console.log(user.authorities)
-        this.permissions = user.authorities
-        for (let i = 0; i < user.authorities.length; i++) {
-          sessionStorage.setItem(user.authorities[i].name, user.authorities[i].name)
-        }
-      })
-    }
     return sessionStorage.getItem('jwt') != null
   }
 
   logout() {
     sessionStorage.clear()
-    this.permissions = []
     this.router.navigate(['login'])
   }
 
