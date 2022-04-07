@@ -7,13 +7,13 @@
     </tr>
     </thead>
     <tbody *ngFor="let konto of kontos; index as i">
-    <tr [formGroup]="kontoUpdateForm" (submit)="updateKonto(konto)" (dblclick)="toggleEditable(i)">
+    <tr [formGroup]="kontoUpdateForm" (submit)="updateKonto(konto.kontnaGrupaId)" (dblclick)="toggleEditable(i)">
       <td [hidden]="enableEditIndex != i"> <input type='text' class="form-control" [contentEditable]="enableEditIndex == i" [formControlName]="'brojKonta'" placeholder="{{konto.brojKonta}}"></td>
       <td [hidden]="enableEditIndex != i"> <input type='text' class="form-control" [contentEditable]="enableEditIndex == i" [formControlName]="'naziv'" placeholder="{{konto.nazivKonta}}"></td>
       <td [hidden]="enableEditIndex == i"> {{konto.brojKonta}} </td>
       <td [hidden]="enableEditIndex == i"> {{konto.nazivKonta}} </td>
       <td>
-        <button [hidden]="enableEditIndex != i" [disabled]="!kontoUpdateForm.valid || enableEditIndex != i" type="submit" mat-raised-button color="primary" (click)="updateKonto(konto)">Sacuvaj</button>
+        <button [hidden]="enableEditIndex != i" [disabled]="!kontoUpdateForm.valid || enableEditIndex != i" type="submit" mat-raised-button color="primary" (click)="updateKonto(konto.kontnaGrupaId)">Sacuvaj</button>
         <button [hidden]="enableEditIndex != i" mat-raised-button color="warn" (click)="deleteKonto(konto)">Izbrisi</button>
       </td>
     </tr>

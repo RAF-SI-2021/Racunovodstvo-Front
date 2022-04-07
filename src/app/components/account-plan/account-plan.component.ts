@@ -32,8 +32,26 @@ export class AccountPlanComponent implements OnInit {
     this.readKontos()
   }
 
-  updateKonto(konto: KontnaGrupa) {
-    //FIXME wait for backend to fix UPDATE API route
+  updateKonto(kontnaGrupaId: number) {
+    this.kontnaGrupaService.update(
+      this.kontoUpdateForm.get('brojKonta')?.value,
+      this.kontoUpdateForm.get('naziv')?.value,
+      kontnaGrupaId
+    ).subscribe(konto1 => {
+      let newKontos = []
+      for (let i = 0; i < this.kontos.length; i++) {
+        if (this.kontos[i].kontnaGrupaId != kontnaGrupaId) {
+          newKontos.push(this.kontos[i])
+        }
+        else {
+          newKontos.push(konto1)
+        }
+      }
+      this.kontos = newKontos
+      this.sortKontos()
+      this.enableEditIndex = -1
+      this.kontoUpdateForm.reset()
+    })
 
   }
 
@@ -48,6 +66,7 @@ export class AccountPlanComponent implements OnInit {
         }
       }
       this.kontos = newKontos
+      this.sortKontos()
     })
   }
 

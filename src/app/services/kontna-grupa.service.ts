@@ -41,11 +41,12 @@ export class KontnaGrupaService {
     })
   }
 
-  update(brojKonta: string, naziv: string): Observable<KontnaGrupa> {
+  update(brojKonta: string, naziv: string, kontnaGrupaId: number): Observable<KontnaGrupa> {
     let jwt = String(sessionStorage.getItem('jwt'))
-    let url = `${this.apiUrl}`
+    let url = `${this.apiUrl}`+'/'+`${kontnaGrupaId}`
     let body =
       {
+        kontnaGrupaId: kontnaGrupaId,
         brojKonta: brojKonta,
         nazivKonta: naziv
       }
