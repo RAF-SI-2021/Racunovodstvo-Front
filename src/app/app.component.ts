@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
-import {UserService} from "./services/user.service";
 import {Authority} from "./enums/permissions";
 
 @Component({
@@ -11,8 +10,7 @@ import {Authority} from "./enums/permissions";
 export class AppComponent {
   title = 'racunovodstvo';
 
-  constructor(private router: Router, private userService: UserService) {
-    // sessionStorage.setItem('jwt', 'testjwt')
+  constructor(private router: Router) {
   }
 
 
