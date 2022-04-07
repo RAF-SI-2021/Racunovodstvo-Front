@@ -29,6 +29,7 @@ export class AppComponent {
   loggedIn(): boolean {
     if (this.permissions.length == 0 && sessionStorage.getItem('jwt') != null) {
       this.userService.getLoggedInUser().subscribe(user => {
+        // console.log(user.authorities)
         this.permissions = user.authorities
         for (let i = 0; i < user.authorities.length; i++) {
           sessionStorage.setItem(user.authorities[i].name, user.authorities[i].name)

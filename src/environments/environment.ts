@@ -3,11 +3,18 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  authApi: 'http://localhost:8080/auth',
-  permissionApi: 'http://localhost:8080/api/permissions',
-  userApi: 'http://localhost:8080/api/users',
-  kontnaGrupaApi: 'http://localhost:8080/api/konto'
+	production: false,
+
+	APIEndpoint: 'http://localhost:8080',
+
+	add_upd_del_user: 'http://localhost:8080/api/users/',
+	list_users: 'http://localhost:8080/api/users/all',
+
+	authApi: 'http://localhost:8080/auth',
+	permissionApi: 'http://localhost:8080/api/permissions',
+	userApi: 'http://localhost:8080/api/users',
+
+  kontnaGrupaApi: 'http://localhost:8080/api/konto',
 };
 
 /*
