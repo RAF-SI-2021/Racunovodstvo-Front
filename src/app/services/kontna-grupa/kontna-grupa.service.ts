@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
-import {KontnaGrupa, readKontoResponse} from "../../model";
+import {KontnaGrupa, readKontoResponse} from "../../shared/kontna-grupa.model";
 
 @Injectable({
   providedIn: 'root'
