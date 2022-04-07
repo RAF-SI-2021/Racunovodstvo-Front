@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {KontnaGrupa} from "../../../model";
-import {KontnaGrupaService} from "../../services/kontna-grupa.service";
+import {KontnaGrupaService} from "../../services/kontna-grupa/kontna-grupa.service";
+import {KontnaGrupa} from "../../shared/kontna-grupa.model";
 
 @Component({
   selector: 'app-account-plan',
