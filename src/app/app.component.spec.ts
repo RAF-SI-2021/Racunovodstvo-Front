@@ -1,6 +1,7 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import {Authority} from "./enums/permissions";
 
 describe('AppComponent', () => {
 	beforeEach(async () => {
@@ -17,17 +18,20 @@ describe('AppComponent', () => {
 	});
 
 	it(`should have as title 'racunovodstvo'`, () => {
-		const fixture = TestBed.createComponent(AppComponent);
-		const app = fixture.componentInstance;
-		expect(app.title).toEqual('racunovodstvo');
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    expect(app.title).toEqual('racunovodstvo');
 	});
 
-	it('should render title', () => {
-		const fixture = TestBed.createComponent(AppComponent);
-		fixture.detectChanges();
-		const compiled = fixture.nativeElement as HTMLElement;
-		expect(compiled.querySelector('.content span')?.textContent).toContain(
-			'racunovodstvo app is running!'
-		);
-	});
+  it('should have no admin permission', (() => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    spyOn(app, 'isAdmin')
+      .and
+      .returnValue(sessionStorage.getItem(Authority.ADMIN) != null)
+
+    fixture.detectChanges();
+    expect(app.isAdmin()).toBe(false);
+  }));
+
 });
