@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class InvoiceService {
 	httpHeaders: HttpHeaders = new HttpHeaders({
-		Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+		Authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
 	});
 
 	constructor(private http: HttpClient) {}
