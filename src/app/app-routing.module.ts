@@ -15,6 +15,7 @@ import { AddClientGuard } from './guards/add-client.guard';
 import { AddInvoiceGuard } from './guards/add-invoice.guard';
 import { KUFGuard } from './guards/kuf.guard';
 import { KIFGuard } from './guards/kif.guard';
+import {KnjizenjaComponent} from "./knjizenja/knjizenja.component";
 
 const routes: Routes = [
 	{
@@ -60,6 +61,11 @@ const routes: Routes = [
     component: AccountPlanComponent,
     canActivate: [AccountPlanGuard]
   },
+  {
+    path: "knjizenja",
+    component: KnjizenjaComponent,
+    // canActivate: [ManageUsersGuard]
+  }
 ];
 
 @NgModule({
