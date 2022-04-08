@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { DnevnikKnjizenja } from '../../shared/dnevnik-knjizenja.model';
-import { KnjizenjeService } from '../../services/knjizenje/knjizenje.service';
+import { BookkeepingJournal } from 'src/app/shared/bookkeeping-journal.model';
+import { BookkeepingJournalService } from '../../services/bookkeeping-journal/bookkeeping-journal.service';
 
 @Component({
 	selector: 'app-knjizenja',
-	templateUrl: './knjizenja.component.html',
-	styleUrls: ['./knjizenja.component.css'],
+	templateUrl: './bookkeeping-journal.component.html',
+	styleUrls: ['./bookkeeping-journal.component.css'],
 })
-export class KnjizenjaComponent implements OnInit {
-	knjizenja: DnevnikKnjizenja[] = [];
+export class BookkeepingJournalComponent implements OnInit {
+	knjizenja: BookkeepingJournal[] = [];
 
 	brojNaloga: string = '';
 	od: Date = new Date();
@@ -36,13 +36,13 @@ export class KnjizenjaComponent implements OnInit {
 		this.uzetDo = false;
 	}
 
-	constructor(public knjizenejService: KnjizenjeService) {}
+	constructor(public knjizenejService: BookkeepingJournalService) {}
 
 	ngOnInit(): void {
-		localStorage.setItem(
-			'jwt',
-			'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImV4cCI6MTY0OTMxNjA4NCwiaWF0IjoxNjQ5MjgwMDg0fQ.LID1a-mPoi62Tfj8SjZYrwUu_TtoazrN2GR3LIlHUFAyXXZDN1wJVQVFrV56EmptW-3zWWyPq0nv8bloVBZ7cQ'
-		);
+		// sessionStorage.setItem(
+		// 	'jwt',
+		// 	'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImV4cCI6MTY0OTMxNjA4NCwiaWF0IjoxNjQ5MjgwMDg0fQ.LID1a-mPoi62Tfj8SjZYrwUu_TtoazrN2GR3LIlHUFAyXXZDN1wJVQVFrV56EmptW-3zWWyPq0nv8bloVBZ7cQ'
+		// );
 		this.knjizenejService.getKnjizenja().subscribe((obj) => {
 			this.knjizenja = obj;
 		});

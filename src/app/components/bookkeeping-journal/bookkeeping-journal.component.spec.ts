@@ -1,40 +1,25 @@
-import {
-	TestBed,
-	async,
-	fakeAsync,
-	tick,
-	ComponentFixture,
-} from '@angular/core/testing';
-
-import {
-	HttpClient,
-	HttpClientModule,
-	HttpResponse,
-} from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
-import { KnjizenjaComponent } from './knjizenja.component';
-import { KnjizenjeService } from '../../services/knjizenje/knjizenje.service';
-
-import { DnevnikKnjizenja } from '../../shared/dnevnik-knjizenja.model';
-import { Observable } from 'rxjs';
-import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BookkeepingJournalService } from '../../services/bookkeeping-journal/bookkeeping-journal.service';
+import { BookkeepingJournal } from 'src/app/shared/bookkeeping-journal.model';
+import { BookkeepingJournalComponent } from './bookkeeping-journal.component';
 
 describe('Testing knjizenja component', () => {
-	let component: KnjizenjaComponent;
-	let fixture: ComponentFixture<KnjizenjaComponent>;
-	let service: KnjizenjeService;
+	let component: BookkeepingJournalComponent;
+	let fixture: ComponentFixture<BookkeepingJournalComponent>;
+	let service: BookkeepingJournalService;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
 			imports: [HttpClientModule],
-			declarations: [KnjizenjaComponent],
+			declarations: [BookkeepingJournalComponent],
 		}).compileComponents();
 	});
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(KnjizenjaComponent);
+		fixture = TestBed.createComponent(BookkeepingJournalComponent);
 		component = fixture.componentInstance;
-		service = fixture.debugElement.injector.get(KnjizenjeService);
+		service = fixture.debugElement.injector.get(BookkeepingJournalService);
 		fixture.detectChanges();
 	});
 
@@ -53,7 +38,7 @@ describe('Testing knjizenja component', () => {
 	});
 
 	it('should knjizenje entity be set on html', () => {
-		let knjizenje = new DnevnikKnjizenja(
+		let knjizenje = new BookkeepingJournal(
 			1,
 			'111',
 			new Date(),

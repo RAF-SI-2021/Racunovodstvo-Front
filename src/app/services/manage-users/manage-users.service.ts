@@ -13,7 +13,7 @@ export class ManageUsersService {
 	private jwt;
 
 	constructor(private httpClient: HttpClient) {
-		this.jwt = localStorage.getItem('jwt');
+		this.jwt = sessionStorage.getItem('jwt');
 	}
 
 	listAllUsers(): Observable<User[]> {

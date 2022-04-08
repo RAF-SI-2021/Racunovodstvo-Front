@@ -1,4 +1,4 @@
-export interface DnevnikKnjizenja {
+export interface BookkeepingJournal {
 	knjizenjeId: number;
 	brojNaloga: string;
 	datumKnjizenja: Date;
@@ -9,7 +9,7 @@ export interface DnevnikKnjizenja {
 	komentar: string;
 }
 
-export class DnevnikKnjizenja {
+export class BookkeepingJournal {
 	knjizenjeId: number;
 	brojNaloga: string;
 	datumKnjizenja: Date;

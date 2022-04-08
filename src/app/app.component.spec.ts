@@ -27,8 +27,8 @@ describe('AppComponent', () => {
 		const fixture = TestBed.createComponent(AppComponent);
 		fixture.detectChanges();
 		const compiled = fixture.nativeElement as HTMLElement;
-		expect(compiled.querySelector('.content span')?.textContent).toContain(
-			'racunovodstvo app is running!'
+		expect(compiled.querySelector('.navbar div')?.textContent).toContain(
+			'Racunovodstvo'
 		);
 	});
 

@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { DnevnikKnjizenja } from 'src/app/shared/dnevnik-knjizenja.model';
+import { BookkeepingJournal } from 'src/app/shared/bookkeeping-journal.model';
 
 @Injectable({
 	providedIn: 'root',
 })
-export class KnjizenjeService {
+export class BookkeepingJournalService {
 	constructor(private httpClient: HttpClient) {}
 
-	getKnjizenja(): Observable<DnevnikKnjizenja[]> {
+	getKnjizenja(): Observable<BookkeepingJournal[]> {
 		const headers = {
-			Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+			Authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
 			'Access-Control-Allow-Origin': '*',
 			accept: 'application/json',
 		};
-		return this.httpClient.get<DnevnikKnjizenja[]>(
+		return this.httpClient.get<BookkeepingJournal[]>(
 			'http://localhost:8080/api/knjizenje/all',
 			{ headers: headers }
 		);
@@ -28,7 +28,7 @@ export class KnjizenjeService {
 		komentar: string,
 		uzetOd: boolean,
 		uzetDo: boolean
-	): Observable<DnevnikKnjizenja[]> {
+	): Observable<BookkeepingJournal[]> {
 		var s = '?search=';
 		if (brNaloga != '') {
 			s += 'brojNaloga:' + brNaloga;
@@ -62,11 +62,11 @@ export class KnjizenjeService {
 		}
 
 		const headers = {
-			Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+			Authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
 			'Access-Control-Allow-Origin': '*',
 		};
 
-		return this.httpClient.get<DnevnikKnjizenja[]>(
+		return this.httpClient.get<BookkeepingJournal[]>(
 			'http://localhost:8080/api/knjizenje' + s,
 			{ headers: headers }
 		);
