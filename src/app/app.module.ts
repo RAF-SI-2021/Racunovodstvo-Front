@@ -12,6 +12,9 @@ import { ProfileTestComponent } from './components/profile-test/profile-test.com
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { KufComponent } from './components/kuf/kuf.component';
 import { KifComponent } from './components/kif/kif.component';
+import { ZaposleniComponent } from './components/zaposleni/zaposleni.component';
+import { PlateZaposlenihComponent } from './components/plate-zaposlenih/plate-zaposlenih.component';
+import { KoeficijentiComponent } from './components/koeficijenti/koeficijenti.component';
 
 @NgModule({
 	declarations: [
@@ -23,6 +26,9 @@ import { KifComponent } from './components/kif/kif.component';
 		ManageUsersComponent,
 		KufComponent,
 		KifComponent,
+  ZaposleniComponent,
+  PlateZaposlenihComponent,
+  KoeficijentiComponent,
 	],
 	imports: [
 		BrowserModule,

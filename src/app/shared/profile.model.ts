@@ -14,7 +14,14 @@ export interface Zaposleni {
   stepenObrazovanja: string,
   brojRadneKnjizice: number,
   statusZaposlenog: string,
-  komentar: string
+  komentar: string,
+  staz: Staz
+}
+
+export interface Staz {
+  pocetakRada: string,
+  krajRada: string
+
 }
 // neto plata ?
 // staz
