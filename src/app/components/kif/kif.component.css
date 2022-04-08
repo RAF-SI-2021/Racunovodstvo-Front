@@ -1,0 +1,18 @@
+.margin5{
+  margin-left: 5px;
+}
+
+.margin10{
+  margin-left: 10px;
+}
+textarea { display:block;}
+
+.labelClass{
+  display: block;
+}
+
+.formStyle{
+  border-color: greenyellow;
+  border-style: solid;
+  padding: 10px;
+}
