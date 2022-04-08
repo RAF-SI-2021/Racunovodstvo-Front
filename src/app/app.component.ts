@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Authority } from './enums/permissions';
+import { Authority } from './shared/enums/permissions';
 
 @Component({
 	selector: 'app-root',

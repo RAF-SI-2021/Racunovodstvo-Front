@@ -13,7 +13,7 @@ import { AddNewInvoiceComponent } from './components/add-new-invoice/add-new-inv
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { KufComponent } from './components/kuf/kuf.component';
 import { KifComponent } from './components/kif/kif.component';
-import { KnjizenjaComponent } from './knjizenja/knjizenja.component';
+import { KnjizenjaComponent } from './components/knjizenja/knjizenja.component';
 
 @NgModule({
 	declarations: [

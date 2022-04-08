@@ -8,7 +8,7 @@ import { ManageUsersComponent } from './components/manage-users/manage-users.com
 import { KufComponent } from './components/kuf/kuf.component';
 import { KifComponent } from './components/kif/kif.component';
 import { AccountPlanComponent } from './components/account-plan/account-plan.component';
-import { KnjizenjaComponent } from './knjizenja/knjizenja.component';
+import { KnjizenjaComponent } from './components/knjizenja/knjizenja.component';
 
 import { ProfileGuard } from './guards/profile.guard';
 import { AddClientGuard } from './guards/add-client.guard';

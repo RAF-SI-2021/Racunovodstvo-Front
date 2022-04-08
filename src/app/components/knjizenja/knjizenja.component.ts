@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DnevnikKnjizenja } from '../shared/dnevnik-knjizenja.model';
-import { KnjizenjeService } from '../services/knjizenje/knjizenje.service';
+import { DnevnikKnjizenja } from '../../shared/dnevnik-knjizenja.model';
+import { KnjizenjeService } from '../../services/knjizenje/knjizenje.service';
 
 @Component({
 	selector: 'app-knjizenja',

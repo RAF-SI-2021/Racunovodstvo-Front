@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { Authority } from './enums/permissions';
+import { Authority } from './shared/enums/permissions';
 
 describe('AppComponent', () => {
 	beforeEach(async () => {

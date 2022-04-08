@@ -6,7 +6,7 @@ import {
 	UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Authority } from '../enums/permissions';
+import { Authority } from '../shared/enums/permissions';
 
 @Injectable({
 	providedIn: 'root',

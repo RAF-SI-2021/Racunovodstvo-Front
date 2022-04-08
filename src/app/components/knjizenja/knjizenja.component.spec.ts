@@ -13,9 +13,9 @@ import {
 } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KnjizenjaComponent } from './knjizenja.component';
-import { KnjizenjeService } from '../services/knjizenje/knjizenje.service';
+import { KnjizenjeService } from '../../services/knjizenje/knjizenje.service';
 
-import { DnevnikKnjizenja } from '../shared/dnevnik-knjizenja.model';
+import { DnevnikKnjizenja } from '../../shared/dnevnik-knjizenja.model';
 import { Observable } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 
