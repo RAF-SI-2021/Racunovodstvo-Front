@@ -1,16 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import {SalesGuard} from "./sales.guard";
-
+import { SalesGuard } from './sales.guard';
 
 describe('SalesGuard', () => {
-  let guard: SalesGuard;
+	let guard: SalesGuard;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    guard = TestBed.inject(SalesGuard);
-  });
+	beforeEach(() => {
+		TestBed.configureTestingModule({});
+		guard = TestBed.inject(SalesGuard);
+	});
 
-  it('should be created', () => {
-    expect(guard).toBeTruthy();
-  });
+	it('should be created', () => {
+		expect(guard).toBeTruthy();
+	});
 });

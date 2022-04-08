@@ -1,16 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import {BookkeepingJournalGuard} from "./bookkeeping-journal.guard";
-
+import { BookkeepingJournalGuard } from './bookkeeping-journal.guard';
 
 describe('BookkeepingJournalGuard', () => {
-  let guard: BookkeepingJournalGuard;
+	let guard: BookkeepingJournalGuard;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    guard = TestBed.inject(BookkeepingJournalGuard);
-  });
+	beforeEach(() => {
+		TestBed.configureTestingModule({});
+		guard = TestBed.inject(BookkeepingJournalGuard);
+	});
 
-  it('should be created', () => {
-    expect(guard).toBeTruthy();
-  });
+	it('should be created', () => {
+		expect(guard).toBeTruthy();
+	});
 });
