@@ -27,12 +27,14 @@ export class KnjizenjeWidgetComponent implements OnInit {
 
   editing : boolean = false;
 
+  knjizenjeGroup: FormGroup;
+
 
   kontoGroups: FormGroup[] = [];
 
   ktnGrps: KontnaGrupa[] = [];
   options: string[] = [];
-  filteredOptions: Observable<KontnaGrupa[]> | undefined;
+  filteredOptions: Observable<KontnaGrupa[]>[] = [];
 
   constructor(public formBuilder: FormBuilder,private service : FakturaService) {
     // let ktnGrp1 = new KontnaGrupa("TEST", "0001");
@@ -42,6 +44,11 @@ export class KnjizenjeWidgetComponent implements OnInit {
     // this.ktnGrps.push(ktnGrp1,
     //   ktnGrp2,
     //   ktnGrp3)
+    this.knjizenjeGroup = this.formBuilder.group({
+      brojDokumenta: ['', Validators.required],
+      brojNaloga: ['', Validators.required],
+      datum: ['', Validators.required]
+    });
 
   }
 
@@ -60,7 +67,7 @@ export class KnjizenjeWidgetComponent implements OnInit {
     }
     this.editing = false;
     for(let i = 0; i < this.kontoGroups.length; i++){
-      this.filteredOptions = this.kontoGroups[i].valueChanges.pipe(
+      this.filteredOptions[i] = this.kontoGroups[i].valueChanges.pipe(
         map(value => this._filter(value))
       );
     }
@@ -155,8 +162,10 @@ export class KnjizenjeWidgetComponent implements OnInit {
         }
       })
     })
-    this.service.knjizenje(this.kontos, this.dugujeUkupnoNum, this.potrazujeUkupnoNum, this.dugujeUkupnoNum - this.potrazujeUkupnoNum, this.brojDokumenta, this.brojNaloga, this.datum).subscribe((response) =>{
-
+    this.service.knjizenje(this.kontos, this.dugujeUkupnoNum, this.potrazujeUkupnoNum, this.dugujeUkupnoNum - this.potrazujeUkupnoNum, this.knjizenjeGroup.get('brojDokumenta')?.value, this.knjizenjeGroup.get('brojNaloga')?.value, this.knjizenjeGroup.get('datum')?.value).subscribe((response) =>{
+      this.kontos = [];
+      this.kontoGroups = [];
+      this.ngOnInit()
     })
   }
 

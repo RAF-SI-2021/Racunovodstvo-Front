@@ -14,6 +14,7 @@
       <option value="preduzece">Komitent</option>
       <option value="datumIzdavanja">Datum izdavanja</option>
       <option value="datumPlacanja">Datum placanja</option>
+      <option value="rokZaPlacanje">Rok za placanje</option>
       <option value="valuta">Valuta</option>
       <option value="komentar">Komentar</option>
     </select>
@@ -30,6 +31,7 @@
     <th scope="col">#</th>
     <th scope="col">Datum izdavanja</th>
     <th scope="col">Komitent</th>
+    <th scope="col">Rok za placanje</th>
     <th scope="col">Datum placanja</th>
     <th scope="col">Prodajna vrednost</th>
     <th scope="col">Rabat%</th>
@@ -48,6 +50,7 @@
     <td>{{ faktura.brojFakture }}</td>
     <td>{{ getAsDate(faktura.datumIzdavanja) }}</td>
     <td>{{ faktura.preduzece.naziv }}</td>
+    <td>{{ getAsDate(faktura.rokZaPlacanje) }}</td>
     <td>{{ getAsDate(faktura.datumPlacanja) }}</td>
     <td>{{ faktura.prodajnaVrednost }}</td>
     <td>{{ filterOfNull(faktura.rabatProcenat) }}</td>
@@ -64,6 +67,7 @@
   </tbody>
   <tfoot>
   <td colspan="2"><a><b>Ukupno (DIN)</b></a></td>
+  <td></td>
   <td></td>
   <td></td>
   <td><a><b> {{ ukupnaProdajnaVrednost() }}</b> </a></td>
@@ -86,19 +90,24 @@
 <div *ngIf="edit" class="formStyle">
   <form [formGroup]="updateGroup">
     <div class="row mt-4">
-      <div class="col-4">
+      <div class="col-3">
         <label class="labelClass" for="brFakture">Broj Fakture:</label>
         <input class="" id="brFakture" [formControlName]="'brojFakture'" [value]="selektovanaFaktura.brojFakture">
       </div>
 
-      <div class="col-4">
+      <div class="col-3">
         <label class="labelClass" for="datumIzdavanja">Datum izdavanja:</label>
         <input class="" id="datumIzdavanja" type="date" [formControlName]="'datumIzdavanja'" [value]="selektovanaFaktura.datumIzdavanja">
       </div>
 
-      <div class="col-4">
+      <div class="col-3">
         <label class="labelClass" for="datumPlacanja">Datum placanja:</label>
         <input class="" id="datumPlacanja" type="date" [formControlName]="'datumPlacanja'" [value]="selektovanaFaktura.datumPlacanja">
+      </div>
+
+      <div class="col-3">
+        <label class="labelClass" for="rokZaPlacanje">Rok za placanje:</label>
+        <input class="" id="rokZaPlacanje" type="date" [formControlName]="'rokZaPlacanje'" [value]="selektovanaFaktura.rokZaPlacanje">
       </div>
     </div>
 

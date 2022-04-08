@@ -4,6 +4,7 @@ export class Faktura {
     public fakturaId: number,
     public brojFakture: string,
     public datumIzdavanja: string,
+    public rokZaPlacanje: string,
     public preduzece: Preduzece,
     public datumPlacanja: string,
     public prodajnaVrednost: number,
@@ -18,6 +19,7 @@ export class Faktura {
     public komentar: string,
     public tipFakture: string,
     public dokumentId: number,
+    public brojDokumenta: string,
     public tipDokumenta: string) {
     if (rabatProcenat === null) {
       this.rabatProcenat = 0;

@@ -1,19 +1,19 @@
 <div id="main">
-  <div class="form-group">
+  <div class="form-group" [formGroup]="knjizenjeGroup">
     <div class="row">
       <div class="col-sm-4">
         <label for="brojDok">Broj Dokumenta:</label>
         <input type="text" class="form-control" id="brojDok" placeholder="unesi broj dokumenta"
-               [(ngModel)]="brojDokumenta">
+               [formControlName]="'brojDokumenta'">
       </div>
       <div class="col-sm-4">
         <label for="brojNalog">Broj naloga: </label>
         <input type="text" class="form-control" id="brojNalog" placeholder="unesi broj naloga"
-               [(ngModel)]="brojNaloga">
+               [formControlName]="'brojNaloga'">
       </div>
       <div class="col-sm-4">
         <label for="date">Datum</label>
-        <input type="date" class="form-control" id="date" placeholder="unesi datum" [(ngModel)]="datum">
+        <input type="date" class="form-control" id="date" placeholder="unesi datum" [formControlName]="'datum'">
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@
           <input matInput [matAutocomplete]="auto" [formControlName]="'konto'" type="text" class="form-control"
                  placeholder="unesi konto" name="konto">
           <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option.brojKonta">
+            <mat-option *ngFor="let option of filteredOptions[i] | async" [value]="option.brojKonta">
              {{option.brojKonta}} - {{ option.nazivKonta}}
             </mat-option>
           </mat-autocomplete>
@@ -63,7 +63,7 @@
 
       </td>
       <td>
-        <a><b>{{ dugujeUkupno() }}</b></a>
+        <a id="dugujeUkupno"><b>{{ dugujeUkupno() }}</b></a>
       </td>
 
       <td>
@@ -75,6 +75,6 @@
     </tfoot>
   </table>
   <div class="mt-4">
-    <button class="btn btn-success" (click)="knjizenje()">Knizenje</button>
+    <button class="btn btn-success" [disabled]="!knjizenjeGroup.valid" (click)="knjizenje()">Knizenje</button>
   </div>
 </div>

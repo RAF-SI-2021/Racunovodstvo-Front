@@ -10,7 +10,4 @@ describe('FakturaService', () => {
     service = TestBed.inject(FakturaService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
 });
