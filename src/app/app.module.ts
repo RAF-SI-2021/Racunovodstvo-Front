@@ -6,18 +6,20 @@ import { AppComponent } from './app.component';
 import { ManageUsersComponent } from '../manage-users/manage-users.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { KnjizenjaComponent } from './knjizenja/knjizenja.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ManageUsersComponent
+    ManageUsersComponent,
+    KnjizenjaComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
