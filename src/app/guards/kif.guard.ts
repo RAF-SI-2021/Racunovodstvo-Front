@@ -5,22 +5,13 @@ import {
 	RouterStateSnapshot,
 	UrlTree,
 } from '@angular/router';
-import { Observable, first, map } from 'rxjs';
-import { UserService } from '../services/login/user.service';
-import { User } from '../shared/user.model';
+import { Observable } from 'rxjs';
+import { Authority } from '../enums/permissions';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class KIFGuard implements CanActivate {
-	user!: User;
-
-	constructor(private userService: UserService) {
-		this.userService.getLoggedInUser().subscribe((user) => {
-			this.user = user;
-		});
-	}
-
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
@@ -29,16 +20,6 @@ export class KIFGuard implements CanActivate {
 		| Promise<boolean | UrlTree>
 		| boolean
 		| UrlTree {
-		return this.userService.getLoggedInUser().pipe(
-			first(),
-			map((user) => {
-				if (user) {
-					for (let i = 0; i < user.authorities.length; i++) {
-						if (user.authorities[i].name === 'kif') return true;
-					}
-					return false;
-				} else return true;
-			})
-		);
+		return sessionStorage.getItem(Authority.KIF) != null;
 	}
 }
