@@ -15,8 +15,6 @@ export class AccountPlanComponent implements OnInit {
   kontos: KontnaGrupa[] = []
   enableEditIndex = -1;
 
-
-
   constructor(private formBuilder: FormBuilder, private kontnaGrupaService: KontnaGrupaService) {
     this.kontoCreateForm = this.formBuilder.group({
       brojKonta: ['', [Validators.required, Validators.pattern("[0-9]+"), Validators.maxLength(3)]],

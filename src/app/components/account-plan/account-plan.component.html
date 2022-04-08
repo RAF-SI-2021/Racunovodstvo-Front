@@ -1,4 +1,4 @@
-<div>
+<div class="container d-flex flex-column gap-3">
   <table class="table">
     <thead>
     <tr>
@@ -22,8 +22,8 @@
   </table>
 
   <div class="offset-4 col-4">
-    <form [formGroup]="kontoCreateForm" (submit)="createKonto()" class="mb-5">
-      <div class="form-group">
+    <form [formGroup]="kontoCreateForm" (submit)="createKonto()" class="mb-5 d-flex flex-column gap-3">
+      <div class="form-group  d-flex flex-column gap-1">
         <label for="brojKonta">Broj Konta</label>
         <input type="text" class="form-control" id="brojKonta" placeholder="Broj Konta" [formControlName]="'brojKonta'">
         <label for="naziv">Naziv</label>
