@@ -15,6 +15,7 @@ import { AddInvoiceGuard } from './guards/add-invoice.guard';
 import { KUFGuard } from './guards/kuf.guard';
 import { KIFGuard } from './guards/kif.guard';
 import {ZaposleniComponent} from "./components/zaposleni/zaposleni.component";
+import {PlateZaposlenihComponent} from "./components/plate-zaposlenih/plate-zaposlenih.component";
 
 const routes: Routes = [
 	{
@@ -58,6 +59,11 @@ const routes: Routes = [
   {
     path: 'zaposleni',
     component: ZaposleniComponent,
+    // canActivate: [KIFGuard],
+  },
+  {
+    path: 'plate',
+    component: PlateZaposlenihComponent,
     // canActivate: [KIFGuard],
   },
 ];
