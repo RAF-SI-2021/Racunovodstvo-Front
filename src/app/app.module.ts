@@ -12,6 +12,8 @@ import { ProfileTestComponent } from './components/profile-test/profile-test.com
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { KufComponent } from './components/kuf/kuf.component';
 import { KifComponent } from './components/kif/kif.component';
+import { ProfilZaposlenogComponent } from './components/profil-zaposlenog/profil-zaposlenog.component';
+import {DatePipe} from "@angular/common";
 
 @NgModule({
 	declarations: [
@@ -23,6 +25,7 @@ import { KifComponent } from './components/kif/kif.component';
 		ManageUsersComponent,
 		KufComponent,
 		KifComponent,
+    ProfilZaposlenogComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -32,7 +35,7 @@ import { KifComponent } from './components/kif/kif.component';
 		ReactiveFormsModule,
 		HttpClientModule,
 	],
-	providers: [],
+	providers: [DatePipe],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}
