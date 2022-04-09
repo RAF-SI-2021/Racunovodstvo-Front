@@ -17,6 +17,13 @@ export interface Zaposleni {
   komentar: string,
   staz: string
 }
+
+export interface Plata{
+  datumOd: Date;
+  datumDo: Date;
+  netoPlata: number;
+  komentar: string;
+}
 // neto plata ?
 // staz
 

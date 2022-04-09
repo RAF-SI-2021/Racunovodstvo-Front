@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ZaposleniProfilService} from "../../services/zaposleni-profil/zaposleni-profil.service";
-import {Zaposleni} from "../../shared/profile.model";
+import {Plata, Zaposleni} from "../../shared/profile.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Observable} from "rxjs";
 import {DatePipe} from "@angular/common";
@@ -13,103 +13,112 @@ import {DatePipe} from "@angular/common";
 })
 export class ProfilZaposlenogComponent implements OnInit {
 
-  zaposleniData = null;
 
-  public addingForm : FormGroup;
-
-  // sifraZaposlenog:number =0;
-  // ime: string = '';
-  // prezime:string = '';
-  // imeRoditelja:string = '';
-  // datumPocetkaRadnogOdnosa: string = '';
-  // netoPlata: number = 0;
-  // JMBG:string = '';
-  // pol:string = '';
-  // datumRodjenja: string = '';
-  // adresa:string = '';
-  // grad:string = '';
-  // radnoMesto:string = '';
-  // brojRacuna:string = '';
-  // stepenObrazovanja:string = '';
-  // brojRadneKnjizice:number = 0;
-  // status:string = '';
-  // komentar:string = '';
+  addingForm: FormGroup;
+  staz: string = '';
+  plata !: number;
+  plate: Plata[] = []
 
   constructor(private profilService: ZaposleniProfilService, private formBuilder: FormBuilder, router: Router, private route: ActivatedRoute, public datepipe: DatePipe) {
     this.addingForm = this.formBuilder.group({
       sifraZaposlenog: ['', Validators.required],
       ime: ['', Validators.required],
       prezime: ['', Validators.required],
-      imeRoditelja:[''],
-      datumPocetka: ['', Validators.required],
+      imeRoditelja: [''],
+      datumPocetka: [new Date(), Validators.required],
       JMBG: ['', Validators.required],
       pol: ['', Validators.required],
       datumRodjenja: ['', Validators.required],
-      adresa:[''],
-      grad:[''],
+      adresa: [''],
+      grad: [''],
       radnoMesto: ['', Validators.required],
-      brojRacuna:[''],
-      stepenObrazovanja:[''],
-      brojRadneKnjizice:[''],
+      brojRacuna: [''],
+      stepenObrazovanja: [''],
+      brojRadneKnjizice: [''],
       status: ['', Validators.required],
-      komentar:['']
+      komentar: ['']
     });
   }
 
   ngOnInit(): void {
 
 
-
-    // localStorage.setItem("jwt", "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyMSIsImV4cCI6MTY0OTUyOTA1MiwiaWF0IjoxNjQ5NDkzMDUyfQ.bQ_Gl1rr4REMN28jYMAbeO_VuRJ7H2wbxfteXTEUk9HVZbpxTsHzqmPKXnJK8UV1aFTavi03gpUKTB3aVRVfOg")
-    this.profilService.getZaposleni(this.route.snapshot.paramMap.get('id')).subscribe((zaposleni) =>{
+    this.profilService.getZaposleni(this.route.snapshot.paramMap.get('id')).subscribe((zaposleni) => {
       this.addingForm.patchValue({
         sifraZaposlenog: zaposleni.zaposleniId,
         ime: zaposleni.ime,
         prezime: zaposleni.prezime,
-        imeRoditelja:zaposleni.imeRoditelja,
-        datumPocetka: zaposleni.datumRodjenja,
+        imeRoditelja: zaposleni.imeRoditelja,
+        datumPocetka: zaposleni.pocetakRadnogOdnosa,
         JMBG: zaposleni.jmbg,
         pol: zaposleni.pol,
         datumRodjenja: zaposleni.datumRodjenja,
-        adresa:zaposleni.adresa,
-        grad:zaposleni.grad,
+        adresa: zaposleni.adresa,
+        grad: zaposleni.grad,
         radnoMesto: zaposleni.radnaPozicija,
-        brojRacuna:zaposleni.brojRacuna,
-        stepenObrazovanja:zaposleni.stepenObrazovanja,
-        brojRadneKnjizice:zaposleni.brojRadneKnjizice,
-        status:zaposleni.statusZaposlenog,
-        komentar:zaposleni.komentar
+        brojRacuna: zaposleni.brojRacuna,
+        stepenObrazovanja: zaposleni.stepenObrazovanja,
+        brojRadneKnjizice: zaposleni.brojRadneKnjizice,
+        status: zaposleni.statusZaposlenog,
+        komentar: zaposleni.komentar
       });
+      this.staz = this.izracunajStaz(zaposleni.pocetakRadnogOdnosa)
+      console.log(this.staz + " !")
 
-      console.log(zaposleni)
-      // let pocetak = new Date(zaposleni.pocetakRadnogOdnosa).getTime();
-      // let danas = new Date().getTime();
-      // // @ts-ignore
-      // console.log(this.datepipe.transform(new Date(danas-pocetak), 'dd/MM/yy'))
-      // this.sifraZaposlenog = zaposleni.zaposleniId;
-      // this.ime = zaposleni.ime;
-      // this.prezime = zaposleni.prezime;
-      // this.imeRoditelja = zaposleni.imeRoditelja;
-      // this.datumPocetkaRadnogOdnosa = zaposleni.pocetakRadnogOdnosa;
-      // this.JMBG = zaposleni.jmbg;
-      // this.pol = zaposleni.pol;
-      // this.datumRodjenja = zaposleni.datumRodjenja;
-      // this.adresa = zaposleni.adresa;
-      // this.grad = zaposleni.grad;
-      // this.radnoMesto = zaposleni.radnaPozicija;
-      // this.brojRacuna = zaposleni.brojRacuna;
-      // this.stepenObrazovanja = zaposleni.stepenObrazovanja;
-      // this.brojRadneKnjizice = zaposleni.brojRadneKnjizice;
-      // this.status = zaposleni.statusZaposlenog;
-      // this.komentar = zaposleni.komentar;
+    })
+
+    this.profilService.getPlate(this.route.snapshot.paramMap.get('id')).subscribe(plate =>{
+      this.plate = plate;
+    });
+
+  }
+
+  edit() {
+
+    alert( this.addingForm.get('datumPocetka')?.value)
+    // if(this.addingForm.valid){
+      this.profilService.updateZaposleni(
+        this.addingForm.get('sifraZaposlenog')?.value,
+        this.addingForm.get('ime')?.value,
+        this.addingForm.get('prezime')?.value,
+        this.addingForm.get('imeRoditelja')?.value, // .value ?????
+        this.addingForm.get('datumPocetka')?.value,
+        this.addingForm.get('JMBG')?.value,
+        this.addingForm.get('pol')?.value,
+        this.addingForm.get('datumRodjenja')?.value,
+        this.addingForm.get('adresa')?.value, // .value ?????
+        this.addingForm.get('grad')?.value, // .value ?????
+        this.addingForm.get('brojRacuna')?.value,
+        this.addingForm.get('stepenObrazovanja')?.value,
+        this.addingForm.get('brojRadneKnjizice')?.value,
+        this.addingForm.get('status')?.value,
+        this.addingForm.get('komentar')?.value,
+        this.addingForm.get('radnoMesto')?.value,
+      ).subscribe(zaposleni => {
+        console.log("uspesno cuvanje" + " " + zaposleni);
+      })
+    // }else{
+    //   console.log("forma nije validna")
+    // }
+
+
+  }
+
+  put(){
+    this.profilService.putPlata(this.route.snapshot.paramMap.get('id'), this.plata).subscribe(plata=>{
+      this.profilService.getPlate(this.route.snapshot.paramMap.get('id')).subscribe(plate =>{
+        this.plate = plate;
+      });
     })
   }
-  edit(){
-  //   this.profilService.updateZaposleni(this.sifraZaposlenog, this.ime, this.prezime, this.imeRoditelja, this.datumPocetkaRadnogOdnosa, this.JMBG, this.pol,
-  //     this.datumRodjenja, this.adresa, this.grad, this.brojRacuna, this.stepenObrazovanja, this.brojRadneKnjizice, this.status, this.komentar, this.radnoMesto).subscribe( zaposleni =>{
-  //     console.log("uspesno cuvanje" + " " + zaposleni);
-  //   })
-  //
+
+  izracunajStaz(pocetakRada: string) {
+    let date1 = new Date(pocetakRada);
+    let date2 = new Date();
+    let date3 = new Date(date2.getTime() - date1.getTime());
+    console.log(date3.getTime())
+    let earliestDate = new Date(3600);
+    return (date3.getFullYear() - earliestDate.getFullYear()) + '/' + ((date3.getMonth() + 1) - (earliestDate.getMonth() + 1)) + '/' + (date3.getDate() - earliestDate.getDate());
   }
 
 

@@ -15,6 +15,7 @@ import { AddInvoiceGuard } from './guards/add-invoice.guard';
 import { KUFGuard } from './guards/kuf.guard';
 import { KIFGuard } from './guards/kif.guard';
 import {ProfilZaposlenogComponent} from "./components/profil-zaposlenog/profil-zaposlenog.component";
+import {SvaKnjizenjaComponent} from "./components/sva-knjizenja/sva-knjizenja.component";
 
 const routes: Routes = [
 	{
@@ -59,6 +60,11 @@ const routes: Routes = [
     path:'zaposleni/:id',
     component: ProfilZaposlenogComponent,
     // canActivate:[ProfileGuard] // ????????
+  },
+  {
+    path:'svaKnjizenja',
+    component: SvaKnjizenjaComponent,
+    // canActivate
   }
 ];
 

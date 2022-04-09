@@ -14,6 +14,7 @@ import { KufComponent } from './components/kuf/kuf.component';
 import { KifComponent } from './components/kif/kif.component';
 import { ProfilZaposlenogComponent } from './components/profil-zaposlenog/profil-zaposlenog.component';
 import {DatePipe} from "@angular/common";
+import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.component';
 
 @NgModule({
 	declarations: [
@@ -26,6 +27,7 @@ import {DatePipe} from "@angular/common";
 		KufComponent,
 		KifComponent,
     ProfilZaposlenogComponent,
+    SvaKnjizenjaComponent,
 	],
 	imports: [
 		BrowserModule,
