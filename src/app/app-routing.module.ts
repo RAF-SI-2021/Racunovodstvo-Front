@@ -15,6 +15,8 @@ import { AddClientGuard } from './guards/add-client.guard';
 import { AddInvoiceGuard } from './guards/add-invoice.guard';
 import { KUFGuard } from './guards/kuf.guard';
 import { KIFGuard } from './guards/kif.guard';
+import {BrutoBilansComponent} from "./components/bruto-bilans/bruto-bilans.component";
+import {BrutoBilansGuard} from "./guards/bruto-bilans.guard";
 
 const routes: Routes = [
 	{
@@ -59,6 +61,11 @@ const routes: Routes = [
     path: 'account-plan',
     component: AccountPlanComponent,
     canActivate: [AccountPlanGuard]
+  },
+  {
+    path: 'bruto-bilans',
+    component: BrutoBilansComponent,
+    canActivate: [BrutoBilansGuard]
   },
 ];
 
