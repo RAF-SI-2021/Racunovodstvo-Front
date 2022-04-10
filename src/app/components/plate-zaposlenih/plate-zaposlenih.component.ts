@@ -31,6 +31,17 @@ export class PlateZaposlenihComponent implements OnInit {
   ngOnInit(): void {
     this.service.getAllPlate().subscribe((response) =>{
       this.plate = response;
+      this.plate = this.plate.sort((n1,n2) => {
+        if (n1.zaposleni.statusZaposlenog < n2.zaposleni.statusZaposlenog) {
+          return 1;
+        }
+
+        if (n1.zaposleni.statusZaposlenog > n2.zaposleni.statusZaposlenog) {
+          return -1;
+        }
+
+        return 0;
+      });
     })
   }
 
@@ -101,7 +112,7 @@ export class PlateZaposlenihComponent implements OnInit {
   }
 
   profilZaposlenog(index: number){
-    this.router.navigate([`profil-zaposlenog/${index}`])
+    this.router.navigate([`zaposleni/${index}`])
   }
 
 
