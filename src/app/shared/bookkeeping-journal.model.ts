@@ -9,6 +9,17 @@ export interface BookkeepingJournal {
 	komentar: string;
 }
 
+export interface MainBook {
+	brojNaloga: number;
+	datum: Date;
+	potrazuje: number;
+	duguje: number;
+	saldo: number;
+	nazivKonta: string;
+	konto: string;
+	komentar: string;
+}
+
 export class BookkeepingJournal {
 	knjizenjeId: number;
 	brojNaloga: string;

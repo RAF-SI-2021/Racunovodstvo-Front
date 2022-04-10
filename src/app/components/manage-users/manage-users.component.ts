@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Permission, User } from '../../shared/manage-users';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManageUsersService } from '../../services/manage-users/manage-users.service';
+import { Authority } from 'src/app/shared/enums/permissions';
 
 @Component({
 	selector: 'app-manage-users',
@@ -33,20 +34,9 @@ export class ManageUsersComponent implements OnInit {
 			name: ['', [Validators.required, Validators.minLength(3)]],
 			surname: ['', [Validators.required, Validators.minLength(3)]],
 			password: ['', [Validators.required, Validators.minLength(8)]],
-			profile: [false],
-			records: [false],
-			acquisitions: [false],
-			sales: [false],
-			reports: [false],
-			bookkeeping: [false],
-			kuf: [false],
-			kif: [false],
-			add_invoice: [false],
-			account_plan: [false],
-			bookkeeping_journal: [false],
-			main_book: [false],
-			add_client: [false],
-			pay_roll: [false],
+			finop: [false],
+			finknj: [false],
+			obrza: [false],
 		});
 	}
 
@@ -60,22 +50,20 @@ export class ManageUsersComponent implements OnInit {
 			}
 		);
 		/*
-    let user1 = new User(1,"user1", "usr1", "usric1", "12345678");
-    let user2 = new User(2,"user2", "usr2", "usric2", "12345678");
-    let user3 = new User(3,"user3", "usr3", "usric3", "12345678");
-    let user4 = new User(4,"user3", "usr3", "usric3", "12345678");
-    let user5 = new User(5,"user3", "usr3", "usric3", "12345678");
-    let user6 = new User(6,"user3", "usr3", "usric3", "12345678");
+			let user1 = new User(1,"user1", "usr1", "usric1", "12345678");
+			let user2 = new User(2,"user2", "usr2", "usric2", "12345678");
+			let user3 = new User(3,"user3", "usr3", "usric3", "12345678");
+			let user4 = new User(4,"user3", "usr3", "usric3", "12345678");
+			let user5 = new User(5,"user3", "usr3", "usric3", "12345678");
+			let user6 = new User(6,"user3", "usr3", "usric3", "12345678");
 
-    this.users.push(user1);
-    this.users.push(user2);
-    this.users.push(user3);
-    this.users.push(user4);
-    this.users.push(user5);
-    this.users.push(user6);
-
-
- */
+			this.users.push(user1);
+			this.users.push(user2);
+			this.users.push(user3);
+			this.users.push(user4);
+			this.users.push(user5);
+			this.users.push(user6);
+		*/
 	}
 
 	delete(user: User) {
@@ -108,20 +96,13 @@ export class ManageUsersComponent implements OnInit {
 		this.userAddForm.controls['name'].setValue('');
 		this.userAddForm.controls['surname'].setValue('');
 		this.userAddForm.controls['password'].setValue('');
-		this.userAddForm.controls['profile'].setValue(false);
-		this.userAddForm.controls['records'].setValue(false);
-		this.userAddForm.controls['acquisitions'].setValue(false);
-		this.userAddForm.controls['sales'].setValue(false);
-		this.userAddForm.controls['reports'].setValue(false);
-		this.userAddForm.controls['bookkeeping'].setValue(false);
-		this.userAddForm.controls['kuf'].setValue(false);
-		this.userAddForm.controls['kif'].setValue(false);
-		this.userAddForm.controls['add_invoice'].setValue(false);
-		this.userAddForm.controls['account_plan'].setValue(false);
-		this.userAddForm.controls['bookkeeping_journal'].setValue(false);
-		this.userAddForm.controls['main_book'].setValue(false);
-		this.userAddForm.controls['add_client'].setValue(false);
-		this.userAddForm.controls['pay_roll'].setValue(false);
+		this.userAddForm.controls[Authority.FINANSIJSKA_OPERATIVA].setValue(
+			false
+		);
+		this.userAddForm.controls[Authority.FINANSIJSKO_KNJIGOVODSTVO].setValue(
+			false
+		);
+		this.userAddForm.controls[Authority.OBRACUN_ZARADE].setValue(false);
 		this.hiddenAdd = !this.hiddenAdd;
 	}
 
@@ -179,34 +160,12 @@ export class ManageUsersComponent implements OnInit {
 
 	populatePermissions(): Permission[] {
 		let toReturn: Permission[] = [];
-		if (this.userAddForm.get('profile')?.value)
-			toReturn.push(new Permission('profile'));
-		if (this.userAddForm.get('records')?.value)
-			toReturn.push(new Permission('records'));
-		if (this.userAddForm.get('acquisitions')?.value)
-			toReturn.push(new Permission('acquisitions'));
-		if (this.userAddForm.get('sales')?.value)
-			toReturn.push(new Permission('sales'));
-		if (this.userAddForm.get('reports')?.value)
-			toReturn.push(new Permission('reports'));
-		if (this.userAddForm.get('bookkeeping')?.value)
-			toReturn.push(new Permission('bookkeeping'));
-		if (this.userAddForm.get('kuf')?.value)
-			toReturn.push(new Permission('kuf'));
-		if (this.userAddForm.get('kif')?.value)
-			toReturn.push(new Permission('kif'));
-		if (this.userAddForm.get('add_invoice')?.value)
-			toReturn.push(new Permission('add_invoice'));
-		if (this.userAddForm.get('account_plan')?.value)
-			toReturn.push(new Permission('account_plan'));
-		if (this.userAddForm.get('bookkeeping_journal')?.value)
-			toReturn.push(new Permission('bookkeeping_journal'));
-		if (this.userAddForm.get('main_book')?.value)
-			toReturn.push(new Permission('main_book'));
-		if (this.userAddForm.get('add_client')?.value)
-			toReturn.push(new Permission('add_client'));
-		if (this.userAddForm.get('pay_roll')?.value)
-			toReturn.push(new Permission('pay_roll'));
+		if (this.userAddForm.get(Authority.FINANSIJSKA_OPERATIVA)?.value)
+			toReturn.push(new Permission(Authority.FINANSIJSKA_OPERATIVA));
+		if (this.userAddForm.get(Authority.FINANSIJSKO_KNJIGOVODSTVO)?.value)
+			toReturn.push(new Permission(Authority.FINANSIJSKO_KNJIGOVODSTVO));
+		if (this.userAddForm.get(Authority.OBRACUN_ZARADE)?.value)
+			toReturn.push(new Permission(Authority.OBRACUN_ZARADE));
 		return toReturn;
 	}
 }
