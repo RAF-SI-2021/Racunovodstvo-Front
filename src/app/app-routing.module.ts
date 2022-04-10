@@ -20,6 +20,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { FinansijskaOperativaGuard } from './guards/finansijska-operativa.guard';
 import { FinansijskoKnjigovodstvoGuard } from './guards/finansijsko-knjigovodstvo.guard';
 import { ObracunZaradeGuard } from './guards/obracun-zarade.guard';
+import {KnjizenjeWidgetComponent} from "./components/knjizenje-widget/knjizenje-widget.component";
 
 const routes: Routes = [
 	{
@@ -100,6 +101,11 @@ const routes: Routes = [
 		component: KoeficijentiComponent,
 		canActivate: [ObracunZaradeGuard],
 	},
+  {
+    path: 'knjizenje-widget',
+    component: KnjizenjeWidgetComponent,
+    canActivate: [FinansijskoKnjigovodstvoGuard],
+  },
 ];
 
 @NgModule({
