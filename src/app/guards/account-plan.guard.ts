@@ -1,45 +1,17 @@
-import { Injectable } from '@angular/core';
-import {
-	ActivatedRouteSnapshot,
-	CanActivate,
-	RouterStateSnapshot,
-	UrlTree,
-} from '@angular/router';
-import { Observable, first, map } from 'rxjs';
-import { UserService } from '../services/login/user.service';
-import { User } from '../shared/user.model';
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree} from '@angular/router';
+import {Observable} from 'rxjs';
+import {Authority} from "../enums/permissions";
 
 @Injectable({
-	providedIn: 'root',
+  providedIn: 'root'
 })
 export class AccountPlanGuard implements CanActivate {
-	user!: User;
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return sessionStorage.getItem(Authority.ACCOUNT_PLAN) != null;
 
-	constructor(private userService: UserService) {
-		this.userService.getLoggedInUser().subscribe((user) => {
-			this.user = user;
-		});
-	}
+  }
 
-	canActivate(
-		route: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot
-	):
-		| Observable<boolean | UrlTree>
-		| Promise<boolean | UrlTree>
-		| boolean
-		| UrlTree {
-		return this.userService.getLoggedInUser().pipe(
-			first(),
-			map((user) => {
-				if (user) {
-					for (let i = 0; i < user.authorities.length; i++) {
-						if (user.authorities[i].name === 'kontni plan')
-							return true;
-					}
-					return false;
-				} else return true;
-			})
-		);
-	}
 }
