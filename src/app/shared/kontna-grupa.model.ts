@@ -1,11 +1,15 @@
-export interface KontnaGrupa {
-  kontnaGrupaId: number
-  brojKonta: string
-  //nekad se u response dobije kao naziv nekad kao nazivKonta #spaghettiAndMeatballs
-  naziv: string
-  nazivKonta: string
+export class KontnaGrupa {
+	kontnaGrupaId: number;
+	brojKonta: string;
+	nazivKonta: string;
+
+	constructor(kontnaGrupaId: number, brojKonta: string, nazivKonta: string) {
+		this.kontnaGrupaId = kontnaGrupaId;
+		this.brojKonta = brojKonta;
+		this.nazivKonta = nazivKonta;
+	}
 }
 
 export interface readKontoResponse {
-  content: KontnaGrupa[]
+	content: KontnaGrupa[];
 }

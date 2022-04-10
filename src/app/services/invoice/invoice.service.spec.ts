@@ -8,6 +8,4 @@ describe('InvoiceService', () => {
 		TestBed.configureTestingModule({});
 		service = TestBed.inject(InvoiceService);
 	});
-
-
 });

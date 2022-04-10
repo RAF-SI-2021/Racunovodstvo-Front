@@ -13,6 +13,7 @@ import { ProfilZaposlenogComponent } from './components/profil-zaposlenog/profil
 import { PlateZaposlenihComponent } from './components/plate-zaposlenih/plate-zaposlenih.component';
 import { KoeficijentiComponent } from './components/koeficijenti/koeficijenti.component';
 import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.component';
+import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
 
 import { LoginGuard } from './guards/login.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -71,6 +72,11 @@ const routes: Routes = [
 	{
 		path: 'sva-knjizenja',
 		component: SvaKnjizenjaComponent,
+		canActivate: [FinansijskoKnjigovodstvoGuard],
+	},
+	{
+		path: 'bruto-bilans',
+		component: BrutoBilansComponent,
 		canActivate: [FinansijskoKnjigovodstvoGuard],
 	},
 	// OBRACUN_ZARADE

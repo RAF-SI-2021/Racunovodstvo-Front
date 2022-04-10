@@ -9,6 +9,4 @@ describe('AddNewClientService', () => {
 		TestBed.configureTestingModule({});
 		service = TestBed.inject(AddNewClientService);
 	});
-
-
 });

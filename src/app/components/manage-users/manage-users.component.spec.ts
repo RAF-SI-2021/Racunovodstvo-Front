@@ -17,5 +17,4 @@ describe('ManageUsersComponent', () => {
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
-
 });

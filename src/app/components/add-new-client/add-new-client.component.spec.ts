@@ -17,5 +17,4 @@ describe('AddNewClientComponent', () => {
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
-
 });

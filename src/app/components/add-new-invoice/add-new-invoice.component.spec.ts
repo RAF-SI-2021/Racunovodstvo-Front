@@ -17,5 +17,4 @@ describe('AddNewInvoiceComponent', () => {
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
-
 });

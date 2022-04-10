@@ -8,5 +8,4 @@ describe('ManageUsersService', () => {
 		TestBed.configureTestingModule({});
 		service = TestBed.inject(ManageUsersService);
 	});
-
 });
