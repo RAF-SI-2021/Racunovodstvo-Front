@@ -19,17 +19,8 @@ describe('AppComponent', () => {
 
 	it(`should have as title 'racunovodstvo'`, () => {
 		const fixture = TestBed.createComponent(AppComponent);
-		const app = fixture.componentInstance;
+		const app = fixture.debugElement.componentInstance;
 		expect(app.title).toEqual('racunovodstvo');
-	});
-
-	it('should render title', () => {
-		const fixture = TestBed.createComponent(AppComponent);
-		fixture.detectChanges();
-		const compiled = fixture.nativeElement as HTMLElement;
-		expect(compiled.querySelector('.navbar div')?.textContent).toContain(
-			'Racunovodstvo'
-		);
 	});
 
 	it('should have no admin permission', () => {

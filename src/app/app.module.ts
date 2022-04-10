@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -20,6 +21,7 @@ import { ZaposleniComponent } from './components/zaposleni/zaposleni.component';
 import { ProfilZaposlenogComponent } from './components/profil-zaposlenog/profil-zaposlenog.component';
 import { PlateZaposlenihComponent } from './components/plate-zaposlenih/plate-zaposlenih.component';
 import { KoeficijentiComponent } from './components/koeficijenti/koeficijenti.component';
+import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.component';
 
 import { DatePipe } from '@angular/common';
 
@@ -39,6 +41,7 @@ import { DatePipe } from '@angular/common';
 		ProfilZaposlenogComponent,
 		PlateZaposlenihComponent,
 		KoeficijentiComponent,
+		SvaKnjizenjaComponent,
 	],
 	imports: [
 		BrowserModule,

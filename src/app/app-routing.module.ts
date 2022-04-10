@@ -12,6 +12,7 @@ import { ZaposleniComponent } from './components/zaposleni/zaposleni.component';
 import { ProfilZaposlenogComponent } from './components/profil-zaposlenog/profil-zaposlenog.component';
 import { PlateZaposlenihComponent } from './components/plate-zaposlenih/plate-zaposlenih.component';
 import { KoeficijentiComponent } from './components/koeficijenti/koeficijenti.component';
+import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.component';
 
 import { LoginGuard } from './guards/login.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -65,6 +66,11 @@ const routes: Routes = [
 	{
 		path: 'bookkeeping-journal',
 		component: BookkeepingJournalComponent,
+		canActivate: [FinansijskoKnjigovodstvoGuard],
+	},
+	{
+		path: 'sva-knjizenja',
+		component: SvaKnjizenjaComponent,
 		canActivate: [FinansijskoKnjigovodstvoGuard],
 	},
 	// OBRACUN_ZARADE
