@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BackService } from './back.service';
+import { BrutoBilansService } from './bruto-bilans.service';
 
-describe('BackService', () => {
-  let service: BackService;
+describe('BrutoBilansService', () => {
+  let service: BrutoBilansService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(BackService);
+    service = TestBed.inject(BrutoBilansService);
   });
 
   it('should be created', () => {

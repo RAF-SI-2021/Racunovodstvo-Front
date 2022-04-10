@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageUsersComponent } from './manage-users.component';
+import { BrutoBilansComponent } from './bruto-bilans.component';
 
-describe('ManageUsersComponent', () => {
-  let component: ManageUsersComponent;
-  let fixture: ComponentFixture<ManageUsersComponent>;
+describe('BrutoBilansComponent', () => {
+  let component: BrutoBilansComponent;
+  let fixture: ComponentFixture<BrutoBilansComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ManageUsersComponent ]
+      declarations: [ BrutoBilansComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageUsersComponent);
+    fixture = TestBed.createComponent(BrutoBilansComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

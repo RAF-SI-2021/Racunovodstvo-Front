@@ -1,10 +1,22 @@
+export interface LoginResponse {
+	jwt: string;
+}
+
+export interface Permission {
+	id: number;
+	name: string;
+	authority: string;
+}
+
 export interface User {
   userId: number
   username: string,
   firstName: string,
   lastName: string,
-  permissions: Permissions[]
+  //dont change authorities to permissions, shit dont work then for some reason
+  authorities: Permission[]
 }
+
 export class User{
   userId: number
   username: string;
@@ -24,13 +36,14 @@ export class User{
     this.lastName = lastName
   }
 }
+
 export interface Users {
   users: User[];
 }
+
 export class Permission{
   name: string;
   constructor(name: string) {
     this.name = name
   }
 }
-
