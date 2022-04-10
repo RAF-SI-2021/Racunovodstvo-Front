@@ -2,74 +2,71 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container-fluid">
-        <a [routerLink]="'/'" class="navbar-brand">Racunovodstvo</a>
+        <a [routerLink]="'/'" class="navbar-brand">Računovodstvo</a>
 
         <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
           <ul class="navbar-nav" role="tablist">
-            <!--TODO set up router links correctly-->
-            <li><a [hidden]="!canProfile()" [routerLink]="'profile'" class="nav-link active"
-                aria-current="page">PROFIL</a></li>
-            <li><a [hidden]="!canEvidence()" [routerLink]="'PLACEHOLDER'" class="nav-link active"
-                aria-current="page">EVIDENCIJE</a></li>
-            <li><a [hidden]="!canAcquisitions()" [routerLink]="'PLACEHOLDER'" class="nav-link active"
-                aria-current="page">NABAVKE</a></li>
-            <li><a [hidden]="!canSales()" [routerLink]="'PLACEHOLDER'" class="nav-link active"
-                aria-current="page">PRODAJA</a></li>
-            <li><a [hidden]="!canReports()" [routerLink]="'PLACEHOLDER'" class="nav-link active"
-                aria-current="page">IZVESTAJI</a></li>
+            <!-- FINANSIJSKA_OPERATIVA -->
+			<div ngbDropdown class="d-inline-block">
+			  <a [hidden]="!canFinOp()" ngbDropdownToggle
+				class="nav-link active" aria-current="page">FINANSIJSKA OPERATIVA</a>
+
+			  <ul ngbDropdownMenu>
+
+				<a ngbDropdownItem [routerLink]="'KUF'">KUF</a>
+
+				<a ngbDropdownItem [routerLink]="'KIF'">KIF</a>
+
+				<a ngbDropdownItem [routerLink]="'add-new-invoice'">Dodaj fakturu</a>
+
+				<a ngbDropdownItem [routerLink]="'add-new-client'">Komitenti</a>
+
+			  </ul>
+			</div>
+
+			<!-- FINANSIJSKO_KNJIGOVODSTVO -->
             <div ngbDropdown class="d-inline-block">
-              <a [hidden]="!canBookkeeping() && !canAccountPlan() && !canBookkeepingJournal() && !canMainBook()"
+              <a [hidden]="!canFinKnj()"
                 ngbDropdownToggle class="nav-link active" aria-current="page">FINANSIJSKO KNJIGOVODSTVO</a>
 
               <ul ngbDropdownMenu>
 
-                <a [hidden]="!canBookkeeping()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Knjiženje</a>
+				<a ngbDropdownItem [routerLink]="'account-plan'">Kontni plan</a>
 
-                <a [hidden]="!canAccountPlan()" ngbDropdownItem [routerLink]="'account-plan'">Kontni plan</a>
+                <a ngbDropdownItem [routerLink]="'bookkeeping-journal'">Dnevnik knjiženja</a>
 
-                <a [hidden]="!canBookkeepingJournal()" ngbDropdownItem [routerLink]="'bookkeeping-journal'">Dnevnik
-                  Knjiženja</a>
+                <a ngbDropdownItem [routerLink]="'PLACEHOLDER'">Glavna knjiga</a>
 
-                <a [hidden]="!canMainBook()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Glavna knjiga</a>
+                <a ngbDropdownItem [routerLink]="'PLACEHOLDER'">Knjiženje</a>
+
+				<a ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bruto bilans</a>
 
               </ul>
             </div>
+
+			<!-- OBRACUN_ZARADE -->
             <div ngbDropdown class="d-inline-block">
-              <a [hidden]="!canKUF() && !canKIF() && !canAddNewInvoice() && !canAddNewClient()" ngbDropdownToggle
-                class="nav-link active" aria-current="page">FINANSIJSKA OPERATIVA</a>
+              <a [hidden]="!canObrZa()" ngbDropdownToggle class="nav-link active" aria-current="page">Obracun zarade</a>
 
               <ul ngbDropdownMenu>
 
-                <a [hidden]="!canKUF()" ngbDropdownItem [routerLink]="'KUF'">KUF</a>
+				<a [routerLink]="'PLACEHOLDER'" class="nav-link active"
+                aria-current="page">Profil zaposlenog</a>
 
-                <a [hidden]="!canKIF()" ngbDropdownItem [routerLink]="'KIF'">KIF</a>
+                <a ngbDropdownItem [routerLink]="'PLACEHOLDER'">Zaposleni</a>
 
-                <a [hidden]="!canAddNewInvoice()" ngbDropdownItem [routerLink]="'add-new-invoice'">Dodaj fakturu</a>
+                <a ngbDropdownItem [routerLink]="'PLACEHOLDER'">Plata</a>
 
-                <a [hidden]="!canAddNewClient()" ngbDropdownItem [routerLink]="'add-new-client'">Dodaj komitenta</a>
-
-
-              </ul>
-            </div>
-
-            <div ngbDropdown class="d-inline-block">
-              <a [hidden]="!canBrutoBilans() && !canBilansUspeha() && !canBilansStanja()" ngbDropdownToggle class="nav-link active" aria-current="page">Obracun zarade</a>
-
-              <ul ngbDropdownMenu>
-
-                <a [hidden]="!canBrutoBilans()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bruto Bilans</a>
-
-                <a [hidden]="!canBilansUspeha()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bilans Uspeha</a>
-
-                <a [hidden]="!canBilansStanja()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bilans Stanja</a>
-
+				<a ngbDropdownItem [routerLink]="'PLACEHOLDER'">Koeficijenti za obračun poreza i doprinosa</a>
 
               </ul>
             </div>
+
+			<!-- ADMIN -->
             <li><a [hidden]="!isAdmin()" [routerLink]="'manage-users'" class="nav-link active"
                 aria-current="page">Upravljanje korisnicima</a></li>
           </ul>
-          <button [hidden]="!loggedIn()" (click)="logout()" type="button" class="btn btn-primary">Logout</button>
+          <button [hidden]="!loggedIn()" (click)="logout()" type="button" class="btn btn-primary">Odjava</button>
         </div>
       </div>
     </nav>

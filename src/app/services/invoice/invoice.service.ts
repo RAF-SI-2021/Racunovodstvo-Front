@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Invoice, Company, ResponseObject } from 'src/app/shared/invoice.model';
+import {
+	Invoice,
+	Company,
+	Konto,
+	ResponseObject,
+} from 'src/app/shared/invoice.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,7 +19,7 @@ export class InvoiceService {
 	constructor(private http: HttpClient) {}
 
 	filterKUF(pretraga: string, value: string) {
-		if (pretraga.includes('datum')) {
+		if (pretraga.includes('datum') || pretraga.includes('rokZa')) {
 			let date = new Date(value);
 			let value2 = date.getTime() / 1000 + 24 * 60 * 60;
 			value = '' + date.getTime() / 1000;
@@ -44,7 +49,7 @@ export class InvoiceService {
 	}
 
 	filterKIF(pretraga: string, value: string) {
-		if (pretraga.includes('datum')) {
+		if (pretraga.includes('datum') || pretraga.includes('rokZa')) {
 			let date = new Date(value);
 			let value2 = date.getTime() / 1000 + 24 * 60 * 60;
 			value = '' + date.getTime() / 1000;
@@ -55,6 +60,21 @@ export class InvoiceService {
 					`\>${value},` +
 					pretraga +
 					`\<${value2}`,
+				{
+					headers: this.httpHeaders,
+					observe: 'response',
+				}
+			);
+		}
+		if (pretraga.includes('rokZa')) {
+			let value2 = new Date();
+			return this.http.get<any>(
+				environment.APIEndpoint +
+					`/api/faktura?search=tipFakture:IZLAZNA_FAKTURA,` +
+					pretraga +
+					`\>${value2},` +
+					pretraga +
+					`\<${value}`,
 				{
 					headers: this.httpHeaders,
 					observe: 'response',
@@ -108,6 +128,7 @@ export class InvoiceService {
 				fakturaId: faktura.fakturaId,
 				brojFakture: faktura.brojFakture,
 				datumIzdavanja: faktura.datumIzdavanja,
+				rokZaPlacanje: faktura.rokZaPlacanje,
 				datumPlacanja: faktura.datumPlacanja,
 				prodajnaVrednost: faktura.prodajnaVrednost,
 				porezProcenat:
@@ -121,11 +142,47 @@ export class InvoiceService {
 					faktura.rabatProcenat === null ? 0 : faktura.rabatProcenat,
 				preduzece: faktura.preduzece,
 				dokumentId: faktura.dokumentId,
+				brojDokumenta: faktura.brojDokumenta,
 				tipDokumenta: faktura.tipDokumenta,
 			},
 			{
 				headers: this.httpHeaders,
 				observe: 'response',
+			}
+		);
+	}
+
+	getKontneGrupe() {
+		return this.http.get<ResponseObject>(
+			environment.APIEndpoint + '/api/konto?sort=brojKonta',
+			{
+				headers: this.httpHeaders,
+			}
+		);
+	}
+
+	knjizenje(
+		kontos: Konto[],
+		ukupnoDuguje: number,
+		ukupnoPotrazuje: number,
+		saldo: number,
+		dokumentId: string,
+		brojNaloga: string,
+		datum: string
+	) {
+		return this.http.post(
+			environment.APIEndpoint + '/api/knjizenje',
+			{
+				datumKnjizenja: datum,
+				brojNaloga: dokumentId,
+				dokument: {
+					brojDokumenta: dokumentId,
+					tipDokumenta: 'FAKTURA',
+				},
+				konto: kontos,
+			},
+			{
+				headers: this.httpHeaders,
 			}
 		);
 	}

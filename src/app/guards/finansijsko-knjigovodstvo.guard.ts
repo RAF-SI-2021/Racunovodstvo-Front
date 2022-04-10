@@ -11,7 +11,7 @@ import { Authority } from '../shared/enums/permissions';
 @Injectable({
 	providedIn: 'root',
 })
-export class BilansStanjaGuard implements CanActivate {
+export class FinansijskoKnjigovodstvoGuard implements CanActivate {
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
@@ -20,6 +20,6 @@ export class BilansStanjaGuard implements CanActivate {
 		| Promise<boolean | UrlTree>
 		| boolean
 		| UrlTree {
-		return sessionStorage.getItem(Authority.BILANS_STANJA) != null;
+		return sessionStorage.getItem(Authority.ADMIN) != null;
 	}
 }

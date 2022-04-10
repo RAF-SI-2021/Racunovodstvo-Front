@@ -57,6 +57,7 @@ export class KifComponent implements OnInit {
 	faktura1: Invoice = new Invoice(
 		1,
 		'3',
+		'22/03/2222',
 		'20/03/2000',
 		new Company('NEBITNO'),
 		'20/03/2000',
@@ -72,12 +73,14 @@ export class KifComponent implements OnInit {
 		'Komentar',
 		'IZLAZNA_FAKTURA',
 		2,
+		'1111',
 		'FAKTURA'
 	);
 
 	faktura2: Invoice = new Invoice(
 		2,
 		'4',
+		'22/03/2222',
 		'20/03/2000',
 		new Company('NEBITNO'),
 		'20/03/2000',
@@ -93,6 +96,7 @@ export class KifComponent implements OnInit {
 		'Komentar',
 		'IZLAZNA_FAKTURA',
 		2,
+		'1111',
 		'FAKTURA'
 	);
 
@@ -115,7 +119,7 @@ export class KifComponent implements OnInit {
 	}
 
 	setInputAsDate() {
-		if (this.input.startsWith('datum')) {
+		if (this.input.startsWith('datum') || this.input.startsWith('rok')) {
 			this.inputAsDate = 'date';
 		} else if (this.input.startsWith('preduzece')) {
 			this.inputAsDate = 'number';
@@ -181,6 +185,7 @@ export class KifComponent implements OnInit {
 		this.updateGroup = this.formBuilder.group({
 			brojFakture: [this.selektovanaFaktura.brojFakture],
 			datumIzdavanja: [new Date(this.selektovanaFaktura.datumIzdavanja)],
+			rokZaPlacanje: [new Date(this.selektovanaFaktura.rokZaPlacanje)],
 			komitent: [
 				this.selektovanaFaktura.preduzece.naziv,
 				[Validators.required],
@@ -274,6 +279,7 @@ export class KifComponent implements OnInit {
 	sacuvaj() {
 		let brojFakture = this.updateGroup.get('brojFakture')?.value;
 		let datumIzdavanja = this.updateGroup.get('datumIzdavanja')?.value;
+		let rokZaPlacanje = this.updateGroup.get('rokZaPlacanje')?.value;
 		let komitent = this.updateGroup.get('komitent')?.value;
 		let datumPlacanja = this.updateGroup.get('datumPlacanja')?.value;
 		let prodajnaVrednost = this.updateGroup.get('prodajnaVrednost')?.value;
@@ -288,6 +294,8 @@ export class KifComponent implements OnInit {
 			this.selektovanaFaktura.brojFakture = brojFakture;
 		}
 		this.selektovanaFaktura.datumIzdavanja = datumIzdavanja;
+		this.selektovanaFaktura.rokZaPlacanje = rokZaPlacanje;
+
 		console.log(komitent);
 		if (komitent !== this.selektovanaFaktura.preduzece.naziv) {
 			this.preduzeca.forEach((value) => {
@@ -320,16 +328,17 @@ export class KifComponent implements OnInit {
 		this.selektovanaFaktura.naplata = naplata;
 		this.selektovanaFaktura.komentar = komentar;
 
-		this.service
-			.izmeniFakturu(this.selektovanaFaktura)
-			.subscribe((response) => {
+		this.service.izmeniFakturu(this.selektovanaFaktura).subscribe(
+			(response) => {
 				if (response.ok) {
 					alert('Uspesno ste izmenili fakturu');
 					this.ngOnInit();
-				} else {
-					alert('Nemate potrebnu autorizaciju');
 				}
-			});
+			},
+			(error) => {
+				alert('Nemate potrebnu autorizaciju');
+			}
+		);
 	}
 
 	delete(faktura: Invoice) {

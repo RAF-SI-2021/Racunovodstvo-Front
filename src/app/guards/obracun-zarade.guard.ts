@@ -11,7 +11,7 @@ import { Authority } from '../shared/enums/permissions';
 @Injectable({
 	providedIn: 'root',
 })
-export class SalesGuard implements CanActivate {
+export class ObracunZaradeGuard implements CanActivate {
 	canActivate(
 		route: ActivatedRouteSnapshot,
 		state: RouterStateSnapshot
@@ -20,6 +20,6 @@ export class SalesGuard implements CanActivate {
 		| Promise<boolean | UrlTree>
 		| boolean
 		| UrlTree {
-		return sessionStorage.getItem(Authority.SALES) != null;
+		return sessionStorage.getItem(Authority.ADMIN) != null;
 	}
 }

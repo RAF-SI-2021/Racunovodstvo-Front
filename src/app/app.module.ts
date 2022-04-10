@@ -6,7 +6,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ProfileTestComponent } from './components/profile-test/profile-test.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
 import { AccountPlanComponent } from './components/account-plan/account-plan.component';
 import { AddNewClientComponent } from './components/add-new-client/add-new-client.component';
 import { AddNewInvoiceComponent } from './components/add-new-invoice/add-new-invoice.component';
@@ -14,12 +15,12 @@ import { ManageUsersComponent } from './components/manage-users/manage-users.com
 import { KufComponent } from './components/kuf/kuf.component';
 import { KifComponent } from './components/kif/kif.component';
 import { BookkeepingJournalComponent } from './components/bookkeeping-journal/bookkeeping-journal.component';
+import { KnjizenjeWidgetComponent } from './components/knjizenje-widget/knjizenje-widget.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		LoginComponent,
-		ProfileTestComponent,
 		AccountPlanComponent,
 		AddNewClientComponent,
 		AddNewInvoiceComponent,
@@ -27,6 +28,7 @@ import { BookkeepingJournalComponent } from './components/bookkeeping-journal/bo
 		KufComponent,
 		KifComponent,
 		BookkeepingJournalComponent,
+		KnjizenjeWidgetComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -35,6 +37,7 @@ import { BookkeepingJournalComponent } from './components/bookkeeping-journal/bo
 		ReactiveFormsModule,
 		HttpClientModule,
 		FormsModule,
+		MatAutocompleteModule, // ?
 	],
 	providers: [],
 	bootstrap: [AppComponent],
