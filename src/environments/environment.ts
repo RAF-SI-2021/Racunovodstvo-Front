@@ -15,6 +15,7 @@ export const environment = {
 	userApi: 'http://localhost:8080/api/users',
 
   kontnaGrupaApi: 'http://localhost:8080/api/konto',
+  brutoBilansApi: 'http://localhost:8080/api/bilans',
 };
 
 /*
