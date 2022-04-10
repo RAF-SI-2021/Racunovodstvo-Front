@@ -18,7 +18,7 @@
             <li><a [hidden]="!canReports()" [routerLink]="'PLACEHOLDER'" class="nav-link active"
                 aria-current="page">IZVESTAJI</a></li>
             <div ngbDropdown class="d-inline-block">
-              <a [hidden]="!canBookkeeping() && !canAccountPlan() && !canBookkeepingJournal() && !canMainBook()"
+              <a [hidden]="!canBrutoBilans() && !canBookkeeping() && !canAccountPlan() && !canBookkeepingJournal() && !canMainBook()"
                 ngbDropdownToggle class="nav-link active" aria-current="page">FINANSIJSKO KNJIGOVODSTVO</a>
 
               <ul ngbDropdownMenu>
@@ -31,6 +31,8 @@
                   Knjiženja</a>
 
                 <a [hidden]="!canMainBook()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Glavna knjiga</a>
+
+                <a [hidden]="!canBrutoBilans()" ngbDropdownItem [routerLink]="'bruto-bilans'">Bruto Bilans</a>
 
               </ul>
             </div>
@@ -53,11 +55,9 @@
             </div>
 
             <div ngbDropdown class="d-inline-block">
-              <a [hidden]="!canBrutoBilans() && !canBilansUspeha() && !canBilansStanja()" ngbDropdownToggle class="nav-link active" aria-current="page">Obracun zarade</a>
+              <a [hidden]="!canBilansUspeha() && !canBilansStanja()" ngbDropdownToggle class="nav-link active" aria-current="page">Obracun zarade</a>
 
               <ul ngbDropdownMenu>
-
-                <a [hidden]="!canBrutoBilans()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bruto Bilans</a>
 
                 <a [hidden]="!canBilansUspeha()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bilans Uspeha</a>
 
