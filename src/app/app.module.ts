@@ -16,6 +16,13 @@ import {AddNewInvoiceComponent} from "./components/add-new-invoice/add-new-invoi
 import {ManageUsersComponent} from "./components/manage-users/manage-users.component";
 import {KufComponent} from "./components/kuf/kuf.component";
 import {KifComponent} from "./components/kif/kif.component";
+import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -28,6 +35,7 @@ import {KifComponent} from "./components/kif/kif.component";
     ManageUsersComponent,
     KufComponent,
     KifComponent,
+    BrutoBilansComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +45,13 @@ import {KifComponent} from "./components/kif/kif.component";
     HttpClientModule,
     MatTableModule,
     MatButtonModule,
-    FormsModule
+    FormsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    BrowserAnimationsModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
