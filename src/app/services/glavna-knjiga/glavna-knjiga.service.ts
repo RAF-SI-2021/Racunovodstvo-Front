@@ -67,7 +67,7 @@ export class GlavnaKnjigaService {
 		}
 
 		const headers = {
-			Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+			Authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
 			'Access-Control-Allow-Origin': '*',
 		};
 
@@ -79,7 +79,7 @@ export class GlavnaKnjigaService {
 
 	getGlavneKnjige() {
 		const headers = {
-			Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+			Authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
 			'Access-Control-Allow-Origin': '*',
 			accept: 'application/json',
 		};

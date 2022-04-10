@@ -11,7 +11,7 @@ export class ZaposleniProfilService {
 
 	getZaposleni(id: string | null): Observable<Zaposleni> {
 		const headers = {
-			Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
 		};
 		return this.httpClient.get<Zaposleni>(
 			`http://localhost:8080/api/zaposleni/${id}`,
@@ -23,7 +23,7 @@ export class ZaposleniProfilService {
 
 	getPlate(id: string | null): Observable<Plata[]> {
 		const headers = {
-			Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
 		};
 		return this.httpClient.get<Plata[]>(
 			`http://localhost:8080/api/zaposleni/${id}/plata`,
@@ -35,7 +35,7 @@ export class ZaposleniProfilService {
 
 	putPlata(id: string | null, plata: number): Observable<Plata> {
 		const headers = {
-			Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+			Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
 		};
 		return this.httpClient.post<Plata>(
 			`http://localhost:8080/api/plata/`,
@@ -68,7 +68,7 @@ export class ZaposleniProfilService {
 	): Observable<Zaposleni> {
 		console.log('prosao validaciju');
 		const headers = {
-			Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+			Authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
 		};
 		return this.httpClient.put<Zaposleni>(
 			`http://localhost:8080/api/zaposleni/${zaposleniId}`,

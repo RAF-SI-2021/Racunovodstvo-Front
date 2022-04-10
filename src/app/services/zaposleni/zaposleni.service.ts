@@ -9,7 +9,7 @@ import { Company } from '../../shared/invoice.model';
 })
 export class ZaposleniService {
 	httpHeaders: HttpHeaders = new HttpHeaders({
-		Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+		Authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
 	});
 
 	constructor(private http: HttpClient) {}
