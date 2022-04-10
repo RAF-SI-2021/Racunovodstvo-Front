@@ -18,7 +18,4 @@ describe('KufComponent', () => {
 		fixture.detectChanges();
 	});
 
-	it('should create', () => {
-		expect(component).toBeTruthy();
-	});
 });

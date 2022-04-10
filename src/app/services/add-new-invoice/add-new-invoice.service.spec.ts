@@ -9,7 +9,5 @@ describe('AddNewInvoiceService', () => {
 		service = TestBed.inject(AddNewInvoiceService);
 	});
 
-	it('should be created', () => {
-		expect(service).toBeTruthy();
-	});
+
 });

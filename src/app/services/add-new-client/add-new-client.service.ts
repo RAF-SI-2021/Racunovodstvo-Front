@@ -11,7 +11,7 @@ export class AddNewClientService {
 	private readonly options = { headers: { Authorization: 'Bearer ' } };
 
 	constructor(private httpClient: HttpClient) {
-		this.options.headers.Authorization += localStorage.getItem(
+		this.options.headers.Authorization += sessionStorage.getItem(
 			'jwt'
 		) as string;
 	}

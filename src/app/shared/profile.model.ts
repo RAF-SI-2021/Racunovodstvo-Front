@@ -1,3 +1,5 @@
+import {Company} from "./invoice.model";
+
 export interface Zaposleni {
   zaposleniId: number,
   ime: string,
@@ -9,14 +11,15 @@ export interface Zaposleni {
   datumRodjenja: string,
   adresa: string,
   grad: string,
-  radnaPozicija: string, // ? ili radnoMesto - fali u apiju
+  radnaPozicija: string, 
   brojRacuna: string,
   stepenObrazovanja: string,
   brojRadneKnjizice: number,
   statusZaposlenog: string,
   komentar: string,
-  staz: string
+  preduzece: Company
 }
+
 
 export interface Plata{
   datumOd: Date;
@@ -24,7 +27,4 @@ export interface Plata{
   netoPlata: number;
   komentar: string;
 }
-// neto plata ?
-// staz
-
 
