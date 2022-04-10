@@ -25,9 +25,9 @@
 
                 <a [hidden]="!canBookkeeping()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Knjiženje</a>
 
-                <a [hidden]="!canAccountPlan()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Kontni plan</a>
+                <a [hidden]="!canAccountPlan()" ngbDropdownItem [routerLink]="'account-plan'">Kontni plan</a>
 
-                <a [hidden]="!canBookkeepingJournal()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Dnevnik
+                <a [hidden]="!canBookkeepingJournal()" ngbDropdownItem [routerLink]="'bookkeeping-journal'">Dnevnik
                   Knjiženja</a>
 
                 <a [hidden]="!canMainBook()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Glavna knjiga</a>
@@ -52,12 +52,24 @@
               </ul>
             </div>
 
-            <li><a [hidden]="!canObracunZarade()" [routerLink]="'PLACEHOLDER'" class="nav-link active"
-                aria-current="page">OBRACUN ZARADE</a></li>
+            <div ngbDropdown class="d-inline-block">
+              <a [hidden]="!canBrutoBilans() && !canBilansUspeha() && !canBilansStanja()" ngbDropdownToggle class="nav-link active" aria-current="page">Obracun zarade</a>
+
+              <ul ngbDropdownMenu>
+
+                <a [hidden]="!canBrutoBilans()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bruto Bilans</a>
+
+                <a [hidden]="!canBilansUspeha()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bilans Uspeha</a>
+
+                <a [hidden]="!canBilansStanja()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Bilans Stanja</a>
+
+
+              </ul>
+            </div>
             <li><a [hidden]="!isAdmin()" [routerLink]="'manage-users'" class="nav-link active"
                 aria-current="page">Upravljanje korisnicima</a></li>
           </ul>
-          <button [hidden]="!loggedIn" (click)="logout()" type="button" class="btn btn-primary">Logout</button>
+          <button [hidden]="!loggedIn()" (click)="logout()" type="button" class="btn btn-primary">Logout</button>
         </div>
       </div>
     </nav>

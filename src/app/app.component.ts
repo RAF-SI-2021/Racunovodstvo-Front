@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from './services/login/user.service';
-import { Permission } from './shared/user.model';
+import { Authority } from './shared/enums/permissions';
 
 @Component({
 	selector: 'app-root',
@@ -9,163 +8,152 @@ import { Permission } from './shared/user.model';
 	styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-	permissions: Permission[] = [];
 	title = 'racunovodstvo';
-	loggedIn = false;
 
-	constructor(private router: Router, private userService: UserService) {
-		this.getPermissions();
-	}
+	constructor(private router: Router) {}
 
 	isAdmin(): boolean {
-		//TODO is this correct for admin?
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'admin') return true;
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.ADMIN) != null) return true;
 		}
-
 		return false;
 	}
 
-	getPermissions(): void {
-		if (
-			this.permissions.length == 0 &&
-			localStorage.getItem('jwt') != null
-		) {
-			this.userService.getLoggedInUser().subscribe((user) => {
-				console.log(user);
-				this.permissions = user.authorities;
-				this.loggedIn = true;
-			});
-		}
+	loggedIn(): boolean {
+		return sessionStorage.getItem('jwt') != null;
 	}
 
 	logout() {
-		localStorage.removeItem('jwt');
-		this.permissions = [];
+		sessionStorage.clear();
 		this.router.navigate(['login']);
-		this.loggedIn = false;
 	}
 
 	canProfile(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'profil') return true;
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.PROFILE) != null) return true;
 		}
-
 		return false;
 	}
 
 	canEvidence(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'evidencija')
-				return true;
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.RECORDS) != null) return true;
 		}
-
 		return false;
 	}
 
 	canAcquisitions(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'nabavke')
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.ACQUISITIONS) != null)
 				return true;
 		}
-
 		return false;
 	}
 
 	canSales(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'prodaja')
-				return true;
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.SALES) != null) return true;
 		}
-
 		return false;
 	}
 
 	canReports(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'izvestaji')
-				return true;
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.REPORTS) != null) return true;
 		}
-
 		return false;
 	}
 
 	canBookkeeping(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'knjizenje')
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.BOOKKEEPING) != null)
 				return true;
 		}
-
 		return false;
 	}
 
 	canAccountPlan(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'kontni plan')
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.ACCOUNT_PLAN) != null)
 				return true;
 		}
-
 		return false;
 	}
 
 	canBookkeepingJournal(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'dnevnik knjizenja')
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.BOOKKEEPING_JOURNAL) != null)
 				return true;
 		}
-
 		return false;
 	}
 
 	canMainBook(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'glavna knjiga')
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.MAIN_BOOK) != null)
 				return true;
 		}
-
 		return false;
 	}
 
 	canKUF(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'kuf') return true;
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.KUF) != null) return true;
 		}
-
 		return false;
 	}
 
 	canKIF(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'kif') return true;
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.KIF) != null) return true;
 		}
-
 		return false;
 	}
 
 	canAddNewInvoice(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'dodaj fakturu')
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.ADD_INVOICE) != null)
 				return true;
 		}
-
 		return false;
 	}
 
 	canAddNewClient(): boolean {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'dodaj komitenta')
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.ADD_CLIENT) != null)
 				return true;
 		}
-
 		return false;
 	}
 
 	canObracunZarade() {
-		for (let i = 0; i < this.permissions.length; i++) {
-			if (this.permissions[i].name.toLowerCase() == 'obracun zarade')
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.PAYROLL) != null) return true;
+		}
+		return false;
+	}
+
+	canBilansStanja() {
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.BILANS_STANJA) != null)
 				return true;
 		}
+		return false;
+	}
 
+	canBilansUspeha() {
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.BILANS_USPEHA) != null)
+				return true;
+		}
+		return false;
+	}
+
+	canBrutoBilans() {
+		if (this.loggedIn()) {
+			if (sessionStorage.getItem(Authority.BRUTO_BILANS) != null)
+				return true;
+		}
 		return false;
 	}
 }

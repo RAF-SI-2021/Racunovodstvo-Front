@@ -13,7 +13,7 @@ export class UserService {
 	constructor(private httpClient: HttpClient) {}
 
 	getLoggedInUser(): Observable<User> {
-		let jwt = String(localStorage.getItem('jwt'));
+		let jwt = String(sessionStorage.getItem('jwt'));
 		let url = `${this.apiUrl}/loginuser`;
 
 		return this.httpClient.get<User>(url, {

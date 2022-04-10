@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Permission, User } from '../../shared/manage-users';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManageUsersService } from '../../services/manage-users/manage-users.service';
-import { first } from 'rxjs';
 
 @Component({
 	selector: 'app-manage-users',

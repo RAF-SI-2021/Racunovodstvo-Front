@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { Authority } from './shared/enums/permissions';
 
 describe('AppComponent', () => {
 	beforeEach(async () => {
@@ -10,4 +11,35 @@ describe('AppComponent', () => {
 		}).compileComponents();
 	});
 
+	it('should create the app', () => {
+		const fixture = TestBed.createComponent(AppComponent);
+		const app = fixture.componentInstance;
+		expect(app).toBeTruthy();
+	});
+
+	it(`should have as title 'racunovodstvo'`, () => {
+		const fixture = TestBed.createComponent(AppComponent);
+		const app = fixture.componentInstance;
+		expect(app.title).toEqual('racunovodstvo');
+	});
+
+	it('should render title', () => {
+		const fixture = TestBed.createComponent(AppComponent);
+		fixture.detectChanges();
+		const compiled = fixture.nativeElement as HTMLElement;
+		expect(compiled.querySelector('.navbar div')?.textContent).toContain(
+			'Racunovodstvo'
+		);
+	});
+
+	it('should have no admin permission', () => {
+		const fixture = TestBed.createComponent(AppComponent);
+		const app = fixture.debugElement.componentInstance;
+		spyOn(app, 'isAdmin').and.returnValue(
+			sessionStorage.getItem(Authority.ADMIN) != null
+		);
+
+		fixture.detectChanges();
+		expect(app.isAdmin()).toBe(false);
+	});
 });
