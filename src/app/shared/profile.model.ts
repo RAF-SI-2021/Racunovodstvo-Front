@@ -11,27 +11,20 @@ export interface Zaposleni {
   datumRodjenja: string,
   adresa: string,
   grad: string,
-  radnaPozicija: string, // ? ili radnoMesto - fali u apiju
+  radnaPozicija: string, 
   brojRacuna: string,
   stepenObrazovanja: string,
   brojRadneKnjizice: number,
   statusZaposlenog: string,
   komentar: string,
-  staz: Staz,
   preduzece: Company
 }
 
-export interface Staz {
-  pocetakRada: string,
-  krajRada: string
 
+export interface Plata{
+  datumOd: Date;
+  datumDo: Date;
+  netoPlata: number;
+  komentar: string;
 }
-// neto plata ?
-// staz
-export interface User {
-  userId: number;
-  username: string;
-  firstName: string;
-  lastName: string;
-  permissions: Permissions[];
-}
+

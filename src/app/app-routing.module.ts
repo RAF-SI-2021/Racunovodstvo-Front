@@ -21,6 +21,8 @@ import {PlateZaposlenihComponent} from "./components/plate-zaposlenih/plate-zapo
 import {KoeficijentiComponent} from "./components/koeficijenti/koeficijenti.component";
 import { AccountPlanGuard } from './guards/account-plan.guard';
 import { BookkeepingJournalGuard } from './guards/bookkeeping-journal.guard';
+import {ProfilZaposlenogComponent} from "./components/profil-zaposlenog/profil-zaposlenog.component";
+import {SvaKnjizenjaComponent} from "./components/sva-knjizenja/sva-knjizenja.component";
 
 const routes: Routes = [
 	{
@@ -86,6 +88,15 @@ const routes: Routes = [
 		component: BookkeepingJournalComponent,
 		canActivate: [BookkeepingJournalGuard],
 	},
+    path:'zaposleni/:id',
+    component: ProfilZaposlenogComponent,
+    // canActivate:[ProfileGuard] // ????????
+  },
+  {
+    path:'svaKnjizenja',
+    component: SvaKnjizenjaComponent,
+    // canActivate
+  }
 ];
 
 @NgModule({

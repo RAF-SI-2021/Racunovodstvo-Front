@@ -17,6 +17,9 @@ import {ZaposleniComponent} from './components/zaposleni/zaposleni.component';
 import {PlateZaposlenihComponent} from './components/plate-zaposlenih/plate-zaposlenih.component';
 import {KoeficijentiComponent} from './components/koeficijenti/koeficijenti.component';
 import {BookkeepingJournalComponent} from './components/bookkeeping-journal/bookkeeping-journal.component';
+import { ProfilZaposlenogComponent } from './components/profil-zaposlenog/profil-zaposlenog.component';
+import {DatePipe} from "@angular/common";
+import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import {BookkeepingJournalComponent} from './components/bookkeeping-journal/book
     ZaposleniComponent,
     PlateZaposlenihComponent,
     KoeficijentiComponent,
-    BookkeepingJournalComponent
+    BookkeepingJournalComponent,
+    ProfilZaposlenogComponent,
+    SvaKnjizenjaComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,7 @@ import {BookkeepingJournalComponent} from './components/bookkeeping-journal/book
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
