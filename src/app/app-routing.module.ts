@@ -8,6 +8,10 @@ import { KufComponent } from './components/kuf/kuf.component';
 import { KifComponent } from './components/kif/kif.component';
 import { AccountPlanComponent } from './components/account-plan/account-plan.component';
 import { BookkeepingJournalComponent } from './components/bookkeeping-journal/bookkeeping-journal.component';
+import { ZaposleniComponent } from './components/zaposleni/zaposleni.component';
+import { ProfilZaposlenogComponent } from './components/profil-zaposlenog/profil-zaposlenog.component';
+import { PlateZaposlenihComponent } from './components/plate-zaposlenih/plate-zaposlenih.component';
+import { KoeficijentiComponent } from './components/koeficijenti/koeficijenti.component';
 
 import { LoginGuard } from './guards/login.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -62,6 +66,27 @@ const routes: Routes = [
 		path: 'bookkeeping-journal',
 		component: BookkeepingJournalComponent,
 		canActivate: [FinansijskoKnjigovodstvoGuard],
+	},
+	// OBRACUN_ZARADE
+	{
+		path: 'zaposleni',
+		component: ZaposleniComponent,
+		canActivate: [ObracunZaradeGuard],
+	},
+	{
+		path: 'zaposleni/:id',
+		component: ProfilZaposlenogComponent,
+		canActivate: [ObracunZaradeGuard],
+	},
+	{
+		path: 'plate',
+		component: PlateZaposlenihComponent,
+		canActivate: [ObracunZaradeGuard],
+	},
+	{
+		path: 'koeficijenti',
+		component: KoeficijentiComponent,
+		canActivate: [ObracunZaradeGuard],
 	},
 ];
 

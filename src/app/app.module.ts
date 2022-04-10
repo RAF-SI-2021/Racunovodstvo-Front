@@ -16,6 +16,12 @@ import { KufComponent } from './components/kuf/kuf.component';
 import { KifComponent } from './components/kif/kif.component';
 import { BookkeepingJournalComponent } from './components/bookkeeping-journal/bookkeeping-journal.component';
 import { KnjizenjeWidgetComponent } from './components/knjizenje-widget/knjizenje-widget.component';
+import { ZaposleniComponent } from './components/zaposleni/zaposleni.component';
+import { ProfilZaposlenogComponent } from './components/profil-zaposlenog/profil-zaposlenog.component';
+import { PlateZaposlenihComponent } from './components/plate-zaposlenih/plate-zaposlenih.component';
+import { KoeficijentiComponent } from './components/koeficijenti/koeficijenti.component';
+
+import { DatePipe } from '@angular/common';
 
 @NgModule({
 	declarations: [
@@ -29,6 +35,10 @@ import { KnjizenjeWidgetComponent } from './components/knjizenje-widget/knjizenj
 		KifComponent,
 		BookkeepingJournalComponent,
 		KnjizenjeWidgetComponent,
+		ZaposleniComponent,
+		ProfilZaposlenogComponent,
+		PlateZaposlenihComponent,
+		KoeficijentiComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -39,7 +49,7 @@ import { KnjizenjeWidgetComponent } from './components/knjizenje-widget/knjizenj
 		FormsModule,
 		MatAutocompleteModule, // ?
 	],
-	providers: [],
+	providers: [DatePipe],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

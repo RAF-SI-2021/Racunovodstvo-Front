@@ -50,14 +50,13 @@
 
               <ul ngbDropdownMenu>
 
-				<a [routerLink]="'PLACEHOLDER'" class="nav-link active"
-                aria-current="page">Profil zaposlenog</a>
+				<a ngbDropdownItem [routerLink]="'zaposleni/:id'">Profil zaposlenog</a>
 
-                <a ngbDropdownItem [routerLink]="'PLACEHOLDER'">Zaposleni</a>
+                <a ngbDropdownItem [routerLink]="'zaposleni'">Zaposleni</a>
 
-                <a ngbDropdownItem [routerLink]="'PLACEHOLDER'">Plata</a>
+                <a ngbDropdownItem [routerLink]="'plate'">Plata</a>
 
-				<a ngbDropdownItem [routerLink]="'PLACEHOLDER'">Koeficijenti za obračun poreza i doprinosa</a>
+				<a ngbDropdownItem [routerLink]="'koeficijenti'">Koeficijenti za obračun poreza i doprinosa</a>
 
               </ul>
             </div>

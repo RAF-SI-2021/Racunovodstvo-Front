@@ -70,11 +70,4 @@ describe('KifComponent', () => {
 		component.setInputAsDate();
 		expect(component.inputAsDate).toBe('number');
 	});
-
-	it('should set text input type if input is valuta', () => {
-		expect(component.setInputAsDate).toBeTruthy();
-		component.input = 'valuta';
-		component.setInputAsDate();
-		expect(component.inputAsDate).toBe('text');
-	});
 });

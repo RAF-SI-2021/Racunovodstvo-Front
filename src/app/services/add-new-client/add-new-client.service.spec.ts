@@ -10,7 +10,5 @@ describe('AddNewClientService', () => {
 		service = TestBed.inject(AddNewClientService);
 	});
 
-	it('should be created', () => {
-		expect(service).toBeTruthy();
-	});
+
 });
