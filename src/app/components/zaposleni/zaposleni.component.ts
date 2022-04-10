@@ -72,7 +72,6 @@ export class ZaposleniComponent implements OnInit {
     let date1 = new Date(pocetakRada);
     let date2 = new Date();
     let date3 = new Date(date2.getTime() - date1.getTime());
-    console.log(date3.getTime())
     let earliestDate = new Date(3600);
 
     return (date3.getFullYear() - earliestDate.getFullYear()) + '/' + ((date3.getMonth() + 1) - (earliestDate.getMonth() + 1)) + '/' + (date3.getDate() - earliestDate.getDate());

@@ -41,8 +41,6 @@ export class KoeficijentiComponent implements OnInit {
     let zdravstvenoOsiguranje1 = this.koefForms[index].get('zdravstvenoOsiguranje1')?.value;
     let zdravstvenoOsiguranje2 = this.koefForms[index].get('zdravstvenoOsiguranje2')?.value;
 
-    console.log(najnizaOsnovica)
-
     this.service.updateKoeficijent(this.koeficijenti[index], najnizaOsnovica, najvisaOsnovica, penzionoOsiguranje1, penzionoOsiguranje2, zdravstvenoOsiguranje1, zdravstvenoOsiguranje2).subscribe((response) =>{
 
     })

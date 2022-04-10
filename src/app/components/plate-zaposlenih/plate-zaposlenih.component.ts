@@ -75,10 +75,10 @@ export class PlateZaposlenihComponent implements OnInit {
     })
   }
 
-  createQuery(ime : string, prezime : string, netoPlata : number, porez : number, doprinos1: number, doprinos2: number, brutoPlata: number,ukupanTrosakZarade : number, komentar: string){
+  createQuery(ime : string, prezime : string, netoPlata : string, porez : string, doprinos1: string, doprinos2: string, brutoPlata: string,ukupanTrosakZarade : string, komentar: string){
     let query = '';
     console.log(netoPlata)
-    if(ime == '' && prezime == '' && '' + netoPlata == '' && '' + porez == '' && '' + doprinos1 == '' && '' + doprinos2 == '' && '' + brutoPlata == '' && '' + ukupanTrosakZarade == '' && komentar == ''){
+    if(ime == '' && prezime == '' && netoPlata == '' && porez == '' && doprinos1 == '' && doprinos2 == '' && brutoPlata == '' && ukupanTrosakZarade == '' && komentar == ''){
       return 'all';
     }
     if( ime !== ''){
@@ -87,25 +87,25 @@ export class PlateZaposlenihComponent implements OnInit {
     if( prezime !== ''){
       query += 'zaposleni_prezime:' + prezime + ',';
     }
-    if( '' + netoPlata !== ''){
+    if( netoPlata !== ''){
       query += 'netoPlata:' + netoPlata + ',';
     }
-    if( '' + porez !== ''){
+    if( porez !== ''){
       query += 'porez:' + porez + ',';
     }
-    if( '' + doprinos1 !== ''){
+    if( doprinos1 !== ''){
       query += 'doprinos1:' + doprinos1 + ',';
     }
-    if( '' + doprinos2 !== ''){
+    if( doprinos2 !== ''){
       query += 'doprinos2:' + doprinos2 + ',';
     }
-    if( '' + brutoPlata !== ''){
+    if( brutoPlata !== ''){
       query += 'brutoPlata:' + brutoPlata + ',';
     }
-    if( '' + ukupanTrosakZarade !== ''){
+    if( ukupanTrosakZarade !== ''){
       query += 'ukupanTrosakZarade:' + ukupanTrosakZarade + ',';
     }
-    if( '' + komentar !== ''){
+    if( komentar !== ''){
       query += 'komentar:' + komentar + ',';
     }
     return query.substring(0, query.length - 1);

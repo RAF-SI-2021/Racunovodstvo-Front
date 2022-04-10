@@ -10,7 +10,5 @@ describe('KoeficijentiService', () => {
     service = TestBed.inject(KoeficijentiService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+
 });
