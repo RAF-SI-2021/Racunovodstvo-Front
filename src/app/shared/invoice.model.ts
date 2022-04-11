@@ -3,6 +3,7 @@ export class Invoice {
 		public fakturaId: number,
 		public brojFakture: string,
 		public datumIzdavanja: string,
+		public rokZaPlacanje: string,
 		public preduzece: Company,
 		public datumPlacanja: string,
 		public prodajnaVrednost: number,
@@ -17,7 +18,8 @@ export class Invoice {
 		public komentar: string,
 		public tipFakture: string,
 		public dokumentId: number,
-		public tipDokumenta: string
+		public tipDokumenta: string,
+		public brojDokumenta: string
 	) {
 		if (rabatProcenat === null) {
 			this.rabatProcenat = 0;
@@ -41,5 +43,44 @@ export class Company {
 }
 
 export class ResponseObject {
-	public content: Invoice[] = [];
+	public content: any[] = [];
+}
+
+export class Konto {
+	kontnaGrupa: KontnaGrupa;
+	duguje: number;
+	potrazuje: number;
+	addOrDeleteEdit: boolean;
+	disabledKonto: boolean;
+	disabledDuguje: boolean;
+	disabledPotrazuje: boolean;
+
+	constructor(
+		konto: KontnaGrupa,
+		duguje: number,
+		potrazuje: number,
+		addOrDeleteEdit: boolean,
+		disabledKonto: boolean,
+		disabledDuguje: boolean,
+		disabledPotrazuje: boolean
+	) {
+		this.kontnaGrupa = konto;
+		this.duguje = duguje;
+		this.potrazuje = potrazuje;
+		this.addOrDeleteEdit = addOrDeleteEdit;
+		this.disabledKonto = disabledKonto;
+		this.disabledDuguje = disabledDuguje;
+		this.disabledPotrazuje = disabledPotrazuje;
+	}
+}
+
+export class KontnaGrupa {
+	nazivKonta: string;
+	brojKonta: string;
+	konto?: Konto;
+
+	constructor(nazivKonta: string, brojKonta: string) {
+		this.nazivKonta = nazivKonta;
+		this.brojKonta = brojKonta;
+	}
 }
