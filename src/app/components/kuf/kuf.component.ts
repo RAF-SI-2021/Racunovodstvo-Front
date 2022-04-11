@@ -112,7 +112,7 @@ export class KufComponent implements OnInit {
 			this.preduzeca = preduzeca;
 		});
 		this.edit = false;
-		this.service.sveFakture().subscribe((response) => {
+		this.service.sveKufFakture().subscribe((response) => {
 			this.kuf = response
 		});
 	}
