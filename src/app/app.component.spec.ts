@@ -1,11 +1,9 @@
 import {TestBed} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-<<<<<<< HEAD
 import { Authority } from './shared/enums/permissions';
-=======
-import {Authority} from "./enums/permissions";
->>>>>>> bruto-bilans
+
+
 
 describe('AppComponent', () => {
 	beforeEach(async () => {

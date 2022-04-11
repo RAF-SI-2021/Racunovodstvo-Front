@@ -53,7 +53,7 @@ export class KufComponent implements OnInit {
 	preduzece1: Company = new Company('test1');
 	preduzece2: Company = new Company('test2');
 
-	preduzeca: Company[] = [this.preduzece1, this.preduzece2];
+	preduzeca: Company[] = [];
 
 	faktura1: Invoice = new Invoice(
 		1,
@@ -101,9 +101,9 @@ export class KufComponent implements OnInit {
 		'FAKTURA'
 	);
 
-	kuf: Invoice[] = [this.faktura1, this.faktura2];
+	kuf: Invoice[] = [];
 
-	selektovanaFaktura: Invoice = this.kuf[0];
+	selektovanaFaktura: Invoice = this.faktura2;
 
 	edit: boolean = false;
 
@@ -113,9 +113,7 @@ export class KufComponent implements OnInit {
 		});
 		this.edit = false;
 		this.service.sveFakture().subscribe((response) => {
-			this.kuf = response.content.filter(
-				(e: { tipFakture: string }) => e.tipFakture == 'ULAZNA_FAKTURA'
-			);
+			this.kuf = response
 		});
 	}
 
@@ -254,7 +252,7 @@ export class KufComponent implements OnInit {
 		this.service.filterKUF(filter, vrednost).subscribe(
 			(response) => {
 				if (response.ok) {
-					this.kuf = response.body;
+					this.kuf = response.body || [];
 				}
 			},
 			(error) => {

@@ -22,43 +22,58 @@ export class BookkeepingJournalService {
 	}
 	pretrazi(
 		brNaloga: string,
-		od: Date,
-		doo: Date,
+		od: string,
+		doo: string,
 		brDokFak: string,
 		komentar: string,
-		uzetOd: boolean,
-		uzetDo: boolean
 	): Observable<BookkeepingJournal[]> {
-		var s = '?search=';
+
+
+
+    if (
+      od == '' &&
+      doo == '' &&
+      brDokFak == '' &&
+      brNaloga == '' &&
+      komentar == ''
+    ) {
+      return this.getKnjizenja();
+    } else {
+      var s = '?search=';
+    }
+
 		if (brNaloga != '') {
-			s += 'brojNaloga:' + brNaloga;
-		}
-		if (uzetOd) {
-			if (s != '?search=') {
-				s += ',';
-			} /// parseInt((new Date('2012.08.10').getTime() / 1000).toFixed(0))
-			s += 'datumKnjizenja>' + Math.floor(new Date(od).getTime() / 1000);
+			s += 'brojNaloga:' + brNaloga + ',';
 		}
 
-		if (uzetDo) {
-			if (s != '?search=') {
-				s += ',';
-			}
-			s += 'datumKnjizenja<' + Math.floor(new Date(doo).getTime() / 1000);
-		}
+    if(od != ''){
+      s += 'datumKnjizenja>' +
+        Math.floor(new Date(od).getTime() / 1000) + ',';
+    }else{
+      if(doo != ''){
+        s += 'datumKnjizenja>' +
+          Math.floor(new Date(3600).getTime() / 1000) + ',';
+      }
+    }
+
+    if(doo != ''){
+      s +=
+        'datumKnjizenja<' +
+        Math.floor(new Date(doo).getTime() / 1000)  + ',';
+    }else{
+      if(od != ''){
+        s +=
+          'datumKnjizenja<' +
+          Math.floor(new Date().getTime() / 1000)  + ',';
+      }
+    }
 
 		if (brDokFak != '') {
-			if (s != '?search=') {
-				s += ',';
-			}
-			s += 'dokumentId:' + brDokFak;
+			s += 'dokumentId:' + brDokFak + ',';
 		}
 
 		if (komentar != '') {
-			if (s != '?search=') {
-				s += ',';
-			}
-			s += 'komentar:' + komentar;
+			s += 'komentar:' + komentar + ',';
 		}
 
 		const headers = {
@@ -67,7 +82,7 @@ export class BookkeepingJournalService {
 		};
 
 		return this.httpClient.get<BookkeepingJournal[]>(
-			'http://localhost:8080/api/knjizenje' + s,
+			'http://localhost:8080/api/knjizenje' + s.substring(0, s.length - 1),
 			{ headers: headers }
 		);
 	}

@@ -5,6 +5,7 @@
         <div class="panel-body">
           <form [formGroup]="addingForm">
             <div class="form-group">
+              <br>
               <label for="tipFakture">Tip Fakture</label>
               <select id="tipFakture" #tipFakture class="form-control" aria-label="Default select example">
                 <option value="1">Ulazna faktura</option>
@@ -77,15 +78,15 @@
               </div>
             </div>
 
-			<div class="form-group mt-2">
-              <div class="form-inline">
-                <input type="number" formControlName="iznosV" required placeholder="Iznos" style="width: 100%"
-                  class="form-control" id="iznos" #iznos />
-                <span class="text-danger"
-                  *ngIf="addingForm.controls['iznosV'].dirty && addingForm.hasError('required','iznosV')">Polje iznos
-                  je obavezno</span>
-              </div>
-            </div>
+<!--			<div class="form-group mt-2">-->
+<!--              <div class="form-inline">-->
+<!--                <input type="number" formControlName="iznosV" required placeholder="Iznos" style="width: 100%"-->
+<!--                  class="form-control" id="iznos" #iznos />-->
+<!--                <span class="text-danger"-->
+<!--                  *ngIf="addingForm.controls['iznosV'].dirty && addingForm.hasError('required','iznosV')">Polje iznos-->
+<!--                  je obavezno</span>-->
+<!--              </div>-->
+<!--            </div>-->
 
             <div class="form-group mt-2">
               <div class="d-flex gap-2">
@@ -117,21 +118,29 @@
             <div class="form-group mt-2">
               <div class="form-inline">
                 <button [disabled]="!addingForm.valid" type="button" style="margin-left: 60%; width:19%"
-                  class="form-control btn btn-primary" (click)="addNewInvoice({ 
-						brojFakture:brojFakture.value, 
+                  class="form-control btn btn-primary" (click)="addNewInvoice({
+						brojDokumenta:brojFakture.value,
 						datumIzdavanja:datumIzdavanja.value,
 						rokZaPlacanje:rokZaPlacanje.value,
-						preduzece:komitent.value,
-						prodajnaVrednost:+prodajnaVrednost.value, 
-						rabat:+rabat.value, 
-						porez:+porez.value,
-						iznos:+iznos.value,
-						valuta:valuta.value, 
-						kurs:+kurs.value, 
-						naplata:+zaNaplatu.value, 
+						preduzeceId:komitent.value,
+						prodajnaVrednost:+prodajnaVrednost.value,
+						rabatProcenat:+rabat.value,
+						porezProcenat:+porez.value,
+						valuta:valuta.value,
+						kurs:+kurs.value,
+						naplata:+zaNaplatu.value,
 						komentar:komentar.value,
-						tipFakture:tipFakture.value
+						tipFakture:tipFakture.value,
+						brojFakture:brojFakture.value,
+						rabat: 0,
+						iznos: 0,
+						porez: 0,
+						datumPlacanja: '2020-04-08'
 					})">
+<!--                  {"brojFakture":"1234","datumIzdavanja":"2003-10-10","rokZaPlacanje":"2004-02-10",-->
+<!--                  "preduzeceId":"1","prodajnaVrednost":12,"valuta":"EUR","kurs":123,-->
+<!--                  "naplata":123134,"komentar":"dasfasjdlfkjasf",-->
+<!--                  "tipFakture":"1", "brojDokumenta":122, "porezProcenat":10}-->
 					Dodaj
 				</button>
                 <button type="button" style="margin-left: 2%; width:19%"

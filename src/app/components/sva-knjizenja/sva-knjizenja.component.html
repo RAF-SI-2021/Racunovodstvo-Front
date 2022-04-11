@@ -1,24 +1,23 @@
-<div>
-  <h1 style="text-align: center">GLAVNA KNJIGA</h1> <br>
+<div class="container">
   <section class="search-sec">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
-          <div class="row">
+          <div class="row" [formGroup]="filterForm">
             <div class="col-lg-2 col-md-3 col-sm-12 p-0">
-              <input (ngModelChange)="odChanged()" [(ngModel)] = "od" type="date" placeholder="od" class="form-control search-slt">
+              <input [formControlName]="'od'"  type="date" placeholder="od" class="form-control search-slt">
             </div>
             <div class="col-lg-2 col-md-3 col-sm-12 p-0">
-              <input (ngModelChange)="doChanged()" [(ngModel)] = "doo" type="date" class="form-control search-slt">
+              <input [formControlName]="'doo'"  type="date" class="form-control search-slt">
             </div>
             <div class="col-lg-2 col-md-3 col-sm-12 p-0">
-              <input [(ngModel)] = "konto" type="text" class="form-control search-slt" placeholder="Broj konta">
+              <input [formControlName]="'konto'" type="text" class="form-control search-slt" placeholder="Broj konta">
             </div>
             <div class="col-lg-2 col-md-3 col-sm-12 p-0">
-              <input [(ngModel)] = "nazivKonta" type="text" class="form-control search-slt" placeholder="Naziv konta">
+              <input [formControlName]="'nazivKonta'" type="text" class="form-control search-slt" placeholder="Naziv konta">
             </div>
             <div class="col-lg-2 col-md-3 col-sm-12 p-0">
-              <input [(ngModel)]="komentar" type="text" class="form-control search-slt" placeholder="Unesi komentar">
+              <input [formControlName]="'komentar'" type="text" class="form-control search-slt" placeholder="Unesi komentar">
             </div>
             <div class="col-lg-2 col-md-3 col-sm-12 p-0">
               <button (click)="pretrazi()" type="button" class="btn btn-danger wrn-btn">Pretraži</button>
@@ -48,7 +47,7 @@
     <tbody>
     <tr *ngFor="let knjizenje of knjizenja; index as i">
       <th scope="row">{{ i + 1 }}</th>
-      <td>{{ knjizenje.datum }}</td>
+      <td>{{getAsDate(knjizenje.datum) }}</td>
       <td>{{ knjizenje.konto }}</td>
       <td>{{ knjizenje.duguje}}</td>
       <td>{{ knjizenje.potrazuje}}</td>

@@ -28,7 +28,6 @@ export class AddNewInvoiceComponent implements OnInit {
 			prodajnaVrednostV: ['', Validators.required],
 			rabatV: ['', Validators.required],
 			porezV: ['', Validators.required],
-			iznosV: ['', Validators.required],
 			valutaV: ['', Validators.required],
 			kursV: ['', Validators.required],
 			zaNaplatuV: ['', Validators.required], // naplata

@@ -23,7 +23,7 @@ export class InvoiceService {
 			let date = new Date(value);
 			let value2 = date.getTime() / 1000 + 24 * 60 * 60;
 			value = '' + date.getTime() / 1000;
-			return this.http.get<any>(
+			return this.http.get<Invoice[]>(
 				environment.APIEndpoint +
 					`/api/faktura?search=tipFakture:ULAZNA_FAKTURA,` +
 					pretraga +
@@ -36,7 +36,7 @@ export class InvoiceService {
 				}
 			);
 		}
-		return this.http.get<any>(
+		return this.http.get<Invoice[]>(
 			environment.APIEndpoint +
 				`/api/faktura?search=tipFakture:ULAZNA_FAKTURA,` +
 				pretraga +
@@ -53,9 +53,9 @@ export class InvoiceService {
 			let date = new Date(value);
 			let value2 = date.getTime() / 1000 + 24 * 60 * 60;
 			value = '' + date.getTime() / 1000;
-			return this.http.get<any>(
+			return this.http.get<Invoice[]>(
 				environment.APIEndpoint +
-					`/api/faktura?search=tipFakture:ULAZNA_FAKTURA,` +
+					`/api/faktura?search=tipFakture:IZLAZNA_FAKTURA,` +
 					pretraga +
 					`\>${value},` +
 					pretraga +
@@ -68,7 +68,7 @@ export class InvoiceService {
 		}
 		if (pretraga.includes('rokZa')) {
 			let value2 = new Date();
-			return this.http.get<any>(
+			return this.http.get<Invoice[]>(
 				environment.APIEndpoint +
 					`/api/faktura?search=tipFakture:IZLAZNA_FAKTURA,` +
 					pretraga +
@@ -81,7 +81,7 @@ export class InvoiceService {
 				}
 			);
 		}
-		return this.http.get<any>(
+		return this.http.get<Invoice[]>(
 			environment.APIEndpoint +
 				`/api/faktura?search=tipFakture:IZLAZNA_FAKTURA,` +
 				pretraga +
@@ -103,7 +103,7 @@ export class InvoiceService {
 	}
 
 	sveFakture() {
-		return this.http.get<ResponseObject>(
+		return this.http.get<Invoice[]>(
 			environment.APIEndpoint + `/api/faktura/all`,
 			{
 				headers: this.httpHeaders,

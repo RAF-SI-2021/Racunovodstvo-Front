@@ -29,9 +29,9 @@
             <input class="form-control w-auto" type="text" placeholder="Komentar" value="{{client.komentar}}" #comment>
             <button type="button" ngbPanelToggle class="btn btn-primary"
               (click)="updateClient({ preduzeceId:client.preduzeceId,
-                naziv:name.value, pib:pib.value, racun:accountNumber.value, adresa:address.value, grad:city.value, 
+                naziv:name.value, pib:pib.value, racun:accountNumber.value, adresa:address.value, grad:city.value,
                 telefon:phone.value, email:email.value, fax:fax.value, webAdresa:website.value, komentar:comment.value})">
-              Izemni
+              Izmeni
             </button>
           </div>
         </ng-template>

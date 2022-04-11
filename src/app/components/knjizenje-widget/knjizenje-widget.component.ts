@@ -132,54 +132,70 @@ export class KnjizenjeWidgetComponent implements OnInit {
 		this.ngOnInit();
 	}
 
-	knjizenje() {
-		for (let i = 0; i < this.kontos.length - 1; i++) {
-			if (
-				this.kontos[i].kontnaGrupa !==
-				this.kontoGroups[i].get('konto')?.value
-			) {
-				alert(
-					'Konto broj ' +
-						i +
-						' nije sacuvan. Kliknite na dugme Izmeni u tom redu kako biste sacuvali promene'
-				);
-				return;
-			}
-			if (
-				this.kontos[i].duguje !==
-				this.kontoGroups[i].get('duguje')?.value
-			) {
-				alert(
-					'Konto broj ' +
-						i +
-						' nije sacuvan. Kliknite na dugme Izmeni u tom redu kako biste sacuvali promene'
-				);
-				return;
-			}
-			if (
-				this.kontos[i].potrazuje !==
-				this.kontoGroups[i].get('potrazuje')?.value
-			) {
-				alert(
-					'Konto broj ' +
-						i +
-						' nije sacuvan. Kliknite na dugme Izmeni u tom redu kako biste sacuvali promene'
-				);
-				return;
-			}
-		}
-		if (this.dugujeUkupnoNum - this.potrazujeUkupnoNum !== 0) {
-			if (confirm('Nalog nije u ravnotezi. Da li zelite da nastavite?')) {
-				this.uknjizi();
-				return;
-			} else {
-				return;
-			}
-		}
-		this.uknjizi();
-	}
+  knjizenje() {
+    if(this.kontos.length < 2){
+      alert('Mora postojati minimum 1 konto!')
+      return;
+    }
+    for (let i = 0; i < this.kontos.length - 1; i++) {
+      if (
+        this.kontos[i].kontnaGrupa !==
+        this.kontoGroups[i].get('konto')?.value
+      ) {
+        alert(
+          'Konto broj ' +
+          i +
+          ' nije sacuvan. Kliknite na dugme Izmeni u tom redu kako biste sacuvali promene'
+        );
+        return;
+      }
+      if (
+        this.kontos[i].duguje !==
+        this.kontoGroups[i].get('duguje')?.value
+      ) {
+        alert(
+          'Konto broj ' +
+          i +
+          ' nije sacuvan. Kliknite na dugme Izmeni u tom redu kako biste sacuvali promene'
+        );
+        return;
+      }
+      if (
+        this.kontos[i].potrazuje !==
+        this.kontoGroups[i].get('potrazuje')?.value
+      ) {
+        alert(
+          'Konto broj ' +
+          i +
+          ' nije sacuvan. Kliknite na dugme Izmeni u tom redu kako biste sacuvali promene'
+        );
+        return;
+      }
+      let flag = false;
+      this.ktnGrps.forEach((value => {
+        if(this.kontoGroups[i].get('konto')?.value === value.brojKonta){
+          flag = true
+        }
+      }));
+      if(!flag){
+        alert(
+          'Uneti konto ne postoji. Molimo selektujte konoto iz padajuce liste.'
+        );
+        return;
+      }
+    }
+    if (this.dugujeUkupnoNum - this.potrazujeUkupnoNum !== 0) {
+      if (confirm('Nalog nije u ravnotezi. Da li zelite da nastavite?')) {
+        this.uknjizi();
+      } else {
+        return;
+      }
+    }
+    this.uknjizi();
+  }
 
-	uknjizi() {
+
+  uknjizi() {
 		this.kontos.splice(this.kontos.length - 1, 1);
 		this.kontos.forEach((value) => {
 			this.ktnGrps.forEach((value2) => {

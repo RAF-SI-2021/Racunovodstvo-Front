@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookkeepingJournal } from 'src/app/shared/bookkeeping-journal.model';
 import { BookkeepingJournalService } from '../../services/bookkeeping-journal/bookkeeping-journal.service';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
 	selector: 'app-knjizenja',
@@ -10,33 +11,31 @@ import { BookkeepingJournalService } from '../../services/bookkeeping-journal/bo
 export class BookkeepingJournalComponent implements OnInit {
 	knjizenja: BookkeepingJournal[] = [];
 
-	brojNaloga: string = '';
-	od: Date = new Date();
-	doo: Date = new Date();
-	brojDokFak: string = '';
-	komentar: string = '';
-	uzetOd: boolean = false;
-	uzetDo: boolean = false;
+  filterForm : FormGroup;
 
 	pretrazi() {
 		this.knjizenejService
 			.pretrazi(
-				this.brojNaloga,
-				this.od,
-				this.doo,
-				this.brojDokFak,
-				this.komentar,
-				this.uzetOd,
-				this.uzetDo
+				this.filterForm.get('brojNaloga')?.value,
+				this.filterForm.get('od')?.value,
+				this.filterForm.get('doo')?.value,
+				this.filterForm.get('brojDokFak')?.value,
+				this.filterForm.get('komentar')?.value
 			)
 			.subscribe((data: any) => {
 				this.knjizenja = data.content;
 			});
-		this.uzetOd = false;
-		this.uzetDo = false;
 	}
 
-	constructor(public knjizenejService: BookkeepingJournalService) {}
+	constructor(public knjizenejService: BookkeepingJournalService, private formBuilder : FormBuilder) {
+    this.filterForm = this.formBuilder.group({
+      brojNaloga: [''],
+      od: [''],
+      doo: [''],
+      brojDokFak: [''],
+      komentar: ['']
+    })
+  }
 
 	ngOnInit(): void {
 		// sessionStorage.setItem(
@@ -48,11 +47,15 @@ export class BookkeepingJournalComponent implements OnInit {
 		});
 	}
 
-	odChanged() {
-		this.uzetOd = true;
-	}
+  getAsDate(date: string) {
+    let newDate = new Date(date);
+    return (
+      newDate.getDate() +
+      '/' +
+      (newDate.getMonth() + 1) +
+      '/' +
+      newDate.getFullYear()
+    );
+  }
 
-	doChanged() {
-		this.uzetDo = true;
-	}
 }

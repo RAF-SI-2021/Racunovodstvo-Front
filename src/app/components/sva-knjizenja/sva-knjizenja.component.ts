@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainBook } from '../../shared/bookkeeping-journal.model';
 import { GlavnaKnjigaService } from '../../services/glavna-knjiga/glavna-knjiga.service';
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
 	selector: 'app-sva-knjizenja',
@@ -10,15 +11,19 @@ import { GlavnaKnjigaService } from '../../services/glavna-knjiga/glavna-knjiga.
 export class SvaKnjizenjaComponent implements OnInit {
 	knjizenja: MainBook[] = [];
 
-	od: Date = new Date();
-	doo: Date = new Date();
-	konto: string = '';
-	nazivKonta: string = '';
-	komentar: string = '';
-	uzetOd: boolean = false;
-	uzetDo: boolean = false;
+  filterForm : FormGroup;
 
-	constructor(public knjizenejService: GlavnaKnjigaService) {}
+
+
+	constructor(public knjizenejService: GlavnaKnjigaService, private formBuilder: FormBuilder) {
+    this.filterForm = this.formBuilder.group({
+      od: [''],
+      doo: [''],
+      konto: [''],
+      nazivKonta: [''],
+      komentar: ['']
+    })
+  }
 
 	ngOnInit(): void {
 		this.knjizenejService.getGlavneKnjige().subscribe((obj: any) => {
@@ -29,26 +34,27 @@ export class SvaKnjizenjaComponent implements OnInit {
 	pretrazi() {
 		this.knjizenejService
 			.pretrazi(
-				this.od,
-				this.doo,
-				this.konto,
-				this.nazivKonta,
-				this.komentar,
-				this.uzetOd,
-				this.uzetDo
+				this.filterForm.get('od')?.value,
+				this.filterForm.get('doo')?.value,
+				this.filterForm.get('konto')?.value,
+				this.filterForm.get('nazivKonta')?.value,
+				this.filterForm.get('komentar')?.value,
 			)
 			.subscribe((data: any) => {
 				this.knjizenja = data.content;
 			});
-		this.uzetOd = false;
-		this.uzetDo = false;
 	}
 
-	odChanged() {
-		this.uzetOd = true;
-	}
+  getAsDate(date: string) {
+    let newDate = new Date(date);
+    return (
+      newDate.getDate() +
+      '/' +
+      (newDate.getMonth() + 1) +
+      '/' +
+      newDate.getFullYear()
+    );
+  }
 
-	doChanged() {
-		this.uzetDo = true;
-	}
+
 }

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 
 import { KifComponent } from './kif.component';
@@ -7,16 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Invoice, Company } from 'src/app/shared/invoice.model';
 import { RouterTestingModule } from '@angular/router/testing';
-=======
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KifComponent } from './kif.component';
->>>>>>> bruto-bilans
 
 describe('KifComponent', () => {
 	let component: KifComponent;
 	let fixture: ComponentFixture<KifComponent>;
-<<<<<<< HEAD
 	let service: InvoiceService;
 
 	beforeEach(async () => {
@@ -25,12 +19,14 @@ describe('KifComponent', () => {
 				RouterTestingModule,
 				ReactiveFormsModule,
 				HttpClientModule,
-			],
-=======
+			],declarations: [KifComponent],
+    }).compileComponents();
+  });
+
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
->>>>>>> bruto-bilans
+
 			declarations: [KifComponent],
 		}).compileComponents();
 	});
@@ -38,7 +34,6 @@ describe('KifComponent', () => {
 	beforeEach(() => {
 		fixture = TestBed.createComponent(KifComponent);
 		component = fixture.componentInstance;
-<<<<<<< HEAD
 		service = fixture.debugElement.injector.get(InvoiceService);
 		fixture.detectChanges();
 	});
@@ -82,12 +77,5 @@ describe('KifComponent', () => {
 		component.input = 'preduzece';
 		component.setInputAsDate();
 		expect(component.inputAsDate).toBe('number');
-=======
-		fixture.detectChanges();
-	});
-
-	it('should create', () => {
-		expect(component).toBeTruthy();
->>>>>>> bruto-bilans
 	});
 });

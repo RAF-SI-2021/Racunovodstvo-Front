@@ -21,3 +21,4 @@ export class AddNewInvoiceService {
 		return this.httpClient.post<Invoice>(request, invoice, this.options);
 	}
 }
+

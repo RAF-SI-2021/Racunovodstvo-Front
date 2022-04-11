@@ -17,7 +17,7 @@ export class KontnaGrupaService {
 
 	delete(konto: KontnaGrupa) {
 		let jwt = String(sessionStorage.getItem('jwt'));
-		let url = `${this.apiUrl}/` + konto.brojKonta;
+		let url = `${this.apiUrl}/` + konto.kontnaGrupaId;
 
 		return this.httpClient.delete(url, {
 			headers: {

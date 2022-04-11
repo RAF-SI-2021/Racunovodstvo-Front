@@ -38,6 +38,7 @@ export class KifComponent implements OnInit {
 					Validators.required,
 					Validators.minLength(3),
 					Validators.maxLength(3),
+          Validators.pattern('^[A-Z]+$')
 				],
 			],
 			kurs: [this.selektovanaFaktura.kurs],
@@ -52,7 +53,7 @@ export class KifComponent implements OnInit {
 	preduzece1: Company = new Company('test1');
 	preduzece2: Company = new Company('test2');
 
-	preduzeca: Company[] = [this.preduzece1, this.preduzece2];
+	preduzeca: Company[] = [];
 
 	faktura1: Invoice = new Invoice(
 		1,
@@ -100,9 +101,9 @@ export class KifComponent implements OnInit {
 		'FAKTURA'
 	);
 
-	kif: Invoice[] = [this.faktura1, this.faktura2];
+	kif: Invoice[] = [];
 
-	selektovanaFaktura: Invoice = this.kif[0];
+	selektovanaFaktura: Invoice = this.faktura2;
 
 	edit: boolean = false;
 
@@ -112,9 +113,7 @@ export class KifComponent implements OnInit {
 		});
 		this.edit = false;
 		this.service.sveFakture().subscribe((response) => {
-			this.kif = response.content.filter(
-				(e: { tipFakture: string }) => e.tipFakture == 'IZLAZNA_FAKTURA'
-			);
+			this.kif = response
 		});
 	}
 
@@ -253,7 +252,7 @@ export class KifComponent implements OnInit {
 		this.service.filterKIF(filter, vrednost).subscribe(
 			(response) => {
 				if (response.ok) {
-					this.kif = response.body;
+					this.kif = response.body || [];
 				}
 			},
 			(error) => {

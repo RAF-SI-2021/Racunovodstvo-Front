@@ -48,7 +48,7 @@ export class BrutoBilansComponent implements OnInit {
 				[Validators.required, Validators.pattern('^[0-9]*$')],
 			],
 		});
-		this.suma = new BilansResponse(0, 0, '', '', 0, 0);
+		this.suma = new BilansResponse(0, 0, '', 'Zbir:', 0, 0);
 	}
 
 	ngOnInit(): void {
@@ -77,6 +77,11 @@ export class BrutoBilansComponent implements OnInit {
 				kontoDo = this.kontneGrupe[i];
 			}
 		}
+
+    if (kontoOd.kontnaGrupaId == -1 || kontoDo.kontnaGrupaId == -1) {
+      alert("Ne postoji kontna grupa")
+      return
+    }
 
 		this.brutoBilansService
 			.readAll(

@@ -1,7 +1,7 @@
 export interface BookkeepingJournal {
 	knjizenjeId: number;
 	brojNaloga: string;
-	datumKnjizenja: Date;
+	datumKnjizenja: string;
 	duguje: number;
 	potrazuje: number;
 	dokumentId: number;
@@ -11,7 +11,7 @@ export interface BookkeepingJournal {
 
 export interface MainBook {
 	brojNaloga: number;
-	datum: Date;
+	datum: string;
 	potrazuje: number;
 	duguje: number;
 	saldo: number;
@@ -23,7 +23,7 @@ export interface MainBook {
 export class BookkeepingJournal {
 	knjizenjeId: number;
 	brojNaloga: string;
-	datumKnjizenja: Date;
+	datumKnjizenja: string;
 	duguje: number;
 	potrazuje: number;
 	dokumentId: number;
@@ -33,7 +33,7 @@ export class BookkeepingJournal {
 	constructor(
 		knjizenjeId: number,
 		brojNaloga: string,
-		datumKnjizenja: Date,
+		datumKnjizenja: string,
 		duguje: number,
 		potrazuje: number,
 		dokumentId: number,
