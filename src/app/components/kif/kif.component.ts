@@ -112,7 +112,7 @@ export class KifComponent implements OnInit {
 			this.preduzeca = preduzeca;
 		});
 		this.edit = false;
-		this.service.sveFakture().subscribe((response) => {
+		this.service.sveKifFakture().subscribe((response) => {
 			this.kif = response
 		});
 	}

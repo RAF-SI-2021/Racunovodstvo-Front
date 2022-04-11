@@ -102,14 +102,23 @@ export class InvoiceService {
 		);
 	}
 
-	sveFakture() {
+	sveKufFakture() {
 		return this.http.get<Invoice[]>(
-			environment.APIEndpoint + `/api/faktura/all`,
+			environment.APIEndpoint + `/api/faktura?search=tipFakture:ULAZNA_FAKTURA`,
 			{
 				headers: this.httpHeaders,
 			}
 		);
 	}
+
+  sveKifFakture() {
+    return this.http.get<Invoice[]>(
+      environment.APIEndpoint + `/api/faktura?search=tipFakture:IZLAZNA_FAKTURA`,
+      {
+        headers: this.httpHeaders,
+      }
+    );
+  }
 
 	obrisiFakturu(dokumentId: number) {
 		return this.http.delete<any>(
