@@ -1,4 +1,5 @@
 <div>
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Bruto bilans</h1>
   <div class="offset-4 col-4">
     <form [formGroup]="brutoBilansForm" class="mb-5">
       <div class="form-group">
@@ -35,7 +36,7 @@
       </mat-form-field>
     </form>
     <button (click)="readBrutoBilans()" [disabled]="!brutoBilansForm.valid" type="submit" mat-raised-button
-            color="primary">Pretrazi
+            color="primary">Pretraži
     </button>
 
     <table [hidden]="" class="table">
@@ -45,7 +46,7 @@
         <th style="width: 5%" scope="col">Stavki</th>
         <th style="width: 30%" scope="col">Naziv</th>
         <th style="width: 15%" scope="col">Duguje</th>
-        <th style="width: 15%" scope="col">Potrazuje</th>
+        <th style="width: 15%" scope="col">Potražuje</th>
         <th style="width: 15%" scope="col">Saldo</th>
       </tr>
       </thead>

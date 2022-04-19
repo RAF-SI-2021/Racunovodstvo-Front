@@ -1,4 +1,5 @@
 <div class="container d-flex flex-column gap-3">
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Kontni plan</h1>
   <table class="table">
     <thead>
     <tr>
@@ -13,8 +14,8 @@
       <td [hidden]="enableEditIndex == i"> {{konto.brojKonta}} </td>
       <td [hidden]="enableEditIndex == i"> {{konto.nazivKonta}} </td>
       <td>
-        <button [hidden]="enableEditIndex != i" [disabled]="!kontoUpdateForm.valid || enableEditIndex != i" type="submit" mat-raised-button color="primary" (click)="updateKonto(konto.kontnaGrupaId)">Sacuvaj</button>
-        <button [hidden]="enableEditIndex != i" mat-raised-button color="warn" (click)="deleteKonto(konto)">Izbrisi</button>
+        <button [hidden]="enableEditIndex != i" [disabled]="!kontoUpdateForm.valid || enableEditIndex != i" type="submit" mat-raised-button color="primary" (click)="updateKonto(konto.kontnaGrupaId)">Sačuvaj</button>
+        <button [hidden]="enableEditIndex != i" mat-raised-button color="warn" (click)="deleteKonto(konto)">Izbriši</button>
       </td>
     </tr>
     <!--- Note that these columns can be defined in any order.
@@ -29,7 +30,7 @@
         <label for="naziv">Naziv</label>
         <input type="text" class="form-control" id="naziv" placeholder="Naziv" [formControlName]="'naziv'">
       </div>
-      <button [disabled]="!kontoCreateForm.valid" type="submit" class="btn btn-primary">Submit</button>
+      <button [disabled]="!kontoCreateForm.valid" type="submit" class="btn btn-primary">Dodaj</button>
     </form>
   </div>
 </div>

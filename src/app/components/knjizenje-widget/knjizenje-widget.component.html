@@ -2,7 +2,7 @@
   <div class="form-group" [formGroup]="knjizenjeGroup">
     <div class="row">
       <div class="col-sm-4">
-        <label for="brojDok">Broj Dokumenta:</label>
+        <label for="brojDok">Broj dokumenta:</label>
         <input type="text" class="form-control" id="brojDok" placeholder="unesi broj dokumenta"
                [formControlName]="'brojDokumenta'">
       </div>
@@ -42,7 +42,7 @@
       </td>
       <td>
         <div class="form-group">
-          <label for="potrazuje">Potrazuje</label>
+          <label for="potrazuje">Potražuje</label>
           <input [formControlName]="'potrazuje'" type="number" class="form-control" id="potrazuje"
                  placeholder="unesi potrazuje" name="potraga" [value]="konto.potrazuje">
         </div>
@@ -53,7 +53,7 @@
           <button class="btn btn-sm btn-danger" (click)="delete(i)">izbrisi</button>
         </div>
         <ng-template #addBtn>
-          <button class="btn btn-sm btn-success" [disabled]="!kontoGroups[i].valid" (click)="add(i)">dodaj</button>
+          <button class="btn btn-sm btn-success" [disabled]="!kontoGroups[i].valid" (click)="add(i)">Dodaj</button>
         </ng-template>
       </td>
     </tr>
@@ -75,6 +75,6 @@
     </tfoot>
   </table>
   <div class="mt-4">
-    <button class="btn btn-success" [disabled]="!knjizenjeGroup.valid" (click)="knjizenje()">Knizenje</button>
+    <button class="btn btn-success" [disabled]="!knjizenjeGroup.valid" (click)="knjizenje()">Kniženje</button>
   </div>
 </div>

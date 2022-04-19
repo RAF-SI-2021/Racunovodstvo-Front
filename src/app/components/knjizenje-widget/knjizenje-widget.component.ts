@@ -185,11 +185,15 @@ export class KnjizenjeWidgetComponent implements OnInit {
       }
     }
     if (this.dugujeUkupnoNum - this.potrazujeUkupnoNum !== 0) {
-      if (confirm('Nalog nije u ravnotezi. Da li zelite da nastavite?')) {
-        this.uknjizi();
-      } else {
-        return;
-      }
+      // if (confirm('Nalog nije u ravnotezi. Da li zelite da nastavite?')) {
+      //   this.uknjizi();
+      // } else {
+      //   return;
+      // }
+      alert(
+        'Nalog nije u ravnoteži. Knjiženje nije moguće!'
+      );
+      return;
     }
     this.uknjizi();
   }

@@ -1,13 +1,13 @@
-  <div class="container">
-    <div class="row col-md-6 "
+<div class="container">
+  <div class="row col-md-6 "
       style=" position:absolute; top:50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);">
-      <div class="panel panel-primary">
-        <div class="panel-body">
-          <form [formGroup]="addingForm">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <form [formGroup]="addingForm">
             <div class="form-group">
               <br>
-              <label for="tipFakture">Tip Fakture</label>
-              <select id="tipFakture" #tipFakture class="form-control" aria-label="Default select example">
+              <label style="font-family: Sans-serif, serif; text-align: center;">Dodajte novu fakturu:</label>
+             <select id="tipFakture" #tipFakture class="form-control" aria-label="Default select example">
                 <option value="1">Ulazna faktura</option>
                 <option value="2">Izlazna Faktura</option>
               </select>
