@@ -3,7 +3,7 @@ export interface User {
 	username: string;
 	firstName: string;
 	lastName: string;
-	permissions: Permissions[];
+	permissions: Permission[];
 }
 
 export class User {
@@ -30,8 +30,11 @@ export interface Users {
 }
 
 export class Permission {
-	name: string;
-	constructor(name: string) {
-		this.name = name;
-	}
+  name: string;
+  id: number;
+  constructor(name: string, id: number) {
+    this.id = id;
+    this.name = name;
+  }
+
 }

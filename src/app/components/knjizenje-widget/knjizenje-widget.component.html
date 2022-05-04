@@ -1,0 +1,82 @@
+<div id="main" class="container">
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Knjiženje</h1>
+
+  <div class="form-group" [formGroup]="knjizenjeGroup">
+    <div class="row">
+      <div class="col-sm-4">
+        <label for="brojDok">Broj dokumenta:</label>
+        <input type="text" class="form-control" id="brojDok" placeholder="unesi broj dokumenta"
+               [formControlName]="'brojDokumenta'">
+      </div>
+      <div class="col-sm-4">
+        <label for="brojNalog">Broj naloga: </label>
+        <input type="text" class="form-control" id="brojNalog" placeholder="unesi broj naloga"
+               [formControlName]="'brojNaloga'">
+      </div>
+      <div class="col-sm-4">
+        <label for="date">Datum</label>
+        <input type="date" class="form-control" id="date" placeholder="unesi datum" [formControlName]="'datum'">
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-bordered mt-4">
+    <tbody>
+    <tr *ngFor="let konto of kontos; index as i" [formGroup]="kontoGroups[i]">
+      <td>
+        <div class="form-group">
+          <label>Konto</label>
+          <input matInput [matAutocomplete]="auto" [formControlName]="'konto'" type="text" class="form-control"
+                 placeholder="unesi konto" name="konto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions[i] | async" [value]="option.brojKonta">
+             {{option.brojKonta}} - {{ option.nazivKonta}}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+      </td>
+      <td>
+        <div class="form-group">
+          <label for="duguje">Duguje</label>
+          <input [formControlName]="'duguje'" type="number" class="form-control" id="duguje"
+                 aria-describedby="emailHelp" placeholder="unesi dugovanje" name="dug">
+        </div>
+      </td>
+      <td>
+        <div class="form-group">
+          <label for="potrazuje">Potražuje</label>
+          <input [formControlName]="'potrazuje'" type="number" class="form-control" id="potrazuje"
+                 placeholder="unesi potrazuje" name="potraga" [value]="konto.potrazuje">
+        </div>
+      </td>
+      <td>
+        <div *ngIf="konto.addOrDeleteEdit; else addBtn">
+          <button class="btn btn-sm btn-warning" [disabled]="!kontoGroups[i].valid" (click)="edit(i)">izmeni</button>
+          <button class="btn btn-sm btn-danger" (click)="delete(i)">izbrisi</button>
+        </div>
+        <ng-template #addBtn>
+          <button class="btn btn-sm btn-success" [disabled]="!kontoGroups[i].valid" (click)="add(i)">Dodaj</button>
+        </ng-template>
+      </td>
+    </tr>
+    </tbody>
+    <tfoot>
+      <td>
+
+      </td>
+      <td>
+        <a id="dugujeUkupno"><b>{{ dugujeUkupno() }}</b></a>
+      </td>
+
+      <td>
+        <a><b>{{ potrazujeUkupno() }}</b></a>
+      </td>
+      <td>
+        <a><b>{{ saldo() }}</b></a>
+      </td>
+    </tfoot>
+  </table>
+  <div class="mt-4">
+    <button class="btn btn-success" [disabled]="!knjizenjeGroup.valid" (click)="knjizenje()">Kniženje</button>
+  </div>
+</div>

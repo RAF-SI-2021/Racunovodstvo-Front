@@ -1,0 +1,62 @@
+<div class="container">
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Dnevnik knjiženja</h1>
+  <section class="search-sec">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row" [formGroup]="filterForm">
+              <div class="col-lg-2 col-md-3 col-sm-12 p-0">
+                <input [formControlName]="'brojNaloga'" type="text" class="form-control search-slt" placeholder="Unesi broj naloga">
+              </div>
+              <div class="col-lg-2 col-md-3 col-sm-12 p-0">
+                <input [formControlName]="'od'" type="date" placeholder="od" class="form-control search-slt">
+              </div>
+              <div class="col-lg-2 col-md-3 col-sm-12 p-0">
+                <input [formControlName]="'doo'" type="date" class="form-control search-slt">
+              </div>
+              <div class="col-lg-2 col-md-3 col-sm-12 p-0">
+                <input [formControlName]="'brojDokFak'" type="text" class="form-control search-slt" placeholder="Unesi broj fakture/dokumenta">
+              </div>
+              <div class="col-lg-2 col-md-3 col-sm-12 p-0">
+                <input [formControlName]="'komentar'" type="text" class="form-control search-slt" placeholder="Unesi komentar">
+              </div>
+              <div class="col-lg-2 col-md-3 col-sm-12 p-0">
+                <button (click)="pretrazi()" type="button" class="btn btn-primary wrn-btn">Pretraži</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+
+<!--  Tabela   -->
+  <table class="table table-bordered"  >
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Broj naloga</th>
+      <th scope="col">Datum</th>
+      <th scope="col">Broj fakture/Dokumenta</th>
+      <th scope="col">Duguje</th>
+      <th scope="col">Potražuje</th>
+      <th scope="col">Saldo</th>
+      <th scope="col">Komentar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let knjizenje of knjizenja; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td id="brojNaloga">{{ knjizenje.brojNaloga }}</td>
+      <td>{{ getAsDate(knjizenje.datumKnjizenja) }}</td>
+      <td>{{knjizenje.dokumentId}}</td>
+      <td>{{ knjizenje.duguje}}</td>
+      <td>{{ knjizenje.potrazuje }}</td>
+      <td>{{ knjizenje.saldo }}</td>
+      <td>{{ knjizenje.komentar }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+

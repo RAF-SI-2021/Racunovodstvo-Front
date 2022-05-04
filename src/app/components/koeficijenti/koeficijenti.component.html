@@ -1,0 +1,34 @@
+<div class="container">
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Koeficijenti za obračun poreza i doprinosa</h1>
+  <table class="table table-striped table-responsive-sm">
+    <thead>
+    <tr>
+      <th>NnO</th>
+      <th>NvO</th>
+      <th>PIO1</th>
+      <th>PIO2</th>
+      <th>ZO1</th>
+      <th>ZO2</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let koeficijent of koeficijenti; index as i" [formGroup]="koefForms[i]">
+      <td><input type="number" min="0" [formControlName]="'najnizaOsnovica'" class="form-control"></td>
+      <td><input type="number" min="0" [formControlName]="'najvisaOsnovica'" class="form-control"></td>
+      <td><input type="number" min="0" [formControlName]="'penzionoOsiguranje1'" class="form-control"></td>
+      <td><input type="number" min="0" [formControlName]="'penzionoOsiguranje2'" class="form-control"></td>
+      <td><input type="number" min="0" [formControlName]="'zdravstvenoOsiguranje1'" class="form-control"></td>
+      <td><input type="number" min="0" [formControlName]="'zdravstvenoOsiguranje2'" class="form-control"></td>
+      <td><button class="btn btn-sm btn-warning" [disabled]="!koefForms[i].valid"  (click)="update(i)" type="submit">Izmeni</button></td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-sm-3" style="background: deepskyblue">
+      <label style="color: white"><b>NnO = Najniza osnovica <br>NvO = Najvisa osnovica <br>PIO = Penziono osiguranje <br>ZO = Zdravstveno osiguranje</b></label>
+    </div>
+    <div class="col-sm-9">
+
+    </div>
+  </div>
+</div>

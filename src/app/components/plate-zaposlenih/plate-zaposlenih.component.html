@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="row text-center">
+    <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Plate</h1>
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-8">
+      <form class="form-control" [formGroup]="filterGroup" (submit)="filter()">
+        <div class="row">
+          <div class="col-sm-4">
+            <label class="labelClass">Ime:</label>
+            <input class="form-control" placeholder="Ime zaposlenog" type="text" [formControlName]="'ime'">
+          </div>
+
+          <div class="col-sm-4">
+            <label class="labelClass">Prezime:</label>
+            <input class="form-control" placeholder="Prezime zaposlenog" type="text" [formControlName]="'prezime'">
+          </div>
+
+          <div class="col-sm-4">
+            <label class="labelClass">Neto plata:</label>
+            <input class="form-control" placeholder="Neto plata" type="text" [formControlName]="'netoPlata'">
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label class="labelClass">Porez:</label>
+            <input class="form-control" placeholder="Porez" type="text" [formControlName]="'porez'">
+          </div>
+
+          <div class="col-sm-4">
+            <label class="labelClass">Doprinos 1:</label>
+            <input class="form-control" placeholder="Doprinos 1" type="text" [formControlName]="'doprinos1'">
+          </div>
+
+          <div class="col-sm-4">
+            <label class="labelClass">Doprinos 2:</label>
+            <input class="form-control" placeholder="Doprinos 2" type="text" [formControlName]="'doprinos2'">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <label class="labelClass">Bruto plata:</label>
+            <input class="form-control" placeholder="Bruto plata" type="text" [formControlName]="'brutoPlata'">
+          </div>
+
+          <div class="col-sm-4">
+            <label class="labelClass">Ukupan trošak zarade:</label>
+            <input class="form-control" placeholder="Ukupan trosak zarade" type="text" [formControlName]="'ukupanTrosakZarade'">
+
+          </div>
+
+          <div class="col-sm-4">
+            <label class="labelClass">Komentar:</label>
+            <input class="form-control" placeholder="Komentar" type="text" [formControlName]="'komentar'">
+
+          </div>
+        </div>
+        <div class="row text-center  mt-2">
+          <div class="col-sm-5"></div>
+          <div class="col-sm-2">
+            <button class="btn btn-sm btn-primary" type="submit">Filter</button>
+          </div>
+          <div class="col-sm-5"></div>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-2">
+
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <table class="table table-striped table-responsive-sm">
+      <thead>
+      <tr>
+        <th>Šifra zaposlenog</th>
+        <th>Ime i prezime</th>
+        <th>Neto plata</th>
+        <th>Porez</th>
+        <th>Doprinos 1</th>
+        <th>Bruto plata</th>
+        <th>Doprinos 2</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let plata of plate; index as i" (click)="profilZaposlenog(plata.zaposleni.zaposleniId)">
+        <td>{{ plata.zaposleni.zaposleniId }}</td>
+        <td>{{ plata.zaposleni.ime }} {{plata.zaposleni.prezime}}</td>
+        <td>{{ plata.netoPlata}}</td>
+        <td>{{ plata.porez}}</td>
+        <td>{{ plata.doprinos1}}</td>
+        <td>{{ plata.brutoPlata}}</td>
+        <td>{{ plata.doprinos2}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</div>

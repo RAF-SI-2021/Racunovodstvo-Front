@@ -1,0 +1,248 @@
+<section>
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Profil zaposlenog</h1>
+
+            <!--PRVI RED ******************************************************************************************************-->
+            <form [formGroup]="addingForm" (submit)="edit()">
+              <div class="row">
+                <div class="col-md-3">
+
+                  <div class="form-group">
+                    <input [formControlName]="'ime'" type="text" class="form-control form-control-lg"/>
+                    <span class="text-danger"
+                          *ngIf="addingForm.controls['ime'].dirty && addingForm.hasError('required','ime')">Ovo polje
+                je obavezno</span>
+                    <label class="form-label">Ime</label>
+                  </div>
+
+                </div>
+                <div class="col-md-3">
+
+                  <div class="form-outline">
+                    <input [formControlName]="'prezime'" type="text"
+                           class="form-control form-control-lg"/>
+                    <span class="text-danger"
+                          *ngIf="addingForm.controls['prezime'].dirty && addingForm.hasError('required','prezime')">Ovo polje
+                je obavezno</span>
+                    <label class="form-label">Prezime</label>
+                  </div>
+
+                </div>
+                <div class="col-md-3">
+
+                  <div class="form-outline">
+                    <input [formControlName]="'imeRoditelja'" type="text" class="form-control form-control-lg"/>
+                    <label class="form-label">Ime roditelja</label>
+                  </div>
+
+                </div>
+                <div class="col-md-3">
+
+                  <div class="form-outline">
+<!--                    {{'datumPocetka' | date :'dd/MM/yy'}}-->
+
+                    <input  [formControlName]="'datumPocetka'"  type="text" required
+                           pattern="\d{1,2}/\d{1,2}/\d{2}" placeholder="DD/MM/YY" class="form-control form-control-lg"/>
+                    <!--                    <span class="text-danger"-->
+                    <!--                          *ngIf="addingForm.controls['datumPocetkaRadnogOdnosa'].dirty && addingForm.hasError('required','datumPocetkaRadnogOdnosa')">Ovo polje-->
+                    <!--                je obavezno</span>-->
+                    <label class="form-label">Datum početka radnog odnosa</label>
+                  </div>
+
+                </div>
+
+                <!--&lt;!&ndash;DRUGI RED ******************************************************************************************************&ndash;&gt;-->
+                <div class="row">
+                  <div class="col-md-6">
+
+                    <div class="form-outline">
+                      <input  [formControlName]="'JMBG'"  type="text" id="exampleFormControlInput4"
+                             class="form-control form-control-lg"/>
+                      <span class="text-danger"
+                            *ngIf="addingForm.controls['JMBG'].dirty && addingForm.hasError('required','JMBG')">JMBG
+                je obavezan</span>
+                      <label class="form-label">JMBG</label>
+                    </div>
+
+                  </div>
+                  <div class="col-md-3">
+
+                    <div class="form-outline">
+                      <input  [formControlName]="'pol'" type="text" class="form-control form-control-lg"/>
+                      <span class="text-danger"
+                            *ngIf="addingForm.controls['pol'].dirty && addingForm.hasError('required','pol')">Pol
+                je obavezan</span>
+                      <label class="form-label">Pol</label>
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-3">
+
+                    <div class="form-outline">
+<!--                      [ngModel]="datumRodjenja | date :'dd/MM/yy'"-->
+                      <input type="text"  [formControlName]="'datumRodjenja'"  required
+                             pattern="\d{1,2}/\d{1,2}/\d{2}" placeholder="DD/MM/YY"
+                             class="form-control form-control-lg"/>
+                      <!--                    <span class="text-danger"-->
+                      <!--                          *ngIf="addingForm.controls['datumRodjenja'].dirty && addingForm.hasError('required','datumRodjenja')">Datum rođenja-->
+                      <!--                je obavezan</span>-->
+                      <label class="form-label">Datum rođenja</label>
+                    </div>
+
+                  </div>
+
+                </div>
+                <!--&lt;!&ndash;TRECI RED ******************************************************************************************************&ndash;&gt;-->
+
+                <div class="row">
+                  <div class="col-md-6">
+
+                    <div class="form-outline">
+                      <input type="text" [formControlName]="'adresa'" class="form-control form-control-lg"/>
+                      <label class="form-label">Adresa</label>
+                    </div>
+
+                  </div>
+                  <div class="col-md-3">
+
+                    <div class="form-outline">
+                      <input [formControlName]="'grad'" type="text" class="form-control form-control-lg"/>
+                      <label class="form-label">Grad</label>
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-3">
+
+                    <div class="form-outline">
+                      <input  [formControlName]="'radnoMesto'" type="text"
+                             class="form-control form-control-lg"/>
+                      <span class="text-danger"
+                            *ngIf="addingForm.controls['radnoMesto'].dirty && addingForm.hasError('required','radnoMesto')">Radno mesto
+                je obavezno</span>
+                      <label class="form-label">Radno mesto</label>
+                    </div>
+
+                  </div>
+
+                </div>
+                <!--&lt;!&ndash;CETVRTI RED ******************************************************************************************************&ndash;&gt;-->
+
+                <div class="row">
+                  <div class="col-md-9">
+
+                    <div class="form-outline">
+                      <input [formControlName]="'brojRacuna'" type="text" class="form-control form-control-lg"/>
+                      <label class="form-label">Broj računa</label>
+                    </div>
+
+                  </div>
+                  <div class="col-md-3">
+
+                    <div class="form-outline">
+                      <input [formControlName]="'stepenObrazovanja'" type="text" class="form-control form-control-lg"/>
+                      <label class="form-label">Stepen obrazovanja</label>
+                    </div>
+
+                  </div>
+
+                </div>
+                <!--&lt;!&ndash;PETI RED ******************************************************************************************************&ndash;&gt;-->
+
+                <div class="row">
+                  <div class="col-md-9">
+
+                    <div class="form-outline">
+                      <input [formControlName]="'brojRadneKnjizice'" type="text" class="form-control form-control-lg"/>
+                      <label class="form-label">Broj radne knjižice</label>
+                    </div>
+
+                  </div>
+                  <div class="col-md-3">
+
+                    <div class="form-outline">
+                      <input  [formControlName]="'status'"  type="text"
+                             class="form-control form-control-lg"/>
+                      <span class="text-danger"
+                            *ngIf="addingForm.controls['status'].dirty && addingForm.hasError('required','status')">Status
+                je obavezan</span>
+                      <label class="form-label">Status</label>
+                    </div>
+
+                  </div>
+
+                </div>
+                <!--&lt;!&ndash;SESTI RED ******************************************************************************************************&ndash;&gt;-->
+                <div class="row">
+                  <div class="col-md-9">
+
+                    <div class="form-outline">
+                      ​<textarea [formControlName]="'komentar'" id="txtArea" rows="5" cols="70"></textarea>
+                      <label class="form-label">Komentar</label>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <h3>Staž: {{staz}}</h3>
+                </div>
+
+
+
+                <div class="mt-4 pt-2">
+                  <button class="btn btn-primary btn-lg" type="submit">Potvrdi</button>
+                </div>
+
+              </div>
+            </form>
+            <div class="row">
+              <div class="col-md-6">
+                <div>
+                  <br>
+                  <div class="form-outline">
+                    <input [(ngModel)]="plata" type="text" class="form-control form-control-lg"/>
+                    <label class="form-label">Nova plata</label><br>
+                    <button (click)="put()" class="btn btn-danger">Dodaj novu platu</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>      <br><br>
+
+      </div>
+      <h1 style="text-align: center">Plate</h1>
+
+      <table class="table table-bordered" style="padding-bottom: 100px; background-color:#F6F6F6; border: ridge 5px" >
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Početni datum</th>
+          <th scope="col">Krajnji datum</th>
+          <th scope="col">Neto iznos</th>
+          <th scope="col">Komentar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let plata of plate; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td id="brojNaloga">{{ plata.datumOd }}</td>
+          <td>{{ plata.datumDo }}</td>
+          <td>{{plata.netoPlata}}</td>
+          <td>{{ plata.komentar}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+</section>

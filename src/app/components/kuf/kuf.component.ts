@@ -29,6 +29,7 @@ export class KufComponent implements OnInit {
 				[Validators.required],
 			],
 			datumPlacanja: [this.selektovanaFaktura.datumPlacanja],
+			rokZaPlacanje: [this.selektovanaFaktura.rokZaPlacanje],
 			prodajnaVrednost: [this.selektovanaFaktura.prodajnaVrednost],
 			rabatProcenat: [this.selektovanaFaktura.rabatProcenat],
 			porezProcenat: [this.selektovanaFaktura.porezProcenat],
@@ -52,11 +53,12 @@ export class KufComponent implements OnInit {
 	preduzece1: Company = new Company('test1');
 	preduzece2: Company = new Company('test2');
 
-	preduzeca: Company[] = [this.preduzece1, this.preduzece2];
+	preduzeca: Company[] = [];
 
 	faktura1: Invoice = new Invoice(
 		1,
 		'3',
+		'22/03/2222',
 		'22/03/2222',
 		new Company('NEBITNO'),
 		'20/03/2000',
@@ -72,6 +74,7 @@ export class KufComponent implements OnInit {
 		'Komentar',
 		'ULAZNA_FAKTURA',
 		2,
+		'1111',
 		'FAKTURA'
 	);
 
@@ -79,6 +82,7 @@ export class KufComponent implements OnInit {
 		2,
 		'4',
 		'22/03/2222',
+		'22/03/2222',
 		new Company('NEBITNO'),
 		'20/03/2000',
 		10000,
@@ -93,12 +97,13 @@ export class KufComponent implements OnInit {
 		'Komentar',
 		'ULAZNA_FAKTURA',
 		2,
+		'1111',
 		'FAKTURA'
 	);
 
-	kuf: Invoice[] = [this.faktura1, this.faktura2];
+	kuf: Invoice[] = [];
 
-	selektovanaFaktura: Invoice = this.kuf[0];
+	selektovanaFaktura: Invoice = this.faktura2;
 
 	edit: boolean = false;
 
@@ -107,15 +112,13 @@ export class KufComponent implements OnInit {
 			this.preduzeca = preduzeca;
 		});
 		this.edit = false;
-		this.service.sveFakture().subscribe((response) => {
-			this.kuf = response.content.filter(
-				(e: { tipFakture: string }) => e.tipFakture == 'ULAZNA_FAKTURA'
-			);
+		this.service.sveKufFakture().subscribe((response) => {
+			this.kuf = response
 		});
 	}
 
 	setInputAsDate() {
-		if (this.input.startsWith('datum')) {
+		if (this.input.startsWith('datum') || this.input.startsWith('rok')) {
 			this.inputAsDate = 'date';
 		} else if (this.input.startsWith('preduzece')) {
 			this.inputAsDate = 'number';
@@ -181,6 +184,7 @@ export class KufComponent implements OnInit {
 		this.updateGroup = this.formBuilder.group({
 			brojFakture: [this.selektovanaFaktura.brojFakture],
 			datumIzdavanja: [new Date(this.selektovanaFaktura.datumIzdavanja)],
+			rokZaPlacanje: [new Date(this.selektovanaFaktura.rokZaPlacanje)],
 			komitent: [
 				this.selektovanaFaktura.preduzece.naziv,
 				[Validators.required],
@@ -248,7 +252,7 @@ export class KufComponent implements OnInit {
 		this.service.filterKUF(filter, vrednost).subscribe(
 			(response) => {
 				if (response.ok) {
-					this.kuf = response.body;
+					this.kuf = response.body || [];
 				}
 			},
 			(error) => {
@@ -274,6 +278,7 @@ export class KufComponent implements OnInit {
 	sacuvaj() {
 		let brojFakture = this.updateGroup.get('brojFakture')?.value;
 		let datumIzdavanja = this.updateGroup.get('datumIzdavanja')?.value;
+		let rokZaPlacanje = this.updateGroup.get('rokZaPlacanje')?.value;
 		let komitent = this.updateGroup.get('komitent')?.value;
 		let datumPlacanja = this.updateGroup.get('datumPlacanja')?.value;
 		let prodajnaVrednost = this.updateGroup.get('prodajnaVrednost')?.value;
@@ -288,6 +293,8 @@ export class KufComponent implements OnInit {
 			this.selektovanaFaktura.brojFakture = brojFakture;
 		}
 		this.selektovanaFaktura.datumIzdavanja = datumIzdavanja;
+		this.selektovanaFaktura.rokZaPlacanje = rokZaPlacanje;
+
 		console.log(komitent);
 		if (komitent !== this.selektovanaFaktura.preduzece.naziv) {
 			this.preduzeca.forEach((value) => {
