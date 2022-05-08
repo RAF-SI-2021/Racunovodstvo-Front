@@ -1,0 +1,224 @@
+<!--  Tabela   -->
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Broj konverzije</th>
+    <th scope="col">Datum</th>
+    <th scope="col">Dobavljac</th>
+    <th scope="col">Lokacija</th>
+    <th scope="col">Troskovi nabavke</th>
+    <th scope="col">Fakturna cena</th>
+    <th scope="col">Nabavna vrednost</th>
+    <th scope="col">Valuta</th>
+    <th scope="col">Komentar</th>
+    <th scope="col">Brisanje</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr (dblclick)="prikaziArtikle(konverzija.konverzijaId)" *ngFor="let konverzija of konverzije; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ konverzija.brojKonverzije }}</td>
+    <td>{{ konverzija.datum }}</td>
+    <td>{{ konverzija.nazivDobavljaca }}</td>
+    <td>{{ konverzija.nazivLokacija + ", " + konverzija.adresaLokacije}}</td>
+    <td>{{ konverzija.troskoviNabavke }}</td>
+    <td>{{ konverzija.fakturnaCena }}</td>
+    <td>{{ konverzija.nabavnaVrednost }}</td>
+    <td>{{ konverzija.valuta }}</td>
+    <td>{{ konverzija.komentar }}</td>
+    <td>{{ delete(konverzija.konverzijaId)}}</td>
+
+    <!--  Tabela 2  -->
+    <td [hidden]="hiddenArtikli">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Sifra artikla</th>
+          <th scope="col">Naziv artikla</th>
+          <th scope="col">Jedinica mere</th>
+          <th scope="col">Kolicina</th>
+          <th scope="col">Nabavna cena</th>
+          <th scope="col">Rabat %</th>
+          <th scope="col">Rabat</th>
+          <th scope="col">Nabavna cena posle rabata</th>
+          <th scope="col">Ukupna nabavna vrednost</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let artikal of artikli; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ artikal.sifraArtikla }}</td>
+          <td>{{ artikal.nazivArtikla }}</td>
+          <td>{{ artikal.jedinicaMere }}</td>
+          <td>{{ artikal.kolicina }}</td>
+          <td>{{ artikal.nabavnaCena }}</td>
+          <td>{{ artikal.rabatProcenat }}</td>
+          <td>{{ artikal.nabavnaCena * (artikal.rabatProcenat / 100) }}</td>
+          <td>{{ artikal.nabavnaCena - artikal.rabat }}</td>
+          <td>{{ artikal.nabavnaCenaPosleRabata * artikal.kolicina }}</td>
+        </tr>
+        <!--        DODAVANJE ARTIKLA-->
+
+        <form [formGroup]="addingFormArtikal" (ngSubmit)="dodajArtikal(konverzija.konverzijaId)">
+          <label class="form-label">Sifra artikla</label>
+          <input [formControlName]="'sifraArtikla'" type="text" class="form-control form-control-lg"/>
+          <span class="text-danger"
+                *ngIf="addingForm.controls['sifraArtikla'].dirty && addingForm.hasError('required','sifraArtikla')">
+            Obavezno polje
+          </span>
+
+          <label class="form-label">Naziv artikla</label>
+          <input [formControlName]="'nazivArtikla'" type="text" class="form-control form-control-lg"/>
+          <span class="text-danger"
+                *ngIf="addingForm.controls['nazivArtikla'].dirty && addingForm.hasError('required','nazivArtikla')">
+            Obavezno polje
+          </span>
+
+          <label class="form-label">Jedinica mere</label>
+          <input [formControlName]="'jedinicaMere'" type="text" class="form-control form-control-lg"/>
+          <span class="text-danger"
+                *ngIf="addingForm.controls['jedinicaMere'].dirty && addingForm.hasError('required','jedinicaMere')">
+            Obavezno polje
+          </span>
+
+          <label class="form-label">Kolicina</label>
+          <input (change)="changedArtikal(konverzija.konverzijaId)" [formControlName]="'kolicina'" type="text" class="form-control form-control-lg"/>
+          <span class="text-danger"
+                *ngIf="addingForm.controls['kolicina'].dirty && addingForm.hasError('required','kolicina')">
+            Obavezno polje
+          </span>
+
+          <label class="form-label">Nabavna cena</label>
+          <input (change)="changedArtikal(konverzija.konverzijaId)" [formControlName]="'nabavnaCena'" type="text" class="form-control form-control-lg"/>
+          <span class="text-danger"
+                *ngIf="addingForm.controls['nabavnaCena'].dirty && addingForm.hasError('required','nabavnaCena')">
+            Obavezno polje
+          </span>
+
+          <label class="form-label">Rabat %</label>
+          <input [formControlName]="'rabatProcenat'" type="text" class="form-control form-control-lg"/>
+          <span class="text-danger"
+                *ngIf="addingForm.controls['rabatProcenat'].dirty && addingForm.hasError('required','rabatProcenat')">
+            Obavezno polje
+          </span>
+
+          <label class="form-label">Rabat </label>
+          <input [disabled]="true" [formControlName]="'rabat'" type="text" class="form-control form-control-lg"/>
+          <span class="text-danger"
+                *ngIf="addingForm.controls['rabat'].dirty && addingForm.hasError('required','rabat')">
+            Obavezno polje
+          </span>
+
+          <label class="form-label">Nabavna cena posle rabata </label>
+          <input (change)="changedArtikal(konverzija.konverzijaId)" [disabled]="true" [formControlName]="'nabavnaCenaPosleRabata'" type="text" class="form-control form-control-lg"/>
+          <span class="text-danger"
+                *ngIf="addingForm.controls['nabavnaCenaPosleRabata'].dirty && addingForm.hasError('required','nabavnaCenaPosleRabata')">
+            Obavezno polje
+          </span>
+
+          <label class="form-label">Ukupna nabavna vrednost </label>
+          <input (change)="changedArtikal(konverzija.konverzijaId)" [disabled]="true" [formControlName]="'ukupnaNabavnaVrednost'" type="text" class="form-control form-control-lg"/>
+          <span class="text-danger"
+                *ngIf="addingForm.controls['ukupnaNabavnaVrednost'].dirty && addingForm.hasError('required','ukupnaNabavnaVrednost')">
+            Obavezno polje
+          </span>
+        </form>
+
+
+        </tbody>
+      </table>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<form [formGroup]="addingForm" (ngSubmit)="dodajKonverziju()">
+  <label class="form-label">Broj konverzije</label>
+  <input [formControlName]="'brojKonverzije'" type="text" class="form-control form-control-lg"/>
+  <span class="text-danger"
+        *ngIf="addingForm.controls['brojKonverzije'].dirty && addingForm.hasError('required','brojKonverzije')">
+    Obavezno polje
+  </span>
+
+  <label class="form-label">Datum</label>
+  <input [formControlName]="'datum'" type="date" class="form-control form-control-lg"/>
+  <span class="text-danger" *ngIf="addingForm.controls['datum'].dirty && addingForm.hasError('required','datum')">
+    Obavezno polje
+  </span>
+
+  <label class="form-label">Dobavljac</label>
+  <select [formControlName]="'dobavljac'">
+    <option *ngFor="let dobavljac of dobavljaci; let i = index" [value]="dobavljaci[i].naziv">
+      {{dobavljaci[i].naziv}}
+    </option>
+  </select>
+
+  <label class="form-label">Lokacija(iz postojecih)</label>
+  <select [formControlName]="'lokacija'">
+    <option *ngFor="let lokacija of lokacije; let i = index" [value]="lokacije[i].adresa + ' ' + lokacije[i].naziv">
+      {{lokacije[i].adresa + ' ' + lokacije[i].naziv}}
+    </option>
+  </select>
+
+  <label class="form-label">Naziv lokacije</label>
+  <input [ngModel]="lokacijaNaziv" type="text" class="form-control form-control-lg"/>
+
+  <label class="form-label">Adresa lokacije</label>
+  <input [ngModel]="lokacijaAdresa" type="text" class="form-control form-control-lg"/>
+
+
+  <table class="table table-bordered" formArrayName="troskoviNabavke">
+    <tr>
+      <th colspan="2">Dodaj troskove:</th>
+      <th width="150px">
+        <button type="button" (click)="addTrosakNabavke()" class="btn btn-primary">Add More</button>
+      </th>
+    </tr>
+    <tr *ngFor="let quantity of troskoviNabavke().controls; let i=index" [formGroupName]="i">
+      <td>
+        Trosak:
+        <input type="text" formControlName="opis" class="form-control">
+      </td>
+      <td>
+        Cena:
+        <input type="text" formControlName="cena" class="form-control">
+      </td>
+      <td>
+        <button (click)="removeTrosak(i)" class="btn btn-danger">Remove</button>
+      </td>
+    </tr>
+  </table>
+
+  <label class="form-label">Troskovi nabavke</label>
+  <input [formControlName]="'troskoviNabavke'" (change)="changed()" type="text" class="form-control form-control-lg"/>
+  <span class="text-danger"
+        *ngIf="addingForm.controls['troskoviNabavke'].dirty && addingForm.hasError('required','troskoviNabavke')">
+    Obavezno polje
+  </span>
+
+  <label class="form-label">Fakturna cena</label>
+  <input [disabled]="true" (change)="changed()" type="text" class="form-control form-control-lg"/>
+  <span class="text-danger"
+        *ngIf="addingForm.controls['fakturnaCena'].dirty && addingForm.hasError('required','fakturnaCena')">
+    Obavezno polje
+  </span>
+
+  <label class="form-label">Nabavna vrednost</label>
+  <input [disabled]="true" [formControlName]="'nabavnaVrednost'" type="text" class="form-control form-control-lg"/>
+  <span class="text-danger"
+        *ngIf="addingForm.controls['nabavnaVrednost'].dirty && addingForm.hasError('required','nabavnaVrednost')">
+    Obavezno polje
+  </span>
+
+  <label class="form-label">Valuta</label>
+  <input  [formControlName]="'valuta'" type="text" [disabled]="true" class="form-control form-control-lg"/>
+  <span class="text-danger" *ngIf="addingForm.controls['valuta'].dirty && addingForm.hasError('required','valuta')">
+    Mora da bude trokarakteran oblik
+  </span>
+
+  <label class="form-label">Komentar</label>
+  <textarea class="form-control" rows="4"></textarea>
+</form>
