@@ -21,6 +21,7 @@ import { FinansijskaOperativaGuard } from './guards/finansijska-operativa.guard'
 import { FinansijskoKnjigovodstvoGuard } from './guards/finansijsko-knjigovodstvo.guard';
 import { ObracunZaradeGuard } from './guards/obracun-zarade.guard';
 import {KnjizenjeWidgetComponent} from "./components/knjizenje-widget/knjizenje-widget.component";
+import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 
 const routes: Routes = [
 	{
@@ -59,6 +60,11 @@ const routes: Routes = [
 		component: AddNewClientComponent,
 		canActivate: [FinansijskaOperativaGuard],
 	},
+  {
+    path: 'cash-register',
+    component: BlagajnaComponent,
+    canActivate: [FinansijskaOperativaGuard],
+  },
 	// FINANSIJSKO_KNJIGOVODSTVO
 	{
 		path: 'account-plan',

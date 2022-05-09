@@ -32,6 +32,7 @@ import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
 
 import { DatePipe } from '@angular/common';
+import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 
 @NgModule({
 	declarations: [
@@ -51,6 +52,7 @@ import { DatePipe } from '@angular/common';
 		KoeficijentiComponent,
 		SvaKnjizenjaComponent,
 		BrutoBilansComponent,
+    BlagajnaComponent
 	],
 	imports: [
 		BrowserModule,
