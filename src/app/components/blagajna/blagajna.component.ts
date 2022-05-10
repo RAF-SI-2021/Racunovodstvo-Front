@@ -14,7 +14,8 @@ export class BlagajnaComponent implements OnInit {
   vrednost: string = '';
   filterZaTip: boolean = false;
 
-  constructor(private service: TransakcijaService) {}
+  constructor(private service: TransakcijaService) {
+  }
 
   ngOnInit(): void {
     this.getAllTransactions();
@@ -42,19 +43,15 @@ export class BlagajnaComponent implements OnInit {
         alert('Morate uneti broj kako bi pretrazili po ovom filteru');
         return;
       }
-    }
-
-    else if (filter === 'datumTransakcije') {
+    } else if (filter === 'datumTransakcije') {
       let proveraVrednosti = new Date(vrednost);
       if (isNaN(proveraVrednosti.getDate())) {
         alert('Morate uneti pravilan datum');
         return;
       }
-    }
-
-    else if (filter === 'tipTransakcije') {
+    } else if (filter === 'tipTransakcije') {
       this.filterZaTip = true;
-      if (vrednost!='UPLATA' && vrednost!='ISPLATA') {
+      if (vrednost != 'UPLATA' && vrednost != 'ISPLATA') {
         alert('Tip moze biti samo UPLATA/ISPLATA');
         return;
       }
@@ -72,7 +69,9 @@ export class BlagajnaComponent implements OnInit {
 
   getAllIznosiZaTip() {
     let suma = 0;
-    let tip = this.transakcije[0].tipTransakcije;
+    let tip = this.transakcije && this.transakcije.length > 0 && this.transakcije[0] ?
+      this.transakcije[0].tipTransakcije : this.vrednost ? this.vrednost : '?';
+
     this.transakcije.forEach(item => {
       suma += item.iznosTransakcije;
     })
@@ -84,11 +83,9 @@ export class BlagajnaComponent implements OnInit {
 
     if (this.input === 'datumTransakcije') { // @ts-ignore
       element.setAttribute('type', 'date');
-    }
-    else if (this.input === 'brojTransakcije' || this.input === 'iznosTransakcije') { // @ts-ignore
+    } else if (this.input === 'brojTransakcije' || this.input === 'iznosTransakcije') { // @ts-ignore
       element.setAttribute('type', 'number');
-    }
-    else { // @ts-ignore
+    } else { // @ts-ignore
       element.setAttribute('type', 'text');
     }
   }
