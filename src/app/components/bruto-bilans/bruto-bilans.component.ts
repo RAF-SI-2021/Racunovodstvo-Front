@@ -57,8 +57,8 @@ export class BrutoBilansComponent implements OnInit {
 	}
 
 	readBrutoBilans() {
-		console.log(this.brutoBilansForm.get('datumOd')?.value);
-		console.log(this.brutoBilansForm.get('datumDo')?.value);
+		// console.log(this.brutoBilansForm.get('datumOd')?.value);
+		// console.log(this.brutoBilansForm.get('datumDo')?.value);
 
 		let kontoOd = new KontnaGrupa(-1, '', '');
 		let kontoDo = new KontnaGrupa(-1, '', '');
@@ -90,18 +90,59 @@ export class BrutoBilansComponent implements OnInit {
 				this.brutoBilansForm.get('datumOd')?.value,
 				this.brutoBilansForm.get('datumDo')?.value
 			)
-			.subscribe((bilansResponseList) => {
-				console.log(bilansResponseList);
-				this.rows = bilansResponseList;
-				for (let i = 0; i < this.rows.length; i++) {
-					this.suma.brojStavki += this.rows[i].brojStavki;
-					this.suma.duguje += this.rows[i].duguje;
-					this.suma.potrazuje += this.rows[i].potrazuje;
-					this.suma.saldo += this.rows[i].saldo;
-				}
-				this.brutoBilansForm.reset();
-			});
+			  .subscribe((bilansResponseList) => {
+          // console.log(bilansResponseList);
+          this.rows = bilansResponseList;
+          for (let i = 0; i < this.rows.length; i++) {
+            this.suma.brojStavki += this.rows[i].brojStavki;
+            this.suma.duguje += this.rows[i].duguje;
+            this.suma.potrazuje += this.rows[i].potrazuje;
+            this.suma.saldo += this.rows[i].saldo;
+          }
+			  });
+
+
+
 	}
+
+  getPDFView() {
+    let kontoOd = new KontnaGrupa(-1, '', '');
+    let kontoDo = new KontnaGrupa(-1, '', '');
+
+    for (let i = 0; i < this.kontneGrupe.length; i++) {
+      if (
+        this.kontneGrupe[i].brojKonta ===
+        this.brutoBilansForm.get('kontoOd')?.value.split(' ', 1)[0]
+      ) {
+        kontoOd = this.kontneGrupe[i];
+      }
+      if (
+        this.kontneGrupe[i].brojKonta ===
+        this.brutoBilansForm.get('kontoDo')?.value.split(' ', 1)[0]
+      ) {
+        kontoDo = this.kontneGrupe[i];
+      }
+    }
+
+    if (kontoOd.kontnaGrupaId == -1 || kontoDo.kontnaGrupaId == -1) {
+      alert("Ne postoji kontna grupa")
+      return
+    }
+
+    this.brutoBilansService
+      .getIzvestaj(
+        "Izvestaj:" + kontoOd.brojKonta + "-" + kontoDo.brojKonta,
+        kontoOd,
+        kontoDo,
+        this.brutoBilansForm.get('datumOd')?.value,
+        this.brutoBilansForm.get('datumDo')?.value
+    )
+      .subscribe((res) => {
+        let file = new Blob([res], {type: 'application/pdf'});
+        var fileURL = URL.createObjectURL(file);
+        window.open(fileURL)
+      });
+  }
 
 	readKontos() {
 		this.kontnaGrupaService.readAll().subscribe((readKontoResp) => {
@@ -145,7 +186,7 @@ export class BrutoBilansComponent implements OnInit {
 		let kontoOd = Number.parseFloat('0.'.concat(brojOd));
 		let kontoDo = Number.parseFloat('0.'.concat(brojDo));
 
-		console.log(kontoOd + ' SMALLER THAN ' + kontoDo);
+		// console.log(kontoOd + ' SMALLER THAN ' + kontoDo);
 
 		return kontoOd <= kontoDo;
 	}
@@ -154,7 +195,7 @@ export class BrutoBilansComponent implements OnInit {
 		let brojOd = this.brutoBilansForm.get('kontoOd')?.value;
 		let kontoOd = Number.parseFloat('0.'.concat(brojOd));
 		let kontoDo = Number.parseFloat('0.'.concat(brojDo));
-		console.log(kontoDo + ' BIGGER THAN ' + kontoOd);
+		// console.log(kontoDo + ' BIGGER THAN ' + kontoOd);
 		return kontoDo >= kontoOd;
 	}
 
@@ -176,4 +217,5 @@ export class BrutoBilansComponent implements OnInit {
 	//
 	//   return null
 	// }
+
 }
