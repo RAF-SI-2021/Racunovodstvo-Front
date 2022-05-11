@@ -90,16 +90,21 @@ export class BrutoBilansComponent implements OnInit {
 				this.brutoBilansForm.get('datumOd')?.value,
 				this.brutoBilansForm.get('datumDo')?.value
 			)
-			  .subscribe((bilansResponseList) => {
-          // console.log(bilansResponseList);
-          this.rows = bilansResponseList;
-          for (let i = 0; i < this.rows.length; i++) {
-            this.suma.brojStavki += this.rows[i].brojStavki;
-            this.suma.duguje += this.rows[i].duguje;
-            this.suma.potrazuje += this.rows[i].potrazuje;
-            this.suma.saldo += this.rows[i].saldo;
+			  .subscribe({
+          next: (bilansResponseList) => {
+            // console.log(bilansResponseList);
+            this.rows = bilansResponseList;
+            for (let i = 0; i < this.rows.length; i++) {
+              this.suma.brojStavki += this.rows[i].brojStavki;
+              this.suma.duguje += this.rows[i].duguje;
+              this.suma.potrazuje += this.rows[i].potrazuje;
+              this.suma.saldo += this.rows[i].saldo;
+            }
+          },
+          error: () => {
+            alert("Greska pri ucitavanju bruto bilansa, pokusajte ponovo")
           }
-			  });
+        });
 
 
 
@@ -137,10 +142,15 @@ export class BrutoBilansComponent implements OnInit {
         this.brutoBilansForm.get('datumOd')?.value,
         this.brutoBilansForm.get('datumDo')?.value
     )
-      .subscribe((res) => {
-        let file = new Blob([res], {type: 'application/pdf'});
-        var fileURL = URL.createObjectURL(file);
-        window.open(fileURL)
+      .subscribe({
+        next: (res) => {
+          let file = new Blob([res], {type: 'application/pdf'});
+          var fileURL = URL.createObjectURL(file);
+          window.open(fileURL)
+        },
+        error: () => {
+          alert("Greska pri stampanju, pokusajte ponovo.")
+        }
       });
   }
 
