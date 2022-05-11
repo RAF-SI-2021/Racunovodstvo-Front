@@ -33,6 +33,7 @@ import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.com
 
 import { DatePipe } from '@angular/common';
 import { AnalitickeKarticeComponent } from './components/analiticke-kartice/analiticke-kartice.component';
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
 	declarations: [
@@ -54,21 +55,22 @@ import { AnalitickeKarticeComponent } from './components/analiticke-kartice/anal
 		BrutoBilansComponent,
   AnalitickeKarticeComponent,
 	],
-	imports: [
-		BrowserModule,
-		BrowserAnimationsModule,
-		AppRoutingModule,
-		NgbModule,
-		ReactiveFormsModule,
-		HttpClientModule,
-		FormsModule,
-		// Mat
-		MatAutocompleteModule,
-		MatFormFieldModule,
-		MatDatepickerModule,
-		MatNativeDateModule,
-		MatInputModule,
-	],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        NgbModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormsModule,
+        // Mat
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatButtonModule,
+    ],
 	providers: [DatePipe],
 	bootstrap: [AppComponent],
 })
