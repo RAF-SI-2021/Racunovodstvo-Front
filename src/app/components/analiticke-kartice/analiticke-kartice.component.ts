@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+
 
 @Component({
   selector: 'app-analiticke-kartice',
@@ -7,7 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AnalitickeKarticeComponent implements OnInit {
 
-  constructor() { }
+  analitickaKarticaForm: FormGroup;
+
+
+  constructor(
+    private formBuilder: FormBuilder,
+  ) {
+    this.analitickaKarticaForm = this.formBuilder.group({
+      konto: ['', [Validators.required]],
+      datumOd: [''],
+      datumDo: [''],
+      komitent: [''],
+    });
+  }
+
+
 
   ngOnInit(): void {
   }

@@ -1,1 +1,76 @@
-<p>analiticke-kartice works!</p>
+<!--<div>-->
+<!--  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Bruto bilans</h1>-->
+<!--  <div class="offset-4 col-4">-->
+<!--    <form [formGroup]="brutoBilansForm" class="mb-5">-->
+<!--      <div class="form-group">-->
+<!--        &lt;!&ndash;Konto od chooser&ndash;&gt;-->
+<!--        <label for="kontoOd">Konto od</label>-->
+<!--        <input matInput [matAutocomplete]="auto1" [formControlName]="'kontoOd'" type="text" class="form-control"-->
+<!--               placeholder="unesi konto" id="kontoOd" name="kontoOd">-->
+<!--        <mat-autocomplete #auto1="matAutocomplete">-->
+<!--          <mat-option *ngFor="let option of kontneGrupeOptionOd | async"-->
+<!--                      [value]="option.brojKonta + ' - ' + option.nazivKonta">-->
+<!--            {{option.brojKonta}} - {{ option.nazivKonta}}-->
+<!--          </mat-option>-->
+<!--        </mat-autocomplete>-->
+<!--        &lt;!&ndash;Konto do chooser&ndash;&gt;-->
+<!--        <label for="kontoDo">Konto do</label>-->
+<!--        <input matInput [matAutocomplete]="auto2" [formControlName]="'kontoDo'" type="text" class="form-control"-->
+<!--               placeholder="unesi konto" id="kontoDo" name="kontoDo">-->
+<!--        <mat-autocomplete #auto2="matAutocomplete">-->
+<!--          <mat-option *ngFor="let option of kontneGrupeOptionDo | async"-->
+<!--                      [value]="option.brojKonta + ' - ' + option.nazivKonta">-->
+<!--            {{option.brojKonta}} - {{ option.nazivKonta}}-->
+<!--          </mat-option>-->
+<!--        </mat-autocomplete>-->
+<!--      </div>-->
+<!--      &lt;!&ndash;Date picker&ndash;&gt;-->
+<!--      <mat-form-field appearance="fill">-->
+<!--        <mat-label>Unesite datume</mat-label>-->
+<!--        <mat-date-range-input [formGroup]="brutoBilansForm" [rangePicker]="picker">-->
+<!--          <input matStartDate [formControlName]="'datumOd'" placeholder="Start date">-->
+<!--          <input matEndDate [formControlName]="'datumDo'" placeholder="End date">-->
+<!--        </mat-date-range-input>-->
+<!--        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--        <mat-date-range-picker #picker></mat-date-range-picker>-->
+<!--        <mat-error *ngIf="brutoBilansForm.hasError('matStartDateInvalid')">Invalid start date</mat-error>-->
+<!--        <mat-error *ngIf="brutoBilansForm.hasError('matEndDateInvalid')">Invalid End date</mat-error>-->
+<!--      </mat-form-field>-->
+<!--    </form>-->
+<!--    <button (click)="readBrutoBilans()" [disabled]="!brutoBilansForm.valid" type="submit" mat-raised-button-->
+<!--            color="primary">Pretraži-->
+<!--    </button>-->
+<!--    &lt;!&ndash;Table stuff&ndash;&gt;-->
+<!--    <table [hidden]="" class="table">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th style="width: 10%" scope="col">Konto</th>-->
+<!--        <th style="width: 5%" scope="col">Stavki</th>-->
+<!--        <th style="width: 30%" scope="col">Naziv</th>-->
+<!--        <th style="width: 15%" scope="col">Duguje</th>-->
+<!--        <th style="width: 15%" scope="col">Potražuje</th>-->
+<!--        <th style="width: 15%" scope="col">Saldo</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody *ngFor="let row of rows; index as i">-->
+<!--      <tr>-->
+<!--        <td> {{row.brojKonta}} </td>-->
+<!--        <td> {{row.brojStavki}} </td>-->
+<!--        <td> {{row.nazivKonta}} </td>-->
+<!--        <td> {{row.duguje}} </td>-->
+<!--        <td> {{row.potrazuje}} </td>-->
+<!--        <td> {{row.saldo}} </td>-->
+<!--      </tr>-->
+<!--      <tbody>-->
+<!--      <tr>-->
+<!--        <td> </td>-->
+<!--        <td> {{suma.brojStavki}} </td>-->
+<!--        <td> {{suma.nazivKonta}} </td>-->
+<!--        <td> {{suma.duguje}} </td>-->
+<!--        <td> {{suma.potrazuje}} </td>-->
+<!--        <td> {{suma.saldo}} </td>-->
+<!--      </tr>-->
+<!--    </table>-->
+
+<!--  </div>-->
+<!--</div>-->
