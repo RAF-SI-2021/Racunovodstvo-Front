@@ -50,8 +50,8 @@ export class KufComponent implements OnInit {
 	inputAsDate: string = 'text';
 	input: string = '';
 
-	preduzece1: Company = new Company('test1');
-	preduzece2: Company = new Company('test2');
+	preduzece1: Company = new Company('test1', 1);
+	preduzece2: Company = new Company('test2', 2);
 
 	preduzeca: Company[] = [];
 
@@ -60,7 +60,7 @@ export class KufComponent implements OnInit {
 		'3',
 		'22/03/2222',
 		'22/03/2222',
-		new Company('NEBITNO'),
+		new Company('NEBITNO', 1),
 		'20/03/2000',
 		10000,
 		0,
@@ -83,7 +83,7 @@ export class KufComponent implements OnInit {
 		'4',
 		'22/03/2222',
 		'22/03/2222',
-		new Company('NEBITNO'),
+		new Company('NEBITNO', 1),
 		'20/03/2000',
 		10000,
 		0,

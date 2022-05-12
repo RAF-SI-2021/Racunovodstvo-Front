@@ -54,4 +54,12 @@ export class AppComponent {
 		}
 		return false;
 	}
+
+  canNabavka(): boolean {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.NABAVKA) != null)
+        return true;
+    }
+    return false;
+  }
 }
