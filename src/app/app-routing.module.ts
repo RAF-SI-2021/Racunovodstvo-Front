@@ -21,6 +21,7 @@ import { FinansijskaOperativaGuard } from './guards/finansijska-operativa.guard'
 import { FinansijskoKnjigovodstvoGuard } from './guards/finansijsko-knjigovodstvo.guard';
 import { ObracunZaradeGuard } from './guards/obracun-zarade.guard';
 import {KnjizenjeWidgetComponent} from "./components/knjizenje-widget/knjizenje-widget.component";
+import {BilansStanjaUspehaComponent} from "./components/bilans-stanja-uspeha/bilans-stanja-uspeha.component";
 
 const routes: Routes = [
 	{
@@ -105,6 +106,11 @@ const routes: Routes = [
     path: 'knjizenje-widget',
     component: KnjizenjeWidgetComponent,
     canActivate: [FinansijskoKnjigovodstvoGuard],
+  },
+  {
+    path: 'BSU',
+    component: BilansStanjaUspehaComponent,
+    canActivate: [],
   },
 ];
 

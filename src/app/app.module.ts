@@ -15,6 +15,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import {MatDialogModule} from '@angular/material/dialog';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
 
 import { AccountPlanComponent } from './components/account-plan/account-plan.component';
 import { AddNewClientComponent } from './components/add-new-client/add-new-client.component';
@@ -32,6 +34,8 @@ import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
 
 import { DatePipe } from '@angular/common';
+import { BilansStanjaUspehaComponent } from './components/bilans-stanja-uspeha/bilans-stanja-uspeha.component';
+import { BsuPopupComponent } from './components/bilans-stanja-uspeha/bsu-popup/bsu-popup.component';
 
 @NgModule({
 	declarations: [
@@ -51,6 +55,8 @@ import { DatePipe } from '@angular/common';
 		KoeficijentiComponent,
 		SvaKnjizenjaComponent,
 		BrutoBilansComponent,
+  BilansStanjaUspehaComponent,
+  BsuPopupComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -66,6 +72,8 @@ import { DatePipe } from '@angular/common';
 		MatDatepickerModule,
 		MatNativeDateModule,
 		MatInputModule,
+    MatDialogModule,
+    PdfViewerModule
 	],
 	providers: [DatePipe],
 	bootstrap: [AppComponent],

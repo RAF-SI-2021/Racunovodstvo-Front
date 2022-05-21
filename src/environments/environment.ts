@@ -16,6 +16,10 @@ export const environment = {
 
 	kontnaGrupaApi: 'http://localhost:8080/api/konto',
 	brutoBilansApi: 'http://localhost:8080/api/bilans',
+
+  bilans_stanja: 'http://localhost:8080/api/izvestaji/stanje',
+  bilans_uspeha: 'http://localhost:8080/api/izvestaji/uspeh',
+
 };
 
 /*
