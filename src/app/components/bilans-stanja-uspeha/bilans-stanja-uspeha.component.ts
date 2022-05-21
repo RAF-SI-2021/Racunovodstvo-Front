@@ -34,6 +34,8 @@ export class BilansStanjaUspehaComponent implements OnInit {
     })
   }
 
+
+
   closeDialog(){
    this.dialogRef.closeAll();
   }

@@ -144,6 +144,8 @@ export class BsuPopupComponent implements OnInit {
         }, (error => {
           alert("Doslo je do greške ucitavnja fajla. Pokušajte ponovo.")
           return;
+
+
         }));
       }
     }
