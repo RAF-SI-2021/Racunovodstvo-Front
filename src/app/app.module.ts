@@ -34,6 +34,7 @@ import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.com
 import { DatePipe } from '@angular/common';
 import { AnalitickeKarticeComponent } from './components/analiticke-kartice/analiticke-kartice.component';
 import {MatButtonModule} from "@angular/material/button";
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
 	declarations: [
@@ -54,6 +55,7 @@ import {MatButtonModule} from "@angular/material/button";
 		SvaKnjizenjaComponent,
 		BrutoBilansComponent,
   AnalitickeKarticeComponent,
+  HomepageComponent,
 	],
     imports: [
         BrowserModule,
