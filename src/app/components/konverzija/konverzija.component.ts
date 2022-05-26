@@ -105,7 +105,6 @@ export class KonverzijaComponent implements OnInit {
       /// za svaku konverziju setujem lokaciju (naziv i adresu)
       this.lokacije = lokacije;
 
-      // ToDo mislim da ne treba jer vec dobijam lokaciju u get pozivu?
       for (let j = 0; j < this.konverzije.length; j++) {
 
         for (let i = 0; i < lokacije.length; i++) {
