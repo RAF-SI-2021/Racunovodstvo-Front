@@ -32,9 +32,7 @@ import { PlateZaposlenihComponent } from './components/plate-zaposlenih/plate-za
 import { KoeficijentiComponent } from './components/koeficijenti/koeficijenti.component';
 import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.component';
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
-
 import { DatePipe } from '@angular/common';
-
 import { AnalitickeKarticeComponent } from './components/analiticke-kartice/analiticke-kartice.component';
 import {MatButtonModule} from "@angular/material/button";
 import { BilansStanjaUspehaComponent } from './components/bilans-stanja-uspeha/bilans-stanja-uspeha.component';
@@ -42,7 +40,7 @@ import {BsuPopupComponent} from "./components/bilans-stanja-uspeha/bsu-popup/bsu
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.component';
 import { KonverzijaComponent } from './components/konverzija/konverzija.component';
-
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
 	declarations: [
@@ -63,11 +61,13 @@ import { KonverzijaComponent } from './components/konverzija/konverzija.componen
 		SvaKnjizenjaComponent,
 		BrutoBilansComponent,
     AnalitickeKarticeComponent,
+    HomepageComponent,
+    AnalitickeKarticeComponent,
     BilansStanjaUspehaComponent,
     BsuPopupComponent,
     BlagajnaComponent,
     KalkulacijeComponent,
-  KonverzijaComponent,
+    KonverzijaComponent,
 	],
     imports: [
         BrowserModule,
