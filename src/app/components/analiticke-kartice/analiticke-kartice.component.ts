@@ -91,7 +91,7 @@ export class AnalitickeKarticeComponent implements OnInit {
       .subscribe({
         next: (analitickaKarticaResponseList) => {
           // console.log(analitickaKarticaResponseList);
-          this.rows = analitickaKarticaResponseList;
+          this.rows = analitickaKarticaResponseList.content;
           for (let i = 0; i < this.rows.length; i++) {
             this.suma.duguje += this.rows[i].duguje;
             this.suma.potrazuje += this.rows[i].potrazuje;

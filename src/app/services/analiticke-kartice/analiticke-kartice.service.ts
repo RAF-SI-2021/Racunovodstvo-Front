@@ -5,6 +5,7 @@ import {KontnaGrupa} from "../../shared/kontna-grupa.model";
 import {Observable} from "rxjs";
 import {AnalitickeKarticeResponse} from "../../shared/analiticke-kartice.model";
 import {Company} from "../../shared/invoice.model";
+import {Pageable} from "../../shared/pageable.model";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class AnalitickeKarticeService {
     datumOd: string,
     datumDo: string,
     komitentId: number
-  ): Observable<AnalitickeKarticeResponse[]> {
+  ): Observable<Pageable<AnalitickeKarticeResponse>> {
     let jwt = String(sessionStorage.getItem('jwt'));
     let url = `${this.apiUrl}`;
 
@@ -41,7 +42,7 @@ export class AnalitickeKarticeService {
     if(komitentId != null)
       queryParams = queryParams.append('preduzeceId', komitentId);
 
-    return this.httpClient.get<AnalitickeKarticeResponse[]>(url, {
+    return this.httpClient.get<Pageable<AnalitickeKarticeResponse>>(url, {
       headers: {
         Authorization: 'Bearer '.concat(jwt.toString()),
       },

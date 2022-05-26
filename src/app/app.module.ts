@@ -38,6 +38,7 @@ import { AnalitickeKarticeComponent } from './components/analiticke-kartice/anal
 import {MatButtonModule} from "@angular/material/button";
 import { BilansStanjaUspehaComponent } from './components/bilans-stanja-uspeha/bilans-stanja-uspeha.component';
 import {BsuPopupComponent} from "./components/bilans-stanja-uspeha/bsu-popup/bsu-popup.component";
+import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 
 @NgModule({
 	declarations: [
@@ -60,6 +61,7 @@ import {BsuPopupComponent} from "./components/bilans-stanja-uspeha/bsu-popup/bsu
   AnalitickeKarticeComponent,
   BilansStanjaUspehaComponent,
   BsuPopupComponent,
+    BlagajnaComponent
 	],
     imports: [
         BrowserModule,

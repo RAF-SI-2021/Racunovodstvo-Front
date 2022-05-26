@@ -1,0 +1,86 @@
+<div class="row filter">
+  <div class="col-sm-12 d-flex justify-content-start m-3">
+
+    <label for="opcije" class="margin-s">Filter:</label>
+    <select name="opcije" id="opcije" [(ngModel)]="input" class="margin-l" #filterEl>
+      <option value="brojTransakcije">Broj Transakcije</option>
+      <option value="datumTransakcije">Datum</option>
+      <option value="tipTransakcije">Tip</option>
+      <option value="iznos">Iznos</option>
+      <option value="sifraTransakcije">Sifra</option>
+      <option value="sadrzaj">Sadrzaj</option>
+      <option value="komentar">Komentar</option>
+    </select>
+
+    <label for="vrednost" class="margin-s">Vrednost:</label>
+    <input id="vrednost" [(ngModel)]="vrednost" class="margin-l" (click)="setInputType()" #vrednostEl>
+
+    <button class="btn btn-sm btn-outline-primary margin-l" type="submit" (click)="filter(filterEl.value, vrednostEl.value)">
+      Filter
+    </button>
+
+    <button class="btn btn-sm btn-outline-primary margin-l" type="submit" (click)="getAllTransactions()">
+      Remove Filters
+    </button>
+
+    <button *ngIf="filterZaTip" class="btn btn-sm btn-outline-dark margin-l disabled">
+      {{getAllIznosiZaTip()}}
+    </button>
+
+  </div>
+</div>
+
+<div class="row custom-scrollbar">
+  <div class="col-12">
+    <table class="table table-hover">
+      <thead class="thead-light">
+      <tr class="text-center first-row">
+        <th scope="col">Broj transakcije</th>
+        <th scope="col">Komitent</th>
+        <th scope="col">Datum</th>
+        <th scope="col">Tip</th>
+        <th scope="col">Iznos</th>
+        <th scope="col">Sadržaj</th>
+        <th scope="col">Naziv transakcije</th>
+        <th scope="col">Šifra transakcije</th>
+        <th scope="col">Komentar</th>
+        <th scope="col">Proknjizeno</th>
+        <th scope="col">Akcija</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let transakcija of transakcije">
+        <td class="text-center align-middle">{{transakcija.brojTransakcije}}</td>
+        <td class="text-center align-middle">{{transakcija.komitentTransakcije}}</td>
+        <td class="text-center align-middle">{{getAsDate(transakcija.datumTransakcije)}}</td>
+        <td class="text-center align-middle">{{transakcija.tipTransakcije}}</td>
+        <td class="text-center align-middle">{{transakcija.iznos}}</td>
+        <td class="text-center align-middle">
+          <div class="form-floating">
+            <textarea class="form-control">{{transakcija.sadrzaj}}</textarea>
+          </div>
+        </td>
+        <td class="text-center align-middle">{{transakcija.sifraTransakcije.nazivTransakcije}}</td>
+        <td class="text-center align-middle">{{transakcija.sifraTransakcije.sifra}}</td>
+        <td class="text-center align-middle">
+          <div class="form-floating">
+            <textarea class="form-control">{{transakcija.komentar}}</textarea>
+          </div>
+        </td>
+        <td class="text-center align-middle">
+          <input class="form-check-input" type="checkbox" value="">
+        </td>
+        <td class="text-center align-middle">
+          <button type="button" class="btn btn-sm btn-primary" (click)="knjizi(transakcija)">Knjizi</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<div class="knj-wdg">
+  <app-knjizenje-widget></app-knjizenje-widget>
+</div>
