@@ -3,22 +3,23 @@ export interface Konverzija{
   brojKonverzije: string;
   datum: Date;
   dobavljacId: number;
-  lokacjaId: number;
+  // lokacijaId: number;
   troskoviNabavke: [TrosakNabavke];
   fakturnaCena: number;
   nabavnaVrednost: number;
   valuta: string;
-  // lokacija: Lokacija
+  lokacija: Lokacija
   nazivLokacija: string;
   adresaLokacije: string;
   nazivDobavljaca: string;
   komentar: string;
+  hidden: boolean;
 }
 
 export interface Lokacija{
-  lokacijaId: number;
-  naziv: string;
-  adresa: string;
+  lokacijaId?: number;
+  naziv?: string;
+  adresa?: string;
 }
 
 export interface Preduzece{
@@ -51,6 +52,6 @@ export interface Artikal{
   rabat: number;
   nabavnaCenaPosleRabata: number;
   ukupnaNabavnaVrednost: number;
-  konverzijaId: number;
+  konverzijaKalkulacijaId: number;
 }
 

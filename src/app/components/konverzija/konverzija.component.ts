@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Artikal, Konverzija, Lokacija, Preduzece} from "../../shared/konverzija.model";
 import {KonverzijaService} from "../../services/konverzija/konverzija.service";
 import {Form, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {switchMap} from "rxjs";
 
 @Component({
   selector: 'app-konverzija',
@@ -18,24 +19,28 @@ export class KonverzijaComponent implements OnInit {
   lokacijaAdresa: string = '';
   hiddenArtikli: boolean = true;
   addingFormArtikal: FormGroup;
+  shownIndex: number = -1;
+  errorMessage: string = '';
 
   constructor(
     private konverzijaService: KonverzijaService,
     private formBuilder: FormBuilder,
-
   ) {
     this.addingForm = this.formBuilder.group({
-      brojKonverzije: ['', Validators.required],
+      brojKonverzije: ['', Validators.required, Validators.minLength(1)],
       datum: [new Date(), Validators.required],
-      dobavljac: ['', Validators.required],
-      lokacija: ['', Validators.required],
-      konverzije: ['', Validators.required],
-      troskoviNabavke: [this.formBuilder.array([]), Validators.required],
+      dobavljac: ['', Validators.required, Validators.minLength(1)],
+      adresaLokacije: ['', Validators.required],
+      nazivLokacije: ['', Validators.required],
+      lokacija: [''],
+      troskoviNabavke: this.formBuilder.array([]),
       fakturnaCena: [0, Validators.required],
-      nabavnaVrednost: ['', Validators.required],
-      valuta: ['', Validators.minLength(3), Validators.maxLength(3)],
+      nabavnaVrednost: ['', [Validators.required, Validators.minLength(1)]],
+      valuta: ['', [Validators.minLength(3), Validators.maxLength(3)]],
       komentar: ['']
     });
+    this.addingForm.controls['fakturnaCena'].disable();
+    this.addingForm.controls['nabavnaVrednost'].disable();
 
     this.addingFormArtikal = this.formBuilder.group({
       sifraArtikla: ['', Validators.required],
@@ -43,69 +48,73 @@ export class KonverzijaComponent implements OnInit {
       jedinicaMere: ['', Validators.required],
       kolicina: [0, Validators.required],
       nabavnaCena: [0, Validators.required],
-      rabatProcenat: [0, Validators.min(0), Validators.max(100)],
+      rabatProcenat: [0, [Validators.min(0), Validators.max(100)]],
       rabat: [0, Validators.required], // live
       nabavnaCenaPosleRabata: [0, Validators.required], // live
       ukupnaNabavnaVrednost: [0, Validators.required], // live
     })
+
+    this.addingFormArtikal.controls['rabat'].disable();
+    this.addingFormArtikal.controls['nabavnaCenaPosleRabata'].disable();
+    this.addingFormArtikal.controls['ukupnaNabavnaVrednost'].disable();
+
   }
 
-  troskoviNabavke(): FormArray{
-    return this.addingForm.get('troskoviNabavke') as FormArray;
+  get troskoviNabavke(): FormArray {
+    return this.addingForm.controls['troskoviNabavke'] as FormArray;
   }
 
-  newTrosakNabavke(): FormGroup{
+  newTrosakNabavke(): FormGroup {
     return this.formBuilder.group({
-      opis:'',
-      cena:0
+      naziv: ['', Validators.required],
+      cena: [0, Validators.required]
     })
   }
 
-  addTrosakNabavke(){
-    this.troskoviNabavke().push(this.newTrosakNabavke());
+  addTrosakNabavke() {
+    this.troskoviNabavke.push(this.newTrosakNabavke());
   }
 
-  removeTrosak(i:number){
-    this.troskoviNabavke().removeAt(i);
+  removeTrosak(i: number) {
+    this.troskoviNabavke.removeAt(i);
   }
 
   ngOnInit(): void {
+
     this.restartParameters();
-    this.konverzijaService.getKonverzije().subscribe(konverzije =>{
-      this.konverzije = konverzije;
+    this.konverzijaService.getKonverzije().pipe(switchMap(konverzije => {
+      this.konverzije = konverzije.content;
+      return this.konverzijaService.getKomitenti()
+    }), switchMap((komitenti) => {
+      this.dobavljaci = komitenti;
 
       /// za svaku konverziju setujem dobavljaca (naziv)
-      this.konverzijaService.getKomitenti().subscribe(komitenti=>{
-        this.dobavljaci = komitenti;
 
-        for(let j =0; j<konverzije.length; j++){
-
-          for(let i =0; i< komitenti.length; i++){
-            if(komitenti[i].preduzeceId == konverzije[j].dobavljacId){
-              konverzije[j].nazivDobavljaca = komitenti[i].naziv;
-            }
+      for (let j = 0; j < this.konverzije.length; j++) {
+        this.konverzije[j].hidden = true;
+        for (let i = 0; i < komitenti.length; i++) {
+          if (komitenti[i].preduzeceId == this.konverzije[j].dobavljacId) {
+            this.konverzije[j].nazivDobavljaca = komitenti[i].naziv;
           }
         }
-      })
+      }
+      return this.konverzijaService.getLokacije()
+    })).subscribe(lokacije => {
 
 
       /// za svaku konverziju setujem lokaciju (naziv i adresu)
-      this.konverzijaService.getLokacije().subscribe(lokacije=>{
-        this.lokacije = lokacije;
+      this.lokacije = lokacije;
 
-        // ToDo mislim da ne treba jer vec dobijam lokaciju u get pozivu?
-        for(let j = 0; j<konverzije.length; j++) {
+      // ToDo mislim da ne treba jer vec dobijam lokaciju u get pozivu?
+      for (let j = 0; j < this.konverzije.length; j++) {
 
-          for (let i = 0; i < lokacije.length; i++) {
-            if (lokacije[i].lokacijaId == konverzije[j].lokacjaId) {
-              konverzije[j].nazivLokacija = lokacije[i].naziv;
-              konverzije[j].adresaLokacije = lokacije[i].adresa;
-            }
+        for (let i = 0; i < lokacije.length; i++) {
+          if (lokacije[i].lokacijaId == this.konverzije[j].lokacija.lokacijaId) {
+            this.konverzije[j].lokacija.naziv = lokacije[i].naziv;
+            this.konverzije[j].lokacija.adresa = lokacije[i].adresa;
           }
         }
-      })
-
-
+      }
 
 
     });
@@ -113,28 +122,39 @@ export class KonverzijaComponent implements OnInit {
   }
 
   delete(idKonverzije: number) {
-    this.konverzijaService.deleteKonverzija(idKonverzije).subscribe(any=>{
-      for(let i =0; i<this.konverzije.length; i++){
-        if(this.konverzije[i].konverzijaId == idKonverzije){
+    this.konverzijaService.deleteKonverzija(idKonverzije).subscribe(any => {
+      alert("OBRISAO")
+      for (let i = 0; i < this.konverzije.length; i++) {
+        if (this.konverzije[i].konverzijaId == idKonverzije) {
           this.konverzije.splice(i, 1);
+          this.artikli = []
         }
       }
     });
   }
 
-  prikaziArtikle(konverzijaId: number) {
-    if(this.hiddenArtikli == true){
-      this.hiddenArtikli = false;
-      this.konverzijaService.getArtikli(konverzijaId).subscribe(artikli =>{
-        this.artikli = artikli;
-      })
-    }else{
+  prikaziArtikle(index: number) {
+    let konverzija = this.konverzije[index];
+    if (index == this.shownIndex) {
+      this.shownIndex = -1;
       this.artikli = [];
-      this.hiddenArtikli = true;
+    } else {
+      this.shownIndex = index;
+      this.konverzijaService.getArtikli(konverzija.konverzijaId).subscribe(artikli => {
+        this.artikli = artikli.content;
+      })
     }
+
+    // if (konverzija.hidden) {
+    //   konverzija.hidden = false;
+
+    // } else {
+    //   this.artikli = [];
+    //   konverzija.hidden = true;
+    // }
   }
 
-  restartParameters(){
+  restartParameters() {
     this.hiddenArtikli = true;
     this.artikli = [];
     this.konverzije = [];
@@ -143,78 +163,64 @@ export class KonverzijaComponent implements OnInit {
   }
 
   dodajKonverziju() {
-    if(this.lokacijaNaziv != '' && this.lokacijaAdresa != ''){
-      this.addingForm.setValue({lokacija: this.lokacijaAdresa + ' ' + this.lokacijaNaziv});
+    if (this.addingForm.invalid){
+        this.errorMessage = 'Forma nije popunjena'
+        return;
     }
+    this.errorMessage = ''
 
-    console.log(this.addingForm.value);
+    let lokacija : Lokacija = {}
+    lokacija.naziv = this.addingForm.get('nazivLokacije')?.value
+    lokacija.adresa = this.addingForm.get('adresaLokacije')?.value
+    lokacija.lokacijaId = this.addingForm.get('lokacija')?.value
 
+    // @ts-ignore
     this.konverzijaService.postKonverzija({
-      // @ts-ignore
-      brojKonverzije: this.addingForm.get('brojKonverzije'),
-      // @ts-ignore
-      datum: this.addingForm.get('datum'),
-      // @ts-ignore
-      dobavljacId: this.addingForm.get('dobavljacId'),
-      // @ts-ignore
-      lokacjaId: this.addingForm.get('lokacjaId'),
-      // @ts-ignore
-      troskoviNabavke: this.addingForm.get('troskoviNabavke'),
-      // @ts-ignore
-      fakturnaCena: this.addingForm.get('fakturnaCena'),
-      // @ts-ignore
-      nabavnaVrednost: this.addingForm.get('nabavnaVrednost'),
-      // @ts-ignore
-      valuta: this.addingForm.get('valuta'),
-      // @ts-ignore
-      komentar: this.addingForm.get('komentar'),
-
-    }).subscribe(konverzija=>{
+      brojKonverzije: this.addingForm.get('brojKonverzije')?.value,
+      datum: this.addingForm.get('datum')?.value,
+      dobavljacId: this.addingForm.get('dobavljac')?.value,
+      lokacija,
+      troskoviNabavke: this.addingForm.get('troskoviNabavke')?.value,
+      fakturnaCena: this.addingForm.get('fakturnaCena')?.value,
+      nabavnaVrednost: this.addingForm.get('nabavnaVrednost')?.value,
+      valuta: this.addingForm.get('valuta')?.value,
+      komentar: this.addingForm.get('komentar')?.value
+    }).subscribe(konverzija => {
       this.konverzije.push(konverzija)
     })
   }
 
-  dodajArtikal(idKonverzije: number){
-    this.konverzijaService.postArtikal(idKonverzije, {
-      // @ts-ignore
-      sifraArtikla:this.addingFormArtikal.get('sifraArtikla'),
-      // @ts-ignore
-      nazivArtikla:this.addingFormArtikal.get('nazivArtikla'),
-      // @ts-ignore
-      jedinicaMere:this.addingFormArtikal.get('jedinicaMere'),
-      // @ts-ignore
-      kolicina:this.addingFormArtikal.get('kolicina'),
-      // @ts-ignore
-      nabavnaCena:this.addingFormArtikal.get('nabavnaCena'),
-      // @ts-ignore
-      rabatProcenat:this.addingFormArtikal.get('rabatProcenat'),
-      // @ts-ignore
-      rabat:this.addingFormArtikal.get('rabat'),
-      // @ts-ignore
-      nabavnaCenaPosleRabata:this.addingFormArtikal.get('nabavnaCenaPosleRabata'),
-      // @ts-ignore
-      ukupnaNabavnaVrednost:this.addingFormArtikal.get('ukupnaNabavnaVrednost'),
-      // @ts-ignore
-      konverzijaId:this.addingFormArtikal.get('konverzijaId'),
-    }).subscribe(artikal =>{
+  dodajArtikal(idKonverzije: number) {
+    // @ts-ignore
+    this.konverzijaService.postArtikal( {
+      sifraArtikla: this.addingFormArtikal.get('sifraArtikla')?.value,
+      nazivArtikla: this.addingFormArtikal.get('nazivArtikla')?.value,
+      jedinicaMere: this.addingFormArtikal.get('jedinicaMere')?.value,
+      kolicina: this.addingFormArtikal.get('kolicina')?.value,
+      nabavnaCena: this.addingFormArtikal.get('nabavnaCena')?.value,
+      rabatProcenat: this.addingFormArtikal.get('rabatProcenat')?.value,
+      rabat: this.addingFormArtikal.get('rabat')?.value,
+      nabavnaCenaPosleRabata: this.addingFormArtikal.get('nabavnaCenaPosleRabata')?.value,
+      ukupnaNabavnaVrednost: this.addingFormArtikal.get('ukupnaNabavnaVrednost')?.value,
+      konverzijaKalkulacijaId: idKonverzije,
+    }).subscribe(artikal => {
       this.artikli.push(artikal);
     })
   }
 
-  changed() {
-    let troskoviNabavke = 0;
-    for(let i =0; i < this.troskoviNabavke().length; i++){
-      // @ts-ignore
-      troskoviNabavke += this.troskoviNabavke().get(i).get('cena');
-    }
-    // @ts-ignore
-    this.addingForm.setValue({nabavnaVrednost: troskoviNabavke + this.addingForm.get('fakturnaCena')})
-
-  }
+  // changed() {
+  //   let troskoviNabavke = 0;
+  //   for (let i = 0; i < this.troskoviNabavke.length; i++) {
+  //     troskoviNabavke += this.troskoviNabavke.get(i).get('cena').value;
+  //   }
+  //   // @ts-ignore
+  //   this.addingForm.setValue({nabavnaVrednost: troskoviNabavke + this.addingForm.get('fakturnaCena')})
+  //
+  // }
 
   changedArtikal(konverzijaId: number) {
     // @ts-ignore
-    this.addingFormArtikal.setValue({rabat: this.addingFormArtikal.get('nabavnaCena') * (this.addingFormArtikal.get('rabatProcenat')/100)})
+    this.addingFormArtikal.setValue({rabat: this.addingFormArtikal.get('nabavnaCena') * (this.addingFormArtikal.get('rabatProcenat') / 100)})
     // @ts-ignore
     this.addingFormArtikal.setValue({nabavnaCenaPosleRabata: this.addingFormArtikal.get('nabavnaCena') - this.addingFormArtikal.get('rabat')})
     // @ts-ignore
@@ -222,12 +228,38 @@ export class KonverzijaComponent implements OnInit {
 
 
     let zbir = 0;
-    for(let i = 0; i<this.artikli.length; i++){
+    for (let i = 0; i < this.artikli.length; i++) {
       zbir += this.artikli[i].ukupnaNabavnaVrednost;
     }
     // @ts-ignore
     zbir += this.addingFormArtikal.get('ukupnaNabavnaVrednost');
 
-    this.addingForm.setValue({fakturnaCena:zbir});
+    this.addingForm.setValue({fakturnaCena: zbir});
+  }
+
+  sacuvajTrosak(i: number) {
+    let sum = 0;
+    for(let i = 0; i<this.troskoviNabavke.controls.length; i++){
+      sum += parseInt(this.troskoviNabavke.controls[i].get('cena')?.value);
+    }
+    console.log(sum)
+    // console.log(this.troskoviNabavke.controls[i].get('cena')?.value)
+    // console.log(this.troskoviNabavke.controls[i].get('naziv')?.value)
+
+  }
+
+  saberi() {
+    let sum = 0;
+    for(let i = 0; i<this.troskoviNabavke.controls.length; i++){
+      sum += parseInt(this.troskoviNabavke.controls[i].get('cena')?.value);
+    }
+    this.addingForm.get('nabavnaVrednost')?.setValue(sum);
+  }
+
+  liveRefresh() {
+
+    this.addingFormArtikal.get('rabat')?.setValue(this.addingFormArtikal.get('nabavnaCena')?.value * (this.addingFormArtikal.get('rabatProcenat')?.value/100))
+    this.addingFormArtikal.get('nabavnaCenaPosleRabata')?.setValue(this.addingFormArtikal.get('nabavnaCena')?.value - this.addingFormArtikal.get('rabat')?.value)
+    this.addingFormArtikal.get('ukupnaNabavnaVrednost')?.setValue(this.addingFormArtikal.get('nabavnaCenaPosleRabata')?.value * this.addingFormArtikal.get('kolicina')?.value)
   }
 }
