@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
-	Invoice,
-	Company,
-	Konto,
-	ResponseObject,
+  Invoice,
+  Company,
+  Konto,
+  ResponseObject, Preduzece,
 } from 'src/app/shared/invoice.model';
 import { environment } from 'src/environments/environment';
 
@@ -93,14 +93,23 @@ export class InvoiceService {
 		);
 	}
 
-	svaPreduzeca() {
-		return this.http.get<Company[]>(
-			environment.APIEndpoint + `/api/preduzece/all`,
-			{
-				headers: this.httpHeaders,
-			}
-		);
-	}
+  svaPreduzeca() {
+    return this.http.get<Company[]>(
+      environment.APIEndpoint + `/api/preduzece/all`,
+      {
+        headers: this.httpHeaders,
+      }
+    );
+  }
+
+  svaPreduzeca2() {
+    return this.http.get<Preduzece[]>(
+      environment.APIEndpoint + `/api/preduzece/all`,
+      {
+        headers: this.httpHeaders,
+      }
+    );
+  }
 
 	sveKufFakture() {
 		return this.http.get<Invoice[]>(

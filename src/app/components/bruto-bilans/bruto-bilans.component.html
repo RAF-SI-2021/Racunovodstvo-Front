@@ -71,6 +71,9 @@
         <td> {{suma.saldo}} </td>
       </tr>
     </table>
+
+    <app-bilans-stanja-uspeha></app-bilans-stanja-uspeha>
+
     <button (click)="getPDFView()" [disabled]="!brutoBilansForm.valid" type="submit" mat-raised-button
             color="primary">Štampaj
     </button>
