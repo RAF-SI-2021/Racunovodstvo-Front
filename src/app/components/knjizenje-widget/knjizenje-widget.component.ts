@@ -17,6 +17,7 @@ export class KnjizenjeWidgetComponent implements OnInit {
 	kontos: Konto[] = [];
   troskovi: TroskovniCentar[] = [];
   profiti: ProfitniCentar[] = [];
+  checkbox: boolean = false;
 	duguje: number | undefined;
 	kontoInput: string | undefined;
 	potrazuje: any | undefined;
@@ -78,11 +79,13 @@ export class KnjizenjeWidgetComponent implements OnInit {
 			});
 			this.kontos.push(knt4);
 			this.kontoGroups.push(kontoGroup);
-      this.profiti.push({naziv: "Profit 1"})
-      this.profiti.push({naziv: "Profit 2"})
-      this.troskovi.push({naziv: "Trosak 1"})
-      this.troskovi.push({naziv: "Trosak 2"})
+
 		}
+    this.profiti = [];
+    this.profiti.push({naziv: "Profit 1"})
+    this.profiti.push({naziv: "Profit 2"})
+    this.troskovi.push({naziv: "Trosak 1"})
+    this.troskovi.push({naziv: "Trosak 2"})
 		this.editing = false;
 		for (let i = 0; i < this.kontoGroups.length; i++) {
 			this.filteredOptions[i] = this.kontoGroups[i].valueChanges.pipe(
@@ -93,13 +96,13 @@ export class KnjizenjeWidgetComponent implements OnInit {
 			this.ktnGrps = response.content;
 		});
 
-    this.centri.getProfitniCentri().subscribe((response) =>{
-      this.profiti = response;
-    })
-
-    this.centri.getTroskovniCentri().subscribe((response) =>{
-      this.troskovi = response;
-    })
+    // this.centri.getProfitniCentri().subscribe((response) =>{
+    //   this.profiti = response;
+    // })
+    //
+    // this.centri.getTroskovniCentri().subscribe((response) =>{
+    //   this.troskovi = response;
+    // })
 	}
 
 	private _filter(value: any): KontnaGrupa[] {
@@ -110,10 +113,18 @@ export class KnjizenjeWidgetComponent implements OnInit {
 
 		return this.ktnGrps.filter(
 			(option) =>
-				option.nazivKonta.toLowerCase().includes(filterValue) ||
-				option.brojKonta.toLowerCase().includes(filterValue)
+        (option.nazivKonta.toLowerCase().includes(filterValue) ||
+				option.brojKonta.toLowerCase().includes(filterValue)) && option.brojKonta.length >= 3
 		);
 	}
+
+  changeCB(){
+    if(this.checkbox){
+      this.checkbox = false;
+    }else{
+      this.checkbox = true;
+    }
+  }
 
 	delete(index: number) {
 		this.kontos.splice(index, 1);
