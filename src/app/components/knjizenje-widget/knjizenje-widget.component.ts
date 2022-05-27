@@ -3,6 +3,10 @@ import { KontnaGrupa, Konto } from 'src/app/shared/invoice.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { InvoiceService } from 'src/app/services/invoice/invoice.service';
+import {ProfitniCentar, TroskovniCentar} from "../../shared/ProfitniTroskovniCentar.model";
+import {
+  TroskovniPovratniCentriService
+} from "../../services/troskovni_povratniCentri/troskovni-povratni-centri.service";
 
 @Component({
 	selector: 'app-knjizenje-widget',
@@ -11,6 +15,8 @@ import { InvoiceService } from 'src/app/services/invoice/invoice.service';
 })
 export class KnjizenjeWidgetComponent implements OnInit {
 	kontos: Konto[] = [];
+  troskovi: TroskovniCentar[] = [];
+  profiti: ProfitniCentar[] = [];
 	duguje: number | undefined;
 	kontoInput: string | undefined;
 	potrazuje: any | undefined;
@@ -32,7 +38,8 @@ export class KnjizenjeWidgetComponent implements OnInit {
 
 	constructor(
 		public formBuilder: FormBuilder,
-		private service: InvoiceService
+		private service: InvoiceService,
+    private centri: TroskovniPovratniCentriService
 	) {
 		// let ktnGrp1 = new KontnaGrupa("TEST", "0001");
 		// let ktnGrp2 = new KontnaGrupa("TRTS", "0120");
@@ -71,6 +78,10 @@ export class KnjizenjeWidgetComponent implements OnInit {
 			});
 			this.kontos.push(knt4);
 			this.kontoGroups.push(kontoGroup);
+      this.profiti.push({naziv: "Profit 1"})
+      this.profiti.push({naziv: "Profit 2"})
+      this.troskovi.push({naziv: "Trosak 1"})
+      this.troskovi.push({naziv: "Trosak 2"})
 		}
 		this.editing = false;
 		for (let i = 0; i < this.kontoGroups.length; i++) {
@@ -81,6 +92,14 @@ export class KnjizenjeWidgetComponent implements OnInit {
 		this.service.getKontneGrupe().subscribe((response) => {
 			this.ktnGrps = response.content;
 		});
+
+    this.centri.getProfitniCentri().subscribe((response) =>{
+      this.profiti = response;
+    })
+
+    this.centri.getTroskovniCentri().subscribe((response) =>{
+      this.troskovi = response;
+    })
 	}
 
 	private _filter(value: any): KontnaGrupa[] {
