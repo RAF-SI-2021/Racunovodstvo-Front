@@ -79,7 +79,7 @@ export class KalkulacijeComponent implements OnInit {
     })
 
     this.kalkulacije.push({
-        kalkulacijaId: 1,
+        id: 1,
         brojKalkulacije: '1235',
         tipKalkulacije: 'VP',
         datum: new Date().toLocaleDateString('it-IT'),
@@ -89,12 +89,12 @@ export class KalkulacijeComponent implements OnInit {
         lokacijaId: 1,
         nabavnaVrednost: 1000,
         prodajnaVrednost: 2000,
-        troskoviNabavke: [{trosakId: 1, trosak: 100, naziv: 'test'}, {trosakId: 2, trosak: 200, naziv: 'test'}],
+        troskoviNabavke: [{troskoviNabavkeId: 1, cena: 100, naziv: 'test'}, {troskoviNabavkeId: 2, cena: 200, naziv: 'test'}],
         valuta: 'RSD'
       },
 
       {
-        kalkulacijaId: 2,
+        id: 2,
         brojKalkulacije: '123115',
         tipKalkulacije: 'MP',
         datum: new Date().toLocaleDateString('it-IT'),
@@ -104,7 +104,7 @@ export class KalkulacijeComponent implements OnInit {
         lokacijaId: 2,
         nabavnaVrednost: 1111,
         prodajnaVrednost: 2222,
-        troskoviNabavke: [{trosakId: 2, trosak: 157, naziv: 'test'}, {trosakId: 3, trosak: 111, naziv: 'test'}],
+        troskoviNabavke: [{troskoviNabavkeId: 2, cena: 157, naziv: 'test'}, {troskoviNabavkeId: 3, cena: 111, naziv: 'test'}],
         valuta: 'RSD'
       })
 
@@ -167,7 +167,7 @@ export class KalkulacijeComponent implements OnInit {
       })
 
       this.kalkulacija = {
-        kalkulacijaId: -1,
+        id: -1,
         brojKalkulacije: '1235',
         tipKalkulacije: 'test',
         datum: new Date().toLocaleDateString('it-IT'),
@@ -177,7 +177,7 @@ export class KalkulacijeComponent implements OnInit {
         lokacijaId: 1,
         nabavnaVrednost: 1000,
         prodajnaVrednost: 2000,
-        troskoviNabavke: [{trosakId: 1, trosak: 100, naziv: 'test'}, {trosakId: 2, trosak: 200, naziv: 'test'}],
+        troskoviNabavke: [{troskoviNabavkeId: 1, cena: 100, naziv: 'test'}, {troskoviNabavkeId: 2, cena: 200, naziv: 'test'}],
         valuta: 'RSD'
       };
 
@@ -202,11 +202,11 @@ export class KalkulacijeComponent implements OnInit {
         ukupnaProdajnaVrednost: 1200
       }
 
-    this.troskoviNabavke.push({naziv: '', trosak: 0, trosakId: this.ind++})
-    this.trosakForm.push(this.formBuilder.group({
-      naziv: ['', Validators.required],
-      trosak: ['', Validators.required]
-    }))
+    this.troskoviNabavke.push({naziv: '', cena: 0, troskoviNabavkeId: this.ind++})
+    // this.trosakForm.push(this.formBuilder.group({
+    //   naziv: ['', Validators.required],
+    //   trosak: ['', Validators.required]
+    // }))
   }
 
   ngOnInit(): void {
@@ -223,7 +223,7 @@ export class KalkulacijeComponent implements OnInit {
   sumTroskoviNabavke(kalkulacija: KalkulacijeModel) {
     let sum = 0;
     for (let i = 0; i < kalkulacija.troskoviNabavke.length; i++) {
-      sum += kalkulacija.troskoviNabavke[i].trosak;
+      sum += kalkulacija.troskoviNabavke[i].cena;
     }
     return sum;
   }
@@ -239,7 +239,7 @@ export class KalkulacijeComponent implements OnInit {
 
 
   noviTrosak(){
-    this.troskoviNabavke.push({naziv: '', trosak: 0, trosakId: this.ind++})
+    this.troskoviNabavke.push({naziv: '', cena: 0, troskoviNabavkeId: -1})
     this.trosakForm.push(this.formBuilder.group({
       naziv: ['', Validators.required],
       trosak: ['', Validators.required]
@@ -247,10 +247,10 @@ export class KalkulacijeComponent implements OnInit {
   }
 
   select(kalkulacija: KalkulacijeModel){
-    if(this.kalkulacija != null && this.kalkulacija.kalkulacijaId === kalkulacija.kalkulacijaId){
+    if(this.kalkulacija != null && this.kalkulacija.id === kalkulacija.id){
       this.selected = false;
       this.kalkulacija = {
-        kalkulacijaId: -1,
+        id: -1,
         brojKalkulacije: '1235',
         tipKalkulacije: 'VP',
         datum: new Date().toLocaleDateString('it-IT'),
@@ -260,31 +260,38 @@ export class KalkulacijeComponent implements OnInit {
         lokacijaId: 1,
         nabavnaVrednost: 1000,
         prodajnaVrednost: 2000,
-        troskoviNabavke: [{trosakId: 1, trosak: 100, naziv: 'test'}, {trosakId: 2, trosak: 200, naziv: 'test'}],
+        troskoviNabavke: [{troskoviNabavkeId: 1, cena: 100, naziv: 'test'}, {troskoviNabavkeId: 2, cena: 200, naziv: 'test'}],
         valuta: 'RSD'
       };
       return;
     }
-    this.getAllArtikli(kalkulacija.kalkulacijaId)
+    this.getAllArtikli(kalkulacija.id)
     this.kalkulacija = kalkulacija;
+    this.troskoviNabavke = kalkulacija.troskoviNabavke;
+    this.trosakForm = [];
+    this.troskoviNabavke.forEach(value => {
+      this.trosakForm.push(this.formBuilder.group({
+        naziv: [value.naziv, Validators.required],
+        trosak: [value.cena, Validators.required]
+      }))
+    })
+
+    this.isNewKalk = false;
+    this.troskoviNabavke.push({naziv: '', cena: 0, troskoviNabavkeId: -1})
+    this.trosakForm.push(this.formBuilder.group({
+      naziv: ['', Validators.required],
+      trosak: [0, Validators.required]
+    }))
     this.kalkForm = this.formBuilder.group({
       brojKalkulacije: [kalkulacija.brojKalkulacije, Validators.required],
       tipKalkulacije: [kalkulacija.tipKalkulacije, Validators.required],
       datum: [kalkulacija.datum, Validators.required],
       dobavljac: [kalkulacija.dobavljacId, Validators.required],
       lokacija: [kalkulacija.lokacijaId, Validators.required],
-      troskoviNabavke: [[], Validators.required],
+      troskoviNabavke: [this.troskoviNabavke, Validators.required],
       valuta: [kalkulacija.valuta, Validators.required],
       komentar: [kalkulacija.komentar]
     })
-    this.isNewKalk = false;
-    this.trosakForm = [];
-    this.troskoviNabavke = [];
-    this.troskoviNabavke.push({naziv: '', trosak: 0, trosakId: this.ind++})
-    this.trosakForm.push(this.formBuilder.group({
-      naziv: ['', Validators.required],
-      trosak: ['', Validators.required]
-    }))
     this.selected = true;
   }
 
@@ -336,7 +343,7 @@ export class KalkulacijeComponent implements OnInit {
     this.service.deleteKalkulacija(id).subscribe( value => {
       let index = -1;
       for(let i = 0; i < this.kalkulacije.length; i++){
-        if(this.kalkulacije[i].kalkulacijaId === id){
+        if(this.kalkulacije[i].id === id){
           index = i;
           break;
         }
@@ -419,7 +426,7 @@ export class KalkulacijeComponent implements OnInit {
     }
 
     this.service.filterKalkulacije(filter).subscribe(response => {
-      this.kalkulacije = response;
+      this.kalkulacije = response.content;
     })
 
   }
@@ -442,13 +449,13 @@ export class KalkulacijeComponent implements OnInit {
 
   getAllKalkulacije(){
     this.service.getAllKalkulacije().subscribe( response => {
-      this.kalkulacije = response;
+      this.kalkulacije = response.content;
     })
   }
 
   getAllArtikli(kalkulacijaId: number){
     this.service.getAllArtikli(kalkulacijaId).subscribe( response => {
-      this.artikli = response;
+      this.artikli = response.content;
     })
   }
 
@@ -545,7 +552,7 @@ export class KalkulacijeComponent implements OnInit {
     if(!this.isNewKalk){
       this.selected = false;
       this.kalkulacija = {
-        kalkulacijaId: -1,
+        id: -1,
         brojKalkulacije: '1235',
         tipKalkulacije: 'test',
         datum: new Date().toLocaleDateString('it-IT'),
@@ -555,7 +562,7 @@ export class KalkulacijeComponent implements OnInit {
         lokacijaId: 1,
         nabavnaVrednost: 1000,
         prodajnaVrednost: 2000,
-        troskoviNabavke: [{trosakId: 1, trosak: 100, naziv: 'test'}, {trosakId: 2, trosak: 200, naziv: 'test'}],
+        troskoviNabavke: [{troskoviNabavkeId: 1, cena: 100, naziv: 'test'}, {troskoviNabavkeId: 2, cena: 200, naziv: 'test'}],
         valuta: 'RSD'
       };
     }
@@ -571,7 +578,7 @@ export class KalkulacijeComponent implements OnInit {
     })
     this.trosakForm = [];
     this.troskoviNabavke = [];
-    this.troskoviNabavke.push({naziv: '', trosak: 0, trosakId: this.ind++})
+    this.troskoviNabavke.push({naziv: '', cena: 0, troskoviNabavkeId: this.ind++})
     this.trosakForm.push(this.formBuilder.group({
       naziv: ['', Validators.required],
       trosak: ['', Validators.required]
@@ -625,8 +632,8 @@ export class KalkulacijeComponent implements OnInit {
     let brojKalkulacije = this.kalkForm.get('brojKalkulacije')?.value
     let tipKalkulacije = this.kalkForm.get('tipKalkulacije')?.value
     let datum = this.kalkForm.get('datum')?.value
-    let dobavljacId = this.kalkForm.get('dobavljacId')?.value
-    let lokacijaId = this.kalkForm.get('lokacijaId')?.value
+    let dobavljacId = this.kalkForm.get('dobavljac')?.value
+    let lokacijaId = this.kalkForm.get('lokacija')?.value
     let troskoviNabavke = this.troskoviNabavke;
     let valuta = this.kalkForm.get('valuta')?.value
     let komentar = this.kalkForm.get('komentar')?.value
@@ -640,14 +647,14 @@ export class KalkulacijeComponent implements OnInit {
     let brojKalkulacije = this.kalkForm.get('brojKalkulacije')?.value
     let tipKalkulacije = this.kalkForm.get('tipKalkulacije')?.value
     let datum = this.kalkForm.get('datum')?.value
-    let dobavljacId = this.kalkForm.get('dobavljacId')?.value
-    let lokacijaId = this.kalkForm.get('lokacijaId')?.value
+    let dobavljacId = this.kalkForm.get('dobavljac')?.value
+    let lokacijaId = this.kalkForm.get('lokacija')?.value
     let troskoviNabavke = this.troskoviNabavke;
     let valuta = this.kalkForm.get('valuta')?.value
     let komentar = this.kalkForm.get('komentar')?.value
     this.service.updateKalkulacija(id, brojKalkulacije, tipKalkulacije, datum, dobavljacId, lokacijaId, troskoviNabavke, valuta, komentar).subscribe(response => {
       for(let i = 0; i < this.kalkulacije.length; i++){
-        if(this.kalkulacije[i].kalkulacijaId === id){
+        if(this.kalkulacije[i].id === id){
           this.kalkulacije[i] = response;
         }
       }
@@ -666,7 +673,7 @@ export class KalkulacijeComponent implements OnInit {
     let marzaProcenat = this.artForm.get('marzaProcenat')?.value
     let porezProcenat = this.artForm.get('porezProcenat')?.value
     let prodajnaCena = this.artForm.get('prodajnaCena')?.value
-    let kalkulacijaKonverzijaId = this.kalkulacija.kalkulacijaId
+    let kalkulacijaKonverzijaId = this.kalkulacija.id
     this.service.createArtikal(aktivanZaProdaju, sifraArtikla, nazivArtikla, jedinicaMere, kolicina, nabavnaCena, rabatProcenat, marzaProcenat, porezProcenat, prodajnaCena, kalkulacijaKonverzijaId).subscribe(response => {
       this.artikli.push(response)
       this.isNewArt = false;
@@ -684,7 +691,7 @@ export class KalkulacijeComponent implements OnInit {
     let marzaProcenat = this.artForm.get('marzaProcenat')?.value
     let porezProcenat = this.artForm.get('porezProcenat')?.value
     let prodajnaCena = this.artForm.get('prodajnaCena')?.value
-    let kalkulacijaKonverzijaId = this.kalkulacija.kalkulacijaId
+    let kalkulacijaKonverzijaId = this.kalkulacija.id
     this.service.updateArtikal(id, aktivanZaProdaju, sifraArtikla, nazivArtikla, jedinicaMere, kolicina, nabavnaCena, rabatProcenat, marzaProcenat, porezProcenat, prodajnaCena, kalkulacijaKonverzijaId).subscribe(response => {
       for(let i = 0; i < this.artikli.length; i++){
         if(this.artikli[i].artikalId === id){

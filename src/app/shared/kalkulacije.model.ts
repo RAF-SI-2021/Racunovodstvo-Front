@@ -1,5 +1,5 @@
 export interface KalkulacijeModel {
-  kalkulacijaId: number,
+  id: number,
   brojKalkulacije: string,
   tipKalkulacije: string,
   datum: string,
@@ -15,8 +15,8 @@ export interface KalkulacijeModel {
 
 
 export interface TrosakNabavke{
-  trosakId: number,
-  trosak: number,
+  troskoviNabavkeId: number,
+  cena: number,
   naziv: string
 }
 

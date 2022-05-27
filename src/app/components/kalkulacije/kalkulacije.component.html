@@ -106,7 +106,7 @@
         {{ kalkulacija.komentar }}
       </td>
       <td>
-        <button class="btn btn-danger btn-sm" (click)="deleteKalkulacija(kalkulacija.kalkulacijaId)">Delete</button>
+        <button class="btn btn-danger btn-sm" (click)="deleteKalkulacija(kalkulacija.id)">Delete</button>
       </td>
     </tr>
     </tbody>
@@ -127,8 +127,8 @@
         <div class="col-sm-4">
           <label class="labelClass">Tip:</label>
           <select class="form-control" type="text" [formControlName]="'tipKalkulacije'">
-            <option value="MP">Maloprodaja</option>
-            <option value="VP">Veleprodaja</option>
+            <option value="MALOPRODAJA">Maloprodaja</option>
+            <option value="VELEPRODAJA">Veleprodaja</option>
           </select>
         </div>
 
@@ -226,8 +226,8 @@
         <div class="col-sm-4">
           <label class="labelClass">Tip:</label>
           <select class="form-control" type="text" [formControlName]="'tipKalkulacije'">
-            <option value="MP" [defaultSelected]="true">Maloprodaja</option>
-            <option value="VP">Veleprodaja</option>
+            <option value="MALOPRODAJA" [defaultSelected]="true">Maloprodaja</option>
+            <option value="VELEPRODAJA">Veleprodaja</option>
           </select>
         </div>
 
@@ -295,7 +295,7 @@
             <div class="col-sm-4">
             </div>
             <div class="col-sm-4">
-              <button class="btn btn-sm btn-success" (click)="updateKalk(kalkulacija.kalkulacijaId)">Sacuvaj</button>
+              <button class="btn btn-sm btn-success" (click)="updateKalk(kalkulacija.id)">Sacuvaj</button>
             </div>
             <div class="col-sm-4">
             </div>
