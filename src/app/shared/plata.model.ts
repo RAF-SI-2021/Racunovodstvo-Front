@@ -9,5 +9,6 @@ export interface Plata{
   brutoPlata: number,
   ukupanTrosakZarade: number,
   datum : string,
-  komentar: string
+  komentar: string,
+  ucinak: number
 }

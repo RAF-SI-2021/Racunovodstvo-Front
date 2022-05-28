@@ -19,7 +19,7 @@ import {KoeficijentiComponent} from './components/koeficijenti/koeficijenti.comp
 import {BookkeepingJournalComponent} from './components/bookkeeping-journal/bookkeeping-journal.component';
 import { ProfilZaposlenogComponent } from './components/profil-zaposlenog/profil-zaposlenog.component';
 import {DatePipe} from "@angular/common";
-import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.component';
+import { ObracunComponent } from './components/obracun/obracun.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.
     KoeficijentiComponent,
     BookkeepingJournalComponent,
     ProfilZaposlenogComponent,
-    SvaKnjizenjaComponent,
+    ObracunComponent,
   ],
   imports: [
     BrowserModule,
