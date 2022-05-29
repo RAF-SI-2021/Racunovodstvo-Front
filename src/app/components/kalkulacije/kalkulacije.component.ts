@@ -52,17 +52,43 @@ export class KalkulacijeComponent implements OnInit {
     })
 
     this.artForm = formBuilder.group({
-      zaProdaju: ['', Validators.required],
       sifraArtikla: ['', Validators.required],
       nazivArtikla: ['', Validators.required],
       jedinicaMere: ['', Validators.required],
-      kolicina: ['', Validators.required],
-      nabavnaCena: ['', Validators.required],
-      rabatProcenat: ['', Validators.required],
-      marzaProcenat: ['', Validators.required],
-      porezProcenat: ['', Validators.required],
-      prodajnaCena: ['', Validators.required],
+      kolicina: [0, Validators.required],
+      nabavnaCena: [0, Validators.required],
+      rabatProcenat: [0, Validators.required],
+      marzaProcenat: [0, Validators.required],
+      porezProcenat: [0, Validators.required],
+      prodajnaCena: [0, Validators.required],
       kalkulacijaKonverzijaId: [''],
+      rabat: [0],
+      marza: [0],
+      porez: [0],
+      osnZaProd: [0],
+      unv: [0],
+      ncpr: [0],
+      osnovica: [0],
+      upv: [0]
+    })
+    this.artForm.get('nabavnaCena')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('kolicina')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('rabatProcenat')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('marzaProcenat')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('porezProcenat')?.valueChanges.subscribe(value => {
+      this.calculate();
     })
 
     this.filterForm = formBuilder.group({
@@ -78,6 +104,16 @@ export class KalkulacijeComponent implements OnInit {
       komentar: '',
     })
 
+    this.lokacije.push({
+      lokacijaId: 1,
+      naziv: 'Magacin1',
+      adresa: 'Beogradska 16'
+    },{
+      lokacijaId: 2,
+      naziv: 'Magacin2',
+      adresa: 'Beogradska 22'
+    })
+
     this.kalkulacije.push({
         id: 1,
         brojKalkulacije: '1235',
@@ -86,10 +122,10 @@ export class KalkulacijeComponent implements OnInit {
         dobavljacId: 1,
         fakturnaCena: 50,
         komentar: 'test',
-        lokacijaId: 1,
+        lokacijaId: this.lokacije[0],
         nabavnaVrednost: 1000,
         prodajnaVrednost: 2000,
-        troskoviNabavke: [{troskoviNabavkeId: 1, cena: 100, naziv: 'test'}, {troskoviNabavkeId: 2, cena: 200, naziv: 'test'}],
+        troskoviNabavke: [{ cena: 100, naziv: 'test'}, { cena: 200, naziv: 'test'}],
         valuta: 'RSD'
       },
 
@@ -101,10 +137,10 @@ export class KalkulacijeComponent implements OnInit {
         dobavljacId: 2,
         fakturnaCena: 55,
         komentar: 'test1',
-        lokacijaId: 2,
+        lokacijaId: this.lokacije[1],
         nabavnaVrednost: 1111,
         prodajnaVrednost: 2222,
-        troskoviNabavke: [{troskoviNabavkeId: 2, cena: 157, naziv: 'test'}, {troskoviNabavkeId: 3, cena: 111, naziv: 'test'}],
+        troskoviNabavke: [{ cena: 157, naziv: 'test'}, { cena: 111, naziv: 'test'}],
         valuta: 'RSD'
       })
 
@@ -174,10 +210,10 @@ export class KalkulacijeComponent implements OnInit {
         dobavljacId: 1,
         fakturnaCena: 50,
         komentar: 'test',
-        lokacijaId: 1,
+        lokacijaId: this.lokacije[0],
         nabavnaVrednost: 1000,
         prodajnaVrednost: 2000,
-        troskoviNabavke: [{troskoviNabavkeId: 1, cena: 100, naziv: 'test'}, {troskoviNabavkeId: 2, cena: 200, naziv: 'test'}],
+        troskoviNabavke: [{ cena: 100, naziv: 'test'}, { cena: 200, naziv: 'test'}],
         valuta: 'RSD'
       };
 
@@ -202,7 +238,7 @@ export class KalkulacijeComponent implements OnInit {
         ukupnaProdajnaVrednost: 1200
       }
 
-    this.troskoviNabavke.push({naziv: '', cena: 0, troskoviNabavkeId: this.ind++})
+    // this.troskoviNabavke.push({naziv: '', cena: 0, troskoviNabavkeId: this.ind++})
     // this.trosakForm.push(this.formBuilder.group({
     //   naziv: ['', Validators.required],
     //   trosak: ['', Validators.required]
@@ -239,11 +275,13 @@ export class KalkulacijeComponent implements OnInit {
 
 
   noviTrosak(){
-    this.troskoviNabavke.push({naziv: '', cena: 0, troskoviNabavkeId: -1})
+    this.troskoviNabavke.push({naziv: '', cena: 0})
     this.trosakForm.push(this.formBuilder.group({
       naziv: ['', Validators.required],
-      trosak: ['', Validators.required]
+      trosak: [0, Validators.required]
     }))
+    console.log(this.trosakForm);
+    console.log(this.troskoviNabavke);
   }
 
   select(kalkulacija: KalkulacijeModel){
@@ -257,17 +295,17 @@ export class KalkulacijeComponent implements OnInit {
         dobavljacId: 1,
         fakturnaCena: 50,
         komentar: 'test',
-        lokacijaId: 1,
+        lokacijaId: this.lokacije[0],
         nabavnaVrednost: 1000,
         prodajnaVrednost: 2000,
-        troskoviNabavke: [{troskoviNabavkeId: 1, cena: 100, naziv: 'test'}, {troskoviNabavkeId: 2, cena: 200, naziv: 'test'}],
+        troskoviNabavke: [{ cena: 100, naziv: 'test'}, { cena: 200, naziv: 'test'}],
         valuta: 'RSD'
       };
       return;
     }
     this.getAllArtikli(kalkulacija.id)
     this.kalkulacija = kalkulacija;
-    this.troskoviNabavke = kalkulacija.troskoviNabavke;
+    this.troskoviNabavke = kalkulacija.troskoviNabavke.slice();
     this.trosakForm = [];
     this.troskoviNabavke.forEach(value => {
       this.trosakForm.push(this.formBuilder.group({
@@ -277,18 +315,20 @@ export class KalkulacijeComponent implements OnInit {
     })
 
     this.isNewKalk = false;
-    this.troskoviNabavke.push({naziv: '', cena: 0, troskoviNabavkeId: -1})
+    this.troskoviNabavke.push({naziv: '', cena: 0})
     this.trosakForm.push(this.formBuilder.group({
       naziv: ['', Validators.required],
       trosak: [0, Validators.required]
     }))
+    console.log(this.trosakForm)
+    console.log(this.troskoviNabavke)
     this.kalkForm = this.formBuilder.group({
       brojKalkulacije: [kalkulacija.brojKalkulacije, Validators.required],
       tipKalkulacije: [kalkulacija.tipKalkulacije, Validators.required],
       datum: [kalkulacija.datum, Validators.required],
       dobavljac: [kalkulacija.dobavljacId, Validators.required],
       lokacija: [kalkulacija.lokacijaId, Validators.required],
-      troskoviNabavke: [this.troskoviNabavke, Validators.required],
+      troskoviNabavke: [this.trosakForm, Validators.required],
       valuta: [kalkulacija.valuta, Validators.required],
       komentar: [kalkulacija.komentar]
     })
@@ -323,7 +363,6 @@ export class KalkulacijeComponent implements OnInit {
     }
     this.artikal = artikal;
     this.artForm = this.formBuilder.group({
-      zaProdaju: ['true', Validators.required],
       sifraArtikla: [artikal.sifraArtikla, Validators.required],
       nazivArtikla: [artikal.nazivArtikla, Validators.required],
       jedinicaMere: [artikal.jedinicaMere, Validators.required],
@@ -334,6 +373,34 @@ export class KalkulacijeComponent implements OnInit {
       porezProcenat: [artikal.porezProcenat],
       prodajnaCena: [artikal.prodajnaCena, Validators.required],
       kalkulacijaKonverzijaId: [''],
+      rabat: [artikal.rabat],
+      marza: [artikal.marza],
+      porez: [artikal.porez],
+      osnZaProd: [artikal.prodajnaOsnovica],
+      unv: [artikal.ukupnaNabavnaVrednost],
+      ncpr: [artikal.nabavnaCenaPosleRabata],
+      osnovica: [artikal.osnovica],
+      upv: [artikal.ukupnaProdajnaVrednost]
+    })
+
+    this.artForm.get('nabavnaCena')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('kolicina')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('rabatProcenat')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('marzaProcenat')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('porezProcenat')?.valueChanges.subscribe(value => {
+      this.calculate();
     })
     this.isNewArt = false;
     this.selectedArt = true;
@@ -350,6 +417,7 @@ export class KalkulacijeComponent implements OnInit {
         if(index !== -1){
           this.kalkulacije.slice(index, 1);
         }
+        window.location.reload();
       }
     })
   }
@@ -367,65 +435,84 @@ export class KalkulacijeComponent implements OnInit {
     let pVrednost2 = this.filterForm.get('pVrednost2')?.value;
     let komentar = this.filterForm.get('komentar')?.value;
 
-    if(brojKalkulacije !== null){
+    if(brojKalkulacije !== ""){
       filter += 'brojKalkulacije:' + brojKalkulacije + ',';
     }
 
-    if(dobavljac !== null){
+    if(dobavljac !== ""){
       filter += 'dobavljacId:' + dobavljac + ',';
     }
 
-    if(lokacija !== null){
+    if(lokacija !== ""){
       filter += 'lokacijaId:' + lokacija + ',';
     }
 
-    if(datumOd !== null){
-      filter += 'datum>' + datumOd + ',';
-      if(datumDo === null){
-        filter += 'datum<' + new Date().getMilliseconds()/1000 + ',';
+    if(datumOd !== ""){
+      let date = new Date(datumOd).getTime()/1000;
+      filter += 'datum>' + date + ',';
+      if(datumDo === ""){
+        let date = new Date();
+        let year = date.getFullYear();
+        let day = '';
+        let month = '';
+
+        if(date.getDate() + 1 < 10)
+          day = '0' + (date.getDate() + 1);
+        else
+          day = (date.getDate() + 1) + '';
+
+        if(date.getMonth() + 1 < 10)
+          month = '0' + (date.getMonth() + 1);
+        else
+          month = (date.getMonth() + 1) + '';
+
+        let formattedDate =  year + '-' + month + '-' + day;
+        let dat2 = new Date(formattedDate).getTime()/1000;
+        filter += 'datum<' + dat2 + ',';
       }
     }
 
-    if(datumDo !== null){
-      filter += 'datum<' + datumOd + ',';
-      if(datumOd === null){
+    if(datumDo !== ""){
+      let date = new Date(datumDo).getTime()/1000 + 86400;
+      filter += 'datum<' + date + ',';
+      if(datumOd === ""){
         filter += 'datum>' + 3600 + ',';
       }
     }
 
-    if(nVrednost1 !== null){
+    if(nVrednost1 !== ""){
       filter += 'nabavnaVrednost>' + nVrednost1 + ',';
-      if(nVrednost2 === null){
+      if(nVrednost2 === ""){
         filter += 'nabavnaVrednost<' + Number.MAX_SAFE_INTEGER + ',';
       }
     }
 
-    if(nVrednost2 !== null){
+    if(nVrednost2 !== ""){
       filter += 'nabavnaVrednost<' + nVrednost2 + ',';
-      if(nVrednost1 === null){
+      if(nVrednost1 === ""){
         filter += 'nabavnaVrednost>' + 0 + ',';
       }
     }
 
-    if(pVrednost1 !== null){
+    if(pVrednost1 !== ""){
       filter += 'prodajnaVrednost>' + pVrednost1 + ',';
-      if(pVrednost2 === null){
+      if(pVrednost2 === ""){
         filter += 'prodajnaVrednost<' + Number.MAX_SAFE_INTEGER + ',';
       }
     }
 
-    if(pVrednost2 !== null){
+    if(pVrednost2 !== ""){
       filter += 'nabavnaVrednost<' + pVrednost2 + ',';
-      if(pVrednost1 === null){
+      if(pVrednost1 === ""){
         filter += 'nabavnaVrednost>' + 0 + ',';
       }
     }
 
-    if(komentar !== null){
+    if(komentar !== ""){
       filter+= 'komentar:' + komentar;
     }
 
-    this.service.filterKalkulacije(filter).subscribe(response => {
+    this.service.filterKalkulacije(filter.substring(0, filter.length-1)).subscribe(response => {
       this.kalkulacije = response.content;
     })
 
@@ -444,7 +531,9 @@ export class KalkulacijeComponent implements OnInit {
           this.artikli.slice(index, 1);
         }
       }
+      window.location.reload();
     })
+
   }
 
   getAllKalkulacije(){
@@ -559,10 +648,10 @@ export class KalkulacijeComponent implements OnInit {
         dobavljacId: 1,
         fakturnaCena: 50,
         komentar: 'test',
-        lokacijaId: 1,
+        lokacijaId: this.lokacije[0],
         nabavnaVrednost: 1000,
         prodajnaVrednost: 2000,
-        troskoviNabavke: [{troskoviNabavkeId: 1, cena: 100, naziv: 'test'}, {troskoviNabavkeId: 2, cena: 200, naziv: 'test'}],
+        troskoviNabavke: [{ cena: 100, naziv: 'test'}, { cena: 200, naziv: 'test'}],
         valuta: 'RSD'
       };
     }
@@ -578,10 +667,10 @@ export class KalkulacijeComponent implements OnInit {
     })
     this.trosakForm = [];
     this.troskoviNabavke = [];
-    this.troskoviNabavke.push({naziv: '', cena: 0, troskoviNabavkeId: this.ind++})
+    this.troskoviNabavke.push({naziv: '', cena: 0})
     this.trosakForm.push(this.formBuilder.group({
       naziv: ['', Validators.required],
-      trosak: ['', Validators.required]
+      trosak: [0, Validators.required]
     }))
     this.isNewArt = false;
     this.selectedArt = false;
@@ -613,18 +702,47 @@ export class KalkulacijeComponent implements OnInit {
       };
     }
     this.artForm = this.formBuilder.group({
-      zaProdaju: ['', Validators.required],
       sifraArtikla: ['', Validators.required],
       nazivArtikla: ['', Validators.required],
       jedinicaMere: ['', Validators.required],
-      kolicina: ['', Validators.required],
-      nabavnaCena: ['', Validators.required],
-      rabatProcenat: ['', Validators.required],
-      marzaProcenat: ['', Validators.required],
-      porezProcenat: ['', Validators.required],
-      prodajnaCena: ['', Validators.required],
+      kolicina: [0, Validators.required],
+      nabavnaCena: [0, Validators.required],
+      rabatProcenat: [0, Validators.required],
+      marzaProcenat: [0, Validators.required],
+      porezProcenat: [0, Validators.required],
+      prodajnaCena: [0, Validators.required],
       kalkulacijaKonverzijaId: [''],
+      rabat: [0],
+      marza: [0],
+      porez: [0],
+      osnZaProd: [0],
+      unv: [0],
+      ncpr: [0],
+      osnovica: [0],
+      upv: [0]
     })
+    this.artForm.get('nabavnaCena')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('kolicina')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('rabatProcenat')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('marzaProcenat')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+
+    this.artForm.get('porezProcenat')?.valueChanges.subscribe(value => {
+      this.calculate();
+    })
+    // this.artForm.get('nabavnaCena')?.valueChanges.subscribe(value => {
+    //   this.artForm.patchValue()
+    // })
     this.isNewArt = true;
   }
 
@@ -634,7 +752,13 @@ export class KalkulacijeComponent implements OnInit {
     let datum = this.kalkForm.get('datum')?.value
     let dobavljacId = this.kalkForm.get('dobavljac')?.value
     let lokacijaId = this.kalkForm.get('lokacija')?.value
-    let troskoviNabavke = this.troskoviNabavke;
+    let i = 0;
+    console.log(this.trosakForm)
+    this.trosakForm.forEach((value )=> {
+      this.troskoviNabavke[i].cena = value.get('trosak')?.value;
+      this.troskoviNabavke[i++].naziv = value.get('naziv')?.value;
+    })
+    let troskoviNabavke = this.troskoviNabavke.filter(value => value.cena !== 0 && value.naziv.trim() !== "");
     let valuta = this.kalkForm.get('valuta')?.value
     let komentar = this.kalkForm.get('komentar')?.value
     this.service.createKalkulacija(brojKalkulacije, tipKalkulacije, datum, dobavljacId, lokacijaId, troskoviNabavke, valuta, komentar).subscribe(response => {
@@ -643,13 +767,55 @@ export class KalkulacijeComponent implements OnInit {
     })
   }
 
+  calculate(){
+    let nCena = this.artForm.get('nabavnaCena')?.value;
+    let porezProcenat = this.artForm.get('porezProcenat')?.value;
+    let rabatProcenat = this.artForm.get('rabatProcenat')?.value;
+    let marzaProcenat = this.artForm.get('marzaProcenat')?.value;
+    let kolicina = this.artForm.get('kolicina')?.value;
+    if(rabatProcenat > 100){
+      rabatProcenat = 100;
+    }
+    if(porezProcenat > 100){
+      porezProcenat = 100;
+    }
+    if(marzaProcenat > 100){
+      marzaProcenat = 100;
+    }
+    let rabat = nCena * (rabatProcenat / 100);
+    let ncpr = nCena - rabat;
+    let marza = ncpr * (marzaProcenat / 100);
+    let unv = ncpr * kolicina;
+    let osnZaProd = ncpr + marza;
+    let porez = osnZaProd * (porezProcenat / 100);
+    let osnovica = osnZaProd * kolicina;
+    let prodajnaCena = osnZaProd + porez;
+    let upv = prodajnaCena * kolicina;
+    this.artForm.get('rabat')?.patchValue(rabat);
+    this.artForm.get('ncpr')?.patchValue(ncpr);
+    this.artForm.get('marza')?.patchValue(marza);
+    this.artForm.get('unv')?.patchValue(unv);
+    this.artForm.get('osnZaProd')?.patchValue(osnZaProd);
+    this.artForm.get('porez')?.patchValue(porez);
+    this.artForm.get('osnovica')?.patchValue(osnovica);
+    this.artForm.get('prodajnaCena')?.patchValue(prodajnaCena);
+    this.artForm.get('upv')?.patchValue(upv);
+  }
+
   updateKalk(id: number){
     let brojKalkulacije = this.kalkForm.get('brojKalkulacije')?.value
     let tipKalkulacije = this.kalkForm.get('tipKalkulacije')?.value
     let datum = this.kalkForm.get('datum')?.value
     let dobavljacId = this.kalkForm.get('dobavljac')?.value
-    let lokacijaId = this.kalkForm.get('lokacija')?.value
-    let troskoviNabavke = this.troskoviNabavke;
+    let lokacijaId = JSON.parse(JSON.stringify(this.kalkForm.get('lokacija')?.value));
+    console.log(lokacijaId);
+    console.log(this.kalkForm.get('lokacija'))
+    let i = 0;
+    this.trosakForm.forEach((value )=> {
+      this.troskoviNabavke[i].cena = value.get('trosak')?.value;
+      this.troskoviNabavke[i++].naziv = value.get('naziv')?.value;
+    })
+    let troskoviNabavke = this.troskoviNabavke.filter(value => value.cena !== 0 && value.naziv.trim() !== "");
     let valuta = this.kalkForm.get('valuta')?.value
     let komentar = this.kalkForm.get('komentar')?.value
     this.service.updateKalkulacija(id, brojKalkulacije, tipKalkulacije, datum, dobavljacId, lokacijaId, troskoviNabavke, valuta, komentar).subscribe(response => {

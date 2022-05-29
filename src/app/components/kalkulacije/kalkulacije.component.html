@@ -28,7 +28,7 @@
         <div class="col-sm-3">
           <label class="labelClass">Lokacija:</label>
           <select class="form-control" type="text" [formControlName]="'lokacija'">
-            <option *ngFor="let lokacija of lokacije; index as i" [value]="lokacija.lokacijaId">{{ lokacija.naziv }}
+            <option *ngFor="let lokacija of lokacije; index as i" [ngValue]="lokacija">{{ lokacija.naziv }}
               - {{ lokacija.adresa}} </option>
           </select>
         </div>
@@ -150,7 +150,7 @@
         <div class="col-sm-4">
           <label class="labelClass">Lokacija:</label>
           <select class="form-control" type="text" [formControlName]="'lokacija'">
-            <option *ngFor="let lokacija of lokacije; index as i" [value]="lokacija.lokacijaId">{{ lokacija.naziv }}
+            <option *ngFor="let lokacija of lokacije; index as i" [ngValue]="lokacija">{{ lokacija.naziv }}
               - {{ lokacija.adresa}} </option>
           </select>
         </div>
@@ -249,7 +249,7 @@
         <div class="col-sm-4">
           <label class="labelClass">Lokacija:</label>
           <select class="form-control" type="text" [formControlName]="'lokacija'">
-            <option *ngFor="let lokacija of lokacije; index as i" [value]="lokacija.lokacijaId">{{ lokacija.naziv }}
+            <option *ngFor="let lokacija of lokacije; index as i" [ngValue]="lokacija">{{ lokacija.naziv }}
               - {{ lokacija.adresa}} </option>
           </select>
         </div>
@@ -385,17 +385,8 @@
       <h3 class="text-center">Novi artikal</h3>
       <div class="row">
         <div class="col-sm-2">
-          <label class="labelClass">Za prodaju:</label>
-          <select class="form-control" type="text" [formControlName]="'zaProdaju'">
-            <option value="true" [defaultSelected]="true">Da</option>
-            <option value="false">Ne</option>
-          </select>
-        </div>
-
-        <div class="col-sm-2">
           <label class="labelClass">Sifra:</label>
           <input class="form-control" type="text" [formControlName]="'sifraArtikla'">
-
         </div>
 
         <div class="col-sm-2">
@@ -405,7 +396,7 @@
 
         <div class="col-sm-2">
           <label class="labelClass">Kolicina:</label>
-          <input class="form-control" type="text" [formControlName]="'kolicina'">
+          <input class="form-control" type="number" [formControlName]="'kolicina'">
         </div>
 
         <div class="col-sm-2">
@@ -415,36 +406,82 @@
 
         <div class="col-sm-2">
           <label class="labelClass">Nabavna cena:</label>
-          <input class="form-control" type="text" [formControlName]="'nabavnaCena'">
+          <input class="form-control" type="number" [formControlName]="'nabavnaCena'">
+        </div>
+
+        <div class="col-sm-2">
+          <label class="labelClass">Rabat %:</label>
+          <input class="form-control" type="number" min="0" max="100"  [formControlName]="'rabatProcenat'">
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-3">
-          <label class="labelClass">Rabat %:</label>
-          <input class="form-control" type="text" min="0" max="100" [formControlName]="'rabatProcenat'">
-        </div>
-
-        <div class="col-sm-3">
           <label class="labelClass">Marza %:</label>
-          <input class="form-control" type="text" min="0" max="100" [formControlName]="'marzaProcenat'">
+          <input class="form-control" type="number" min="0" max="100"  [formControlName]="'marzaProcenat'">
         </div>
 
         <div class="col-sm-3">
           <label class="labelClass">Porez %:</label>
-          <input class="form-control" type="number" min="0" max="100" [formControlName]="'porezProcenat'">
+          <input class="form-control" type="number" min="0" max="100"  [formControlName]="'porezProcenat'">
         </div>
 
         <div class="col-sm-3">
-          <label class="labelClass">Prodajna cena:</label>
-          <input class="form-control" type="number" [formControlName]="'prodajnaCena'">
+          <label class="labelClass">Rabat:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'rabat'">
         </div>
+
+        <div class="col-sm-3">
+          <label class="labelClass">Nabavna cena posle rabata:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'ncpr'">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <label class="labelClass">Marza:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'marza'">
+        </div>
+
+        <div class="col-sm-3">
+          <label class="labelClass">Porez:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'porez'">
+        </div>
+
+        <div class="col-sm-3">
+          <label class="labelClass">Osnovica za prodaju:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'osnZaProd'">
+        </div>
+
+        <div class="col-sm-3">
+          <label class="labelClass">Osnovica:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'osnovica'">
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <label class="labelClass">Ukupna nabavna vrednost:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'unv'">
+        </div>
+
+        <div class="col-sm-4">
+          <label class="labelClass">Prodajna cena:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'prodajnaCena'">
+        </div>
+
+        <div class="col-sm-4">
+          <label class="labelClass">Ukupna prodajna vrednost:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'upv'">
+        </div>
+
       </div>
 
       <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4 text-center">
-          <button class="btn btn-sm btn-success m-2" (click)="createNewArtApi()">Sacuvaj</button>
+          <button class="btn btn-sm btn-success m-2" [disabled]="!artForm.valid" (click)="createNewArtApi()">Sacuvaj</button>
           <button class="btn btn-sm btn-danger m-2" (click)="cancelNewArt()" >Otkazi</button>
         </div>
         <div class="col-sm-4"></div>
@@ -456,17 +493,8 @@
       <h3 class="text-center">Izmena artikla</h3>
       <div class="row">
         <div class="col-sm-2">
-          <label class="labelClass">Za prodaju:</label>
-          <select class="form-control" type="text" [formControlName]="'zaProdaju'">
-            <option value="true">Da</option>
-            <option value="false">Ne</option>
-          </select>
-        </div>
-
-        <div class="col-sm-2">
           <label class="labelClass">Sifra:</label>
           <input class="form-control" type="text" [formControlName]="'sifraArtikla'">
-
         </div>
 
         <div class="col-sm-2">
@@ -476,7 +504,7 @@
 
         <div class="col-sm-2">
           <label class="labelClass">Kolicina:</label>
-          <input class="form-control" type="text" [formControlName]="'kolicina'">
+          <input class="form-control" type="number" [formControlName]="'kolicina'">
         </div>
 
         <div class="col-sm-2">
@@ -486,36 +514,81 @@
 
         <div class="col-sm-2">
           <label class="labelClass">Nabavna cena:</label>
-          <input class="form-control" type="text" [formControlName]="'nabavnaCena'">
+          <input class="form-control" type="number" [formControlName]="'nabavnaCena'">
+        </div>
+
+        <div class="col-sm-2">
+          <label class="labelClass">Rabat %:</label>
+          <input class="form-control" type="number" min="0" max="100"  [formControlName]="'rabatProcenat'">
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-3">
-          <label class="labelClass">Rabat %:</label>
-          <input class="form-control" type="text" min="0" max="100" [formControlName]="'rabatProcenat'">
-        </div>
-
-        <div class="col-sm-3">
           <label class="labelClass">Marza %:</label>
-          <input class="form-control" type="text" min="0" max="100" [formControlName]="'marzaProcenat'">
+          <input class="form-control" type="number" min="0" max="100"  [formControlName]="'marzaProcenat'">
         </div>
 
         <div class="col-sm-3">
           <label class="labelClass">Porez %:</label>
-          <input class="form-control" type="number" min="0" max="100" [formControlName]="'porezProcenat'">
+          <input class="form-control" type="number" min="0" max="100"  [formControlName]="'porezProcenat'">
         </div>
 
         <div class="col-sm-3">
+          <label class="labelClass">Rabat:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'rabat'">
+        </div>
+
+        <div class="col-sm-3">
+          <label class="labelClass">Nabavna cena posle rabata:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'ncpr'">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-3">
+          <label class="labelClass">Marza:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'marza'">
+        </div>
+
+        <div class="col-sm-3">
+          <label class="labelClass">Porez:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'porez'">
+        </div>
+
+        <div class="col-sm-3">
+          <label class="labelClass">Osnovica za prodaju:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'osnZaProd'">
+        </div>
+
+        <div class="col-sm-3">
+          <label class="labelClass">Osnovica:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'osnovica'">
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <label class="labelClass">Ukupna nabavna vrednost:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'unv'">
+        </div>
+
+        <div class="col-sm-4">
           <label class="labelClass">Prodajna cena:</label>
-          <input class="form-control" type="number" [formControlName]="'prodajnaCena'">
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'prodajnaCena'">
+        </div>
+
+        <div class="col-sm-4">
+          <label class="labelClass">Ukupna prodajna vrednost:</label>
+          <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'upv'">
         </div>
       </div>
 
       <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4 text-center">
-          <button class="btn btn-sm btn-success m-2" (click)="updateArt(artikal.artikalId)">Sacuvaj</button>
+          <button class="btn btn-sm btn-success m-2" [disabled]="!artForm.valid" (click)="updateArt(artikal.artikalId)">Sacuvaj</button>
         </div>
         <div class="col-sm-4"></div>
       </div>
