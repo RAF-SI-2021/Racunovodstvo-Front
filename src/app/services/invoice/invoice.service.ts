@@ -161,6 +161,34 @@ export class InvoiceService {
 		);
 	}
 
+  novaFaktura(brojFakture: string, datumIzdavanja: string, komitent: Company, rokZaPlacanje: string, datumPlacanja: string, prodajnaVrednost: number,
+              rabatProcenat: number, porezProcenat: number, valuta: string, kurs: number, naplata: number, komentar: string){
+    return this.http.put<Response>(
+      environment.APIEndpoint + `/api/faktura`,
+      {
+        brojFakture: brojFakture,
+        datumIzdavanja: datumIzdavanja,
+        rokZaPlacanje: rokZaPlacanje,
+        datumPlacanja: datumPlacanja,
+        prodajnaVrednost: prodajnaVrednost,
+        porezProcenat: porezProcenat === null ? 0 : porezProcenat > 100 ? 100 : porezProcenat,
+        valuta: valuta,
+        kurs: kurs,
+        naplata: naplata,
+        komentar: komentar === null ? '' : komentar,
+        rabatProcenat:
+          rabatProcenat === null ? 0 : rabatProcenat > 100 ? 100 : rabatProcenat,
+        preduzece: komitent,
+      },
+      {
+        headers: this.httpHeaders,
+        observe: 'response',
+      }
+    );
+
+  }
+
+
 	getKontneGrupe() {
 		return this.http.get<ResponseObject>(
 			environment.APIEndpoint + '/api/konto?sort=brojKonta',
