@@ -21,6 +21,9 @@ import { FinansijskaOperativaGuard } from './guards/finansijska-operativa.guard'
 import { FinansijskoKnjigovodstvoGuard } from './guards/finansijsko-knjigovodstvo.guard';
 import { ObracunZaradeGuard } from './guards/obracun-zarade.guard';
 import {KnjizenjeWidgetComponent} from "./components/knjizenje-widget/knjizenje-widget.component";
+import {MpFakturaComponent} from "./components/mp-faktura/mp-faktura.component";
+import {ProdajaGuard} from "./guards/prodaja.guard";
+import {PovracajComponent} from "./components/povracaj/povracaj.component";
 
 const routes: Routes = [
 	{
@@ -105,6 +108,17 @@ const routes: Routes = [
     path: 'knjizenje-widget',
     component: KnjizenjeWidgetComponent,
     canActivate: [FinansijskoKnjigovodstvoGuard],
+  },
+  //PRODAJA
+  {
+    path: 'mp_faktura',
+    component: MpFakturaComponent,
+    canActivate: [ProdajaGuard],
+  },
+  {
+    path: 'povracaj',
+    component: PovracajComponent,
+    canActivate: [ProdajaGuard],
   },
 ];
 
