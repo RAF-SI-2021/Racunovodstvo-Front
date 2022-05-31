@@ -42,6 +42,7 @@ import {BsuPopupComponent} from "./components/bilans-stanja-uspeha/bsu-popup/bsu
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.component';
 import { KonverzijaComponent } from './components/konverzija/konverzija.component';
+import { EvidencijeComponent } from './components/evidencije/evidencije.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { KonverzijaComponent } from './components/konverzija/konverzija.componen
     BlagajnaComponent,
     KalkulacijeComponent,
   KonverzijaComponent,
+  EvidencijeComponent,
 	],
     imports: [
         BrowserModule,
