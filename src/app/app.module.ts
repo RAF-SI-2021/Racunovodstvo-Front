@@ -39,6 +39,8 @@ import {MatButtonModule} from "@angular/material/button";
 import { BilansStanjaUspehaComponent } from './components/bilans-stanja-uspeha/bilans-stanja-uspeha.component';
 import {BsuPopupComponent} from "./components/bilans-stanja-uspeha/bsu-popup/bsu-popup.component";
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
+import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.component';
+
 
 @NgModule({
 	declarations: [
@@ -58,10 +60,11 @@ import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 		KoeficijentiComponent,
 		SvaKnjizenjaComponent,
 		BrutoBilansComponent,
-  AnalitickeKarticeComponent,
-  BilansStanjaUspehaComponent,
-  BsuPopupComponent,
-    BlagajnaComponent
+    AnalitickeKarticeComponent,
+    BilansStanjaUspehaComponent,
+    BsuPopupComponent,
+    BlagajnaComponent,
+    KalkulacijeComponent,
 	],
     imports: [
         BrowserModule,

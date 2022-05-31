@@ -21,7 +21,6 @@
 
                 <a ngbDropdownItem [routerLink]="'add-new-client'">Komitenti</a>
 
-
                 <a ngbDropdownItem [routerLink]="'cash-register'">Blagajna</a>
 
               </ul>
@@ -62,6 +61,17 @@
                 <a ngbDropdownItem [routerLink]="'plate'">Plata</a>
 
                 <a ngbDropdownItem [routerLink]="'koeficijenti'">Koeficijenti za obračun poreza i doprinosa</a>
+
+              </ul>
+            </div>
+
+            <!-- NABAVKE -->
+            <div ngbDropdown class="d-inline-block">
+              <a [hidden]="!canNabavka()" ngbDropdownToggle class="nav-link active" aria-current="page">Nabavke</a>
+
+              <ul ngbDropdownMenu>
+
+                <a ngbDropdownItem [routerLink]="'kalkulacije'">Kalkulacije</a>
 
               </ul>
             </div>
