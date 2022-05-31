@@ -34,12 +34,14 @@ import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
 
 import { DatePipe } from '@angular/common';
+
 import { AnalitickeKarticeComponent } from './components/analiticke-kartice/analiticke-kartice.component';
 import {MatButtonModule} from "@angular/material/button";
 import { BilansStanjaUspehaComponent } from './components/bilans-stanja-uspeha/bilans-stanja-uspeha.component';
 import {BsuPopupComponent} from "./components/bilans-stanja-uspeha/bsu-popup/bsu-popup.component";
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.component';
+import { KonverzijaComponent } from './components/konverzija/konverzija.component';
 
 
 @NgModule({
@@ -65,6 +67,7 @@ import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.compo
     BsuPopupComponent,
     BlagajnaComponent,
     KalkulacijeComponent,
+  KonverzijaComponent,
 	],
     imports: [
         BrowserModule,

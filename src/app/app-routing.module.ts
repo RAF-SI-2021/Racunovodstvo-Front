@@ -23,6 +23,7 @@ import {KnjizenjeWidgetComponent} from "./components/knjizenje-widget/knjizenje-
 import {AnalitickeKarticeComponent} from "./components/analiticke-kartice/analiticke-kartice.component";
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import {KalkulacijeComponent} from "./components/kalkulacije/kalkulacije.component";
+import {KonverzijaComponent} from "./components/konverzija/konverzija.component";
 
 const routes: Routes = [
 	{
@@ -126,6 +127,10 @@ const routes: Routes = [
     // canActivate: [FinansijskoKnjigovodstvoGuard],
 
   },
+  {
+    path: 'konverzije',
+    component: KonverzijaComponent
+  }
 ];
 
 @NgModule({
