@@ -51,7 +51,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let artikal of artikli; index as i">
+        <tr (dblclick)="prikaziArtikal(artikal.artikalId)" *ngFor="let artikal of artikli; index as i">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ artikal.sifraArtikla }}</td>
           <td>{{ artikal.nazivArtikla }}</td>

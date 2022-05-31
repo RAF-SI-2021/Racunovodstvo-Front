@@ -43,6 +43,7 @@ import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.component';
 import { KonverzijaComponent } from './components/konverzija/konverzija.component';
 import { EvidencijeComponent } from './components/evidencije/evidencije.component';
+import { ArtikalComponent } from './components/artikal/artikal.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { EvidencijeComponent } from './components/evidencije/evidencije.componen
     KalkulacijeComponent,
   KonverzijaComponent,
   EvidencijeComponent,
+  ArtikalComponent,
 	],
     imports: [
         BrowserModule,

@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Artikal, Konverzija, Lokacija, Preduzece} from "../../shared/konverzija.model";
 import {FormGroup} from "@angular/forms";
+// @ts-ignore
 import {Pageable} from "../../shared/pageable.model";
 
 @Injectable({

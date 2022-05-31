@@ -24,6 +24,8 @@ import {AnalitickeKarticeComponent} from "./components/analiticke-kartice/analit
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import {KalkulacijeComponent} from "./components/kalkulacije/kalkulacije.component";
 import {KonverzijaComponent} from "./components/konverzija/konverzija.component";
+import {EvidencijeComponent} from "./components/evidencije/evidencije.component";
+import {ArtikalComponent} from "./components/artikal/artikal.component";
 
 const routes: Routes = [
 	{
@@ -130,7 +132,15 @@ const routes: Routes = [
   {
     path: 'konverzije',
     component: KonverzijaComponent
-  }
+  },
+  {
+    path: 'evidencije',
+    component: EvidencijeComponent
+  },
+  {
+    path: 'artikal/:id',
+    component: ArtikalComponent
+  },
 ];
 
 @NgModule({
