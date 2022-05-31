@@ -32,6 +32,9 @@ import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
 
 import { DatePipe } from '@angular/common';
+import { AnalitickeKarticeComponent } from './components/analiticke-kartice/analiticke-kartice.component';
+import {MatButtonModule} from "@angular/material/button";
+import { HomepageComponent } from './components/homepage/homepage.component';
 
 @NgModule({
 	declarations: [
@@ -51,22 +54,25 @@ import { DatePipe } from '@angular/common';
 		KoeficijentiComponent,
 		SvaKnjizenjaComponent,
 		BrutoBilansComponent,
+  AnalitickeKarticeComponent,
+  HomepageComponent,
 	],
-	imports: [
-		BrowserModule,
-		BrowserAnimationsModule,
-		AppRoutingModule,
-		NgbModule,
-		ReactiveFormsModule,
-		HttpClientModule,
-		FormsModule,
-		// Mat
-		MatAutocompleteModule,
-		MatFormFieldModule,
-		MatDatepickerModule,
-		MatNativeDateModule,
-		MatInputModule,
-	],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        NgbModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormsModule,
+        // Mat
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatButtonModule,
+    ],
 	providers: [DatePipe],
 	bootstrap: [AppComponent],
 })

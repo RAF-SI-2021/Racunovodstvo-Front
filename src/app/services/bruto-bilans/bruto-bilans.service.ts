@@ -9,7 +9,8 @@ import { BilansResponse } from '../../shared/bruto-bilans.model';
 	providedIn: 'root',
 })
 export class BrutoBilansService {
-	private readonly apiUrl = environment.brutoBilansApi;
+  private readonly apiUrl = environment.brutoBilansApi;
+  private readonly apiUrlIzvestaji = environment.izvestajiApi;
 
 	constructor(private httpClient: HttpClient) {}
 
@@ -26,19 +27,19 @@ export class BrutoBilansService {
 		let date1 = new Date(datumDo);
 		let date2 = new Date(datumOd);
 		let str1 =
-			date1.getFullYear() +
-			'-' +
+			date1.getDate() +
+			'/' +
 			(date1.getMonth() + 1) +
-			'-' +
-			date1.getDate();
+			'/' +
+			date1.getFullYear();
 		let str2 =
-			date2.getFullYear() +
-			'-' +
+			date2.getDate() +
+			'/' +
 			(date2.getMonth() + 1) +
-			'-' +
-			date2.getDate();
+			'/' +
+			date2.getFullYear();
 
-		console.log(datumOd);
+		console.log(str1);
 		queryParams = queryParams.append('brojKontaDo', kontoDo.brojKonta);
 		queryParams = queryParams.append('brojKontaOd', kontoOd.brojKonta);
 		queryParams = queryParams.append('datumDo', str1);
@@ -51,4 +52,46 @@ export class BrutoBilansService {
 			params: queryParams,
 		});
 	}
+
+  getIzvestaj(
+    title: string,
+    kontoOd: KontnaGrupa,
+    kontoDo: KontnaGrupa,
+    datumOd: string,
+    datumDo: string
+  ): Observable<ArrayBuffer> {
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${this.apiUrlIzvestaji}/bruto`;
+
+    let queryParams = new HttpParams();
+    let date1 = new Date(datumDo);
+    let date2 = new Date(datumOd);
+    let str1 =
+      date1.getDate() +
+      '/' +
+      (date1.getMonth() + 1) +
+      '/' +
+      date1.getFullYear();
+    let str2 =
+      date2.getDate() +
+      '/' +
+      (date2.getMonth() + 1) +
+      '/' +
+      date2.getFullYear();
+
+    console.log(datumOd);
+    queryParams = queryParams.append('kontoDo', kontoDo.brojKonta);
+    queryParams = queryParams.append('kontoOd', kontoOd.brojKonta);
+    queryParams = queryParams.append('datumDo', str1);
+    queryParams = queryParams.append('datumOd', str2);
+    queryParams = queryParams.append('title', title);
+    console.log("get pdf")
+    return this.httpClient.get<ArrayBuffer>(url, {
+      headers: {
+        Authorization: 'Bearer '.concat(jwt.toString()),
+      },
+      responseType : 'blob' as 'json',
+      params: queryParams,
+    });
+  }
 }
