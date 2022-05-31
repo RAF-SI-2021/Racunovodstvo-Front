@@ -8,6 +8,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 // Mat
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -34,7 +36,9 @@ import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.com
 import { DatePipe } from '@angular/common';
 import { AnalitickeKarticeComponent } from './components/analiticke-kartice/analiticke-kartice.component';
 import {MatButtonModule} from "@angular/material/button";
-import { HomepageComponent } from './components/homepage/homepage.component';
+import { BilansStanjaUspehaComponent } from './components/bilans-stanja-uspeha/bilans-stanja-uspeha.component';
+import {BsuPopupComponent} from "./components/bilans-stanja-uspeha/bsu-popup/bsu-popup.component";
+import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 
 @NgModule({
 	declarations: [
@@ -55,7 +59,9 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 		SvaKnjizenjaComponent,
 		BrutoBilansComponent,
   AnalitickeKarticeComponent,
-  HomepageComponent,
+  BilansStanjaUspehaComponent,
+  BsuPopupComponent,
+    BlagajnaComponent
 	],
     imports: [
         BrowserModule,
@@ -72,6 +78,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
         MatNativeDateModule,
         MatInputModule,
         MatButtonModule,
+        MatDialogModule,
     ],
 	providers: [DatePipe],
 	bootstrap: [AppComponent],

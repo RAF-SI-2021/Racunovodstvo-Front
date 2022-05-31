@@ -5,7 +5,7 @@ import {map, Observable} from "rxjs";
 import {KontnaGrupa} from "../../shared/kontna-grupa.model";
 import {KontnaGrupaService} from "../../services/kontna-grupa/kontna-grupa.service";
 import {AnalitickeKarticeService} from "../../services/analiticke-kartice/analiticke-kartice.service";
-import {Company} from "../../shared/invoice.model";
+import {Company, Preduzece} from "../../shared/invoice.model";
 import {InvoiceService} from "../../services/invoice/invoice.service";
 
 
@@ -19,7 +19,7 @@ export class AnalitickeKarticeComponent implements OnInit {
   analitickaKarticaForm: FormGroup;
   kontneGrupeOption?: Observable<KontnaGrupa[]>;
   preduzecaGrupeOption?: Observable<Company[]>;
-  preduzeca: Company[] = [];
+  preduzeca: Preduzece[] = [];
   kontneGrupe: KontnaGrupa[] = [];
   rows: AnalitickeKarticeResponse[] = [];
   suma: AnalitickeKarticeResponse;
@@ -54,6 +54,9 @@ export class AnalitickeKarticeComponent implements OnInit {
   readAnalitickeKartice() {
 
     let konto = new KontnaGrupa(-1, '', '');
+    let company = new Preduzece("",-1);
+
+
 
     for (let i = 0; i < this.kontneGrupe.length; i++) {
       if (
@@ -64,22 +67,31 @@ export class AnalitickeKarticeComponent implements OnInit {
       }
     }
 
+    for ( let i = 0; i < this.preduzeca.length; i++) {
+      if (
+        this.preduzeca[i].naziv ===
+        this.analitickaKarticaForm.get('komitent')?.value) {
+        company = this.preduzeca[i]
+      }
+    }
+
     if (konto.kontnaGrupaId == -1) {
       alert("Ne postoji kontna grupa")
       return
     }
-
+    console.log(company.preduzeceId)
+    console.log(company.naziv)
     this.analitickaKarticaService
       .readKartice(
         konto,
         this.analitickaKarticaForm.get('datumOd')?.value,
         this.analitickaKarticaForm.get('datumDo')?.value,
-        this.analitickaKarticaForm.get('komitent')?.value,
+        company.preduzeceId
       )
       .subscribe({
         next: (analitickaKarticaResponseList) => {
           // console.log(analitickaKarticaResponseList);
-          this.rows = analitickaKarticaResponseList;
+          this.rows = analitickaKarticaResponseList.content;
           for (let i = 0; i < this.rows.length; i++) {
             this.suma.duguje += this.rows[i].duguje;
             this.suma.potrazuje += this.rows[i].potrazuje;
@@ -96,7 +108,7 @@ export class AnalitickeKarticeComponent implements OnInit {
   }
 
   readCompanies() {
-    this.preduzeceService.svaPreduzeca().subscribe((preduzeca) => {
+    this.preduzeceService.svaPreduzeca2().subscribe((preduzeca) => {
       this.preduzeca = preduzeca;
       this.preduzecaGrupeOption = this.analitickaKarticaForm
         .get('komitent')
@@ -115,8 +127,10 @@ export class AnalitickeKarticeComponent implements OnInit {
   }
 
   private _filterKonto(value: any): KontnaGrupa[] {
+    console.log(this.preduzeca)
+
     console.log(value);
-    const filterValue = ('' + value.konto).toLowerCase();
+    const filterValue = ('' + value).toLowerCase();
 
     console.log(filterValue);
 
@@ -128,7 +142,7 @@ export class AnalitickeKarticeComponent implements OnInit {
   }
 
   private _filterCompany(value: any): Company[] {
-    const filterValue = ('' + value.konto).toLowerCase();
+    const filterValue = ('' + value).toLowerCase();
     return this.preduzeca.filter(
       (option) =>
         option.naziv.toLowerCase().includes(filterValue)

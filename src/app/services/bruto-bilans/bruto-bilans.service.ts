@@ -66,25 +66,16 @@ export class BrutoBilansService {
     let queryParams = new HttpParams();
     let date1 = new Date(datumDo);
     let date2 = new Date(datumOd);
-    let str1 =
-      date1.getDate() +
-      '/' +
-      (date1.getMonth() + 1) +
-      '/' +
-      date1.getFullYear();
-    let str2 =
-      date2.getDate() +
-      '/' +
-      (date2.getMonth() + 1) +
-      '/' +
-      date2.getFullYear();
+    let str1 = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-' + date1.getDate();
+    let str2 = date2.getFullYear() + '-' + (date2.getMonth() + 1) + '-' + date2.getDate();
 
     console.log(datumOd);
-    queryParams = queryParams.append('kontoDo', kontoDo.brojKonta);
-    queryParams = queryParams.append('kontoOd', kontoOd.brojKonta);
+    queryParams = queryParams.append('brojKontaDo', kontoDo.brojKonta);
+    queryParams = queryParams.append('brojKontaOd', kontoOd.brojKonta);
     queryParams = queryParams.append('datumDo', str1);
     queryParams = queryParams.append('datumOd', str2);
     queryParams = queryParams.append('title', title);
+    queryParams = queryParams.append('name', 'user1');
     console.log("get pdf")
     return this.httpClient.get<ArrayBuffer>(url, {
       headers: {

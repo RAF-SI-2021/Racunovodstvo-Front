@@ -42,6 +42,11 @@ export class Company {
 	constructor(public naziv: string) {}
 }
 
+export class Preduzece {
+  constructor(public naziv: string, public preduzeceId: number) {
+  }
+}
+
 export class ResponseObject {
 	public content: any[] = [];
 }
