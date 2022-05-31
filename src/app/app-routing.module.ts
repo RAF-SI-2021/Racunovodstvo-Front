@@ -21,12 +21,13 @@ import { FinansijskaOperativaGuard } from './guards/finansijska-operativa.guard'
 import { FinansijskoKnjigovodstvoGuard } from './guards/finansijsko-knjigovodstvo.guard';
 import { ObracunZaradeGuard } from './guards/obracun-zarade.guard';
 import {KnjizenjeWidgetComponent} from "./components/knjizenje-widget/knjizenje-widget.component";
+import {AnalitickeKarticeComponent} from "./components/analiticke-kartice/analiticke-kartice.component";
+import {HomepageComponent} from "./components/homepage/homepage.component";
 
 const routes: Routes = [
 	{
 		path: '',
-		component: LoginComponent,
-		canActivate: [LoginGuard],
+		component: HomepageComponent,
 	},
 	{
 		path: 'login',
@@ -104,6 +105,11 @@ const routes: Routes = [
   {
     path: 'knjizenje-widget',
     component: KnjizenjeWidgetComponent,
+    canActivate: [FinansijskoKnjigovodstvoGuard],
+  },
+  {
+    path: 'analiticke-kartice',
+    component: AnalitickeKarticeComponent,
     canActivate: [FinansijskoKnjigovodstvoGuard],
   },
 ];

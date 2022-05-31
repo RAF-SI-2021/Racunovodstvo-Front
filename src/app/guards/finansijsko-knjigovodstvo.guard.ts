@@ -20,6 +20,6 @@ export class FinansijskoKnjigovodstvoGuard implements CanActivate {
 		| Promise<boolean | UrlTree>
 		| boolean
 		| UrlTree {
-		return sessionStorage.getItem(Authority.ADMIN) != null;
+		return sessionStorage.getItem(Authority.FINANSIJSKO_KNJIGOVODSTVO) != null;
 	}
 }

@@ -7,31 +7,31 @@
         <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
           <ul class="navbar-nav" role="tablist">
             <!-- FINANSIJSKA_OPERATIVA -->
-			<div ngbDropdown class="d-inline-block">
-			  <a [hidden]="!canFinOp()" ngbDropdownToggle
-				class="nav-link active" aria-current="page">Finansijska operativa</a>
-
-			  <ul ngbDropdownMenu>
-
-				<a ngbDropdownItem [routerLink]="'KUF'">Knjiga ulaznih faktura</a>
-
-				<a ngbDropdownItem [routerLink]="'KIF'">Knjiga izlaznih faktura</a>
-
-				<a ngbDropdownItem [routerLink]="'add-new-invoice'">Dodaj fakturu</a>
-
-				<a ngbDropdownItem [routerLink]="'add-new-client'">Komitenti</a>
-
-			  </ul>
-			</div>
-
-			<!-- FINANSIJSKO_KNJIGOVODSTVO -->
             <div ngbDropdown class="d-inline-block">
-              <a [hidden]="!canFinKnj()"
-                ngbDropdownToggle class="nav-link active" aria-current="page">Finansijsko knjigovodstvo</a>
+              <a [hidden]="!canFinOp()" ngbDropdownToggle
+                 class="nav-link active" aria-current="page">Finansijska operativa</a>
 
               <ul ngbDropdownMenu>
 
-				<a ngbDropdownItem [routerLink]="'account-plan'">Kontni plan</a>
+                <a ngbDropdownItem [routerLink]="'KUF'">Knjiga ulaznih faktura</a>
+
+                <a ngbDropdownItem [routerLink]="'KIF'">Knjiga izlaznih faktura</a>
+
+                <a ngbDropdownItem [routerLink]="'add-new-invoice'">Dodaj fakturu</a>
+
+                <a ngbDropdownItem [routerLink]="'add-new-client'">Komitenti</a>
+
+              </ul>
+            </div>
+
+            <!-- FINANSIJSKO_KNJIGOVODSTVO -->
+            <div ngbDropdown class="d-inline-block">
+              <a [hidden]="!canFinKnj()"
+                 ngbDropdownToggle class="nav-link active" aria-current="page">Finansijsko knjigovodstvo</a>
+
+              <ul ngbDropdownMenu>
+
+                <a ngbDropdownItem [routerLink]="'account-plan'">Kontni plan</a>
 
                 <a ngbDropdownItem [routerLink]="'bookkeeping-journal'">Dnevnik knjiženja</a>
 
@@ -39,31 +39,33 @@
 
                 <a ngbDropdownItem [routerLink]="'knjizenje-widget'">Knjiženje</a>
 
-				<a ngbDropdownItem [routerLink]="'bruto-bilans'">Bruto bilans</a>
+                <a ngbDropdownItem [routerLink]="'bruto-bilans'">Bruto bilans</a>
+
+                <a ngbDropdownItem [routerLink]="'analiticke-kartice'">Analiticke Kartice</a>
 
               </ul>
             </div>
 
-			<!-- OBRACUN_ZARADE -->
+            <!-- OBRACUN_ZARADE -->
             <div ngbDropdown class="d-inline-block">
               <a [hidden]="!canObrZa()" ngbDropdownToggle class="nav-link active" aria-current="page">Obračun zarade</a>
 
               <ul ngbDropdownMenu>
 
-				<a ngbDropdownItem [routerLink]="'zaposleni/:id'">Profil zaposlenog</a>
+                <a ngbDropdownItem [routerLink]="'zaposleni/:id'">Profil zaposlenog</a>
 
                 <a ngbDropdownItem [routerLink]="'zaposleni'">Zaposleni</a>
 
                 <a ngbDropdownItem [routerLink]="'plate'">Plata</a>
 
-				<a ngbDropdownItem [routerLink]="'koeficijenti'">Koeficijenti za obračun poreza i doprinosa</a>
+                <a ngbDropdownItem [routerLink]="'koeficijenti'">Koeficijenti za obračun poreza i doprinosa</a>
 
               </ul>
             </div>
 
-			<!-- ADMIN -->
+            <!-- ADMIN -->
             <li><a [hidden]="!isAdmin()" [routerLink]="'manage-users'" class="nav-link active"
-                aria-current="page">Upravljanje korisnicima</a></li>
+                   aria-current="page">Upravljanje korisnicima</a></li>
           </ul>
           <button [hidden]="!loggedIn()" (click)="logout()" type="button" class="btn btn-primary">Odjava</button>
         </div>
