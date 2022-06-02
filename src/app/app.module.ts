@@ -41,6 +41,7 @@ import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.component';
 import { KonverzijaComponent } from './components/konverzija/konverzija.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
 	declarations: [
@@ -68,6 +69,7 @@ import { HomepageComponent } from './components/homepage/homepage.component';
     BlagajnaComponent,
     KalkulacijeComponent,
     KonverzijaComponent,
+    ProfileComponent,
 	],
     imports: [
         BrowserModule,
