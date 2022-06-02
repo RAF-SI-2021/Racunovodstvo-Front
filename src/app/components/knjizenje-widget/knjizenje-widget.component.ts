@@ -52,6 +52,7 @@ export class KnjizenjeWidgetComponent implements OnInit {
 			brojDokumenta: ['', Validators.required],
 			brojNaloga: ['', Validators.required],
 			datum: ['', Validators.required],
+      centar: ['', Validators.required]
 		});
 	}
 
@@ -246,7 +247,8 @@ export class KnjizenjeWidgetComponent implements OnInit {
 				this.dugujeUkupnoNum - this.potrazujeUkupnoNum,
 				this.knjizenjeGroup.get('brojDokumenta')?.value,
 				this.knjizenjeGroup.get('brojNaloga')?.value,
-				this.knjizenjeGroup.get('datum')?.value
+				this.knjizenjeGroup.get('datum')?.value,
+				this.knjizenjeGroup.get('centar')?.value
 			)
 			.subscribe((response) => {
 				this.kontos = [];

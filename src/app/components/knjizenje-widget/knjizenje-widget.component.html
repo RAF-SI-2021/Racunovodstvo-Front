@@ -92,16 +92,16 @@
             <div *ngIf="!checkbox">
               <div>
                 <label class="form-label">Trosak:</label>
-                <select class="form-control">
-                  <option *ngFor="let trosak of troskovi" [value]="trosak.naziv">{{ trosak.naziv }}</option>
+                <select class="form-control" [formControlName]="'centar'">
+                  <option *ngFor="let trosak of troskovi" [ngValue]="trosak.id">{{ trosak.naziv }}</option>
                 </select>
               </div>
             </div>
            <div *ngIf="checkbox">
              <div>
                <label class="form-label">Profit:</label>
-               <select class="form-control">
-                 <option *ngFor="let profit of profiti" [value]="profit.naziv">{{ profit.naziv }}</option>
+               <select class="form-control" [formControlName]="'centar'">
+                 <option *ngFor="let profit of profiti" [ngValue]="profit.id">{{ profit.naziv }}</option>
                </select>
              </div>
            </div>
