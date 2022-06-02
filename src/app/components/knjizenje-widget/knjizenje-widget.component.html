@@ -77,7 +77,7 @@
     </tfoot>
   </table>
   <div>
-    <form class="">
+    <form class="" [formGroup]="centarForm">
        <div class="row">
          <div class="col-sm-3">
 
@@ -92,16 +92,16 @@
             <div *ngIf="!checkbox">
               <div>
                 <label class="form-label">Trosak:</label>
-                <select class="form-control" [formControlName]="'centar'">
-                  <option *ngFor="let trosak of troskovi" [ngValue]="trosak.id">{{ trosak.naziv }}</option>
+                <select class="form-control" [formControlName]="'centar1'">
+                  <option *ngFor="let trosak of troskovi" [value]="trosak.id">{{ trosak.naziv }}</option>
                 </select>
               </div>
             </div>
            <div *ngIf="checkbox">
              <div>
                <label class="form-label">Profit:</label>
-               <select class="form-control" [formControlName]="'centar'">
-                 <option *ngFor="let profit of profiti" [ngValue]="profit.id">{{ profit.naziv }}</option>
+               <select class="form-control" [formControlName]="'centar2'">
+                 <option *ngFor="let profit of profiti" [value]="profit.id">{{ profit.naziv }}</option>
                </select>
              </div>
            </div>

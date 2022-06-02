@@ -30,6 +30,7 @@ export class KnjizenjeWidgetComponent implements OnInit {
 
 	editing: boolean = false;
 	knjizenjeGroup: FormGroup;
+	centarForm: FormGroup;
 
 	kontoGroups: FormGroup[] = [];
 
@@ -52,8 +53,13 @@ export class KnjizenjeWidgetComponent implements OnInit {
 			brojDokumenta: ['', Validators.required],
 			brojNaloga: ['', Validators.required],
 			datum: ['', Validators.required],
-      centar: ['', Validators.required]
 		});
+
+
+    this.centarForm = this.formBuilder.group({
+      centar1: [''],
+      centar2: ['']
+    });
 	}
 
 	ngOnInit(): void {
@@ -83,10 +89,10 @@ export class KnjizenjeWidgetComponent implements OnInit {
 
 		}
     this.profiti = [];
-    this.profiti.push({naziv: "Profit 1"})
-    this.profiti.push({naziv: "Profit 2"})
-    this.troskovi.push({naziv: "Trosak 1"})
-    this.troskovi.push({naziv: "Trosak 2"})
+    // this.profiti.push({naziv: "Profit 1"})
+    // this.profiti.push({naziv: "Profit 2"})
+    // this.troskovi.push({naziv: "Trosak 1"})
+    // this.troskovi.push({naziv: "Trosak 2"})
 		this.editing = false;
 		for (let i = 0; i < this.kontoGroups.length; i++) {
 			this.filteredOptions[i] = this.kontoGroups[i].valueChanges.pipe(
@@ -97,13 +103,17 @@ export class KnjizenjeWidgetComponent implements OnInit {
 			this.ktnGrps = response.content;
 		});
 
-    // this.centri.getProfitniCentri().subscribe((response) =>{
-    //   this.profiti = response;
-    // })
-    //
-    // this.centri.getTroskovniCentri().subscribe((response) =>{
-    //   this.troskovi = response;
-    // })
+    this.centri.getProfitniCentri().subscribe((response) =>{
+      this.profiti = response.content;
+    })
+
+    this.centri.getTroskovniCentri().subscribe((response) =>{
+      this.troskovi = response.content;
+      this.centarForm = this.formBuilder.group({
+        centar1: [this.troskovi[0].id],
+        centar2: [this.profiti[0].id]
+      });
+    })
 	}
 
 	private _filter(value: any): KontnaGrupa[] {
@@ -239,6 +249,12 @@ export class KnjizenjeWidgetComponent implements OnInit {
 				}
 			});
 		});
+    let centar;
+    if(this.checkbox){
+      centar = 	this.centarForm.get('centar2')?.value
+    }else{
+      centar = 	this.centarForm.get('centar1')?.value
+    }
 		this.service
 			.knjizenje(
 				this.kontos,
@@ -248,7 +264,7 @@ export class KnjizenjeWidgetComponent implements OnInit {
 				this.knjizenjeGroup.get('brojDokumenta')?.value,
 				this.knjizenjeGroup.get('brojNaloga')?.value,
 				this.knjizenjeGroup.get('datum')?.value,
-				this.knjizenjeGroup.get('centar')?.value
+        centar
 			)
 			.subscribe((response) => {
 				this.kontos = [];
