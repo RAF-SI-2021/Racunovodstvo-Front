@@ -13,6 +13,8 @@ export interface User {
   username: string;
   firstName: string;
   lastName: string;
+  email: string
+  password: string
   //dont change authorities to permissions, shit dont work then for some reason
   authorities: Permission[];
 }
