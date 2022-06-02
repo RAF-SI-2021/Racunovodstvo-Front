@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit(): void {
 		if (this.loggedIn()) {
-			this.router.navigate(['add-new-client']);
+			this.router.navigate(['']);
 		}
 		this.wrongPasswordOrUsername = false;
 	}
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
 								user.authorities[i].name
 							);
 							this.router
-								.navigate(['add-new-client'])
+								.navigate([''])
 								.then((value) => {
 									this.loginForm.reset();
 								});
