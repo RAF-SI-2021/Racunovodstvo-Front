@@ -43,6 +43,7 @@ export class KalkulacijeComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private service: KalkulacijeService, private serviceComp: InvoiceService, private modalService: NgbModal,
               config: NgbModalConfig) {
     config.backdrop = 'static';
+    config.centered = true;
     this.kalkForm = formBuilder.group({
       brojKalkulacije: ['', Validators.required],
       tipKalkulacije: ['', Validators.required],
