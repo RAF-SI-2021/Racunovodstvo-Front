@@ -1,5 +1,66 @@
 <div class="container">
   <h1 class="text-center">Kalkulacije</h1>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header text-center">
+      <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form class="form-control">
+        <h3 class="text-center">Fakturisanje</h3>
+        <div class="row">
+          <div class="col-sm-4">
+            <label class="labelClass">Broj:</label>
+            <input class="form-control" type="text">
+          </div>
+
+          <div class="col-sm-4">
+            <label class="labelClass">Tip:</label>
+            <select class="form-control" type="text">
+              <option value="MALOPRODAJA">Maloprodaja</option>
+              <option value="VELEPRODAJA">Veleprodaja</option>
+            </select>
+          </div>
+
+          <div class="col-sm-4">
+            <label class="labelClass">Datum:</label>
+            <input class="form-control" type="date">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <label class="labelClass">Dobavljac:</label>
+            <select class="form-control" type="text">
+              <option *ngFor="let company of companies; index as i">{{ company.naziv}} </option>
+            </select>
+          </div>
+
+          <div class="col-sm-4">
+            <label class="labelClass">Lokacija:</label>
+            <select class="form-control" type="text">
+              <option *ngFor="let lokacija of lokacije; index as i">{{ lokacija.naziv }}
+                - {{ lokacija.adresa}} </option>
+            </select>
+          </div>
+
+          <div class="col-sm-4">
+            <label class="labelClass">Valuta:</label>
+            <input class="form-control" type="text">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <label class="labelClass">Komentar:</label>
+            <textarea class="form-control" type="text"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Sacuvaj</button>
+    </div>
+  </ng-template>
   <div>
     <h5 style="text-align: center">Filter kalkulacija</h5>
     <form class="form-control" [formGroup]="filterForm">
@@ -73,6 +134,7 @@
       <th scope="col">Prodajna vrednost</th>
       <th scope="col">Valuta</th>
       <th scope="col">Komentar</th>
+      <th scope="col">Fakturisano</th>
       <th colspan="2">Akcije</th>
     </tr>
     </thead>
@@ -106,14 +168,21 @@
         {{ kalkulacija.komentar }}
       </td>
       <td>
+        <input type="checkbox" class="form-check-input">
+      </td>
+      <td>
         <button class="btn btn-danger btn-sm" (click)="deleteKalkulacija(kalkulacija.id)">Delete</button>
       </td>
     </tr>
     </tbody>
   </table>
   <div class="text-center">
-    <button class="btn btn-sm btn-primary" (click)="createNewKalk()">Nova kalkulacija</button>
+    <button class="btn btn-sm btn-primary" (click)="open(content)">Fakturiši</button>
   </div>
+  <div class="text-center mt-3">
+    <button class="btn btn-sm btn-success" (click)="createNewKalk()">Nova kalkulacija</button>
+  </div>
+
   <br>
   <div id="newKalkulacija" *ngIf="isNewKalk">
     <form class="form-control" [formGroup]="kalkForm">
@@ -377,7 +446,7 @@
     </tfoot>
   </table>
   <div *ngIf="selected" class="text-center">
-    <button class="btn btn-sm btn-primary" (click)="createNewArt()">Novi artikal</button>
+    <button class="btn btn-sm btn-success" (click)="createNewArt()">Novi artikal</button>
   </div>
   <br>
   <div id="newArtikal" *ngIf="isNewArt">

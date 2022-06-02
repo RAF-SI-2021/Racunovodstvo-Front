@@ -4,6 +4,7 @@ import {Form, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Company} from "../../shared/invoice.model";
 import {KalkulacijeService} from "../../services/kalkulacije/kalkulacije.service";
 import {InvoiceService} from "../../services/invoice/invoice.service";
+import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-kalkulacije',
@@ -39,7 +40,9 @@ export class KalkulacijeComponent implements OnInit {
   isNewKalk: boolean = false;
   isNewArt: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private service: KalkulacijeService, private serviceComp: InvoiceService) {
+  constructor(private formBuilder: FormBuilder, private service: KalkulacijeService, private serviceComp: InvoiceService, private modalService: NgbModal,
+              config: NgbModalConfig) {
+    config.backdrop = 'static';
     this.kalkForm = formBuilder.group({
       brojKalkulacije: ['', Validators.required],
       tipKalkulacije: ['', Validators.required],
@@ -186,57 +189,57 @@ export class KalkulacijeComponent implements OnInit {
         ukupnaProdajnaVrednost: 1300
       })
 
-      this.companies.push({
-        naziv: 'Kompanija1', preduzeceId: 1
-      },{
-        naziv: 'Kompanija2', preduzeceId: 2
-      })
+    this.companies.push({
+      naziv: 'Kompanija1', preduzeceId: 1
+    },{
+      naziv: 'Kompanija2', preduzeceId: 2
+    })
 
-      this.lokacije.push({
-        lokacijaId: 1,
-        naziv: 'Magacin1',
-        adresa: 'Beogradska 16'
-      },{
-        lokacijaId: 2,
-        naziv: 'Magacin2',
-        adresa: 'Beogradska 22'
-      })
+    this.lokacije.push({
+      lokacijaId: 1,
+      naziv: 'Magacin1',
+      adresa: 'Beogradska 16'
+    },{
+      lokacijaId: 2,
+      naziv: 'Magacin2',
+      adresa: 'Beogradska 22'
+    })
 
-      this.kalkulacija = {
-        id: -1,
-        brojKalkulacije: '1235',
-        tipKalkulacije: 'test',
-        datum: new Date().toLocaleDateString('it-IT'),
-        dobavljacId: 1,
-        fakturnaCena: 50,
-        komentar: 'test',
-        lokacijaId: this.lokacije[0],
-        nabavnaVrednost: 1000,
-        prodajnaVrednost: 2000,
-        troskoviNabavke: [{ cena: 100, naziv: 'test'}, { cena: 200, naziv: 'test'}],
-        valuta: 'RSD'
-      };
+    this.kalkulacija = {
+      id: -1,
+      brojKalkulacije: '1235',
+      tipKalkulacije: 'test',
+      datum: new Date().toLocaleDateString('it-IT'),
+      dobavljacId: 1,
+      fakturnaCena: 50,
+      komentar: 'test',
+      lokacijaId: this.lokacije[0],
+      nabavnaVrednost: 1000,
+      prodajnaVrednost: 2000,
+      troskoviNabavke: [{ cena: 100, naziv: 'test'}, { cena: 200, naziv: 'test'}],
+      valuta: 'RSD'
+    };
 
-      this.artikal = {
-        artikalId: -1,
-        jedinicaMere: 'kg',
-        kolicina: 100,
-        marza: 10,
-        marzaProcenat: 5,
-        nabavnaCena: 1000,
-        nabavnaCenaPosleRabata: 1100,
-        nazivArtikla: 'Test',
-        osnovica: 1000,
-        porez: 100,
-        porezProcenat: 1,
-        prodajnaOsnovica: 880,
-        prodajnaCena: 1111,
-        rabatProcenat: 2,
-        rabat: 100,
-        sifraArtikla: '1256',
-        ukupnaNabavnaVrednost: 1000,
-        ukupnaProdajnaVrednost: 1200
-      }
+    this.artikal = {
+      artikalId: -1,
+      jedinicaMere: 'kg',
+      kolicina: 100,
+      marza: 10,
+      marzaProcenat: 5,
+      nabavnaCena: 1000,
+      nabavnaCenaPosleRabata: 1100,
+      nazivArtikla: 'Test',
+      osnovica: 1000,
+      porez: 100,
+      porezProcenat: 1,
+      prodajnaOsnovica: 880,
+      prodajnaCena: 1111,
+      rabatProcenat: 2,
+      rabat: 100,
+      sifraArtikla: '1256',
+      ukupnaNabavnaVrednost: 1000,
+      ukupnaProdajnaVrednost: 1200
+    }
 
     // this.troskoviNabavke.push({naziv: '', cena: 0, troskoviNabavkeId: this.ind++})
     // this.trosakForm.push(this.formBuilder.group({
@@ -262,6 +265,10 @@ export class KalkulacijeComponent implements OnInit {
       sum += kalkulacija.troskoviNabavke[i].cena;
     }
     return sum;
+  }
+
+  open(content: any) {
+    this.modalService.open(content, {size: "xl"});
   }
 
   getAsDate(datum: string) {
