@@ -4,4 +4,5 @@ export enum Authority {
 	FINANSIJSKO_KNJIGOVODSTVO = 'finknj',
 	OBRACUN_ZARADE = 'obrza',
 	NABAVKA = 'nabavka',
+  PROFIL = 'profil'
 }
