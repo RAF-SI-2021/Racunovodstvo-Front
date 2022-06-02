@@ -25,6 +25,8 @@ import {HomepageComponent} from "./components/homepage/homepage.component";
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import {KalkulacijeComponent} from "./components/kalkulacije/kalkulacije.component";
 import {KonverzijaComponent} from "./components/konverzija/konverzija.component";
+import {ProfileComponent} from "./components/profile/profile.component";
+import {ProfileGuard} from "./guards/profile.guard";
 
 const routes: Routes = [
 	{
@@ -129,7 +131,12 @@ const routes: Routes = [
   {
     path: 'konverzije',
     component: KonverzijaComponent
-  }
+  },
+  {
+    path: 'profil',
+    component: ProfileComponent,
+    canActivate: [ProfileGuard]
+  },
 ];
 
 @NgModule({
