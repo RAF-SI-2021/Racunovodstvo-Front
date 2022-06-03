@@ -2,15 +2,40 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container-fluid">
-        <a [routerLink]="'/'" class="navbar-brand">Računovodstvo</a>
 
-        <div class="collapse navbar-collapse justify-content-between" id="navbarNavAltMarkup">
+        <a style="max-height: 10%; max-width: 10%" [routerLink]="'/'" class="navbar-brand"><img alt="image" style="max-height: 100%; max-width: 100%" src="assets/pics/Chrysus720x195.png"></a>
+
+        <div style="font-size: 25px" class="collapse navbar-collapse justify-content-evenly" id="navbarNavAltMarkup">
           <ul class="navbar-nav" role="tablist">
 
-            <a [hidden]="!canProfile()" class="nav-link active" aria-current="page" [routerLink]="'profil'">Profil</a>
+            <a style="padding-right: 20px" [hidden]="!canProfile()" class="nav-link active"
+               aria-current="page" [routerLink]="'profil'">Profil</a>
+
+            <a style="padding-left: 20px; padding-right: 20px" [hidden]="!canEvidencije()" class="nav-link active"
+               aria-current="page" [routerLink]="''">Evidencije</a>
+
+            <a style="padding-left: 20px; padding-right: 20px" [hidden]="!canIzvestaji()" class="nav-link active"
+               aria-current="page" [routerLink]="''">Izvestaji</a>
+
+            <a style="padding-left: 20px; padding-right: 20px" [hidden]="!canProdaja()" class="nav-link active"
+               aria-current="page" [routerLink]="''">Prodaja</a>
+
+            <!-- NABAVKE -->
+            <div style="padding-left: 20px; padding-right: 20px" ngbDropdown class="d-inline-block">
+              <a [hidden]="!canNabavka()" ngbDropdownToggle
+                 class="nav-link active" aria-current="page">Nabavke</a>
+
+              <ul ngbDropdownMenu>
+
+                <a ngbDropdownItem [routerLink]="'kalkulacije'">Kalkulacije</a>
+
+                <a ngbDropdownItem [routerLink]="'konverzije'">Konverzije</a>
+
+              </ul>
+            </div>
 
             <!-- FINANSIJSKA_OPERATIVA -->
-            <div ngbDropdown class="d-inline-block">
+            <div style="padding-left: 20px; padding-right: 20px" ngbDropdown class="d-inline-block">
               <a [hidden]="!canFinOp()" ngbDropdownToggle
                  class="nav-link active" aria-current="page">Finansijska operativa</a>
 
@@ -30,7 +55,7 @@
             </div>
 
             <!-- FINANSIJSKO_KNJIGOVODSTVO -->
-            <div ngbDropdown class="d-inline-block">
+            <div style="padding-left: 20px; padding-right: 20px" ngbDropdown class="d-inline-block">
               <a [hidden]="!canFinKnj()"
                  ngbDropdownToggle class="nav-link active" aria-current="page">Finansijsko knjigovodstvo</a>
 
@@ -52,7 +77,7 @@
             </div>
 
             <!-- OBRACUN_ZARADE -->
-            <div ngbDropdown class="d-inline-block">
+            <div style="padding-left: 20px; padding-right: 20px" ngbDropdown class="d-inline-block">
               <a [hidden]="!canObrZa()" ngbDropdownToggle class="nav-link active" aria-current="page">Obračun zarade</a>
 
               <ul ngbDropdownMenu>
@@ -69,7 +94,7 @@
             </div>
 
             <!-- NABAVKE -->
-            <div ngbDropdown class="d-inline-block">
+            <div style="padding-left: 20px; padding-right: 20px" ngbDropdown class="d-inline-block">
               <a [hidden]="!canNabavka()" ngbDropdownToggle class="nav-link active" aria-current="page">Nabavke</a>
 
               <ul ngbDropdownMenu>
@@ -84,7 +109,7 @@
             <li><a [hidden]="!isAdmin()" [routerLink]="'manage-users'" class="nav-link active"
                    aria-current="page">Upravljanje korisnicima</a></li>
           </ul>
-          <button [hidden]="!loggedIn()" (click)="logout()" type="button" class="btn btn-primary">Odjava</button>
+          <button style="font-size: 20px" [hidden]="!loggedIn()" (click)="logout()" type="button" class="btn btn-primary align-self-end">Odjava</button>
         </div>
       </div>
     </nav>
