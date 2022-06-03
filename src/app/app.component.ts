@@ -62,4 +62,12 @@ export class AppComponent {
     }
     return false;
   }
+
+  canProfile() {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.PROFIL) != null)
+        return true;
+    }
+    return false;
+  }
 }
