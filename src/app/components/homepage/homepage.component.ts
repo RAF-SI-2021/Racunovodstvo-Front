@@ -43,7 +43,7 @@ export class HomepageComponent implements OnInit {
   }
 
   gotoNabavke() {
-    this.router.navigate([''])
+    this.router.navigate(['kalkulacije'])
   }
 
   gotoIzvestaji() {
