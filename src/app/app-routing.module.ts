@@ -27,6 +27,7 @@ import {KalkulacijeComponent} from "./components/kalkulacije/kalkulacije.compone
 import {KonverzijaComponent} from "./components/konverzija/konverzija.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ProfileGuard} from "./guards/profile.guard";
+import {NabavkeGuard} from "./guards/nabavke.guard";
 
 const routes: Routes = [
 	{
@@ -125,13 +126,15 @@ const routes: Routes = [
   {
     path: 'kalkulacije',
     component: KalkulacijeComponent,
-    // canActivate: [FinansijskoKnjigovodstvoGuard],
+    canActivate: [NabavkeGuard],
 
   },
   {
     path: 'konverzije',
-    component: KonverzijaComponent
+    component: KonverzijaComponent,
+    canActivate: [NabavkeGuard],
   },
+  //PROFIL
   {
     path: 'profil',
     component: ProfileComponent,
