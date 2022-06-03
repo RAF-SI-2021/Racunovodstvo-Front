@@ -17,6 +17,8 @@ export interface User {
   password: string
   //dont change authorities to permissions, shit dont work then for some reason
   authorities: Permission[];
+  permissions: Permission[];
+  preduzeceId: number
 }
 
 export class User {
@@ -24,18 +26,37 @@ export class User {
   username: string;
   firstName: string;
   lastName: string;
+  email: string
+  password: string
+  //dont change authorities to permissions, shit dont work then for some reason
+  authorities: Permission[];
+  permissions: Permission[];
+  preduzeceId: number
+
 
   constructor(
     userId: number,
     username: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    email: string,
+    password: string,
+    permissions: Permission[],
+  //dont change authorities to permissions, shit dont work then for some reason
+    authorities: Permission[],
+    preduzeceId: number
   ) {
     this.userId = userId;
     this.username = username;
     this.firstName = firstName;
     this.lastName = lastName;
+    this.email = email;
+    this.password = password;
+    this.authorities = authorities
+    this.permissions = permissions
+    this.preduzeceId = preduzeceId
   }
+
 }
 
 export interface Users {
