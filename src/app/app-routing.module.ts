@@ -21,6 +21,7 @@ import { FinansijskaOperativaGuard } from './guards/finansijska-operativa.guard'
 import { FinansijskoKnjigovodstvoGuard } from './guards/finansijsko-knjigovodstvo.guard';
 import { ObracunZaradeGuard } from './guards/obracun-zarade.guard';
 import {KnjizenjeWidgetComponent} from "./components/knjizenje-widget/knjizenje-widget.component";
+import {ProfitniCentarComponent} from "./components/profitni-centar/profitni-centar.component";
 
 const routes: Routes = [
 	{
@@ -80,6 +81,11 @@ const routes: Routes = [
 		component: BrutoBilansComponent,
 		canActivate: [FinansijskoKnjigovodstvoGuard],
 	},
+  {
+    path: 'profitni-centar',
+    component: ProfitniCentarComponent,
+    canActivate: [FinansijskoKnjigovodstvoGuard],
+  },
 	// OBRACUN_ZARADE
 	{
 		path: 'zaposleni',

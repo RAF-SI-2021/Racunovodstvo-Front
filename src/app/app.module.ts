@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {MatTreeModule} from '@angular/material/tree';
 
 // Mat
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -32,6 +33,8 @@ import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
 
 import { DatePipe } from '@angular/common';
+import { ProfitniCentarComponent } from './components/profitni-centar/profitni-centar.component';
+import {MatIcon, MatIconModule} from "@angular/material/icon";
 
 @NgModule({
 	declarations: [
@@ -51,22 +54,24 @@ import { DatePipe } from '@angular/common';
 		KoeficijentiComponent,
 		SvaKnjizenjaComponent,
 		BrutoBilansComponent,
+  ProfitniCentarComponent,
 	],
-	imports: [
-		BrowserModule,
-		BrowserAnimationsModule,
-		AppRoutingModule,
-		NgbModule,
-		ReactiveFormsModule,
-		HttpClientModule,
-		FormsModule,
-		// Mat
-		MatAutocompleteModule,
-		MatFormFieldModule,
-		MatDatepickerModule,
-		MatNativeDateModule,
-		MatInputModule,
-	],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    NgbModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    // Mat
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatTreeModule,
+  ],
 	providers: [DatePipe],
 	bootstrap: [AppComponent],
 })

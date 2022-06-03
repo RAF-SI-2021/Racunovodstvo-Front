@@ -1,0 +1,37 @@
+.example-tree-invisible {
+  display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+.example-tree .mat-nested-tree-node div[role=group] {
+  padding-left: 35px;
+}
+
+.example-tree div[role=group] > .mat-tree-node {
+  padding-left: 35px;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.mat-tree-node {
+  border-top: 1px solid #007bff;
+  border-left: 1px solid #007bff;
+}
+
+.plusminus {
+  font-weight: bold
+}
+
+.btn-outline-primary, .btn-outline-warning, .btn-outline-danger {
+  margin-left: 10px;
+  color: black;
+}

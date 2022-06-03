@@ -1,3 +1,5 @@
+import {BookkeepingJournal} from "./bookkeeping-journal.model";
+
 export class Invoice {
 	constructor(
 		public fakturaId: number,
@@ -54,6 +56,7 @@ export class Konto {
 	disabledKonto: boolean;
 	disabledDuguje: boolean;
 	disabledPotrazuje: boolean;
+  knjizenje?: BookkeepingJournal;
 
 	constructor(
 		konto: KontnaGrupa,
@@ -62,7 +65,8 @@ export class Konto {
 		addOrDeleteEdit: boolean,
 		disabledKonto: boolean,
 		disabledDuguje: boolean,
-		disabledPotrazuje: boolean
+		disabledPotrazuje: boolean,
+    knjizenje?: BookkeepingJournal
 	) {
 		this.kontnaGrupa = konto;
 		this.duguje = duguje;
