@@ -1,1 +1,102 @@
-<p>profile works!</p>
+<div class="container d-flex flex-column gap-3">
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Profil</h1>
+<!-- KORISNIK-->
+  <mat-card (click)="enableEditIndex=-1">
+    <mat-card-content style="font-size: 18px">
+      <b>Username: </b> {{user.username}}
+    </mat-card-content>
+
+    <mat-card-content style="font-size: 18px">
+      <b>Password: ********</b>
+    </mat-card-content>
+
+    <mat-card-content style="font-size: 18px">
+      <b>Email: </b> {{user.email}}
+    </mat-card-content>
+
+    <mat-card-content style="font-size: 18px">
+      <b>Ime: </b> {{user.firstName}}
+    </mat-card-content>
+
+    <mat-card-content style="font-size: 18px">
+      <b>Prezime: </b> {{user.lastName}}
+    </mat-card-content>
+
+    <mat-card-content style="font-size: 18px">
+      <b>Permisije: </b>
+      <label *ngFor="let perm of user.permissions">
+        {{perm.name.toUpperCase()}}&#160; <!--&#160 is HTML space char-->
+      </label>
+    </mat-card-content>
+  </mat-card>
+
+<!--FIRMA-->
+  <mat-card [hidden]="!isAdmin()" [formGroup]="companyForm" (submit)="updateCompany()">
+
+    <mat-card-content (click)="enableEditIndex=1" style="font-size: 18px">
+      <b>Naziv: </b>
+      <input type='text' class="form-control" [hidden]="enableEditIndex != 1"
+             [contentEditable]="enableEditIndex == 1" [formControlName]="'naziv'" placeholder="{{this.companyForm.get('naziv')?.value}}" >
+      <label [hidden]="enableEditIndex==1" >{{this.companyForm.get('naziv')?.value}}</label>
+    </mat-card-content>
+
+    <mat-card-content (click)="enableEditIndex=2" style="font-size: 18px">
+      <b>PIB: </b>
+      <input type='text' class="form-control" [hidden]="enableEditIndex != 2"
+             [contentEditable]="enableEditIndex == 2" [formControlName]="'PIB'" placeholder="{{this.companyForm.get('PIB')?.value}}" >
+      <label [hidden]="enableEditIndex==2" >{{this.companyForm.get('PIB')?.value}}</label>
+    </mat-card-content>
+
+    <mat-card-content (click)="enableEditIndex=3" style="font-size: 18px">
+      <b>Adresa: </b>
+      <input type='text' class="form-control" [hidden]="enableEditIndex != 3"
+             [contentEditable]="enableEditIndex == 3" [formControlName]="'adresa'" placeholder="{{this.companyForm.get('adresa')?.value}}" >
+      <label [hidden]="enableEditIndex==3" >{{this.companyForm.get('adresa')?.value}}</label>
+    </mat-card-content>
+
+    <mat-card-content (click)="enableEditIndex=4" style="font-size: 18px">
+      <b>Grad: </b>
+      <input type='text' class="form-control" [hidden]="enableEditIndex != 4"
+             [contentEditable]="enableEditIndex == 4" [formControlName]="'grad'" placeholder="{{this.companyForm.get('grad')?.value}}" >
+      <label [hidden]="enableEditIndex==4" >{{this.companyForm.get('grad')?.value}}</label>
+    </mat-card-content>
+
+    <mat-card-content (click)="enableEditIndex=5" style="font-size: 18px">
+      <b>Telefon: </b>
+      <input type='text' class="form-control" [hidden]="enableEditIndex != 5"
+             [contentEditable]="enableEditIndex == 5" [formControlName]="'telefon'" placeholder="{{this.companyForm.get('telefon')?.value}}" >
+      <label [hidden]="enableEditIndex==5" >{{this.companyForm.get('telefon')?.value}}</label>
+    </mat-card-content>
+
+    <mat-card-content  (click)="enableEditIndex=6" style="font-size: 18px">
+      <b>Broj Računa: </b>
+      <input type='text' class="form-control" [hidden]="enableEditIndex != 6"
+             [contentEditable]="enableEditIndex == 6" [formControlName]="'racun'" placeholder="{{this.companyForm.get('racun')?.value}}" >
+      <label [hidden]="enableEditIndex==6" >{{this.companyForm.get('racun')?.value}}</label>
+    </mat-card-content>
+
+    <mat-card-content (click)="enableEditIndex=7" style="font-size: 18px">
+      <b>Email: </b>
+      <input type='text' class="form-control" [hidden]="enableEditIndex != 7"
+             [contentEditable]="enableEditIndex == 7" [formControlName]="'email'" placeholder="{{this.companyForm.get('email')?.value}}" >
+      <label [hidden]="enableEditIndex==7" >{{this.companyForm.get('email')?.value}}</label>
+    </mat-card-content>
+
+    <mat-card-content (click)="enableEditIndex=8" style="font-size: 18px">
+      <b>Web Adresa: </b>
+      <input type='text' class="form-control" [hidden]="enableEditIndex != 8"
+             [contentEditable]="enableEditIndex == 8" [formControlName]="'webAdresa'" placeholder="{{this.companyForm.get('webAdresa')?.value}}" >
+      <label [hidden]="enableEditIndex==8" >{{this.companyForm.get('webAdresa')?.value}}</label>
+    </mat-card-content>
+
+    <mat-card-content (click)="enableEditIndex=9" style="font-size: 18px">
+      <b>Fax: </b>
+      <input type='text' class="form-control" [hidden]="enableEditIndex != 9"
+             [contentEditable]="enableEditIndex == 9" [formControlName]="'fax'" placeholder="{{this.companyForm.get('fax')?.value}}" >
+      <label [hidden]="enableEditIndex==9" >{{this.companyForm.get('fax')?.value}}</label>
+    </mat-card-content>
+    <button [disabled]="!companyForm.valid" type="submit" mat-raised-button color="primary" (click)="updateCompany()">Sačuvaj</button>
+  </mat-card>
+
+
+</div>
