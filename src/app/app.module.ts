@@ -42,6 +42,7 @@ import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.compo
 import { KonverzijaComponent } from './components/konverzija/konverzija.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
 	declarations: [
@@ -71,23 +72,24 @@ import { ProfileComponent } from './components/profile/profile.component';
     KonverzijaComponent,
     ProfileComponent,
 	],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        NgbModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        FormsModule,
-        // Mat
-        MatAutocompleteModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatInputModule,
-        MatButtonModule,
-        MatDialogModule,
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    NgbModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    // Mat
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatCardModule,
+  ],
 	providers: [DatePipe],
 	bootstrap: [AppComponent],
 })
