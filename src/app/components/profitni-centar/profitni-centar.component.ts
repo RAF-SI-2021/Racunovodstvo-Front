@@ -5,7 +5,7 @@ import {MatTreeNestedDataSource} from '@angular/material/tree';
 import {BookkeepingJournal} from "../../shared/bookkeeping-journal.model";
 import {BookkeepingJournalService} from "../../services/bookkeeping-journal/bookkeeping-journal.service";
 import {ProfitniCentarService} from "../../services/profitni-centar/profitni-centar.service";
-import {KontnaGrupa, Konto} from "../../shared/invoice.model";
+import {Konto} from "../../shared/invoice.model";
 
 @Component({
   selector: 'app-profitni-centar',
@@ -15,7 +15,7 @@ import {KontnaGrupa, Konto} from "../../shared/invoice.model";
 export class ProfitniCentarComponent implements OnInit {
 
   profitniCentri: ProfitniCentar[];
-  treeControl = new NestedTreeControl<ProfitniCentar>(node => node.children);
+  treeControl = new NestedTreeControl<ProfitniCentar>(node => node.profitniCentarList);
   dataSource = new MatTreeNestedDataSource<ProfitniCentar>();
   knjizenja: BookkeepingJournal[];
   selectedProfitniCentar: ProfitniCentar;
@@ -24,20 +24,23 @@ export class ProfitniCentarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.profitniCentarService.getAll().subscribe(data => {
-      this.profitniCentri = [...new Map(data.content.map((item) => [item["naziv"], item])).values()];
-      this.formatData();
-      this.dataSource.data = this.profitniCentri;
-    })
-
+    this.fetchAllProfitniCentri();
     this.knjizenjeService.getKnjizenja().subscribe((data) => {
       this.knjizenja = data;
     });
   }
 
+  fetchAllProfitniCentri(): void {
+    this.profitniCentarService.getAll().subscribe(data => {
+      this.profitniCentri = data;
+      this.formatData();
+      this.dataSource.data = this.profitniCentri;
+    })
+  }
+
   formatData(): void {
     this.profitniCentri.forEach(item => {
-      item.children = this.profitniCentri.filter(function (element) {
+      item.profitniCentarList = this.profitniCentri.filter(function (element) {
           return element.parentProfitniCentar && element.parentProfitniCentar.id == item.id;
         }
       );
@@ -52,15 +55,114 @@ export class ProfitniCentarComponent implements OnInit {
     return Object.assign({}, source);
   }
 
-  getIcon(node: ProfitniCentar): string {
-    return this.treeControl.isExpanded(node) ? '-' : '+';
+  dfsCalculation(curr: ProfitniCentar, sum: number): number {
+    sum += curr.ukupniTrosak;
+    if (curr.profitniCentarList) {
+      for (let i = 0; i < curr.profitniCentarList.length; i++) {
+        sum = this.dfsCalculation(curr.profitniCentarList[i], sum);
+      }
+    }
+    return sum;
+  }
+
+  dfsReassignment(curr: ProfitniCentar): ProfitniCentar {
+    curr = this.reassignObject(curr);
+    if (curr.profitniCentarList) {
+      for (let i = 0; i < curr.profitniCentarList.length; i++) {
+        curr.profitniCentarList[i] = this.dfsReassignment(curr.profitniCentarList[i]);
+      }
+    }
+    return curr;
+  }
+
+  popup(knjizenjeIndex: number, profitniCentarIndex: number): void {
+    let text = 'Da li zelite da iz knjiženja(' +
+      this.knjizenja[knjizenjeIndex].brojNaloga +
+      ') dodelite listu konta profitnom centru(' +
+      this.profitniCentri[profitniCentarIndex].naziv + ')?';
+    if (confirm(text) == true) {
+      this.profitniCentarService.addKontosFromKnjizenje(this.knjizenja[knjizenjeIndex], this.profitniCentri[profitniCentarIndex]).subscribe(
+        data => {
+
+          // const dummyKontoList = [
+          //   new Konto(new KontnaGrupa('konto-1', '1231'), 100, 50, true, false, false, false),
+          //   new Konto(new KontnaGrupa('konto-2', '1232'), 200, 60, true, false, false, false),
+          //   new Konto(new KontnaGrupa('konto-3', '1233'), 300, 70, true, false, false, false),
+          //   new Konto(new KontnaGrupa('konto-4', '1234'), 400, 80, true, false, false, false),
+          //   new Konto(new KontnaGrupa('konto-5', '1235'), 500, 90, true, false, false, false),
+          //   new Konto(new KontnaGrupa('konto-6', '1236'), 600, 100, true, false, false, false),
+          // ]
+          // data.kontoList = dummyKontoList;
+          //
+          // data.kontoList.forEach(item => {
+          //   item.knjizenje = this.knjizenja[knjizenjeIndex];
+          // });
+          this.fetchAllProfitniCentri();
+        });
+    }
+  }
+
+  izmeniKonto(konto: Konto, editableSaldo: HTMLInputElement, editableKomentar: HTMLTextAreaElement): void {
+    let index: number = this.selectedProfitniCentar.kontoList.findIndex(item => item.bazniKontoId === konto.bazniKontoId);
+    console.log(index)
+    let newKonto: Konto = this.selectedProfitniCentar.kontoList[index];
+    newKonto.duguje = +editableSaldo.value;
+    newKonto.potrazuje = 0;
+    newKonto.komentarKnjizenja = editableKomentar.value;
+    this.selectedProfitniCentar.kontoList[index] = newKonto;
+    this.izmeniProfitniCentarKontos(this.selectedProfitniCentar);
+  }
+
+  obrisiKonto(konto: Konto): void {
+    this.selectedProfitniCentar.kontoList = this.selectedProfitniCentar.kontoList.filter(data => data != konto);
+    this.izmeniProfitniCentarKontos(this.selectedProfitniCentar);
+  }
+
+  sacuvajProfitniCentar(newProfCentarNaziv: HTMLInputElement, newProfCentarSifra: HTMLInputElement,
+    newProfCentarLokacijaId: HTMLInputElement, newProfCentarOdgLiceId: HTMLInputElement, newProfCentarRoditelj: HTMLSelectElement): void {
+    let newProfitniCentar: ProfitniCentar = {
+      sifra: newProfCentarSifra.value,
+      naziv: newProfCentarNaziv.value,
+      ukupniTrosak: 0,
+      lokacijaId: +newProfCentarLokacijaId.value,
+      odgovornoLiceId: +newProfCentarOdgLiceId.value,
+      parentProfitniCentar: this.profitniCentri[newProfCentarRoditelj.selectedIndex],
+      kontoList: []
+    }
+    this.profitniCentarService.save(newProfitniCentar).subscribe(() => {
+      this.fetchAllProfitniCentri();
+    });
+  }
+
+  izmeniProfitniCentar(profCentar: ProfitniCentar, editableNazivCentra: HTMLInputElement, editableOdgLice: HTMLInputElement,
+    editablelokacijaId: HTMLInputElement): void {
+    profCentar.naziv = editableNazivCentra.value;
+    profCentar.odgovornoLiceId = +editableOdgLice.value;
+    profCentar.lokacijaId = +editablelokacijaId.value;
+    this.profitniCentarService.update(profCentar).subscribe(data => {
+      this.fetchAllProfitniCentri()
+    });
+  }
+
+  izmeniProfitniCentarKontos(profCentar: ProfitniCentar): void {
+    this.profitniCentarService.update(profCentar).subscribe(data => {
+      this.fetchAllProfitniCentri()
+    });
+  }
+
+  obrisiProfitniCentar(profCentar: ProfitniCentar): void {
+    this.profitniCentarService.delete(profCentar.id).subscribe(() => {
+        this.profitniCentri = [];
+        this.fetchAllProfitniCentri();
+      }
+    );
   }
 
   calculateUkupniTrosak(node: ProfitniCentar): number {
     let sum: number = node.ukupniTrosak;
-    if (node.children) {
-      for (let i = 0; i < node.children.length; i++) {
-        sum = this.dfsCalculation(node.children[i], sum);
+    if (node.profitniCentarList) {
+      for (let i = 0; i < node.profitniCentarList.length; i++) {
+        sum = this.dfsCalculation(node.profitniCentarList[i], sum);
       }
     }
 
@@ -72,56 +174,11 @@ export class ProfitniCentarComponent implements OnInit {
     return sum;
   }
 
-  dfsCalculation(curr: ProfitniCentar, sum: number): number {
-    sum += curr.ukupniTrosak;
-    if (curr.children) {
-      for (let i = 0; i < curr.children.length; i++) {
-        sum = this.dfsCalculation(curr.children[i], sum);
-      }
-    }
-    return sum;
+  getIcon(node: ProfitniCentar): string {
+    return this.treeControl.isExpanded(node) ? '-' : '+';
   }
 
-  dfsReassignment(curr: ProfitniCentar): ProfitniCentar {
-    curr = this.reassignObject(curr);
-    if (curr.children) {
-      for (let i = 0; i < curr.children.length; i++) {
-        curr.children[i] = this.dfsReassignment(curr.children[i]);
-      }
-    }
-    return curr;
-  }
-
-  popup(knjizenjeIndex: number, profitniCentarIndex: number) {
-    let text = 'Da li zelite da iz knjiženja(' +
-      this.knjizenja[knjizenjeIndex].brojNaloga +
-      ') dodelite listu konta profitnom centru(' +
-      this.profitniCentri[profitniCentarIndex].naziv + ')?';
-    if (confirm(text) == true) {
-      this.profitniCentarService.addKontosFromKnjizenje(this.knjizenja[knjizenjeIndex], this.profitniCentri[profitniCentarIndex]).subscribe(
-        data => {
-
-          const dummyKontoList = [
-            new Konto(new KontnaGrupa('konto-1', '1231'), 100, 50, true, false, false, false),
-            new Konto(new KontnaGrupa('konto-2', '1232'), 200, 60, true, false, false, false),
-            new Konto(new KontnaGrupa('konto-3', '1233'), 300, 70, true, false, false, false),
-            new Konto(new KontnaGrupa('konto-4', '1234'), 400, 80, true, false, false, false),
-            new Konto(new KontnaGrupa('konto-5', '1235'), 500, 90, true, false, false, false),
-            new Konto(new KontnaGrupa('konto-6', '1236'), 600, 100, true, false, false, false),
-          ]
-          data.kontoList = dummyKontoList;
-
-          data.kontoList.forEach(item => {
-            item.knjizenje = this.knjizenja[knjizenjeIndex];
-          });
-          this.profitniCentri[profitniCentarIndex] = data;
-          this.formatData();
-          this.dataSource.data = this.profitniCentri;
-        });
-    }
-  }
-
-  getAsDate(date: string) {
+  getAsDate(date: string): string {
     let newDate = new Date(date);
     return (
       newDate.getDate() +
@@ -138,34 +195,7 @@ export class ProfitniCentarComponent implements OnInit {
 
   setSelected(selected: ProfitniCentar): void {
     this.selectedProfitniCentar = selected;
-  }
-
-  izmeniKonto(konto: Konto, editableNaziv: HTMLInputElement, editableSaldo: HTMLInputElement, editableKomentar: HTMLTextAreaElement) {
-    let newKonto: Konto = this.selectedProfitniCentar.kontoList[this.selectedProfitniCentar.kontoList.findIndex(
-      item => item.kontnaGrupa.brojKonta === konto.kontnaGrupa.brojKonta)];
-    newKonto.kontnaGrupa.nazivKonta = editableNaziv.value;
-    newKonto.duguje = +editableSaldo.value;
-    newKonto.potrazuje = 0;
-    newKonto.knjizenje.komentar = editableKomentar.value;
-    this.selectedProfitniCentar.kontoList[this.selectedProfitniCentar.kontoList.findIndex(
-      item => item.kontnaGrupa.brojKonta === konto.kontnaGrupa.brojKonta)] = newKonto;
-  }
-
-  obrisiKonto(konto: Konto) {
-    this.selectedProfitniCentar.kontoList = this.selectedProfitniCentar.kontoList.filter(data => data != konto);
-  }
-
-  izmeniProfitniCentar(profCentar: ProfitniCentar) {
-
-  }
-
-  obrisiProfitniCentar(profCentar: ProfitniCentar) {
-    this.profitniCentarService.delete(profCentar.id).subscribe(() =>
-      this.profitniCentarService.getAll().subscribe(data => {
-        this.profitniCentri = [...new Map(data.content.map((item) => [item["naziv"], item])).values()];
-        this.formatData();
-        this.dataSource.data = this.profitniCentri;
-      }));
+    window.scrollTo(0, document.body.scrollHeight);
   }
 
 }

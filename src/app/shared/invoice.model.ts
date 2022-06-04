@@ -49,6 +49,7 @@ export class ResponseObject {
 }
 
 export class Konto {
+  bazniKontoId: number;
 	kontnaGrupa: KontnaGrupa;
 	duguje: number;
 	potrazuje: number;
@@ -56,7 +57,9 @@ export class Konto {
 	disabledKonto: boolean;
 	disabledDuguje: boolean;
 	disabledPotrazuje: boolean;
-  knjizenje?: BookkeepingJournal;
+  brojNalogaKnjizenja?: string;
+  datumKnjizenja?: string;
+  komentarKnjizenja?: string;
 
 	constructor(
 		konto: KontnaGrupa,
@@ -65,8 +68,7 @@ export class Konto {
 		addOrDeleteEdit: boolean,
 		disabledKonto: boolean,
 		disabledDuguje: boolean,
-		disabledPotrazuje: boolean,
-    knjizenje?: BookkeepingJournal
+		disabledPotrazuje: boolean
 	) {
 		this.kontnaGrupa = konto;
 		this.duguje = duguje;

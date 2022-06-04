@@ -1,7 +1,7 @@
 import {Konto} from "./invoice.model";
 
 export interface ProfitniCentar{
-  id: number;
+  id?: number;
   sifra: string;
   naziv: string;
   ukupniTrosak: number;
@@ -9,7 +9,7 @@ export interface ProfitniCentar{
   odgovornoLiceId: number;
   parentProfitniCentar: ProfitniCentar;
   kontoList: Konto[];
-  children?: ProfitniCentar[];
+  profitniCentarList?: ProfitniCentar[];
 }
 
 export interface PageableProfitniCentar {

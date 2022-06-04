@@ -5,8 +5,6 @@ import {Observable} from "rxjs";
 import {BookkeepingJournal} from "../../shared/bookkeeping-journal.model";
 import {PageableProfitniCentar, ProfitniCentar} from "../../shared/profitni-centar.model";
 
-const jwt = String(sessionStorage.getItem('jwt'));
-const url = `${environment.profitniCentriApi}`;
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +14,20 @@ export class ProfitniCentarService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAll(): Observable<PageableProfitniCentar> {
+  getAll(): Observable<ProfitniCentar[]> {
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${environment.profitniCentriApi}`;
+
+    return this.httpClient.get<ProfitniCentar[]>(url + '/all', {
+      headers: {
+        Authorization: 'Bearer '.concat(jwt.toString()),
+      }
+    });
+  }
+
+  getAllPageable(): Observable<PageableProfitniCentar> {
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${environment.profitniCentriApi}`;
     let params = new HttpParams();
     params = params.append('page', '');
     params = params.append('size', '');
@@ -30,10 +41,22 @@ export class ProfitniCentarService {
     });
   }
 
+  save(profitniCentar: ProfitniCentar): Observable<ProfitniCentar> {
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${environment.profitniCentriApi}`;
+    return this.httpClient.post<ProfitniCentar>(url, profitniCentar,{
+      headers: {
+        Authorization: 'Bearer '.concat(jwt.toString()),
+      },
+    });
+  }
+
   addKontosFromKnjizenje(knjizenje: BookkeepingJournal, profitniCentar: ProfitniCentar): Observable<ProfitniCentar> {
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${environment.profitniCentriApi}`;
     let body = {
       knjizenje: knjizenje,
-      profitniCentar: profitniCentar
+      bazniCentarId: profitniCentar.id
     };
 
     return this.httpClient.put<ProfitniCentar>(url + '/addFromKnjizenje', body, {
@@ -44,11 +67,10 @@ export class ProfitniCentarService {
   }
 
   update(profitniCentar: ProfitniCentar): Observable<ProfitniCentar> {
-    let body = {
-      profitniCentar: profitniCentar
-    };
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${environment.profitniCentriApi}`;
 
-    return this.httpClient.put<ProfitniCentar>(url, body, {
+    return this.httpClient.put<ProfitniCentar>(url, profitniCentar, {
       headers: {
         Authorization: 'Bearer '.concat(jwt.toString()),
       },
@@ -56,6 +78,8 @@ export class ProfitniCentarService {
   }
 
   delete(id: number): Observable<void> {
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${environment.profitniCentriApi}`;
     return this.httpClient.delete<void>(url + '/' + id, {
       headers: {
         Authorization: 'Bearer '.concat(jwt.toString()),

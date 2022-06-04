@@ -35,3 +35,12 @@
   margin-left: 10px;
   color: black;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+.creating-block, .adding-kontos-block, .kontos-table {
+  background: honeydew;
+  padding: 10px;
+}

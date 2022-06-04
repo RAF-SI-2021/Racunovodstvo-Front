@@ -1,4 +1,44 @@
-<div class="row mt-2">
+<div class="row mt-2 creating-block">
+  <div class="col-2 text-center">
+    <label>Naziv:</label><br>
+    <input type="text" #newProfCentarNaziv>
+  </div>
+
+  <div class="col-2 text-center">
+    <label>Šifra:</label><br>
+    <input type="text" #newProfCentarSifra>
+  </div>
+
+  <div class="col-2 text-center">
+    <label>Lokacija id:</label><br>
+    <input type="text" #newProfCentarLokacijaId>
+  </div>
+
+  <div class="col-2 text-center">
+    <label>Odg. lice id:</label><br>
+    <input type="text" #newProfCentarOdgLiceId>
+  </div>
+
+  <div class="col-2 text-center">
+    <label for="parent">Roditelj:</label><br>
+    <select name="knjizenja" id="parent" #newProfCentarRoditelj>
+      <option *ngFor="let centar of profitniCentri">{{centar.naziv}}</option>
+    </select>
+  </div>
+
+  <div class="col-2 text-center d-flex align-items-center justify-content-center">
+    <button type="button" class="btn btn-primary"
+            (click)="sacuvajProfitniCentar(newProfCentarNaziv, newProfCentarSifra, newProfCentarLokacijaId, newProfCentarOdgLiceId, newProfCentarRoditelj)">
+      Napravi
+    </button>
+  </div>
+</div>
+
+
+<hr>
+
+
+<div class="row mt-2 adding-kontos-block">
   <div class="col-4 text-center">
     <label for="knjizenja">Knjiženja:</label><br>
     <select name="knjizenja" id="knjizenja" #knjizenjeSelect>
@@ -6,7 +46,7 @@
     </select>
   </div>
 
-  <div class="col-4 text-center">
+  <div class="col-4 text-center d-flex align-items-center justify-content-center">
     <button type="button" class="btn btn-primary" (click)="popup(knjizenjeSelect.selectedIndex, centarSelect.selectedIndex)">Dodeli listu
       konta
     </button>
@@ -35,16 +75,19 @@
       <b>{{node.naziv}}</b>
 
       <button type="button" class="btn btn-sm btn-outline-primary" (click)="setSelected(node)"><i>lista-konta</i></button>
-      <button type="button" class="btn btn-sm btn-outline-warning">Izmeni</button>
+      <button type="button" class="btn btn-sm btn-outline-warning"
+              (click)="izmeniProfitniCentar(node, editableNazivCentra, editableOdgLice, editablelokacijaId)">Izmeni
+      </button>
       <button type="button" class="btn btn-sm btn-outline-danger" (click)="obrisiProfitniCentar(node)">Obriši</button>
     </div>
 
     <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
       <ng-container matTreeNodeOutlet>
         <i>Šifra:</i> <b><i>{{node.sifra}}</i></b> <br>
-        <i>Ukupni trošak:</i> <b><i>{{calculateUkupniTrosak(node)}}</i></b> <br>
-        <i>Odgovorno lice:</i> <b><i>{{node.odgovornoLiceId}}</i></b> <br>
-        <i>Lokacija:</i> <b><i>{{node.lokacijaId}}</i></b> <br>
+        <i>Ukupni trošak:</i> <b><i>{{node.ukupniTrosak}}</i></b> <br>
+        <i>Naziv: </i> <input type="text" value="{{node.naziv}}" #editableNazivCentra> <br>
+        <i>Odgovorno lice: </i> <input type="text" value="{{node.odgovornoLiceId}}" #editableOdgLice> <br>
+        <i>Lokacija: </i> <input type="text" value="{{node.lokacijaId}}" #editablelokacijaId> <br>
       </ng-container>
     </div>
 
@@ -55,7 +98,7 @@
 <hr>
 
 
-<div *ngIf="selectedProfitniCentar" class="konta-table">
+<div *ngIf="selectedProfitniCentar" class="kontos-table">
   <table class="table table-bordered">
     <thead>
     <tr>
@@ -70,15 +113,15 @@
     </thead>
     <tbody *ngIf="selectedProfitniCentar.kontoList">
     <tr *ngFor="let konto of selectedProfitniCentar.kontoList">
-      <td class="text-center">{{konto.knjizenje.brojNaloga}}</td>
+      <td class="text-center">{{konto.brojNalogaKnjizenja}}</td>
       <td class="text-center">{{konto.kontnaGrupa.brojKonta}}</td>
-      <td class="text-center"><input type="text" value="{{konto.kontnaGrupa.nazivKonta}}" #editableNaziv></td>
+      <td class="text-center">{{konto.kontnaGrupa.nazivKonta}}</td>
       <td class="text-center"><input type="number" value="{{getSaldo(konto.duguje, konto.potrazuje)}}" #editableSaldo></td>
-      <td class="text-center">{{getAsDate(konto.knjizenje.datumKnjizenja)}}</td>
-      <td class="text-center"><textarea rows="1" #editableKomentar>{{konto.knjizenje.komentar}}</textarea></td>
+      <td class="text-center">{{getAsDate(konto.datumKnjizenja)}}</td>
+      <td class="text-center"><textarea rows="1" #editableKomentar>{{konto.komentarKnjizenja}}</textarea></td>
       <td class="text-center">
         <button type="button" class="btn btn-sm btn-outline-warning"
-                (click)="izmeniKonto(konto, editableNaziv, editableSaldo, editableKomentar)">Izmeni
+                (click)="izmeniKonto(konto, editableSaldo, editableKomentar)">Izmeni
         </button>
         <button type="button" class="btn btn-sm btn-outline-danger" (click)="obrisiKonto(konto)">Obriši</button>
       </td>
