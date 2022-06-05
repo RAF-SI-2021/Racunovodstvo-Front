@@ -1,3 +1,3 @@
-export interface Pagebale<T>{
+export interface Pageable<T>{
   content: T[]
 }

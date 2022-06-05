@@ -3,7 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Environment} from "@angular/cli/lib/config/workspace-schema";
 import {environment} from "../../../environments/environment";
 import {KalkulacijaArtikal, KalkulacijeModel, Lokacija, TrosakNabavke} from "../../shared/kalkulacije.model";
-import {Pagebale} from "../../shared/pageable.model";
+import {Pageable} from "../../shared/pageable.model";
 
 @Injectable({
   providedIn: 'root'
@@ -30,19 +30,19 @@ export class KalkulacijeService {
   }
 
   getAllKalkulacije(){
-    return this.http.get<Pagebale<KalkulacijeModel>>(environment.APIEndpoint+ `/api/kalkulacije`, {
+    return this.http.get<Pageable<KalkulacijeModel>>(environment.APIEndpoint+ `/api/kalkulacije`, {
       headers: this.httpHeaders
     });
   }
 
   getAllArtikli(id: number){
-    return this.http.get<Pagebale<KalkulacijaArtikal>>(environment.APIEndpoint+ `/api/artikli/${id}`, {
+    return this.http.get<Pageable<KalkulacijaArtikal>>(environment.APIEndpoint+ `/api/artikli/${id}`, {
       headers: this.httpHeaders
     });
   }
 
   filterKalkulacije(filter: string){
-    return this.http.get<Pagebale<KalkulacijeModel>>(environment.APIEndpoint+ `/api/kalkulacije/` + filter, {
+    return this.http.get<Pageable<KalkulacijeModel>>(environment.APIEndpoint+ `/api/kalkulacije/` + filter, {
       headers: this.httpHeaders
     });
   }
