@@ -10,8 +10,7 @@ export class ProdajaGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-    // return sessionStorage.getItem(Authority.PRODAJA) != null;
+    return sessionStorage.getItem(Authority.PRODAJA) != null;
   }
 
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Company, Invoice} from "../../shared/invoice.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {InvoiceService} from "../../services/invoice/invoice.service";
+import {IClient} from "../../shared/client.model";
 
 @Component({
   selector: 'app-mp-faktura',
@@ -11,7 +12,7 @@ import {InvoiceService} from "../../services/invoice/invoice.service";
 export class MpFakturaComponent implements OnInit {
 
   fakture: Invoice[] = [];
-  preduzeca: Company[] = [];
+  preduzeca: IClient[] = [];
 
 
   fakturaForm: FormGroup;
@@ -90,7 +91,10 @@ export class MpFakturaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.svaPreduzeca().subscribe((preduzeca) => {
+    this.service.sveMpFakture().subscribe(fakture => {
+      this.fakture = fakture;
+    })
+    this.service.svaPreduzecaIClient().subscribe((preduzeca) => {
       this.preduzeca = preduzeca;
     });
   }
@@ -159,8 +163,15 @@ export class MpFakturaComponent implements OnInit {
     let kurs = this.fakturaForm.get('kurs')?.value;
     let naplata = this.fakturaForm.get('naplata')?.value;
     let komentar = this.fakturaForm.get('komentar')?.value;
-    this.service.novaFaktura(brojFakture, datumIzdavanja, rokZaPlacanje, komitent, datumPlacanja, prodajnaVrednost, rabatProcenat, porezProcenat, valuta,
-      kurs, naplata, komentar).subscribe(response => {
+    this.service.novaFaktura(brojFakture, datumIzdavanja, komitent,rokZaPlacanje, datumPlacanja, prodajnaVrednost, rabatProcenat, porezProcenat, valuta,
+      kurs, naplata, komentar, "MALOPRODAJNA_FAKTURA").subscribe(response => {
+      this.ngOnInit();
+    })
+  }
+
+
+  delete(dokumentId: number) {
+    this.service.obrisiFakturu(dokumentId).subscribe(() => {
       this.ngOnInit();
     })
   }

@@ -7,6 +7,7 @@ import {
 	ResponseObject,
 } from 'src/app/shared/invoice.model';
 import { environment } from 'src/environments/environment';
+import {IClient} from "../../shared/client.model";
 
 @Injectable({
 	providedIn: 'root',
@@ -102,6 +103,15 @@ export class InvoiceService {
 		);
 	}
 
+  svaPreduzecaIClient() {
+    return this.http.get<IClient[]>(
+      environment.APIEndpoint + `/api/preduzece/all`,
+      {
+        headers: this.httpHeaders,
+      }
+    );
+  }
+
 	sveKufFakture() {
 		return this.http.get<Invoice[]>(
 			environment.APIEndpoint + `/api/faktura?search=tipFakture:ULAZNA_FAKTURA`,
@@ -110,6 +120,15 @@ export class InvoiceService {
 			}
 		);
 	}
+
+  sveMpFakture() {
+    return this.http.get<Invoice[]>(
+      environment.APIEndpoint + `/api/faktura?search=tipFakture:MALOPRODAJNA_FAKTURA`,
+      {
+        headers: this.httpHeaders,
+      }
+    );
+  }
 
   sveKifFakture() {
     return this.http.get<Invoice[]>(
@@ -161,11 +180,12 @@ export class InvoiceService {
 		);
 	}
 
-  novaFaktura(brojFakture: string, datumIzdavanja: string, komitent: Company, rokZaPlacanje: string, datumPlacanja: string, prodajnaVrednost: number,
-              rabatProcenat: number, porezProcenat: number, valuta: string, kurs: number, naplata: number, komentar: string){
-    return this.http.put<Response>(
+  novaFaktura(brojFakture: string, datumIzdavanja: string, komitent: IClient, rokZaPlacanje: string, datumPlacanja: string, prodajnaVrednost: number,
+              rabatProcenat: number, porezProcenat: number, valuta: string, kurs: number, naplata: number, komentar: string, tipFakture: string){
+    return this.http.post<Response>(
       environment.APIEndpoint + `/api/faktura`,
       {
+        brojDokumenta: brojFakture,
         brojFakture: brojFakture,
         datumIzdavanja: datumIzdavanja,
         rokZaPlacanje: rokZaPlacanje,
@@ -175,17 +195,19 @@ export class InvoiceService {
         valuta: valuta,
         kurs: kurs,
         naplata: naplata,
+        tipFakture: tipFakture,
         komentar: komentar === null ? '' : komentar,
-        rabatProcenat:
-          rabatProcenat === null ? 0 : rabatProcenat > 100 ? 100 : rabatProcenat,
-        preduzece: komitent,
+        rabatProcenat: rabatProcenat === null ? 0 : rabatProcenat > 100 ? 100 : rabatProcenat,
+        preduzeceId: komitent.preduzeceId,
+        rabat: 0,
+        iznos: 0,
+        porez: 0
       },
       {
         headers: this.httpHeaders,
         observe: 'response',
       }
     );
-
   }
 
 

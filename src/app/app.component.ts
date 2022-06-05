@@ -60,7 +60,6 @@ export class AppComponent {
       if (sessionStorage.getItem(Authority.PRODAJA) != null)
         return true;
     }
-    // return false;
-    return true;
+    return false;
   }
 }

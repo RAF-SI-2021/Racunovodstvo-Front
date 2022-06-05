@@ -15,15 +15,15 @@
         </td>
 
         <td>
-            <input class="form-control" type="date" [formControlName]="'datum'" [value]="povracaj.datum">
+            <input class="form-control" type="date" [formControlName]="'datum'" [value]="povracaj.datumPovracaja">
         </td>
 
         <td>
             <input class="form-control" type="number" [formControlName]="'prodajnaVrednost'">
         </td>
         <td>
-          <button class="btn btn-warning me-2">Izmeni</button>
-          <button class="btn btn-danger">Obriši</button>
+          <button class="btn btn-warning me-2" (click)="izmeni(povracaj.povracajId)">Izmeni</button>
+          <button class="btn btn-danger" (click)="delete(povracaj.povracajId)">Obriši</button>
         </td>
       </tr>
     </tbody>
@@ -39,7 +39,7 @@
 
         <div class="col-sm-4">
           <label class="labelClass">Datum:</label>
-          <input class="form-control" type="text" [formControlName]="'datum'">
+          <input class="form-control" type="date" [formControlName]="'datum'">
         </div>
 
         <div class="col-sm-4">
@@ -51,7 +51,7 @@
       <div class="row mt-3">
         <div class="col-sm-5"></div>
         <div class="col-sm-2 text-center">
-          <button class="btn btn-success" [disabled]="!povracajForm.valid" (submit)="sacuvaj()">Sačuvaj</button>
+          <button class="btn btn-success" [disabled]="!povracajForm.valid" (click)="sacuvaj()">Sačuvaj</button>
         </div>
         <div class="col-sm-5"></div>
       </div>

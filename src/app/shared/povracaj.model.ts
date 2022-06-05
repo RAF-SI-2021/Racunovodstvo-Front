@@ -1,5 +1,6 @@
 export interface PovracajModel{
+  povracajId: number,
   brojPovracaja: string,
-  datum: string,
+  datumPovracaja: string,
   prodajnaVrednost: number
 }

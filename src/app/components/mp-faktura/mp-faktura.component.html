@@ -38,7 +38,7 @@
         <td>{{ faktura.kurs }}</td>
         <td>{{ faktura.naplata }}</td>
         <td>{{ faktura.komentar }}</td>
-        <td><button class="btn btn-danger btn-sm">Obriši</button></td>
+        <td><button class="btn btn-danger btn-sm" (click)="delete(faktura.dokumentId)">Obriši</button></td>
       </tr>
       </tbody>
       <tfoot>
@@ -122,7 +122,7 @@
         <div class="row mt-2 text-center">
           <div class="col-sm-5"></div>
           <div class="col-sm-2">
-            <button class="btn btn-success" [disabled]="!fakturaForm.valid" (submit)="sacuvaj()">Sačuvaj</button>
+            <button class="btn btn-success" [disabled]="!fakturaForm.valid" (click)="sacuvaj()">Sačuvaj</button>
           </div>
           <div class="col-sm-5"></div>
         </div>
