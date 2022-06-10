@@ -58,11 +58,29 @@ export class AppComponent {
 
   canNabavka(): boolean {
     if (this.loggedIn()) {
-      if (sessionStorage.getItem(Authority.NABAVKA) != null)
+      if (sessionStorage.getItem(Authority.NABAVKE) != null)
         return true;
-        }
+    }
     return false;
   }
+
+  canProfile() {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.PROFIL) != null)
+        return true;
+    }
+    return false;
+  }
+
+
+  canIzvestaji() {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.IZVESTAJI) != null)
+        return true;
+    }
+    return false;
+  }
+
 
   canProdaja(): boolean {
     if (this.loggedIn()) {

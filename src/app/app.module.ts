@@ -32,14 +32,9 @@ import { PlateZaposlenihComponent } from './components/plate-zaposlenih/plate-za
 import { KoeficijentiComponent } from './components/koeficijenti/koeficijenti.component';
 import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.component';
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
-
 import { DatePipe } from '@angular/common';
-
-
 import { MpFakturaComponent } from './components/mp-faktura/mp-faktura.component';
 import { PovracajComponent } from './components/povracaj/povracaj.component';
-
-
 import { AnalitickeKarticeComponent } from './components/analiticke-kartice/analiticke-kartice.component';
 import {MatButtonModule} from "@angular/material/button";
 import { BilansStanjaUspehaComponent } from './components/bilans-stanja-uspeha/bilans-stanja-uspeha.component';
@@ -47,7 +42,6 @@ import {BsuPopupComponent} from "./components/bilans-stanja-uspeha/bsu-popup/bsu
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.component';
 import { KonverzijaComponent } from './components/konverzija/konverzija.component';
-
 import { EvidencijeComponent } from './components/evidencije/evidencije.component';
 import { ArtikalComponent } from './components/artikal/artikal.component';
 
@@ -57,6 +51,10 @@ import {ProfitniCentarComponent} from "./components/profitni-centar/profitni-cen
 import {ProfileTestComponent} from "./components/profile-test/profile-test.component";
 import {TroskovniCentarComponent} from "./components/troskovni-centar/troskovni-centar.component";
 import {MatDialogModule,MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
@@ -78,6 +76,8 @@ import {MatDialogModule,MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/d
 		SvaKnjizenjaComponent,
 		BrutoBilansComponent,
     AnalitickeKarticeComponent,
+    HomepageComponent,
+    AnalitickeKarticeComponent,
     BilansStanjaUspehaComponent,
     BsuPopupComponent,
     BlagajnaComponent,
@@ -88,7 +88,8 @@ import {MatDialogModule,MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/d
     EvidencijeComponent,
     ArtikalComponent,
     ProfitniCentarComponent,
-    TroskovniCentarComponent
+    TroskovniCentarComponent,
+    ProfileComponent
 	],
     imports: [
       BrowserModule,
@@ -107,7 +108,8 @@ import {MatDialogModule,MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/d
       MatTreeModule,
       MatIconModule,
       MatButtonModule,
-      MatDialogModule
+      MatDialogModule,
+      MatCardModule
 	],
 	providers: [DatePipe],
 	bootstrap: [AppComponent],

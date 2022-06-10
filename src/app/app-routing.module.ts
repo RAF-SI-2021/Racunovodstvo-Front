@@ -18,6 +18,7 @@ import { FinansijskoKnjigovodstvoGuard } from './guards/finansijsko-knjigovodstv
 import { ObracunZaradeGuard } from './guards/obracun-zarade.guard';
 import {KnjizenjeWidgetComponent} from "./components/knjizenje-widget/knjizenje-widget.component";
 import {AnalitickeKarticeComponent} from "./components/analiticke-kartice/analiticke-kartice.component";
+import {HomepageComponent} from "./components/homepage/homepage.component";
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import {KalkulacijeComponent} from "./components/kalkulacije/kalkulacije.component";
 import {KonverzijaComponent} from "./components/konverzija/konverzija.component";
@@ -33,12 +34,15 @@ import {ProfilZaposlenogComponent} from "./components/profil-zaposlenog/profil-z
 import {SvaKnjizenjaComponent} from "./components/sva-knjizenja/sva-knjizenja.component";
 import {TroskovniCentarComponent} from "./components/troskovni-centar/troskovni-centar.component";
 
+import {ProfileComponent} from "./components/profile/profile.component";
+import {ProfileGuard} from "./guards/profile.guard";
+import {NabavkeGuard} from "./guards/nabavke.guard";
+
 
 const routes: Routes = [
 	{
 		path: '',
-		component: LoginComponent,
-		canActivate: [LoginGuard],
+		component: HomepageComponent,
 	},
 	{
 		path: 'login',
@@ -137,12 +141,13 @@ const routes: Routes = [
   {
     path: 'kalkulacije',
     component: KalkulacijeComponent,
-    // canActivate: [FinansijskoKnjigovodstvoGuard],
+    canActivate: [NabavkeGuard],
 
   },
   {
     path: 'konverzije',
-    component: KonverzijaComponent
+    component: KonverzijaComponent,
+    canActivate: [NabavkeGuard],
   },
   //PRODAJA
   {
@@ -171,7 +176,14 @@ const routes: Routes = [
   {
     path: "troskovni-centar",
     component: TroskovniCentarComponent,
-  }
+  },
+  //PROFIL
+  {
+    path: 'profil',
+    component: ProfileComponent,
+    canActivate: [ProfileGuard]
+  },
+
 ];
 
 @NgModule({

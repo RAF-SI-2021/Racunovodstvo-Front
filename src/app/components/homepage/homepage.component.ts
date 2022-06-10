@@ -35,7 +35,7 @@ export class HomepageComponent implements OnInit {
   }
 
   gotoProfile() {
-    this.router.navigate(['profile'])
+    this.router.navigate(['profil'])
   }
 
   gotoEvidencije() {
@@ -43,7 +43,7 @@ export class HomepageComponent implements OnInit {
   }
 
   gotoNabavke() {
-    this.router.navigate([''])
+    this.router.navigate(['kalkulacije'])
   }
 
   gotoIzvestaji() {
