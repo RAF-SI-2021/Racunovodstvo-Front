@@ -1,0 +1,62 @@
+<div class="container">
+  <h1 class="text-center">Povraćaji</h1>
+  <table class="table table-striped table-responsive-sm text-center">
+    <thead>
+      <tr>
+        <th>Broj povraćaja</th>
+        <th>Datum</th>
+        <th>Prodajna vrednost</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let povracaj of povracaji; index as i" [formGroup]="editPovracajForm[i]">
+        <td class="justify-content-center align-content-center">
+            <input class="form-control" [formControlName]="'brojPovracaja'">
+        </td>
+
+        <td>
+            <input class="form-control" type="date" [formControlName]="'datum'" [value]="povracaj.datumPovracaja">
+        </td>
+
+        <td>
+            <input class="form-control" type="number" [formControlName]="'prodajnaVrednost'">
+        </td>
+        <td>
+          <button class="btn btn-warning me-2" (click)="izmeni(povracaj.povracajId)">Izmeni</button>
+          <button class="btn btn-danger" (click)="delete(povracaj.povracajId)">Obriši</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="mt-4">
+    <form class="form-control" [formGroup]="povracajForm">
+      <h2 class="text-center">Novi Povraćaj</h2>
+      <div class="row">
+        <div class="col-sm-4">
+          <label class="labelClass">Broj povraćaja:</label>
+          <input class="form-control" type="text" [formControlName]="'brojPovracaja'">
+        </div>
+
+        <div class="col-sm-4">
+          <label class="labelClass">Datum:</label>
+          <input class="form-control" type="date" [formControlName]="'datum'">
+        </div>
+
+        <div class="col-sm-4">
+          <label class="labelClass">Prodajna vrednost</label>
+          <input class="form-control" type="text" [formControlName]="'prodajnaVrednost'">
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-sm-5"></div>
+        <div class="col-sm-2 text-center">
+          <button class="btn btn-success" [disabled]="!povracajForm.valid" (click)="sacuvaj()">Sačuvaj</button>
+        </div>
+        <div class="col-sm-5"></div>
+      </div>
+    </form>
+
+  </div>
+
+</div>

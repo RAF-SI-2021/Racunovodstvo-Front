@@ -32,6 +32,8 @@ import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
 
 import { DatePipe } from '@angular/common';
+import { MpFakturaComponent } from './components/mp-faktura/mp-faktura.component';
+import { PovracajComponent } from './components/povracaj/povracaj.component';
 
 @NgModule({
 	declarations: [
@@ -51,6 +53,8 @@ import { DatePipe } from '@angular/common';
 		KoeficijentiComponent,
 		SvaKnjizenjaComponent,
 		BrutoBilansComponent,
+  MpFakturaComponent,
+  PovracajComponent,
 	],
 	imports: [
 		BrowserModule,

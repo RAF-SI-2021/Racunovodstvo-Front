@@ -1,0 +1,132 @@
+<div class="container">
+  <h1 class="text-center">Maloprodajne Fakture</h1>
+  <div>
+    <table class="table table-responsive-sm table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Broj fakture</th>
+          <th scope="col">Datum izdavanja</th>
+          <th scope="col">Komitent</th>
+          <th scope="col">Rok za plaćanje</th>
+          <th scope="col">Datum plaćanja</th>
+          <th scope="col">Prodajna vrednost</th>
+          <th scope="col">Rabat%</th>
+          <th scope="col">Rabat</th>
+          <th scope="col">Porez%</th>
+          <th scope="col">Porez</th>
+          <th scope="col">Iznos</th>
+          <th scope="col">Valuta</th>
+          <th scope="col">Kurs</th>
+          <th scope="col">Naplata</th>
+          <th scope="col">Komentar</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let faktura of fakture; index as i">
+        <td>{{ faktura.brojFakture }}</td>
+        <td>{{ getAsDate(faktura.datumIzdavanja) }}</td>
+        <td>{{ faktura.preduzece.naziv }}</td>
+        <td>{{ getAsDate(faktura.rokZaPlacanje) }}</td>
+        <td>{{ getAsDate(faktura.datumPlacanja) }}</td>
+        <td>{{ faktura.prodajnaVrednost }}</td>
+        <td>{{ filterOfNull(faktura.rabatProcenat) }}</td>
+        <td>{{ filterOfNull(faktura.rabat) }}</td>
+        <td>{{ filterOfNull(faktura.porezProcenat) }}</td>
+        <td>{{ filterOfNull(faktura.porez) }}</td>
+        <td>{{ faktura.iznos }}</td>
+        <td>{{ faktura.valuta }}</td>
+        <td>{{ faktura.kurs }}</td>
+        <td>{{ faktura.naplata }}</td>
+        <td>{{ faktura.komentar }}</td>
+        <td><button class="btn btn-danger btn-sm" (click)="delete(faktura.dokumentId)">Obriši</button></td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <td colspan="2"><a><b>Ukupno (DIN)</b></a></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><a><b> {{ ukupnaProdajnaVrednost() }}</b> </a></td>
+      <td></td>
+      <td><a><b>{{ ukupanRabat() }}</b></a></td>
+      <td></td>
+      <td><a><b>{{ ukupanPorez() }}</b></a></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><a><b>{{ ukupnoNaplata() }}</b></a></td>
+      <td></td>
+      </tfoot>
+    </table>
+    <div class="mt-4">
+      <form class="form-control" [formGroup]="fakturaForm">
+        <h2 class="text-center">Nova Maloprodjna Faktura</h2>
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            <label class="labelClass">Broj fakture:</label>
+            <input class="form-control" type="text" [formControlName]="'brojFakture'">
+          </div>
+          <div class="col-sm-3">
+            <label class="labelClass">Datum izdavanja:</label>
+            <input class="form-control" type="date" [formControlName]="'datumIzdavanja'">
+          </div>
+          <div class="col-sm-3">
+            <label class="labelClass">Komitent:</label>
+            <select class="form-control" id="komitent" [formControlName]="'komitent'">
+              <option *ngFor="let preduzece of preduzeca" [ngValue]="preduzece">{{ preduzece.naziv }}</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <label class="labelClass">Rok za placanje:</label>
+            <input class="form-control" type="date" [formControlName]="'rokZaPlacanje'">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            <label class="labelClass">Datum placanja:</label>
+            <input class="form-control" type="date" [formControlName]="'datumPlacanja'">
+          </div>
+          <div class="col-sm-3">
+            <label class="labelClass">Prodajna vrednost:</label>
+            <input class="form-control" type="number" [formControlName]="'prodajnaVrednost'">
+          </div>
+          <div class="col-sm-3">
+            <label class="labelClass">Rabat %:</label>
+            <input class="form-control" type="number" [formControlName]="'rabatProcenat'">
+          </div>
+          <div class="col-sm-3">
+            <label class="labelClass">Porez %:</label>
+            <input class="form-control" type="number" [formControlName]="'porezProcenat'">
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-sm-3">
+            <label class="labelClass">Valuta:</label>
+            <input class="form-control" type="text" [formControlName]="'valuta'">
+          </div>
+          <div class="col-sm-3">
+            <label class="labelClass">Kurs:</label>
+            <input class="form-control" type="number" [formControlName]="'kurs'">
+          </div>
+          <div class="col-sm-3">
+            <label class="labelClass">Naplata:</label>
+            <input class="form-control" type="number" [formControlName]="'naplata'">
+          </div>
+          <div class="col-sm-3">
+            <label class="labelClass">Komentar:</label>
+            <textarea rows="3" class="form-control" type="text" [formControlName]="'komentar'"></textarea>
+          </div>
+        </div>
+        <div class="row mt-2 text-center">
+          <div class="col-sm-5"></div>
+          <div class="col-sm-2">
+            <button class="btn btn-success" [disabled]="!fakturaForm.valid" (click)="sacuvaj()">Sačuvaj</button>
+          </div>
+          <div class="col-sm-5"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

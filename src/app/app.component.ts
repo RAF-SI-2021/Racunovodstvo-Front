@@ -54,4 +54,12 @@ export class AppComponent {
 		}
 		return false;
 	}
+
+  canProdaja(): boolean {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.PRODAJA) != null)
+        return true;
+    }
+    return false;
+  }
 }

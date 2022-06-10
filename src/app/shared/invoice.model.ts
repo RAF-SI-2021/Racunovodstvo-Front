@@ -42,6 +42,11 @@ export class Company {
 	constructor(public naziv: string) {}
 }
 
+export interface Company {
+  preduzeceId: number,
+  naziv: string
+}
+
 export class ResponseObject {
 	public content: any[] = [];
 }
