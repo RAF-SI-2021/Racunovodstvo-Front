@@ -1,0 +1,145 @@
+<div class="row"[hidden]="!hideKontoList" >
+  <div class="col-4 text-center">
+    <label for="knjizenja">Knjiženja:</label><br>
+    <select name="knjizenja" id="knjizenja" #knjizenjeSelect>
+      <option *ngFor="let knjizenje of knjizenja" value="knjizenje">{{knjizenje.brojNaloga}}</option>
+    </select>
+  </div>
+
+  <div class="col-4 text-center">
+    <button style="margin-top: 1rem" type="button" class="btn btn-primary" (click)="popup(knjizenjeSelect.selectedIndex, centarSelect.selectedIndex)">Dodeli listu konta</button>
+  </div>
+
+  <div class="col-4 text-center">
+    <label for="centri">Troskovni Centri:</label><br>
+    <select name="centri" id="centri" #centarSelect>
+      <option *ngFor="let centar of troskovniCentri" value="centar">{{centar.naziv}}</option>
+    </select>
+  </div>
+</div>
+<ng-template #content let-modal style="margin: 1rem">
+  <div class="modal-header">
+    <h4 id="modal-basic-title">{{this.crud_operation}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">
+                ×
+            </span>
+    </button>
+  </div>
+<div>
+  <div>
+      <div *ngIf="crud_operation=='delete' || crud_operation=='edit'" >
+        <select name="centri" id="centri1" #centarSelect style="margin: 2rem" [(ngModel)]="selected_centar" >
+          <option *ngFor="let centar of troskovniCentri" name="centarOption" ngDefaultControl value="centar">{{centar.naziv}}</option>
+        </select>
+      </div>
+      <div>
+        <div>
+          <div [hidden]="crud_operation!='add'">
+            <label for="sifra">Sifra:</label>
+            <input size="20" class="form-group" [(ngModel)]="editSifra" id="sifra" type="text" class="form-control" placeholder="unesi sifru" >
+            <br>
+            <label for="ukupniTrosak">Ukupni trosak:</label>
+            <input class="form-group" [(ngModel)]="editukupniTrosak" id="ukupniTrosak"type="number" class="form-control" placeholder="unesi ukupni trosak" >
+            <br>
+          </div>
+          <div *ngIf="crud_operation=='edit' || crud_operation=='add'">
+            <label for="nazivCentar">Naziv:</label>
+            <input class="form-group" [(ngModel)]="editNaziv" value="editNaziv" id="nazivCentar"type="text" class="form-control" placeholder="unesi naziv centra" >
+            <br>
+            <label for="odgovornoLice">Odgovorno Lice:</label>
+            <input class="form-group" [(ngModel)]="editodgovornoLice" id="odgovornoLice"type="number" class="form-control" placeholder="unesi odgovorno lice" >
+            <br>
+            <label for="lokacija">Lokacija:</label>
+            <input class="form-group" [(ngModel)]="editlokacija" id="lokacija"type="number" class="form-control" placeholder="unesi lokaciju" >
+            <br>
+          </div>
+          <label [hidden]="crud_operation!='add'" for="parentId">Roditelj:</label>
+          <select [hidden]="crud_operation!='add'" name="centri" id="parentId" #centarSelectionCRUD>
+            <option *ngFor="let centar of troskovniCentri" value="centar">{{centar.naziv}}</option>
+          </select>
+
+          <button *ngIf="crud_operation=='delete'" type="button" class="btn btn-outline-dark" (click)="deleteCentar(modal, centarSelectionCRUD.selectedIndex)">
+            izbrisi
+          </button>
+          <button *ngIf="crud_operation=='add'" type="button" class="btn btn-outline-dark" (click)="addCentar(modal, centarSelectionCRUD.selectedIndex)">
+            dodaj
+          </button>
+          <button *ngIf="crud_operation=='edit'" type="button" class="btn btn-outline-dark" (click)="editCentar(modal, centarSelectionCRUD.selectedIndex)">
+            izmeni
+          </button>
+        </div>
+      </div>
+
+
+  </div>
+</div>
+</ng-template>
+
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree tree-node-border">
+  <mat-nested-tree-node *matTreeNodeDef="let node">
+
+    <div class="mat-tree-node">
+      <button mat-icon-button matTreeNodeToggle type="button" class="btn" [attr.aria-label]="'Toggle ' + node.naziv">
+        {{getIcon(node)}}
+      </button>
+
+      <b (click)="openKontos(node)" class="cursor-point">{{node.naziv}}</b>
+    </div>
+
+    <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
+      <ng-container matTreeNodeOutlet>
+        <i>Šifra:</i> <b><i>{{node.sifra}}</i></b> <br>
+        <i>Ukupni trošak:</i> <b><i>{{node.ukupniTrosak}}</i></b> <br>
+        <i>Naziv: </i> {{node.naziv}}> <br>
+        <i>Odgovorno lice: </i> {{node.odgovornoLiceId}} <br>
+        <i>Lokacija: </i> {{node.lokacijaId}}<br>
+      </ng-container>
+    </div>
+
+  </mat-nested-tree-node>
+  <br class="mat-tree-node">
+</mat-tree>
+<div>
+  <button style="margin-right: 10px" class="btn btn-success crud-btn" (click)="addToggle(content)">+</button>
+  <button style="margin-right: 10px" class="btn btn-danger " (click)="deleteToggle(content)">-</button>
+  <button class="btn btn-primary " (click)="editToggle(content)">Izmeni</button>
+</div>
+<div [hidden]="hideKontoList" style="padding: 2rem">
+  <h3 #myLabel style="text-align: center; margin-bottom: 2rem">Lista Konta</h3>
+<table class="table table-border">
+  <thead>
+  <tr style="border-bottom: 2px solid blue;">
+    <th scope="col" class="text-center">Broj naloga</th>
+    <th scope="col" class="text-center">Broj konta</th>
+    <th scope="col" class="text-center">Ime konta</th>
+    <th scope="col" class="text-center">Saldo</th>
+    <th scope="col" class="text-center">Datum</th>
+    <th scope="col" class="text-center">Komentar</th>
+    <th scope="col" class="text-center">Akcija</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let konto of selected_kontos; index as i">
+    <td class="text-center">{{konto.brojNalogaKnjizenja}}</td>
+    <td class="text-center">{{konto.kontnaGrupa.brojKonta}}</td>
+    <td class="text-center">{{konto.kontnaGrupa.nazivKonta}}</td>
+    <td class="text-center">{{getSaldo(konto.duguje, konto.potrazuje)}}></td>
+    <td class="text-center">{{getAsDate(konto.datumKnjizenja)}}</td>
+    <td class="text-center">{{konto.komentarKnjizenja}}</td>
+    <td>
+        <button style="margin-right: 10px" class="btn btn-danger" (click)="deleteKonto(konto)">Obriši</button>
+        <button class="btn btn-primary white-text" (click)="toggleEdit(konto)">Izmeni</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+  <div [hidden]="editFormHidden">
+      <label for="komentar">Komentar: </label>
+      <input [(ngModel)]="editKomentar" type="text" id="komentar" class="form-control" placeholder="unesi komentar">
+    <div style="margin-top: 1rem">
+      <button style="margin-right: 10px" class="btn btn-primary white-text" (click)="editKonto()">Izmeni</button>
+      <button class="btn btn-primary white-text" (click)="this.editFormHidden=!this.editFormHidden">Ponisti</button>
+    </div>
+  </div>
+</div>

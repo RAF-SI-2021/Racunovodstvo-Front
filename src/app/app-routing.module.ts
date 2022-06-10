@@ -6,13 +6,10 @@ import { AddNewInvoiceComponent } from './components/add-new-invoice/add-new-inv
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { KufComponent } from './components/kuf/kuf.component';
 import { KifComponent } from './components/kif/kif.component';
-import { AccountPlanComponent } from './components/account-plan/account-plan.component';
 import { BookkeepingJournalComponent } from './components/bookkeeping-journal/bookkeeping-journal.component';
 import { ZaposleniComponent } from './components/zaposleni/zaposleni.component';
-import { ProfilZaposlenogComponent } from './components/profil-zaposlenog/profil-zaposlenog.component';
 import { PlateZaposlenihComponent } from './components/plate-zaposlenih/plate-zaposlenih.component';
 import { KoeficijentiComponent } from './components/koeficijenti/koeficijenti.component';
-import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.component';
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
 import { LoginGuard } from './guards/login.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -30,6 +27,11 @@ import {PovracajComponent} from "./components/povracaj/povracaj.component";
 import {EvidencijeComponent} from "./components/evidencije/evidencije.component";
 import {ArtikalComponent} from "./components/artikal/artikal.component";
 import {ProfitniCentarComponent} from "./components/profitni-centar/profitni-centar.component";
+
+import {AccountPlanComponent} from "./components/account-plan/account-plan.component";
+import {ProfilZaposlenogComponent} from "./components/profil-zaposlenog/profil-zaposlenog.component";
+import {SvaKnjizenjaComponent} from "./components/sva-knjizenja/sva-knjizenja.component";
+import {TroskovniCentarComponent} from "./components/troskovni-centar/troskovni-centar.component";
 
 
 const routes: Routes = [
@@ -161,6 +163,15 @@ const routes: Routes = [
     path: 'artikal/:id',
     component: ArtikalComponent
   },
+  {
+    path:'svaKnjizenja',
+    component: SvaKnjizenjaComponent,
+    // canActivate
+  },
+  {
+    path: "troskovni-centar",
+    component: TroskovniCentarComponent,
+  }
 ];
 
 @NgModule({

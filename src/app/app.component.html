@@ -14,6 +14,7 @@
               <ul ngbDropdownMenu>
 
                 <a ngbDropdownItem [routerLink]="'KUF'">Knjiga ulaznih faktura</a>
+                <a [hidden]="!canFinOp()" ngbDropdownItem [routerLink]="'PLACEHOLDER'">Knjiženje</a>
 
                 <a ngbDropdownItem [routerLink]="'KIF'">Knjiga izlaznih faktura</a>
 
@@ -22,6 +23,8 @@
                 <a ngbDropdownItem [routerLink]="'add-new-client'">Komitenti</a>
 
                 <a ngbDropdownItem [routerLink]="'cash-register'">Blagajna</a>
+
+                <a [hidden]="!canFinOp()" ngbDropdownItem [routerLink]="'troskovni-centar'">Troskovni Centar</a>
 
               </ul>
             </div>
@@ -45,8 +48,10 @@
 
                 <a ngbDropdownItem [routerLink]="'analiticke-kartice'">Analiticke Kartice</a>
 
-
                 <a ngbDropdownItem [routerLink]="'profitni-centar'">Profitni centar</a>
+
+                <a ngbDropdownItem [routerLink]="'troskovni-centar'">Troskovni Centar</a>
+
 
               </ul>
             </div>

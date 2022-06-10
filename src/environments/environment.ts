@@ -22,7 +22,9 @@ export const environment = {
   bilans_stanja: 'http://localhost:8080/api/izvestaji/stanje',
   bilans_uspeha: 'http://localhost:8080/api/izvestaji/uspeh',
 
-  profitniCentriApi: 'http://localhost:8080/api/profitni-centri'
+  profitniCentriApi: 'http://localhost:8080/api/profitni-centri',
+
+  troskovni_centar: 'http://localhost:8080/api/troskovni-centri'
 
 };
 

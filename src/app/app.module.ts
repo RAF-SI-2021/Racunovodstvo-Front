@@ -8,8 +8,6 @@ import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import {MatDialogModule} from '@angular/material/dialog';
-
 import {MatTreeModule} from '@angular/material/tree';
 
 
@@ -37,8 +35,10 @@ import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.com
 
 import { DatePipe } from '@angular/common';
 
+
 import { MpFakturaComponent } from './components/mp-faktura/mp-faktura.component';
 import { PovracajComponent } from './components/povracaj/povracaj.component';
+
 
 import { AnalitickeKarticeComponent } from './components/analiticke-kartice/analiticke-kartice.component';
 import {MatButtonModule} from "@angular/material/button";
@@ -47,11 +47,16 @@ import {BsuPopupComponent} from "./components/bilans-stanja-uspeha/bsu-popup/bsu
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.component';
 import { KonverzijaComponent } from './components/konverzija/konverzija.component';
+
 import { EvidencijeComponent } from './components/evidencije/evidencije.component';
 import { ArtikalComponent } from './components/artikal/artikal.component';
 
 import {MatIcon, MatIconModule} from "@angular/material/icon";
 import {ProfitniCentarComponent} from "./components/profitni-centar/profitni-centar.component";
+
+import {ProfileTestComponent} from "./components/profile-test/profile-test.component";
+import {TroskovniCentarComponent} from "./components/troskovni-centar/troskovni-centar.component";
+import {MatDialogModule,MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -83,24 +88,26 @@ import {ProfitniCentarComponent} from "./components/profitni-centar/profitni-cen
     EvidencijeComponent,
     ArtikalComponent,
     ProfitniCentarComponent,
+    TroskovniCentarComponent
 	],
     imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        NgbModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        FormsModule,
-        // Mat
-        MatAutocompleteModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatInputModule,
-        MatTreeModule,
-        MatButtonModule,
-        MatDialogModule,
+      BrowserModule,
+      BrowserAnimationsModule,
+      AppRoutingModule,
+      NgbModule,
+      ReactiveFormsModule,
+      HttpClientModule,
+      FormsModule,
+      // Mat
+      MatAutocompleteModule,
+      MatFormFieldModule,
+      MatDatepickerModule,
+      MatNativeDateModule,
+      MatInputModule,
+      MatTreeModule,
+      MatIconModule,
+      MatButtonModule,
+      MatDialogModule
 	],
 	providers: [DatePipe],
 	bootstrap: [AppComponent],
