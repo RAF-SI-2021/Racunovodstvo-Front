@@ -14,13 +14,18 @@ import { PlateZaposlenihComponent } from './components/plate-zaposlenih/plate-za
 import { KoeficijentiComponent } from './components/koeficijenti/koeficijenti.component';
 import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.component';
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
-
 import { LoginGuard } from './guards/login.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { FinansijskaOperativaGuard } from './guards/finansijska-operativa.guard';
 import { FinansijskoKnjigovodstvoGuard } from './guards/finansijsko-knjigovodstvo.guard';
 import { ObracunZaradeGuard } from './guards/obracun-zarade.guard';
 import {KnjizenjeWidgetComponent} from "./components/knjizenje-widget/knjizenje-widget.component";
+import {AnalitickeKarticeComponent} from "./components/analiticke-kartice/analiticke-kartice.component";
+import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
+import {KalkulacijeComponent} from "./components/kalkulacije/kalkulacije.component";
+import {KonverzijaComponent} from "./components/konverzija/konverzija.component";
+import {EvidencijeComponent} from "./components/evidencije/evidencije.component";
+import {ArtikalComponent} from "./components/artikal/artikal.component";
 
 const routes: Routes = [
 	{
@@ -59,6 +64,11 @@ const routes: Routes = [
 		component: AddNewClientComponent,
 		canActivate: [FinansijskaOperativaGuard],
 	},
+  {
+    path: 'cash-register',
+    component: BlagajnaComponent,
+    canActivate: [FinansijskaOperativaGuard],
+  },
 	// FINANSIJSKO_KNJIGOVODSTVO
 	{
 		path: 'account-plan',
@@ -105,6 +115,31 @@ const routes: Routes = [
     path: 'knjizenje-widget',
     component: KnjizenjeWidgetComponent,
     canActivate: [FinansijskoKnjigovodstvoGuard],
+  },
+
+  {
+    path: 'analiticke-kartice',
+    component: AnalitickeKarticeComponent,
+    canActivate: [FinansijskoKnjigovodstvoGuard],
+  },
+  //NABAVKE
+  {
+    path: 'kalkulacije',
+    component: KalkulacijeComponent,
+    // canActivate: [FinansijskoKnjigovodstvoGuard],
+
+  },
+  {
+    path: 'konverzije',
+    component: KonverzijaComponent
+  },
+  {
+    path: 'evidencije',
+    component: EvidencijeComponent
+  },
+  {
+    path: 'artikal/:id',
+    component: ArtikalComponent
   },
 ];
 

@@ -1,0 +1,76 @@
+<div>
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Analiticke Kartice</h1>
+  <div class="offset-4 col-4">
+    <form [formGroup]="analitickaKarticaForm" class="mb-5">
+      <div class="form-group">
+        <!--Konto chooser-->
+        <label for="konto">Konto</label>
+        <input matInput [matAutocomplete]="auto1" [formControlName]="'konto'" type="text" class="form-control"
+               placeholder="unesi konto" id="konto" name="konto">
+        <mat-autocomplete #auto1="matAutocomplete">
+          <mat-option *ngFor="let option of kontneGrupeOption | async"
+                      [value]="option.brojKonta + ' - ' + option.nazivKonta">
+            {{option.brojKonta}} - {{ option.nazivKonta}}
+          </mat-option>
+        </mat-autocomplete>
+        <!--Komitent Chooser-->
+        <label for="komitent">Komitent</label>
+        <input matInput [matAutocomplete]="auto2" [formControlName]="'komitent'" type="text" class="form-control"
+               placeholder="unesi komitenta" id="komitent" name="komitent">
+        <mat-autocomplete #auto2="matAutocomplete">
+          <mat-option *ngFor="let option of preduzecaGrupeOption | async"
+                      [value]="option.naziv">
+            {{option.naziv}}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+      <!--Date picker-->
+      <mat-form-field appearance="fill">
+        <mat-label>Unesite datume</mat-label>
+        <mat-date-range-input [formGroup]="analitickaKarticaForm" [rangePicker]="picker">
+          <input matStartDate [formControlName]="'datumOd'" placeholder="Start date">
+          <input matEndDate [formControlName]="'datumDo'" placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-error *ngIf="analitickaKarticaForm.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+        <mat-error *ngIf="analitickaKarticaForm.hasError('matEndDateInvalid')">Invalid End date</mat-error>
+      </mat-form-field>
+    </form>
+    <button (click)="readAnalitickeKartice()" [disabled]="!analitickaKarticaForm.valid" type="submit" mat-raised-button
+            color="primary">Pretraži
+    </button>
+    <!--Table stuff-->
+    <table [hidden]="" class="table">
+      <thead>
+      <tr>
+        <th style="width: 10%" scope="col">Broj Naloga</th>
+        <th style="width: 5%" scope="col">Datum</th>
+        <th style="width: 30%" scope="col">Broj Dokumenta</th>
+        <th style="width: 15%" scope="col">Duguje</th>
+        <th style="width: 15%" scope="col">Potrazuje</th>
+        <th style="width: 15%" scope="col">Saldo</th>
+      </tr>
+      </thead>
+      <tbody *ngFor="let row of rows; index as i">
+      <tr>
+        <td> {{row.brojNaloga}} </td>
+        <td> {{row.datum}} </td>
+        <td> {{row.brojDokumenta}} </td>
+        <td> {{row.duguje}} </td>
+        <td> {{row.potrazuje}} </td>
+        <td> {{row.saldo}} </td>
+      </tr>
+      <tbody>
+      <tr>
+        <td> </td>
+        <td> {{suma.brojNaloga}} </td>
+        <td> {{suma.datum}} </td>
+        <td> {{suma.duguje}} </td>
+        <td> {{suma.potrazuje}} </td>
+        <td> {{suma.saldo}} </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

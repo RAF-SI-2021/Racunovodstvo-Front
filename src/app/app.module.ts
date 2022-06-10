@@ -8,6 +8,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 // Mat
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -33,6 +35,17 @@ import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.com
 
 import { DatePipe } from '@angular/common';
 
+import { AnalitickeKarticeComponent } from './components/analiticke-kartice/analiticke-kartice.component';
+import {MatButtonModule} from "@angular/material/button";
+import { BilansStanjaUspehaComponent } from './components/bilans-stanja-uspeha/bilans-stanja-uspeha.component';
+import {BsuPopupComponent} from "./components/bilans-stanja-uspeha/bsu-popup/bsu-popup.component";
+import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
+import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.component';
+import { KonverzijaComponent } from './components/konverzija/konverzija.component';
+import { EvidencijeComponent } from './components/evidencije/evidencije.component';
+import { ArtikalComponent } from './components/artikal/artikal.component';
+
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -51,22 +64,32 @@ import { DatePipe } from '@angular/common';
 		KoeficijentiComponent,
 		SvaKnjizenjaComponent,
 		BrutoBilansComponent,
+    AnalitickeKarticeComponent,
+    BilansStanjaUspehaComponent,
+    BsuPopupComponent,
+    BlagajnaComponent,
+    KalkulacijeComponent,
+  KonverzijaComponent,
+  EvidencijeComponent,
+  ArtikalComponent,
 	],
-	imports: [
-		BrowserModule,
-		BrowserAnimationsModule,
-		AppRoutingModule,
-		NgbModule,
-		ReactiveFormsModule,
-		HttpClientModule,
-		FormsModule,
-		// Mat
-		MatAutocompleteModule,
-		MatFormFieldModule,
-		MatDatepickerModule,
-		MatNativeDateModule,
-		MatInputModule,
-	],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        NgbModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        FormsModule,
+        // Mat
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatButtonModule,
+        MatDialogModule,
+    ],
 	providers: [DatePipe],
 	bootstrap: [AppComponent],
 })

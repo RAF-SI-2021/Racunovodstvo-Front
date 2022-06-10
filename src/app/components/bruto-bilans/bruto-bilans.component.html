@@ -1,8 +1,10 @@
 <div>
   <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Bruto bilans</h1>
   <div class="offset-4 col-4">
+<!--Form for Table view-->
     <form [formGroup]="brutoBilansForm" class="mb-5">
       <div class="form-group">
+<!--Konto od chooser-->
         <label for="kontoOd">Konto od</label>
         <input matInput [matAutocomplete]="auto1" [formControlName]="'kontoOd'" type="text" class="form-control"
                placeholder="unesi konto" id="kontoOd" name="kontoOd">
@@ -12,7 +14,7 @@
             {{option.brojKonta}} - {{ option.nazivKonta}}
           </mat-option>
         </mat-autocomplete>
-
+<!--Konto do chooser-->
         <label for="kontoDo">Konto do</label>
         <input matInput [matAutocomplete]="auto2" [formControlName]="'kontoDo'" type="text" class="form-control"
                placeholder="unesi konto" id="kontoDo" name="kontoDo">
@@ -23,6 +25,7 @@
           </mat-option>
         </mat-autocomplete>
       </div>
+<!--Date picker-->
       <mat-form-field appearance="fill">
         <mat-label>Unesite datume</mat-label>
         <mat-date-range-input [formGroup]="brutoBilansForm" [rangePicker]="picker">
@@ -35,10 +38,9 @@
         <mat-error *ngIf="brutoBilansForm.hasError('matEndDateInvalid')">Invalid End date</mat-error>
       </mat-form-field>
     </form>
-    <button (click)="readBrutoBilans()" [disabled]="!brutoBilansForm.valid" type="submit" mat-raised-button
-            color="primary">Pretraži
+    <button (click)="readBrutoBilans()" [disabled]="!brutoBilansForm.valid" type="submit" mat-raised-button color="primary">Pretraži
     </button>
-
+<!--Table stuff-->
     <table [hidden]="" class="table">
       <thead>
       <tr>
@@ -70,5 +72,10 @@
       </tr>
     </table>
 
+    <app-bilans-stanja-uspeha></app-bilans-stanja-uspeha>
+
+    <button (click)="getPDFView()" [disabled]="!brutoBilansForm.valid" type="submit" mat-raised-button
+            color="primary">Štampaj
+    </button>
   </div>
 </div>
