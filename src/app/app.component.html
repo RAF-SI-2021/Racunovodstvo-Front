@@ -46,6 +46,8 @@
                 <a ngbDropdownItem [routerLink]="'analiticke-kartice'">Analiticke Kartice</a>
 
 
+                <a ngbDropdownItem [routerLink]="'profitni-centar'">Profitni centar</a>
+
               </ul>
             </div>
 
@@ -94,6 +96,7 @@
             <div ngbDropdown class="d-inline-block">
               <a [routerLink]="'evidencije'" [hidden]="!canEvidencije()">Evidencije </a>
             </div>
+
 
             <!-- ADMIN -->
             <li><a [hidden]="!isAdmin()" [routerLink]="'manage-users'" class="nav-link active"

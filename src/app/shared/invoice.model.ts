@@ -1,3 +1,5 @@
+import {BookkeepingJournal} from "./bookkeeping-journal.model";
+
 export class Invoice {
 	constructor(
 		public fakturaId: number,
@@ -57,6 +59,7 @@ export class ResponseObject {
 }
 
 export class Konto {
+  bazniKontoId: number;
 	kontnaGrupa: KontnaGrupa;
 	duguje: number;
 	potrazuje: number;
@@ -64,6 +67,9 @@ export class Konto {
 	disabledKonto: boolean;
 	disabledDuguje: boolean;
 	disabledPotrazuje: boolean;
+  brojNalogaKnjizenja?: string;
+  datumKnjizenja?: string;
+  komentarKnjizenja?: string;
 
 	constructor(
 		konto: KontnaGrupa,

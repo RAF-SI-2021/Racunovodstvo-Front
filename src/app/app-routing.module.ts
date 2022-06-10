@@ -29,6 +29,7 @@ import {ProdajaGuard} from "./guards/prodaja.guard";
 import {PovracajComponent} from "./components/povracaj/povracaj.component";
 import {EvidencijeComponent} from "./components/evidencije/evidencije.component";
 import {ArtikalComponent} from "./components/artikal/artikal.component";
+import {ProfitniCentarComponent} from "./components/profitni-centar/profitni-centar.component";
 
 
 const routes: Routes = [
@@ -94,6 +95,11 @@ const routes: Routes = [
 		component: BrutoBilansComponent,
 		canActivate: [FinansijskoKnjigovodstvoGuard],
 	},
+  {
+    path: 'profitni-centar',
+    component: ProfitniCentarComponent,
+    canActivate: [FinansijskoKnjigovodstvoGuard],
+  },
 	// OBRACUN_ZARADE
 	{
 		path: 'zaposleni',

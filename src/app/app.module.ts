@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {MatDialogModule} from '@angular/material/dialog';
 
+import {MatTreeModule} from '@angular/material/tree';
+
 
 // Mat
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -34,6 +36,7 @@ import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
 
 import { DatePipe } from '@angular/common';
+
 import { MpFakturaComponent } from './components/mp-faktura/mp-faktura.component';
 import { PovracajComponent } from './components/povracaj/povracaj.component';
 
@@ -46,6 +49,9 @@ import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.compo
 import { KonverzijaComponent } from './components/konverzija/konverzija.component';
 import { EvidencijeComponent } from './components/evidencije/evidencije.component';
 import { ArtikalComponent } from './components/artikal/artikal.component';
+
+import {MatIcon, MatIconModule} from "@angular/material/icon";
+import {ProfitniCentarComponent} from "./components/profitni-centar/profitni-centar.component";
 
 
 @NgModule({
@@ -76,6 +82,7 @@ import { ArtikalComponent } from './components/artikal/artikal.component';
     PovracajComponent,
     EvidencijeComponent,
     ArtikalComponent,
+    ProfitniCentarComponent,
 	],
     imports: [
         BrowserModule,
@@ -91,9 +98,10 @@ import { ArtikalComponent } from './components/artikal/artikal.component';
         MatDatepickerModule,
         MatNativeDateModule,
         MatInputModule,
+        MatTreeModule,
         MatButtonModule,
         MatDialogModule,
-    ],
+	],
 	providers: [DatePipe],
 	bootstrap: [AppComponent],
 })
