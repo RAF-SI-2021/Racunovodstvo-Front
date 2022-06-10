@@ -5,4 +5,5 @@ export enum Authority {
 	OBRACUN_ZARADE = 'obrza',
 	NABAVKA = 'nabavka',
 	PRODAJA = 'prodaja',
+  EVIDENCIJE = 'evidencije'
 }

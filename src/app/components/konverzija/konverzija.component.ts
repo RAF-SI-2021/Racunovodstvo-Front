@@ -3,6 +3,7 @@ import {Artikal, Konverzija, Lokacija, Preduzece} from "../../shared/konverzija.
 import {KonverzijaService} from "../../services/konverzija/konverzija.service";
 import {Form, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {switchMap} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-konverzija',
@@ -25,6 +26,7 @@ export class KonverzijaComponent implements OnInit {
   constructor(
     private konverzijaService: KonverzijaService,
     private formBuilder: FormBuilder,
+    private route:Router
   ) {
     this.addingForm = this.formBuilder.group({
       brojKonverzije: ['', Validators.required, Validators.minLength(1)],
@@ -260,5 +262,9 @@ export class KonverzijaComponent implements OnInit {
     this.addingFormArtikal.get('rabat')?.setValue(this.addingFormArtikal.get('nabavnaCena')?.value * (this.addingFormArtikal.get('rabatProcenat')?.value/100))
     this.addingFormArtikal.get('nabavnaCenaPosleRabata')?.setValue(this.addingFormArtikal.get('nabavnaCena')?.value - this.addingFormArtikal.get('rabat')?.value)
     this.addingFormArtikal.get('ukupnaNabavnaVrednost')?.setValue(this.addingFormArtikal.get('nabavnaCenaPosleRabata')?.value * this.addingFormArtikal.get('kolicina')?.value)
+  }
+
+  prikaziArtikal(id: number) {
+    this.route.navigate(['/artikal/'+id]);
   }
 }

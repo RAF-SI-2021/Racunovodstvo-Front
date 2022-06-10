@@ -53,5 +53,12 @@ export interface Artikal{
   nabavnaCenaPosleRabata: number;
   ukupnaNabavnaVrednost: number;
   konverzijaKalkulacijaId: number;
+  prodajnaCena: number;
+  istorijaProdajneCene: Istorija
+}
+
+export interface Istorija{
+  timestamp: string;
+  prodajnaCena: number
 }
 

@@ -72,4 +72,13 @@ export class AppComponent {
     }
     return false;
   }
+
+  canEvidencije(): boolean {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.EVIDENCIJE) != null)
+
+        return true;
+    }
+    return false;
+  }
 }

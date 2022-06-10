@@ -27,6 +27,8 @@ import {KonverzijaComponent} from "./components/konverzija/konverzija.component"
 import {MpFakturaComponent} from "./components/mp-faktura/mp-faktura.component";
 import {ProdajaGuard} from "./guards/prodaja.guard";
 import {PovracajComponent} from "./components/povracaj/povracaj.component";
+import {EvidencijeComponent} from "./components/evidencije/evidencije.component";
+import {ArtikalComponent} from "./components/artikal/artikal.component";
 
 
 const routes: Routes = [
@@ -144,6 +146,14 @@ const routes: Routes = [
     path: 'povracaj',
     component: PovracajComponent,
     canActivate: [ProdajaGuard],
+  },
+  {
+    path: 'evidencije',
+    component: EvidencijeComponent
+  },
+  {
+    path: 'artikal/:id',
+    component: ArtikalComponent
   },
 ];
 

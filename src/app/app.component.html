@@ -91,6 +91,10 @@
               </ul>
             </div>
 
+            <div ngbDropdown class="d-inline-block">
+              <a [routerLink]="'evidencije'" [hidden]="!canEvidencije()">Evidencije </a>
+            </div>
+
             <!-- ADMIN -->
             <li><a [hidden]="!isAdmin()" [routerLink]="'manage-users'" class="nav-link active"
                    aria-current="page">Upravljanje korisnicima</a></li>

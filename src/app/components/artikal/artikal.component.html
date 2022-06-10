@@ -1,0 +1,52 @@
+<!--<div class="m-15" style="text-align: center; background: black">-->
+<!--  <span>asd</span>-->
+<!--</div>-->
+
+<div class="card text-center mx-10">
+  <div class="card-header">
+    {{artikal.controls['nazivArtikla'].value}}
+  </div>
+  <div class="card-body" style="text-align: center">
+    <label>Sifra artikla - {{artikal.controls['sifraArtikla'].value}}</label><br>
+    <label>JedinicaMere - {{artikal.controls['jedinicaMere'].value}}</label><br>
+    <label>Kolicina - {{artikal.controls['kolicina'].value}}</label><br>
+    <form [formGroup]="artikal" (ngSubmit)="updateCena()">
+      <label>ProdajnaCena -
+        <!--      {{artikal.controls['nabavnaCena'].value}}-->
+        <input [formControlName]="'prodajnaCena'" type="text" size="9"/>
+      </label><br>
+      <label>Nabavna cena - {{artikal.controls['nabavnaCena'].value}}</label><br>
+    <label>Rabat % - {{artikal.controls['rabatProcenat'].value}}</label><br>
+    <label>Rabat - {{artikal.controls['rabat'].value}}</label><br>
+    <label>Nabavna cena posle rabata - {{artikal.controls['nabavnaCenaPosleRabata'].value}}</label><br>
+    <label>Ukupna nabavna vrednost - {{artikal.controls['ukupnaNabavnaVrednost'].value}}</label><br>
+      <button class="btn btn-primary">Submit</button>
+    </form>
+
+  </div>
+
+</div>
+<br><br>
+<div class="row">
+  <div class="col-sm-2"></div>
+  <table class="table table-bordered mx-10" style="width: 40rem">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Cena</th>
+      <th scope="col">Vreme</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let artikal of istorija; index as i">
+
+    <tr>
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ artikal.prodajnaCena }}</td>
+      <td>{{ artikal.timestamp | date:"dd.MM.yyyy HH:MM:SS" }}</td>
+
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
