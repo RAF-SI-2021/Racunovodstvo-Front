@@ -45,6 +45,7 @@
 
                 <a ngbDropdownItem [routerLink]="'analiticke-kartice'">Analiticke Kartice</a>
 
+
               </ul>
             </div>
 
@@ -73,6 +74,19 @@
 
                 <a ngbDropdownItem [routerLink]="'kalkulacije'">Kalkulacije</a>
                 <a ngbDropdownItem [routerLink]="'konverzije'">Konverzije</a>
+
+              </ul>
+            </div>
+
+            <!-- PRODAJA -->
+            <div ngbDropdown class="d-inline-block">
+              <a [hidden]="!canProdaja()" ngbDropdownToggle class="nav-link active" aria-current="page">Prodaja</a>
+
+              <ul ngbDropdownMenu>
+
+                <a ngbDropdownItem [routerLink]="'mp_faktura'">Maloprodajna faktura</a>
+
+                <a ngbDropdownItem [routerLink]="'povracaj'">Povraćaj</a>
 
               </ul>
             </div>

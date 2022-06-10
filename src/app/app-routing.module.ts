@@ -24,6 +24,10 @@ import {AnalitickeKarticeComponent} from "./components/analiticke-kartice/analit
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import {KalkulacijeComponent} from "./components/kalkulacije/kalkulacije.component";
 import {KonverzijaComponent} from "./components/konverzija/konverzija.component";
+import {MpFakturaComponent} from "./components/mp-faktura/mp-faktura.component";
+import {ProdajaGuard} from "./guards/prodaja.guard";
+import {PovracajComponent} from "./components/povracaj/povracaj.component";
+
 
 const routes: Routes = [
 	{
@@ -114,7 +118,6 @@ const routes: Routes = [
     component: KnjizenjeWidgetComponent,
     canActivate: [FinansijskoKnjigovodstvoGuard],
   },
-
   {
     path: 'analiticke-kartice',
     component: AnalitickeKarticeComponent,
@@ -130,7 +133,18 @@ const routes: Routes = [
   {
     path: 'konverzije',
     component: KonverzijaComponent
-  }
+  },
+  //PRODAJA
+  {
+    path: 'mp_faktura',
+    component: MpFakturaComponent,
+    canActivate: [ProdajaGuard],
+  },
+  {
+    path: 'povracaj',
+    component: PovracajComponent,
+    canActivate: [ProdajaGuard],
+  },
 ];
 
 @NgModule({

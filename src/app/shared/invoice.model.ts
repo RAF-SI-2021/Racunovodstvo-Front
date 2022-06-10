@@ -47,6 +47,11 @@ export class Preduzece {
   }
 }
 
+export interface Company {
+  preduzeceId: number,
+  naziv: string
+}
+
 export class ResponseObject {
 	public content: any[] = [];
 }

@@ -34,6 +34,8 @@ import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.
 import { BrutoBilansComponent } from './components/bruto-bilans/bruto-bilans.component';
 
 import { DatePipe } from '@angular/common';
+import { MpFakturaComponent } from './components/mp-faktura/mp-faktura.component';
+import { PovracajComponent } from './components/povracaj/povracaj.component';
 
 import { AnalitickeKarticeComponent } from './components/analiticke-kartice/analiticke-kartice.component';
 import {MatButtonModule} from "@angular/material/button";
@@ -68,6 +70,8 @@ import { KonverzijaComponent } from './components/konverzija/konverzija.componen
     BlagajnaComponent,
     KalkulacijeComponent,
   KonverzijaComponent,
+  MpFakturaComponent,
+  PovracajComponent,
 	],
     imports: [
         BrowserModule,
