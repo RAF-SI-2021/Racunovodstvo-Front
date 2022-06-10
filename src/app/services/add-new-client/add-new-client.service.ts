@@ -16,10 +16,15 @@ export class AddNewClientService {
 		) as string;
 	}
 
-	getAllClients(): Observable<IClient> {
-		const request: string = `${this.api}/all`;
-		return this.httpClient.get<IClient>(request, this.options);
-	}
+  getAllClients(): Observable<IClient> {
+    const request: string = `${this.api}/all`;
+    return this.httpClient.get<IClient>(request, this.options);
+  }
+
+  getClientById(preduzeceId: number): Observable<IClient> {
+    const request: string = `${this.api}/${preduzeceId}`;
+    return this.httpClient.get<IClient>(request, this.options);
+  }
 
 	addNewClient(client: IClient): Observable<IClient> {
 		const request: string = `${this.api}`;

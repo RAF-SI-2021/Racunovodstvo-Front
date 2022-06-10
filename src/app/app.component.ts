@@ -54,4 +54,44 @@ export class AppComponent {
 		}
 		return false;
 	}
+
+  canNabavka(): boolean {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.NABAVKE) != null)
+        return true;
+    }
+    return false;
+  }
+
+  canProfile() {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.PROFIL) != null)
+        return true;
+    }
+    return false;
+  }
+
+  canEvidencije() {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.EVIDENCIJE) != null)
+        return true;
+    }
+    return false;
+  }
+
+  canIzvestaji() {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.IZVESTAJI) != null)
+        return true;
+    }
+    return false;
+  }
+
+  canProdaja() {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.PRODAJA) != null)
+        return true;
+    }
+    return false;
+  }
 }

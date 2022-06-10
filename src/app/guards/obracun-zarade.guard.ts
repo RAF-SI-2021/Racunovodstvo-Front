@@ -20,6 +20,6 @@ export class ObracunZaradeGuard implements CanActivate {
 		| Promise<boolean | UrlTree>
 		| boolean
 		| UrlTree {
-		return sessionStorage.getItem(Authority.ADMIN) != null;
+		return sessionStorage.getItem(Authority.OBRACUN_ZARADE) != null;
 	}
 }

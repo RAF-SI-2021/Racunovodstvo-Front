@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
 	ngOnInit(): void {
 		if (this.loggedIn()) {
-			this.router.navigate(['add-new-client']);
+			this.router.navigate(['']);
 		}
 		this.wrongPasswordOrUsername = false;
 	}
@@ -47,13 +47,14 @@ export class LoginComponent implements OnInit {
 					console.log(jwt);
 					this.wrongPasswordOrUsername = false;
 					this.userService.getLoggedInUser().subscribe((user) => {
-						for (let i = 0; i < user.authorities.length; i++) {
+            console.log(user)
+						for (let i = 0; i < user.permissions.length; i++) {
 							sessionStorage.setItem(
-								user.authorities[i].name,
-								user.authorities[i].name
+								user.permissions[i].name,
+								user.permissions[i].name
 							);
 							this.router
-								.navigate(['add-new-client'])
+								.navigate([''])
 								.then((value) => {
 									this.loginForm.reset();
 								});
