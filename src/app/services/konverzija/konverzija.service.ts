@@ -43,7 +43,7 @@ export class KonverzijaService {
       Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
     };
     return this.httpClient.get<Pageable<Artikal>>(
-      "http://localhost:8080/api/artikli",
+      "http://localhost:8080/api/artikli/kalkulacija",
       {
         headers: headers,
       }

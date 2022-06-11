@@ -562,7 +562,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.kolicina
     })
-    return sum;
+    return sum.toFixed(2);
   }
 
   sumNabavnaCena() {
@@ -570,7 +570,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.nabavnaCena
     })
-    return sum;
+    return sum.toFixed(2);
   }
 
   sumRabat() {
@@ -578,7 +578,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.rabat
     })
-    return sum;
+    return sum.toFixed(2);
   }
 
   sumNabavnaCenaPosleRabata() {
@@ -586,7 +586,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.nabavnaCenaPosleRabata
     })
-    return sum;
+    return sum.toFixed(2);
   }
 
   sumUkupnaNabavnaVrednost() {
@@ -594,7 +594,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.ukupnaNabavnaVrednost
     })
-    return sum;
+    return sum.toFixed(2);
   }
 
   sumMarza() {
@@ -602,7 +602,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.marza
     })
-    return sum;
+    return sum.toFixed(2);
   }
 
   sumProdajnaOsnovica() {
@@ -610,7 +610,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.prodajnaOsnovica
     })
-    return sum;
+    return sum.toFixed(2);
   }
 
   sumPorez() {
@@ -618,7 +618,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.porez
     })
-    return sum;
+    return sum.toFixed(2);
   }
 
   sumProdajnaCena() {
@@ -626,7 +626,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.prodajnaCena
     })
-    return sum;
+    return sum.toFixed(2);
   }
 
   sumOsnovica() {
@@ -634,7 +634,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.osnovica
     })
-    return sum;
+    return sum.toFixed(2);
   }
 
   sumUkupnaProdajnaVrednost() {
@@ -642,7 +642,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.ukupnaProdajnaVrednost
     })
-    return sum;
+    return sum.toFixed(2);
   }
 
   createNewKalk(){
@@ -851,6 +851,7 @@ export class KalkulacijeComponent implements OnInit {
     this.service.createArtikal(aktivanZaProdaju, sifraArtikla, nazivArtikla, jedinicaMere, kolicina, nabavnaCena, rabatProcenat, marzaProcenat, porezProcenat, prodajnaCena, kalkulacijaKonverzijaId).subscribe(response => {
       this.artikli.push(response)
       this.isNewArt = false;
+      this.ngOnInit()
     })
   }
 
@@ -873,6 +874,7 @@ export class KalkulacijeComponent implements OnInit {
         }
       }
       this.selectedArt = false;
+      this.ngOnInit()
     })
   }
 
@@ -880,4 +882,7 @@ export class KalkulacijeComponent implements OnInit {
     this.isNewArt = false;
   }
 
+  format(nabavnaVrednost: number) {
+    return nabavnaVrednost.toFixed(2);
+  }
 }

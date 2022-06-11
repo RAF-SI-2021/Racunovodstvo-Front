@@ -26,7 +26,7 @@ export class PovracajService {
     return this.http.put(environment.APIEndpoint + '/api/povracaji', {
       povracajId: povracajId,
       brojPovracaja: brojPovracaja,
-      datum: new Date(datum).getMilliseconds()/1000,
+      datumPovracaja: datum,
       prodajnaVrednost: prodajnaVrednost
     }, {
       headers: this.httpHeaders

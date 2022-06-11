@@ -153,13 +153,13 @@
         {{ sumTroskoviNabavke(kalkulacija) }}
       </td>
       <td>
-        {{ kalkulacija.fakturnaCena }}
+        {{ format(kalkulacija.fakturnaCena) }}
       </td>
       <td>
-        {{ kalkulacija.nabavnaVrednost }}
+        {{ format( kalkulacija.nabavnaVrednost) }}
       </td>
       <td>
-        {{ kalkulacija.prodajnaVrednost }}
+        {{  format(kalkulacija.prodajnaVrednost) }}
       </td>
       <td>
         {{ kalkulacija.valuta }}
@@ -404,19 +404,19 @@
       <td>{{ artikal.nazivArtikla}}</td>
       <td>{{ artikal.kolicina}}</td>
       <td>{{ artikal.jedinicaMere}}</td>
-      <td>{{ artikal.nabavnaCena}}</td>
+      <td>{{  format(artikal.nabavnaCena)}}</td>
       <td>{{ artikal.rabatProcenat}}</td>
-      <td>{{ artikal.rabat}}</td>
-      <td>{{ artikal.nabavnaCenaPosleRabata}}</td>
-      <td>{{ artikal.ukupnaNabavnaVrednost}}</td>
+      <td>{{ format(artikal.rabat)}}</td>
+      <td>{{  format(artikal.nabavnaCenaPosleRabata)}}</td>
+      <td>{{  format(artikal.ukupnaNabavnaVrednost)}}</td>
       <td>{{ artikal.marzaProcenat}}</td>
-      <td>{{ artikal.marza}}</td>
-      <td>{{ artikal.prodajnaOsnovica}}</td>
+      <td>{{  format(artikal.marza)}}</td>
+      <td>{{  format(artikal.prodajnaOsnovica)}}</td>
       <td>{{ artikal.porezProcenat}}</td>
-      <td>{{ artikal.porez}}</td>
-      <td>{{ artikal.prodajnaCena}}</td>
-      <td>{{ artikal.osnovica}}</td>
-      <td>{{ artikal.ukupnaProdajnaVrednost}}</td>
+      <td>{{  format(artikal.porez)}}</td>
+      <td>{{ format(artikal.prodajnaCena)}}</td>
+      <td>{{  format(artikal.osnovica)}}</td>
+      <td>{{ format(artikal.ukupnaProdajnaVrednost)}}</td>
       <td>
         <button class="btn btn-danger btn-sm" (click)="deleteArtikal(artikal.artikalId)">Delete</button>
       </td>

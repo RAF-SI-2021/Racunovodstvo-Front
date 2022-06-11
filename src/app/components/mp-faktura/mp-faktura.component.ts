@@ -104,7 +104,7 @@ export class MpFakturaComponent implements OnInit {
     this.fakture.forEach(function (value) {
       totalSum += value.prodajnaVrednost;
     });
-    return totalSum;
+    return totalSum.toFixed(2);
   }
 
   ukupanRabat() {
@@ -113,7 +113,7 @@ export class MpFakturaComponent implements OnInit {
       let rabatAct = value.rabat * value.kurs;
       totalSum += rabatAct;
     });
-    return totalSum;
+    return totalSum.toFixed(2);
   }
 
   ukupanPorez() {
@@ -121,7 +121,7 @@ export class MpFakturaComponent implements OnInit {
     this.fakture.forEach(function (value) {
       totalSum += value.porez;
     });
-    return totalSum;
+    return totalSum.toFixed(2);
   }
 
   ukupnoNaplata() {
@@ -129,7 +129,7 @@ export class MpFakturaComponent implements OnInit {
     this.fakture.forEach(function (value) {
       totalSum += value.naplata;
     });
-    return totalSum;
+    return totalSum.toFixed(2);
   }
 
   getAsDate(date: string) {
@@ -147,7 +147,7 @@ export class MpFakturaComponent implements OnInit {
     if (procenat === null) {
       return 0;
     }
-    return procenat;
+    return procenat.toFixed(2);
   }
 
   sacuvaj() {
