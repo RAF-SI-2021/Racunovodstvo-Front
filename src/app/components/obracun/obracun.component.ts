@@ -4,7 +4,8 @@ import {PlateZaposlenihService} from "../../services/plate_zaposlenih/plate-zapo
 import {Zaposleni} from "../../shared/profile.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ObracunService} from "../../services/obracun/obracun.service";
-import {Obracun, ObracunZaposleni} from "../../shared/obracun.model";
+import {Obracun, ObracunZaposleni, ObracunZaradeConfig, SifraTransakcije} from "../../shared/obracun.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-obracun',
@@ -22,11 +23,16 @@ export class ObracunComponent implements OnInit {
   datum: Date = new Date();
   obracuni: Obracun[] = [];
   obracuniZaposleni: ObracunZaposleni[] = [];
-  constructor(private formBuilder : FormBuilder, private service : PlateZaposlenihService, private obracunService: ObracunService) {
+  sifreTransakcija: SifraTransakcije[] = [];
+  zakazanaSifra: string = '';
+  zakazanDan: number = 0;
+  selectovanaSifra: string ='';
+
+  constructor(private formBuilder : FormBuilder, private service : PlateZaposlenihService, private obracunService: ObracunService, private router: Router) {
     this.obracun = formBuilder.group({
       dan: [''],
       datum: [''],
-      vreme: ['']
+      vreme: [''],
     });
   }
 
@@ -39,8 +45,26 @@ export class ObracunComponent implements OnInit {
       for (let i =0; i<this.obracuni.length; i++){
         this.flagovi[i] = true;
       }
-
     });
+
+    this.obracunService.getDanSifraTransakcijeId().subscribe( ozc =>{
+
+      console.log("Zakazan id: " +ozc.SifraTransakcijeId + "\nZakazan dan: " + ozc.dayOfMonth);
+      this.zakazanDan = ozc.dayOfMonth;
+
+      for(let i =0; i<this.sifreTransakcija.length; i++){
+        if(this.sifreTransakcija[i].sifraTransakcijeId == ozc.SifraTransakcijeId){
+          this.zakazanaSifra = this.sifreTransakcija[i].sifra + ": " + this.sifreTransakcija[i].nazivTransakcije;
+        }
+      }
+    })
+
+
+
+    this.obracunService.getTransakcije().subscribe( sifre =>{
+      this.sifreTransakcija = sifre;
+      console.log(sifre);
+    })
 
     this.service.getAllPlate().subscribe((response) =>{
       this.plate = response;
@@ -87,7 +111,7 @@ export class ObracunComponent implements OnInit {
   }
 
   zakazi() {
-    this.obracunService.update(this.obracun.get('dan')?.value).subscribe(e=>{
+    this.obracunService.update(this.obracun.get('dan')?.value, this.selectovanaSifra).subscribe(e=>{
       this.obracun.get('dan')?.setValue('');
     })
   }
@@ -101,6 +125,12 @@ export class ObracunComponent implements OnInit {
   deleteZaposleni(obracunZaposleniId: number, index: number, index2: number) {
     this.obracunService.deleteZaposleni(obracunZaposleniId).subscribe( e=>{
       this.obracuni[index].obracunZaposleniList.splice(index2, 1);
+    })
+  }
+
+  izvrsiTransakciju(id: number){
+    this.obracunService.izvrsiTransakciju(id).subscribe(e=>{
+      this.router.navigate(['/obracun']);
     })
   }
 }
