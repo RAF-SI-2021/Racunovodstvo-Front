@@ -181,8 +181,8 @@ export class KonverzijaComponent implements OnInit {
 
   dodajKonverziju() {
     if (this.addingForm.invalid){
-        this.errorMessage = 'Forma nije popunjena'
-        return;
+      this.errorMessage = 'Forma nije popunjena'
+      return;
     }
     this.errorMessage = ''
 
@@ -203,6 +203,12 @@ export class KonverzijaComponent implements OnInit {
       valuta: this.addingForm.get('valuta')?.value,
       komentar: this.addingForm.get('komentar')?.value
     }).subscribe(konverzija => {
+      for (let dobavljac of this.dobavljaci) {
+        if (dobavljac.preduzeceId === konverzija.dobavljacId) {
+          konverzija.nazivDobavljaca = dobavljac.naziv;
+          break;
+        }
+      }
       this.konverzije.push(konverzija)
     })
   }

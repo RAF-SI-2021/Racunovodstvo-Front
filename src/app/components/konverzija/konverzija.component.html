@@ -12,13 +12,13 @@
           <input class="form-control" type="text">
         </div>
 
-<!--        <div class="col-sm-2">-->
-<!--          <label class="labelClass">Tip:</label>-->
-<!--          <select class="form-control" type="text">-->
-<!--            <option value="MALOPRODAJA">Maloprodaja</option>-->
-<!--            <option value="VELEPRODAJA">Veleprodaja</option>-->
-<!--          </select>-->
-<!--        </div>-->
+        <!--        <div class="col-sm-2">-->
+        <!--          <label class="labelClass">Tip:</label>-->
+        <!--          <select class="form-control" type="text">-->
+        <!--            <option value="MALOPRODAJA">Maloprodaja</option>-->
+        <!--            <option value="VELEPRODAJA">Veleprodaja</option>-->
+        <!--          </select>-->
+        <!--        </div>-->
 
         <div class="col-sm-6">
           <label class="labelClass">Datum:</label>
@@ -91,8 +91,8 @@
     <td>{{ konverzija.brojKonverzije }}</td>
     <td>{{ konverzija.datum | date }}</td>
     <td>{{ konverzija.nazivDobavljaca }}</td>
-    <td>{{ konverzija.nazivLokacija + ", " + konverzija.adresaLokacije}}</td>
-    <td>{{ konverzija.troskoviNabavke }}</td>
+    <td>{{ konverzija.lokacija.naziv + ", " + konverzija.lokacija.adresa}}</td>
+    <td><div *ngFor="let trosak of konverzija.troskoviNabavke">{{ trosak.naziv + ": " + trosak.cena }}</div></td>
     <td>{{ konverzija.fakturnaCena }}</td>
     <td>{{ konverzija.nabavnaVrednost }}</td>
     <td>{{ konverzija.valuta }}</td>
@@ -287,10 +287,10 @@
   <!--    Obavezno polje-->
   <!--  </span>-->
 
-    <label class="form-label">Fakturna cena</label>
-    <input [formControlName]="'fakturnaCena'" type="text" class="form-control form-control-lg"  />
-    <span class="text-danger"
-          *ngIf="addingForm.controls['fakturnaCena'].dirty && addingForm.hasError('required','fakturnaCena')">
+  <label class="form-label">Fakturna cena</label>
+  <input [formControlName]="'fakturnaCena'" type="text" class="form-control form-control-lg"  />
+  <span class="text-danger"
+        *ngIf="addingForm.controls['fakturnaCena'].dirty && addingForm.hasError('required','fakturnaCena')">
       Obavezno polje
     </span>
 
