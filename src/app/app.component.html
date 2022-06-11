@@ -17,19 +17,6 @@
             <a style="padding-left: 10px; padding-right: 10px" [hidden]="!canIzvestaji()" class="nav-link active"
                aria-current="page" [routerLink]="''">Izvestaji</a>
 
-            <!-- NABAVKE -->
-            <div style="padding-left: 10px; padding-right: 10px" ngbDropdown class="d-inline-block">
-              <a [hidden]="!canNabavka()" ngbDropdownToggle
-                 class="nav-link active" aria-current="page">Nabavke</a>
-
-              <ul ngbDropdownMenu>
-
-                <a ngbDropdownItem [routerLink]="'kalkulacije'">Kalkulacije</a>
-
-                <a ngbDropdownItem [routerLink]="'konverzije'">Konverzije</a>
-
-              </ul>
-            </div>
 
             <!-- FINANSIJSKA_OPERATIVA -->
             <div style="padding-left: 10px; padding-right: 10px" ngbDropdown class="d-inline-block">
