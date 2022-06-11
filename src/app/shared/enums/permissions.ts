@@ -3,7 +3,7 @@ export enum Authority {
 	FINANSIJSKA_OPERATIVA = 'finop',
 	FINANSIJSKO_KNJIGOVODSTVO = 'finknj',
 	OBRACUN_ZARADE = 'obrza',
-	NABAVKE = 'nabavka',
+	NABAVKE = 'nabavke',
   PROFIL = 'profil',
   EVIDENCIJE = 'evidencije',
   IZVESTAJI = 'izvestaji',

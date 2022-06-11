@@ -39,7 +39,7 @@ export class HomepageComponent implements OnInit {
   }
 
   gotoEvidencije() {
-    this.router.navigate([''])
+    this.router.navigate(['evidencije'])
   }
 
   gotoNabavke() {
@@ -47,10 +47,10 @@ export class HomepageComponent implements OnInit {
   }
 
   gotoIzvestaji() {
-    this.router.navigate([''])
+    this.router.navigate(['izvestaji'])
   }
 
   gotoProdaja() {
-    this.router.navigate([''])
+    this.router.navigate(['mp_faktura'])
   }
 }
