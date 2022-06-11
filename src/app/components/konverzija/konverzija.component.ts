@@ -3,7 +3,11 @@ import {Artikal, Konverzija, Lokacija, Preduzece} from "../../shared/konverzija.
 import {KonverzijaService} from "../../services/konverzija/konverzija.service";
 import {Form, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {switchMap} from "rxjs";
+
 import {Router} from "@angular/router";
+
+import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
+
 
 @Component({
   selector: 'app-konverzija',
@@ -26,8 +30,15 @@ export class KonverzijaComponent implements OnInit {
   constructor(
     private konverzijaService: KonverzijaService,
     private formBuilder: FormBuilder,
-    private route:Router
+
+    private route:Router,
+
+    private modalService: NgbModal,
+    config: NgbModalConfig
+
   ) {
+    config.backdrop = 'static';
+    config.centered = true;
     this.addingForm = this.formBuilder.group({
       brojKonverzije: ['', Validators.required, Validators.minLength(1)],
       datum: [new Date(), Validators.required],
@@ -132,6 +143,11 @@ export class KonverzijaComponent implements OnInit {
         }
       }
     });
+  }
+
+
+  open(content: any) {
+    this.modalService.open(content, {size: "xl"});
   }
 
   prikaziArtikle(index: number) {
