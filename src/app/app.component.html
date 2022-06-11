@@ -12,13 +12,10 @@
                aria-current="page" [routerLink]="'profil'">Profil</a>
 
             <a style="padding-left: 10px; padding-right: 10px" [hidden]="!canEvidencije()" class="nav-link active"
-               aria-current="page" [routerLink]="''">Evidencije</a>
+               aria-current="page" [routerLink]="'evidencije'">Evidencije</a>
 
             <a style="padding-left: 10px; padding-right: 10px" [hidden]="!canIzvestaji()" class="nav-link active"
                aria-current="page" [routerLink]="''">Izvestaji</a>
-
-            <a style="padding-left: 10px; padding-right: 10px" [hidden]="!canProdaja()" class="nav-link active"
-               aria-current="page" [routerLink]="''">Prodaja</a>
 
             <!-- NABAVKE -->
             <div style="padding-left: 10px; padding-right: 10px" ngbDropdown class="d-inline-block">
@@ -124,11 +121,6 @@
                 <a ngbDropdownItem [routerLink]="'povracaj'">Povraćaj</a>
 
               </ul>
-            </div>
-
-            <div ngbDropdown class="d-inline-block">
-              <a [routerLink]="'evidencije'" [hidden]="!canEvidencije()" class="nav-link active"
-                 aria-current="page">Evidencije </a>
             </div>
 
 
