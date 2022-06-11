@@ -177,7 +177,8 @@ export class InvoiceService {
 		saldo: number,
 		dokumentId: string,
 		brojNaloga: string,
-		datum: string
+		datum: string,
+    centar: number
 	) {
 		return this.http.post(
 			environment.APIEndpoint + '/api/knjizenje',
@@ -189,6 +190,7 @@ export class InvoiceService {
 					tipDokumenta: 'FAKTURA',
 				},
 				konto: kontos,
+        bazniCentarId: centar
 			},
 			{
 				headers: this.httpHeaders,
