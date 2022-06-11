@@ -19,7 +19,7 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
         with:
           fetch-depth: 1
 
