@@ -55,6 +55,7 @@ import {MatDialogModule,MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/d
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import {MatCardModule} from "@angular/material/card";
+import { ObracunComponent } from './components/obracun/obracun.component';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import {MatCardModule} from "@angular/material/card";
     ArtikalComponent,
     ProfitniCentarComponent,
     TroskovniCentarComponent,
-    ProfileComponent
+    ProfileComponent,
+    ObracunComponent
 	],
     imports: [
       BrowserModule,

@@ -37,6 +37,7 @@ import {TroskovniCentarComponent} from "./components/troskovni-centar/troskovni-
 import {ProfileComponent} from "./components/profile/profile.component";
 import {ProfileGuard} from "./guards/profile.guard";
 import {NabavkeGuard} from "./guards/nabavke.guard";
+import {ObracunComponent} from "./components/obracun/obracun.component";
 
 
 const routes: Routes = [
@@ -122,6 +123,11 @@ const routes: Routes = [
 		component: PlateZaposlenihComponent,
 		canActivate: [ObracunZaradeGuard],
 	},
+  {
+    path: 'obracun',
+    component: ObracunComponent,
+    canActivate: [ObracunZaradeGuard],
+  },
 	{
 		path: 'koeficijenti',
 		component: KoeficijentiComponent,
