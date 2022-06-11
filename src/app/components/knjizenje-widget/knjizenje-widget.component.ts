@@ -3,6 +3,7 @@ import { KontnaGrupa, Konto } from 'src/app/shared/invoice.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { InvoiceService } from 'src/app/services/invoice/invoice.service';
+import {TransakcijaService} from "../../services/transakcija/transakcija.service";
 
 @Component({
 	selector: 'app-knjizenje-widget',
@@ -30,9 +31,13 @@ export class KnjizenjeWidgetComponent implements OnInit {
 	options: string[] = [];
 	filteredOptions: Observable<KontnaGrupa[]>[] = [];
 
+  newSubBrDok: number = -1;
+  newSubDatum: string = '';
+
 	constructor(
 		public formBuilder: FormBuilder,
-		private service: InvoiceService
+		private service: InvoiceService,
+    private transakcijaService: TransakcijaService
 	) {
 		// let ktnGrp1 = new KontnaGrupa("TEST", "0001");
 		// let ktnGrp2 = new KontnaGrupa("TRTS", "0120");
@@ -47,8 +52,38 @@ export class KnjizenjeWidgetComponent implements OnInit {
 		});
 	}
 
-	ngOnInit(): void {
-		if (!this.editing) {
+  widgetTouched(): boolean {
+    if(this.brojDokumenta) return true;
+    return false;
+  }
+
+  popupYes() {
+    // @ts-ignore
+    document.getElementById("popup").style.display = "none";
+    this.brojDokumenta = this.newSubBrDok + '';
+    this.datum = this.newSubDatum;
+  }
+
+  popupNo() {
+    // @ts-ignore
+    document.getElementById("popup").style.display = "none";
+  }
+
+  ngOnInit(): void {
+
+    this.transakcijaService.subject.subscribe((obj) => {
+      this.newSubBrDok = obj.brojDokumenta;
+      this.newSubDatum = obj.datum;
+      if(this.widgetTouched()) { // @ts-ignore
+        document.getElementById("popup").style.display = "block";
+      }
+      else {
+        this.brojDokumenta = obj.brojDokumenta + '';
+        this.datum = obj.datum;
+      }
+    });
+
+    if (!this.editing) {
 			let knt4 = new Konto(
 				new KontnaGrupa('', ''),
 				0,
@@ -82,6 +117,17 @@ export class KnjizenjeWidgetComponent implements OnInit {
 			this.ktnGrps = response.content;
 		});
 	}
+
+  getAsDate(date: string) {
+    let newDate = new Date(date);
+    return (
+      newDate.getDate() +
+      '/' +
+      (newDate.getMonth() + 1) +
+      '/' +
+      newDate.getFullYear()
+    );
+  }
 
 	private _filter(value: any): KontnaGrupa[] {
 		console.log(value);

@@ -39,7 +39,12 @@ export class Invoice {
 }
 
 export class Company {
-	constructor(public naziv: string) {}
+	constructor(public naziv: string, public preduzeceId: number) {}
+}
+
+export class Preduzece {
+  constructor(public naziv: string, public preduzeceId: number) {
+  }
 }
 
 export class ResponseObject {

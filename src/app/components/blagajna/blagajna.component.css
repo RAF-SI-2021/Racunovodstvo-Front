@@ -1,0 +1,28 @@
+.custom-scrollbar {
+  display: block;
+  position: relative;
+  overflow: auto;
+  max-height: 35vh;
+}
+
+.first-row {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 999;
+}
+
+.knj-wdg {
+  border-radius: 20px;
+  border: 1px solid dimgrey;
+  margin: 20px 70px 20px 70px;
+  padding: 20px;
+}
+
+.margin-s {
+  margin-right: 5px;
+}
+
+.margin-l {
+  margin-right: 20px;
+}
