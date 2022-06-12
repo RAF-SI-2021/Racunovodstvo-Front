@@ -17,13 +17,13 @@ export class PovracajService {
 
 
   getAll() {
-    return this.http.get<PovracajModel[]>(environment.APIEndpoint + '/api/povracaji/all', {
+    return this.http.get<PovracajModel[]>(environment.knjizenjeServiceApi + '/api/povracaji/all', {
       headers: this.httpHeaders
     });
   }
 
   editPovracaj(povracajId: number, brojPovracaja: string, datum: string, prodajnaVrednost: number) {
-    return this.http.put(environment.APIEndpoint + '/api/povracaji', {
+    return this.http.put(environment.knjizenjeServiceApi + '/api/povracaji', {
       povracajId: povracajId,
       brojPovracaja: brojPovracaja,
       datumPovracaja: datum,
@@ -35,7 +35,7 @@ export class PovracajService {
 
 
   createPovracaj(brojPovracaja: string, datum: string, prodajnaVrednost: number) {
-    return this.http.post(environment.APIEndpoint + '/api/povracaji', {
+    return this.http.post(environment.knjizenjeServiceApi + '/api/povracaji', {
       brojPovracaja: brojPovracaja,
       datumPovracaja: datum,
       prodajnaVrednost: prodajnaVrednost
@@ -45,7 +45,7 @@ export class PovracajService {
   }
 
   deletePovracaj(id: number) {
-    return this.http.delete(environment.APIEndpoint + `/api/povracaji/${id}`,{
+    return this.http.delete(environment.knjizenjeServiceApi + `/api/povracaji/${id}`,{
       headers: this.httpHeaders
     })
   }

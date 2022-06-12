@@ -25,7 +25,7 @@ export class InvoiceService {
 			let value2 = date.getTime() / 1000 + 24 * 60 * 60;
 			value = '' + date.getTime() / 1000;
 			return this.http.get<Invoice[]>(
-				environment.APIEndpoint +
+				environment.knjizenjeServiceApi +
 					`/api/faktura?search=tipFakture:ULAZNA_FAKTURA,` +
 					pretraga +
 					`\>${value},` +
@@ -38,7 +38,7 @@ export class InvoiceService {
 			);
 		}
 		return this.http.get<Invoice[]>(
-			environment.APIEndpoint +
+			environment.knjizenjeServiceApi +
 				`/api/faktura?search=tipFakture:ULAZNA_FAKTURA,` +
 				pretraga +
 				`:${value}`,
@@ -55,7 +55,7 @@ export class InvoiceService {
 			let value2 = date.getTime() / 1000 + 24 * 60 * 60;
 			value = '' + date.getTime() / 1000;
 			return this.http.get<Invoice[]>(
-				environment.APIEndpoint +
+				environment.knjizenjeServiceApi +
 					`/api/faktura?search=tipFakture:IZLAZNA_FAKTURA,` +
 					pretraga +
 					`\>${value},` +
@@ -70,7 +70,7 @@ export class InvoiceService {
 		if (pretraga.includes('rokZa')) {
 			let value2 = new Date();
 			return this.http.get<Invoice[]>(
-				environment.APIEndpoint +
+				environment.knjizenjeServiceApi +
 					`/api/faktura?search=tipFakture:IZLAZNA_FAKTURA,` +
 					pretraga +
 					`\>${value2},` +
@@ -83,7 +83,7 @@ export class InvoiceService {
 			);
 		}
 		return this.http.get<Invoice[]>(
-			environment.APIEndpoint +
+			environment.knjizenjeServiceApi +
 				`/api/faktura?search=tipFakture:IZLAZNA_FAKTURA,` +
 				pretraga +
 				`:${value}`,
@@ -96,7 +96,7 @@ export class InvoiceService {
 
   svaPreduzeca() {
     return this.http.get<Company[]>(
-      environment.APIEndpoint + `/api/preduzece/all`,
+      environment.preduzeceServiceApi + `/api/preduzece/all`,
       {
         headers: this.httpHeaders,
       }
@@ -105,7 +105,7 @@ export class InvoiceService {
 
   svaPreduzeca2() {
     return this.http.get<Preduzece[]>(
-      environment.APIEndpoint + `/api/preduzece/all`,
+      environment.preduzeceServiceApi + `/api/preduzece/all`,
       {
         headers: this.httpHeaders,
       }
@@ -114,7 +114,7 @@ export class InvoiceService {
 
   svaPreduzecaIClient() {
     return this.http.get<IClient[]>(
-      environment.APIEndpoint + `/api/preduzece/all`,
+      environment.preduzeceServiceApi + `/api/preduzece/all`,
       {
         headers: this.httpHeaders,
       }
@@ -123,7 +123,7 @@ export class InvoiceService {
 
 	sveKufFakture() {
 		return this.http.get<Invoice[]>(
-			environment.APIEndpoint + `/api/faktura?search=tipFakture:ULAZNA_FAKTURA`,
+			environment.knjizenjeServiceApi + `/api/faktura?search=tipFakture:ULAZNA_FAKTURA`,
 			{
 				headers: this.httpHeaders,
 			}
@@ -132,7 +132,7 @@ export class InvoiceService {
 
   sveMpFakture() {
     return this.http.get<Invoice[]>(
-      environment.APIEndpoint + `/api/faktura?search=tipFakture:MALOPRODAJNA_FAKTURA`,
+      environment.knjizenjeServiceApi + `/api/faktura?search=tipFakture:MALOPRODAJNA_FAKTURA`,
       {
         headers: this.httpHeaders,
       }
@@ -141,7 +141,7 @@ export class InvoiceService {
 
   sveKifFakture() {
     return this.http.get<Invoice[]>(
-      environment.APIEndpoint + `/api/faktura?search=tipFakture:IZLAZNA_FAKTURA`,
+      environment.knjizenjeServiceApi + `/api/faktura?search=tipFakture:IZLAZNA_FAKTURA`,
       {
         headers: this.httpHeaders,
       }
@@ -150,7 +150,7 @@ export class InvoiceService {
 
 	obrisiFakturu(dokumentId: number) {
 		return this.http.delete<any>(
-			environment.APIEndpoint + `/api/faktura/${dokumentId}`,
+			environment.knjizenjeServiceApi + `/api/faktura/${dokumentId}`,
 			{
 				headers: this.httpHeaders,
 				observe: 'response',
@@ -160,7 +160,7 @@ export class InvoiceService {
 
 	izmeniFakturu(faktura: Invoice) {
 		return this.http.put<Response>(
-			environment.APIEndpoint + `/api/faktura`,
+			environment.knjizenjeServiceApi + `/api/faktura`,
 			{
 				fakturaId: faktura.fakturaId,
 				brojFakture: faktura.brojFakture,
@@ -192,7 +192,7 @@ export class InvoiceService {
   novaFaktura(brojFakture: string, datumIzdavanja: string, komitent: IClient, rokZaPlacanje: string, datumPlacanja: string, prodajnaVrednost: number,
               rabatProcenat: number, porezProcenat: number, valuta: string, kurs: number, naplata: number, komentar: string, tipFakture: string){
     return this.http.post<Response>(
-      environment.APIEndpoint + `/api/faktura`,
+      environment.knjizenjeServiceApi + `/api/faktura`,
       {
         brojDokumenta: brojFakture,
         brojFakture: brojFakture,
@@ -222,7 +222,7 @@ export class InvoiceService {
 
 	getKontneGrupe() {
 		return this.http.get<ResponseObject>(
-			environment.APIEndpoint + '/api/konto?sort=brojKonta',
+			environment.knjizenjeServiceApi + '/api/konto?sort=brojKonta',
 			{
 				headers: this.httpHeaders,
 			}
@@ -240,7 +240,7 @@ export class InvoiceService {
     centar: number
 	) {
 		return this.http.post(
-			environment.APIEndpoint + '/api/knjizenje',
+			environment.knjizenjeServiceApi + '/api/knjizenje',
 			{
 				datumKnjizenja: datum,
 				brojNaloga: dokumentId,

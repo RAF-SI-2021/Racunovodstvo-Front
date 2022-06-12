@@ -1,7 +1,7 @@
-const userServiceApi = 'http://localhost:8080/';
-const nabavkaServiceApi = 'http://localhost:8080/';
-const knjizenjeServiceApi = 'http://localhost:8080/';
-const preduzeceServiceApi = 'http://localhost:8080/';
+const userServiceApi = 'http://racunovodstvo/user-service/';
+const nabavkaServiceApi = 'http://racunovodstvo/nabavka-service/';
+const knjizenjeServiceApi = 'http://racunovodstvo/knjizenje-service/';
+const preduzeceServiceApi = 'http://racunovodstvo/preduzece-service/';
 
 export const environment = {
   production: true,

@@ -15,7 +15,7 @@ export class PlateZaposlenihService {
 
 	getAllPlate() {
 		return this.http.get<Plata[]>(
-			environment.APIEndpoint + `/api/plata/all`,
+			environment.preduzeceServiceApi + `/api/plata/all`,
 			{
 				headers: this.httpHeaders,
 			}
@@ -24,7 +24,7 @@ export class PlateZaposlenihService {
 
 	filterPlate(query: string) {
 		return this.http.get<Plata[]>(
-			environment.APIEndpoint + `/api/plata?search=` + query,
+			environment.preduzeceServiceApi + `/api/plata?search=` + query,
 			{
 				headers: this.httpHeaders,
 				observe: 'response',

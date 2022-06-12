@@ -18,37 +18,37 @@ export class KalkulacijeService {
 
 
   deleteKalkulacija(id: number){
-    return this.http.delete(environment.APIEndpoint+ `/api/kalkulacije/${id}`, {
+    return this.http.delete(environment.nabavkaServiceApi+ `/api/kalkulacije/${id}`, {
       headers: this.httpHeaders
     });
   }
 
   deleteArtikal(id: number){
-    return this.http.delete(environment.APIEndpoint+ `/api/artikli/${id}`, {
+    return this.http.delete(environment.nabavkaServiceApi+ `/api/artikli/${id}`, {
       headers: this.httpHeaders
     });
   }
 
   getAllKalkulacije(){
-    return this.http.get<Pageable<KalkulacijeModel>>(environment.APIEndpoint+ `/api/kalkulacije`, {
+    return this.http.get<Pageable<KalkulacijeModel>>(environment.nabavkaServiceApi+ `/api/kalkulacije`, {
       headers: this.httpHeaders
     });
   }
 
   getAllArtikli(id: number){
-    return this.http.get<Pageable<KalkulacijaArtikal>>(environment.APIEndpoint+ `/api/artikli/${id}`, {
+    return this.http.get<Pageable<KalkulacijaArtikal>>(environment.nabavkaServiceApi+ `/api/artikli/${id}`, {
       headers: this.httpHeaders
     });
   }
 
   filterKalkulacije(filter: string){
-    return this.http.get<Pageable<KalkulacijeModel>>(environment.APIEndpoint+ `/api/kalkulacije/` + filter, {
+    return this.http.get<Pageable<KalkulacijeModel>>(environment.nabavkaServiceApi+ `/api/kalkulacije/` + filter, {
       headers: this.httpHeaders
     });
   }
 
   createKalkulacija(brojKalkulacije: string, tipKalkulacije: string, datum: string, dobavljacId: number, lokacijaId: Lokacija, troskoviNabavke: TrosakNabavke[], valuta: string, komentar: string){
-    return this.http.post<KalkulacijeModel>(environment.APIEndpoint+ `/api/kalkulacije`, {
+    return this.http.post<KalkulacijeModel>(environment.nabavkaServiceApi+ `/api/kalkulacije`, {
       brojKalkulacije: brojKalkulacije,
       tipKalkulacije: tipKalkulacije,
       datum: datum,
@@ -63,7 +63,7 @@ export class KalkulacijeService {
   }
 
   updateKalkulacija(kalkulacijaId: number, brojKalkulacije: string, tipKalkulacije: string, datum: string, dobavljacId: number, lokacijaId: Lokacija, troskoviNabavke: TrosakNabavke[], valuta: string, komentar: string){
-    return this.http.put<KalkulacijeModel>(environment.APIEndpoint+ `/api/kalkulacije`, {
+    return this.http.put<KalkulacijeModel>(environment.nabavkaServiceApi+ `/api/kalkulacije`, {
       id: kalkulacijaId,
       brojKalkulacije: brojKalkulacije,
       tipKalkulacije: tipKalkulacije,
@@ -80,7 +80,7 @@ export class KalkulacijeService {
 
   createArtikal(aktivanZaProdaju: boolean, sifraArtikla: string, nazivArtikla: string, jedinicaMere: string, kolicina: number, nabavnaCena: number,
                 rabatProcenat: number, marzaProcenat: number, porezProcenat: number, prodajnaCena: number, kalkulacijaKonverzijaId: number){
-    return this.http.post<KalkulacijaArtikal>(environment.APIEndpoint+ '/api/artikli', {
+    return this.http.post<KalkulacijaArtikal>(environment.nabavkaServiceApi+ '/api/artikli', {
       aktivanZaProdaju: true,
       sifraArtikla: sifraArtikla,
       nazivArtikla: nazivArtikla,
@@ -100,7 +100,7 @@ export class KalkulacijeService {
 
   updateArtikal(artikalId: number,aktivanZaProdaju: boolean, sifraArtikla: string, nazivArtikla: string, jedinicaMere: string, kolicina: number, nabavnaCena: number,
                 rabatProcenat: number, marzaProcenat: number, porezProcenat: number, prodajnaCena: number, kalkulacijaKonverzijaId: number){
-    return this.http.put<KalkulacijaArtikal>(environment.APIEndpoint+ `/api/artikli`, {
+    return this.http.put<KalkulacijaArtikal>(environment.nabavkaServiceApi + `/api/artikli`, {
       artikalId: artikalId,
       aktivanZaProdaju: true,
       sifraArtikla: sifraArtikla,
@@ -119,7 +119,7 @@ export class KalkulacijeService {
   }
 
   getAllLokacije(){
-    return this.http.get<Lokacija[]>(environment.APIEndpoint + `/api/lokacije`, {
+    return this.http.get<Lokacija[]>(environment.nabavkaServiceApi + `/api/lokacije`, {
       headers: this.httpHeaders
     });
   }
