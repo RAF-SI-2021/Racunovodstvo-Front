@@ -19,6 +19,8 @@ export class ProfitniCentarComponent implements OnInit {
   dataSource = new MatTreeNestedDataSource<ProfitniCentar>();
   knjizenja: BookkeepingJournal[];
   selectedProfitniCentar: ProfitniCentar;
+  odgovornaLica: number[] = [];
+  lokacije: number[] = [];
 
   constructor(private knjizenjeService: BookkeepingJournalService, private profitniCentarService: ProfitniCentarService) {
   }
@@ -40,6 +42,12 @@ export class ProfitniCentarComponent implements OnInit {
 
   formatData(): void {
     this.profitniCentri.forEach(item => {
+      if (!this.odgovornaLica.includes(item.odgovornoLiceId)) {
+        this.odgovornaLica.push(item.odgovornoLiceId);
+      }
+      if (!this.lokacije.includes(item.lokacijaId)) {
+        this.lokacije.push(item.lokacijaId);
+      }
       item.profitniCentarList = this.profitniCentri.filter(function (element) {
           return element.parentProfitniCentar && element.parentProfitniCentar.id == item.id;
         }
@@ -102,12 +110,9 @@ export class ProfitniCentarComponent implements OnInit {
     }
   }
 
-  izmeniKonto(konto: Konto, editableSaldo: HTMLInputElement, editableKomentar: HTMLTextAreaElement): void {
+  izmeniKonto(konto: Konto, editableKomentar: HTMLTextAreaElement): void {
     let index: number = this.selectedProfitniCentar.kontoList.findIndex(item => item.bazniKontoId === konto.bazniKontoId);
-    console.log(index)
     let newKonto: Konto = this.selectedProfitniCentar.kontoList[index];
-    newKonto.duguje = +editableSaldo.value;
-    newKonto.potrazuje = 0;
     newKonto.komentarKnjizenja = editableKomentar.value;
     this.selectedProfitniCentar.kontoList[index] = newKonto;
     this.izmeniProfitniCentarKontos(this.selectedProfitniCentar);
@@ -119,13 +124,13 @@ export class ProfitniCentarComponent implements OnInit {
   }
 
   sacuvajProfitniCentar(newProfCentarNaziv: HTMLInputElement, newProfCentarSifra: HTMLInputElement,
-    newProfCentarLokacijaId: HTMLInputElement, newProfCentarOdgLiceId: HTMLInputElement, newProfCentarRoditelj: HTMLSelectElement): void {
+                        newProfCentarLokacijaId: HTMLSelectElement, newProfCentarOdgLiceId: HTMLSelectElement, newProfCentarRoditelj: HTMLSelectElement): void {
     let newProfitniCentar: ProfitniCentar = {
       sifra: newProfCentarSifra.value,
       naziv: newProfCentarNaziv.value,
       ukupniTrosak: 0,
-      lokacijaId: +newProfCentarLokacijaId.value,
-      odgovornoLiceId: +newProfCentarOdgLiceId.value,
+      lokacijaId: this.lokacije[newProfCentarLokacijaId.selectedIndex],
+      odgovornoLiceId: this.odgovornaLica[newProfCentarOdgLiceId.selectedIndex],
       parentProfitniCentar: this.profitniCentri[newProfCentarRoditelj.selectedIndex],
       kontoList: []
     }
@@ -134,11 +139,11 @@ export class ProfitniCentarComponent implements OnInit {
     });
   }
 
-  izmeniProfitniCentar(profCentar: ProfitniCentar, editableNazivCentra: HTMLInputElement, editableOdgLice: HTMLInputElement,
-    editablelokacijaId: HTMLInputElement): void {
+  izmeniProfitniCentar(profCentar: ProfitniCentar, editableNazivCentra: HTMLInputElement, editableOdgLice: HTMLSelectElement,
+                       editablelokacijaId: HTMLSelectElement): void {
     profCentar.naziv = editableNazivCentra.value;
-    profCentar.odgovornoLiceId = +editableOdgLice.value;
-    profCentar.lokacijaId = +editablelokacijaId.value;
+    profCentar.odgovornoLiceId = this.odgovornaLica[editableOdgLice.selectedIndex];
+    profCentar.lokacijaId = this.lokacije[editablelokacijaId.selectedIndex];
     this.profitniCentarService.update(profCentar).subscribe(data => {
       this.fetchAllProfitniCentri()
     });

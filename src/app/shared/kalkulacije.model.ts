@@ -4,7 +4,7 @@ export interface KalkulacijeModel {
   tipKalkulacije: string,
   datum: string,
   dobavljacId: number,
-  lokacijaId: Lokacija,
+  lokacija: Lokacija,
   troskoviNabavke: TrosakNabavke[],
   fakturnaCena: number,
   nabavnaVrednost: number,

@@ -126,7 +126,7 @@ export class KalkulacijeComponent implements OnInit {
         dobavljacId: 1,
         fakturnaCena: 50,
         komentar: 'test',
-        lokacijaId: this.lokacije[0],
+        lokacija: this.lokacije[0],
         nabavnaVrednost: 1000,
         prodajnaVrednost: 2000,
         troskoviNabavke: [{ cena: 100, naziv: 'test'}, { cena: 200, naziv: 'test'}],
@@ -141,7 +141,7 @@ export class KalkulacijeComponent implements OnInit {
         dobavljacId: 2,
         fakturnaCena: 55,
         komentar: 'test1',
-        lokacijaId: this.lokacije[1],
+        lokacija: this.lokacije[1],
         nabavnaVrednost: 1111,
         prodajnaVrednost: 2222,
         troskoviNabavke: [{ cena: 157, naziv: 'test'}, { cena: 111, naziv: 'test'}],
@@ -214,7 +214,7 @@ export class KalkulacijeComponent implements OnInit {
       dobavljacId: 1,
       fakturnaCena: 50,
       komentar: 'test',
-      lokacijaId: this.lokacije[0],
+      lokacija: this.lokacije[0],
       nabavnaVrednost: 1000,
       prodajnaVrednost: 2000,
       troskoviNabavke: [{ cena: 100, naziv: 'test'}, { cena: 200, naziv: 'test'}],
@@ -303,7 +303,7 @@ export class KalkulacijeComponent implements OnInit {
         dobavljacId: 1,
         fakturnaCena: 50,
         komentar: 'test',
-        lokacijaId: this.lokacije[0],
+        lokacija: this.lokacije[0],
         nabavnaVrednost: 1000,
         prodajnaVrednost: 2000,
         troskoviNabavke: [{ cena: 100, naziv: 'test'}, { cena: 200, naziv: 'test'}],
@@ -335,7 +335,7 @@ export class KalkulacijeComponent implements OnInit {
       tipKalkulacije: [kalkulacija.tipKalkulacije, Validators.required],
       datum: [kalkulacija.datum, Validators.required],
       dobavljac: [kalkulacija.dobavljacId, Validators.required],
-      lokacija: [kalkulacija.lokacijaId, Validators.required],
+      lokacija: [kalkulacija.lokacija, Validators.required],
       troskoviNabavke: [this.trosakForm, Validators.required],
       valuta: [kalkulacija.valuta, Validators.required],
       komentar: [kalkulacija.komentar]
@@ -562,7 +562,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.kolicina
     })
-    return sum.toFixed(2);
+    return Math.round(sum * 100) / 100
   }
 
   sumNabavnaCena() {
@@ -570,7 +570,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.nabavnaCena
     })
-    return sum.toFixed(2);
+    return Math.round(sum * 100) / 100
   }
 
   sumRabat() {
@@ -578,7 +578,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.rabat
     })
-    return sum.toFixed(2);
+    return Math.round(sum * 100) / 100
   }
 
   sumNabavnaCenaPosleRabata() {
@@ -586,7 +586,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.nabavnaCenaPosleRabata
     })
-    return sum.toFixed(2);
+    return Math.round(sum * 100) / 100
   }
 
   sumUkupnaNabavnaVrednost() {
@@ -594,7 +594,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.ukupnaNabavnaVrednost
     })
-    return sum.toFixed(2);
+    return Math.round(sum * 100) / 100
   }
 
   sumMarza() {
@@ -602,7 +602,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.marza
     })
-    return sum.toFixed(2);
+    return Math.round(sum * 100) / 100
   }
 
   sumProdajnaOsnovica() {
@@ -610,7 +610,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.prodajnaOsnovica
     })
-    return sum.toFixed(2);
+    return Math.round(sum * 100) / 100
   }
 
   sumPorez() {
@@ -618,7 +618,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.porez
     })
-    return sum.toFixed(2);
+    return Math.round(sum * 100) / 100
   }
 
   sumProdajnaCena() {
@@ -626,7 +626,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.prodajnaCena
     })
-    return sum.toFixed(2);
+    return Math.round(sum * 100) / 100
   }
 
   sumOsnovica() {
@@ -634,7 +634,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.osnovica
     })
-    return sum.toFixed(2);
+    return Math.round(sum * 100) / 100
   }
 
   sumUkupnaProdajnaVrednost() {
@@ -642,7 +642,7 @@ export class KalkulacijeComponent implements OnInit {
     this.artikli.forEach( value => {
       sum+= value.ukupnaProdajnaVrednost
     })
-    return sum.toFixed(2);
+    return Math.round(sum * 100) / 100
   }
 
   createNewKalk(){
@@ -656,7 +656,7 @@ export class KalkulacijeComponent implements OnInit {
         dobavljacId: 1,
         fakturnaCena: 50,
         komentar: 'test',
-        lokacijaId: this.lokacije[0],
+        lokacija: this.lokacije[0],
         nabavnaVrednost: 1000,
         prodajnaVrednost: 2000,
         troskoviNabavke: [{ cena: 100, naziv: 'test'}, { cena: 200, naziv: 'test'}],
@@ -883,6 +883,6 @@ export class KalkulacijeComponent implements OnInit {
   }
 
   format(nabavnaVrednost: number) {
-    return nabavnaVrednost.toFixed(2);
+    return Math.round(nabavnaVrednost * 100) / 100
   }
 }
