@@ -1,3 +1,5 @@
+import {BookkeepingJournal} from "./bookkeeping-journal.model";
+
 export class Invoice {
 	constructor(
 		public fakturaId: number,
@@ -47,11 +49,17 @@ export class Preduzece {
   }
 }
 
+export interface Company {
+  preduzeceId: number,
+  naziv: string
+}
+
 export class ResponseObject {
 	public content: any[] = [];
 }
 
 export class Konto {
+  bazniKontoId: number;
 	kontnaGrupa: KontnaGrupa;
 	duguje: number;
 	potrazuje: number;
@@ -59,24 +67,27 @@ export class Konto {
 	disabledKonto: boolean;
 	disabledDuguje: boolean;
 	disabledPotrazuje: boolean;
+  brojNalogaKnjizenja?: string;
+  datumKnjizenja?: string;
+  komentarKnjizenja?: string;
 
-	constructor(
-		konto: KontnaGrupa,
-		duguje: number,
-		potrazuje: number,
-		addOrDeleteEdit: boolean,
-		disabledKonto: boolean,
-		disabledDuguje: boolean,
-		disabledPotrazuje: boolean
-	) {
-		this.kontnaGrupa = konto;
-		this.duguje = duguje;
-		this.potrazuje = potrazuje;
-		this.addOrDeleteEdit = addOrDeleteEdit;
-		this.disabledKonto = disabledKonto;
-		this.disabledDuguje = disabledDuguje;
-		this.disabledPotrazuje = disabledPotrazuje;
-	}
+  constructor(
+    konto: KontnaGrupa,
+    duguje: number,
+    potrazuje: number,
+    addOrDeleteEdit: boolean,
+    disabledKonto: boolean,
+    disabledDuguje: boolean,
+    disabledPotrazuje: boolean
+  ) {
+    this.kontnaGrupa = konto;
+    this.duguje = duguje;
+    this.potrazuje = potrazuje;
+    this.addOrDeleteEdit = addOrDeleteEdit;
+    this.disabledKonto = disabledKonto;
+    this.disabledDuguje = disabledDuguje;
+    this.disabledPotrazuje = disabledPotrazuje;
+  }
 }
 
 export class KontnaGrupa {

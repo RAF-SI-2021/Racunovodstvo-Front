@@ -4,6 +4,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { InvoiceService } from 'src/app/services/invoice/invoice.service';
 import {TransakcijaService} from "../../services/transakcija/transakcija.service";
+import {ProfitniCentar, TroskovniCentar} from "../../shared/ProfitniTroskovniCentar.model";
+import {
+  TroskovniPovratniCentriService
+} from "../../services/troskovni_povratniCentri/troskovni-povratni-centri.service";
+
 
 @Component({
 	selector: 'app-knjizenje-widget',
@@ -12,6 +17,9 @@ import {TransakcijaService} from "../../services/transakcija/transakcija.service
 })
 export class KnjizenjeWidgetComponent implements OnInit {
 	kontos: Konto[] = [];
+  troskovi: TroskovniCentar[] = [];
+  profiti: ProfitniCentar[] = [];
+  checkbox: boolean = false;
 	duguje: number | undefined;
 	kontoInput: string | undefined;
 	potrazuje: any | undefined;
@@ -24,6 +32,7 @@ export class KnjizenjeWidgetComponent implements OnInit {
 
 	editing: boolean = false;
 	knjizenjeGroup: FormGroup;
+	centarForm: FormGroup;
 
 	kontoGroups: FormGroup[] = [];
 
@@ -37,7 +46,9 @@ export class KnjizenjeWidgetComponent implements OnInit {
 	constructor(
 		public formBuilder: FormBuilder,
 		private service: InvoiceService,
-    private transakcijaService: TransakcijaService
+    private transakcijaService: TransakcijaService,
+    private centri: TroskovniPovratniCentriService
+
 	) {
 		// let ktnGrp1 = new KontnaGrupa("TEST", "0001");
 		// let ktnGrp2 = new KontnaGrupa("TRTS", "0120");
@@ -50,6 +61,12 @@ export class KnjizenjeWidgetComponent implements OnInit {
 			brojNaloga: ['', Validators.required],
 			datum: ['', Validators.required],
 		});
+
+
+    this.centarForm = this.formBuilder.group({
+      centar1: [''],
+      centar2: ['']
+    });
 	}
 
   widgetTouched(): boolean {
@@ -106,7 +123,13 @@ export class KnjizenjeWidgetComponent implements OnInit {
 			});
 			this.kontos.push(knt4);
 			this.kontoGroups.push(kontoGroup);
+
 		}
+    this.profiti = [];
+    // this.profiti.push({naziv: "Profit 1"})
+    // this.profiti.push({naziv: "Profit 2"})
+    // this.troskovi.push({naziv: "Trosak 1"})
+    // this.troskovi.push({naziv: "Trosak 2"})
 		this.editing = false;
 		for (let i = 0; i < this.kontoGroups.length; i++) {
 			this.filteredOptions[i] = this.kontoGroups[i].valueChanges.pipe(
@@ -116,6 +139,18 @@ export class KnjizenjeWidgetComponent implements OnInit {
 		this.service.getKontneGrupe().subscribe((response) => {
 			this.ktnGrps = response.content;
 		});
+
+    this.centri.getProfitniCentri().subscribe((response) =>{
+      this.profiti = response.content;
+    })
+
+    this.centri.getTroskovniCentri().subscribe((response) =>{
+      this.troskovi = response.content;
+      this.centarForm = this.formBuilder.group({
+        centar1: [this.troskovi[0].id],
+        centar2: [this.profiti[0].id]
+      });
+    })
 	}
 
   getAsDate(date: string) {
@@ -137,10 +172,18 @@ export class KnjizenjeWidgetComponent implements OnInit {
 
 		return this.ktnGrps.filter(
 			(option) =>
-				option.nazivKonta.toLowerCase().includes(filterValue) ||
-				option.brojKonta.toLowerCase().includes(filterValue)
+        (option.nazivKonta.toLowerCase().includes(filterValue) ||
+				option.brojKonta.toLowerCase().includes(filterValue)) && option.brojKonta.length >= 3
 		);
 	}
+
+  changeCB(){
+    if(this.checkbox){
+      this.checkbox = false;
+    }else{
+      this.checkbox = true;
+    }
+  }
 
 	delete(index: number) {
 		this.kontos.splice(index, 1);
@@ -254,6 +297,12 @@ export class KnjizenjeWidgetComponent implements OnInit {
 				}
 			});
 		});
+    let centar;
+    if(this.checkbox){
+      centar = 	this.centarForm.get('centar2')?.value
+    }else{
+      centar = 	this.centarForm.get('centar1')?.value
+    }
 		this.service
 			.knjizenje(
 				this.kontos,
@@ -262,7 +311,8 @@ export class KnjizenjeWidgetComponent implements OnInit {
 				this.dugujeUkupnoNum - this.potrazujeUkupnoNum,
 				this.knjizenjeGroup.get('brojDokumenta')?.value,
 				this.knjizenjeGroup.get('brojNaloga')?.value,
-				this.knjizenjeGroup.get('datum')?.value
+				this.knjizenjeGroup.get('datum')?.value,
+        centar
 			)
 			.subscribe((response) => {
 				this.kontos = [];

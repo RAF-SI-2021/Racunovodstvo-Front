@@ -84,6 +84,44 @@
       </td>
     </tfoot>
   </table>
+  <div>
+    <form class="" [formGroup]="centarForm">
+       <div class="row">
+         <div class="col-sm-3">
+
+         </div>
+
+         <div class="col-sm-3">
+            <input class="btn btn-sm" type="checkbox" (click)="changeCB()"> Trosak/Profit
+         </div>
+
+
+         <div class="col-sm-3">
+            <div *ngIf="!checkbox">
+              <div>
+                <label class="form-label">Trosak:</label>
+                <select class="form-control" [formControlName]="'centar1'">
+                  <option *ngFor="let trosak of troskovi" [value]="trosak.id">{{ trosak.naziv }}</option>
+                </select>
+              </div>
+            </div>
+           <div *ngIf="checkbox">
+             <div>
+               <label class="form-label">Profit:</label>
+               <select class="form-control" [formControlName]="'centar2'">
+                 <option *ngFor="let profit of profiti" [value]="profit.id">{{ profit.naziv }}</option>
+               </select>
+             </div>
+           </div>
+         </div>
+
+
+         <div class="col-sm-3">
+
+         </div>
+       </div>
+    </form>
+  </div>
   <div class="mt-4">
     <button class="btn btn-success" [disabled]="!knjizenjeGroup.valid" (click)="knjizenje()">Kniženje</button>
   </div>

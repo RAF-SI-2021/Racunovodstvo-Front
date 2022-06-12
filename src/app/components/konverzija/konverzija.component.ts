@@ -4,6 +4,11 @@ import {KonverzijaService} from "../../services/konverzija/konverzija.service";
 import {Form, FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {switchMap} from "rxjs";
 
+import {Router} from "@angular/router";
+
+import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
+
+
 @Component({
   selector: 'app-konverzija',
   templateUrl: './konverzija.component.html',
@@ -25,7 +30,15 @@ export class KonverzijaComponent implements OnInit {
   constructor(
     private konverzijaService: KonverzijaService,
     private formBuilder: FormBuilder,
+
+    private route:Router,
+
+    private modalService: NgbModal,
+    config: NgbModalConfig
+
   ) {
+    config.backdrop = 'static';
+    config.centered = true;
     this.addingForm = this.formBuilder.group({
       brojKonverzije: ['', Validators.required, Validators.minLength(1)],
       datum: [new Date(), Validators.required],
@@ -132,6 +145,11 @@ export class KonverzijaComponent implements OnInit {
     });
   }
 
+
+  open(content: any) {
+    this.modalService.open(content, {size: "xl"});
+  }
+
   prikaziArtikle(index: number) {
     let konverzija = this.konverzije[index];
     if (index == this.shownIndex) {
@@ -163,8 +181,8 @@ export class KonverzijaComponent implements OnInit {
 
   dodajKonverziju() {
     if (this.addingForm.invalid){
-        this.errorMessage = 'Forma nije popunjena'
-        return;
+      this.errorMessage = 'Forma nije popunjena'
+      return;
     }
     this.errorMessage = ''
 
@@ -185,6 +203,12 @@ export class KonverzijaComponent implements OnInit {
       valuta: this.addingForm.get('valuta')?.value,
       komentar: this.addingForm.get('komentar')?.value
     }).subscribe(konverzija => {
+      for (let dobavljac of this.dobavljaci) {
+        if (dobavljac.preduzeceId === konverzija.dobavljacId) {
+          konverzija.nazivDobavljaca = dobavljac.naziv;
+          break;
+        }
+      }
       this.konverzije.push(konverzija)
     })
   }
@@ -260,5 +284,9 @@ export class KonverzijaComponent implements OnInit {
     this.addingFormArtikal.get('rabat')?.setValue(this.addingFormArtikal.get('nabavnaCena')?.value * (this.addingFormArtikal.get('rabatProcenat')?.value/100))
     this.addingFormArtikal.get('nabavnaCenaPosleRabata')?.setValue(this.addingFormArtikal.get('nabavnaCena')?.value - this.addingFormArtikal.get('rabat')?.value)
     this.addingFormArtikal.get('ukupnaNabavnaVrednost')?.setValue(this.addingFormArtikal.get('nabavnaCenaPosleRabata')?.value * this.addingFormArtikal.get('kolicina')?.value)
+  }
+
+  prikaziArtikal(id: number) {
+    this.route.navigate(['/artikal/'+id]);
   }
 }

@@ -35,22 +35,22 @@ export class HomepageComponent implements OnInit {
   }
 
   gotoProfile() {
-    this.router.navigate(['profile'])
+    this.router.navigate(['profil'])
   }
 
   gotoEvidencije() {
-    this.router.navigate([''])
+    this.router.navigate(['evidencije'])
   }
 
   gotoNabavke() {
-    this.router.navigate([''])
+    this.router.navigate(['kalkulacije'])
   }
 
   gotoIzvestaji() {
-    this.router.navigate([''])
+    this.router.navigate(['izvestaji'])
   }
 
   gotoProdaja() {
-    this.router.navigate([''])
+    this.router.navigate(['mp_faktura'])
   }
 }

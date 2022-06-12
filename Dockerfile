@@ -7,6 +7,8 @@ RUN npm run build
 
 FROM nginx:latest as prod
 
+LABEL org.opencontainers.image.source https://github.com/RAF-SI-2021/Racunovodstvo-Front
+
 COPY --from=build /usr/local/app/dist/racunovodstvo /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80

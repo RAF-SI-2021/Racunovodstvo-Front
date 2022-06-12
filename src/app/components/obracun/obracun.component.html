@@ -1,0 +1,101 @@
+<!--https://www.geeksforgeeks.org/angular-ng-bootstrap-collapse-component/-->
+<div class="row">
+  <div class="col-sm-5"></div>
+  <div class="card col-sm-5" style="width: 18rem; text-align: center">
+    <div class="card-body">
+      <h5 class="card-title">Dan</h5>
+      <!-- dan     sifra: naziv-->
+      <h5 class="card-title">Obračun će se generisati svakog {{zakazanDan}} u mesecu pod šifrom {{zakazanaSifra}}</h5>
+
+      <div [formGroup]="obracun">
+        <input type="text" class="form-control"  [formControlName]="'dan'">
+      </div>
+      <br>
+      <label class="labelClass">Šifra transakcije</label>
+      <select class="form-control" [ngModel]="selectovanaSifra">
+        <option *ngFor="let sifra of sifreTransakcija" [value]="sifra.sifraTransakcijeId">{{sifra.sifra + ": " + sifra.nazivTransakcije}}</option>
+      </select>
+
+      <button class="btn btn-sm btn-primary" (click)="zakazi()">Zakaži</button>
+
+    </div>
+  </div>
+
+</div>
+<br><br>
+<div>
+  <div class="view" *ngFor="let obracun of obracuni; index as i">
+    <div class="div_hover mx-10" style="border: 1px solid; border-radius: 5px; text-align: center;">
+
+      <div style="height: 3rem; font-size: large; " (click)="collapse.toggle();"
+           [attr.aria-expanded]="!flagovi[i]"
+           aria-controls="collapseExample">
+        {{obracun.datumObracuna | date : 'MM/YY'}}
+      </div>
+
+      <div #collapse="ngbCollapse"
+           [(ngbCollapse)]="flagovi[i]">
+        <div class="card">
+          <div class="card-body">
+
+            <!--            Angular10 ng bootstrap-->
+            <!--            {{datum | date : 'MM/YY'}}-->
+
+            <div class="mt-4">
+              <table class="table table-striped table-responsive-sm">
+                <thead>
+                <tr>
+                  <th>Šifra zaposlenog</th>
+                  <th>Ime i prezime</th>
+                  <th>Neto plata</th>
+                  <th>Porez</th>
+                  <th>Doprinos 1</th>
+                  <th>Bruto plata</th>
+                  <th>Doprinos 2</th>
+                  <th>Ucinak %(decimalni broj)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let obracun2 of obracuni[i].obracunZaposleniList; index as j">
+                  <td>{{ obracun2.zaposleni.zaposleniId }}</td>
+                  <td>{{ obracun2.zaposleni.ime }} {{obracun2.zaposleni.prezime}}</td>
+                  <td><input size="4" maxlength="3" min="1" max="100" type="text" [(ngModel)]="obracun2.netoPlata"></td>
+                  <td>{{ obracun2.porez}}</td>
+                  <td>{{ obracun2.doprinos1}}</td>
+                  <td>{{ obracun2.brutoPlata}}</td>
+                  <td>{{ obracun2.doprinos2}}</td>
+                  <td><input size="4" maxlength="3" min="1" max="100" type="text" [(ngModel)]="obracun2.ucinak"></td>
+                  <td>
+                    <button class="btn btn-warning"
+                            (click)="updateZaposleni(obracun2.obracunZaposleniId, obracun2.netoPlata, obracun2.ucinak, i, j)">
+                      Update
+                    </button>
+                  </td>
+                  <td>
+                    <button class="btn btn-danger" (click)="deleteZaposleni(obracun2.obracunZaposleniId, i, j)">Delete
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td>{{zbirNetoPlata(obracuniZaposleni)}}</td>
+                  <td>{{zbirPorez(obracuniZaposleni)}}</td>
+                  <td>{{zbirDoprinos11(obracuniZaposleni)}}</td>
+                  <td>{{zbirBrutoPlata(obracuniZaposleni)}}</td>
+                  <td>{{zbirDoprinosi2(obracuniZaposleni)}}</td>
+                  <td>{{zbirUkupanTrosakZarade(obracuniZaposleni)}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <button [disabled]="obracuni[i].obradjen" (click)="izvrsiTransakciju(obracun.obracunId)" class="btn btn-danger mx-5">Izvrsi transakciju</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

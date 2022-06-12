@@ -4,7 +4,7 @@ export interface Konverzija{
   datum: Date;
   dobavljacId: number;
   // lokacijaId: number;
-  troskoviNabavke: [TrosakNabavke];
+  troskoviNabavke: TrosakNabavke[];
   fakturnaCena: number;
   nabavnaVrednost: number;
   valuta: string;
@@ -37,8 +37,9 @@ export interface Preduzece{
 }
 
 export interface TrosakNabavke{
-  trosakId: number;
-  trosak: number;
+  troskoviNabavkeId: number;
+  cena: number;
+  naziv: string;
 }
 
 export interface Artikal{
@@ -53,5 +54,11 @@ export interface Artikal{
   nabavnaCenaPosleRabata: number;
   ukupnaNabavnaVrednost: number;
   konverzijaKalkulacijaId: number;
+  prodajnaCena: number;
+  istorijaProdajneCene: Istorija
 }
 
+export interface Istorija{
+  timestamp: string;
+  prodajnaCena: number
+}

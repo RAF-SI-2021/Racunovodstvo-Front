@@ -6,6 +6,7 @@ export const environment = {
 	production: false,
 
 	APIEndpoint: 'http://localhost:8080',
+	APIEndpoint1: 'http://localhost:8081',
 
 	add_upd_del_user: 'http://localhost:8080/api/users/',
 	list_users: 'http://localhost:8080/api/users/all',
@@ -21,6 +22,11 @@ export const environment = {
 
   bilans_stanja: 'http://localhost:8080/api/izvestaji/stanje',
   bilans_uspeha: 'http://localhost:8080/api/izvestaji/uspeh',
+
+  profitniCentriApi: 'http://localhost:8080/api/profitni-centri',
+
+  troskovni_centar: 'http://localhost:8080/api/troskovni-centri'
+
 };
 
 /*

@@ -1,4 +1,69 @@
 <!--  Tabela   -->
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header text-center">
+    <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form class="form-control">
+      <h3 class="text-center">Fakturisanje</h3>
+      <div class="row">
+        <div class="col-sm-6">
+          <label class="labelClass">Broj:</label>
+          <input class="form-control" type="text">
+        </div>
+
+        <!--        <div class="col-sm-2">-->
+        <!--          <label class="labelClass">Tip:</label>-->
+        <!--          <select class="form-control" type="text">-->
+        <!--            <option value="MALOPRODAJA">Maloprodaja</option>-->
+        <!--            <option value="VELEPRODAJA">Veleprodaja</option>-->
+        <!--          </select>-->
+        <!--        </div>-->
+
+        <div class="col-sm-6">
+          <label class="labelClass">Datum:</label>
+          <input class="form-control" type="date">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-4">
+          <label class="labelClass">Dobavljac:</label>
+          <select class="form-control" type="text">
+            <option *ngFor="let company of dobavljaci; index as i">{{ company.naziv}} </option>
+          </select>
+        </div>
+
+        <div class="col-sm-4">
+          <label class="labelClass">Lokacija:</label>
+          <select class="form-control" type="text">
+            <option *ngFor="let lokacija of lokacije; index as i">{{ lokacija.naziv }}
+              - {{ lokacija.adresa}} </option>
+          </select>
+        </div>
+
+        <div class="col-sm-4">
+          <label class="labelClass">Valuta:</label>
+          <input class="form-control" type="text">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <label class="labelClass">Komentar:</label>
+          <textarea class="form-control" type="text"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Sacuvaj</button>
+  </div>
+</ng-template>
+
+<div class="text-center mb-2 mt-3">
+  <button class="btn btn-sm btn-primary" (click)="open(content)">Fakturiši</button>
+</div>
 
 <table class="table table-bordered">
   <thead>
@@ -13,22 +78,28 @@
     <th scope="col">Nabavna vrednost</th>
     <th scope="col">Valuta</th>
     <th scope="col">Komentar</th>
+    <th scope="col">Fakturisano</th>
     <th scope="col">Brisanje</th>
   </tr>
   </thead>
   <tbody *ngFor="let konverzija of konverzije; index as i">
+
+
 
   <tr (dblclick)="prikaziArtikle(i)">
     <th scope="row">{{ i + 1 }}</th>
     <td>{{ konverzija.brojKonverzije }}</td>
     <td>{{ konverzija.datum | date }}</td>
     <td>{{ konverzija.nazivDobavljaca }}</td>
-    <td>{{ konverzija.nazivLokacija + ", " + konverzija.adresaLokacije}}</td>
-    <td>{{ konverzija.troskoviNabavke }}</td>
+    <td>{{ konverzija.lokacija.naziv + ", " + konverzija.lokacija.adresa}}</td>
+    <td><div *ngFor="let trosak of konverzija.troskoviNabavke">{{ trosak.naziv + ": " + trosak.cena }}</div></td>
     <td>{{ konverzija.fakturnaCena }}</td>
     <td>{{ konverzija.nabavnaVrednost }}</td>
     <td>{{ konverzija.valuta }}</td>
     <td>{{ konverzija.komentar }}</td>
+    <td>
+      <input type="checkbox" class="form-check-input">
+    </td>
     <td>
       <button class="btn btn-danger" (click)="delete(konverzija.konverzijaId)">Brisanje</button>
     </td>
@@ -51,7 +122,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let artikal of artikli; index as i">
+        <tr (dblclick)="prikaziArtikal(artikal.artikalId)" *ngFor="let artikal of artikli; index as i">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ artikal.sifraArtikla }}</td>
           <td>{{ artikal.nazivArtikla }}</td>
@@ -216,10 +287,10 @@
   <!--    Obavezno polje-->
   <!--  </span>-->
 
-    <label class="form-label">Fakturna cena</label>
-    <input [formControlName]="'fakturnaCena'" type="text" class="form-control form-control-lg"  />
-    <span class="text-danger"
-          *ngIf="addingForm.controls['fakturnaCena'].dirty && addingForm.hasError('required','fakturnaCena')">
+  <label class="form-label">Fakturna cena</label>
+  <input [formControlName]="'fakturnaCena'" type="text" class="form-control form-control-lg"  />
+  <span class="text-danger"
+        *ngIf="addingForm.controls['fakturnaCena'].dirty && addingForm.hasError('required','fakturnaCena')">
       Obavezno polje
     </span>
 

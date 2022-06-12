@@ -10,8 +10,7 @@ export class NabavkeGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return sessionStorage.getItem(Authority.NABAVKA) != null;
-
+    return sessionStorage.getItem(Authority.NABAVKE) != null;
   }
 
 }
