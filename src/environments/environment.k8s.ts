@@ -1,7 +1,7 @@
-const userServiceApi = 'http://racunovodstvo/user-service/';
-const nabavkaServiceApi = 'http://racunovodstvo/nabavka-service/';
-const knjizenjeServiceApi = 'http://racunovodstvo/knjizenje-service/';
-const preduzeceServiceApi = 'http://racunovodstvo/preduzece-service/';
+const userServiceApi = 'http://racunovodstvo/user-service';
+const nabavkaServiceApi = 'http://racunovodstvo/nabavka-service';
+const knjizenjeServiceApi = 'http://racunovodstvo/knjizenje-service';
+const preduzeceServiceApi = 'http://racunovodstvo/preduzece-service';
 
 export const environment = {
   production: true,
@@ -28,6 +28,9 @@ export const environment = {
 
   profitniCentriApi: knjizenjeServiceApi + '/api/profitni-centri',
 
-  troskovni_centar: knjizenjeServiceApi + '/api/troskovni-centri'
+  troskovni_centar: knjizenjeServiceApi + '/api/troskovni-centri',
+
+  lokacijeApi: nabavkaServiceApi + '/api/lokacije',
+  zaposleniApi: preduzeceServiceApi + '/api/zaposleni'
 
 };

@@ -7,7 +7,7 @@ import { IClient } from '../../shared/client.model';
 	providedIn: 'root',
 })
 export class AddNewClientService {
-	private readonly api = 'http://localhost:8080/api/preduzece';
+	private readonly api = '/api/preduzece';
 	private readonly options = { headers: { Authorization: 'Bearer ' } };
 
 	constructor(private httpClient: HttpClient) {

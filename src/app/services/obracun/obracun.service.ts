@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {Obracun, ObracunZaposleni, ObracunZaradeConfig, SifraTransakcije} from "../../shared/obracun.model";
+import {Pageable} from "../../shared/pageable.model";
 
 @Injectable({
   providedIn: 'root'
@@ -30,15 +31,14 @@ export class ObracunService {
   }
   getDanSifraTransakcijeId(): Observable<ObracunZaradeConfig>{
     const headers = { Authorization: `Bearer ${this.jwt}` };
-    return this.httpClient.get<ObracunZaradeConfig>(environment.preduzeceServiceApi+`api/obracun_zarade_config`, {
+    return this.httpClient.get<ObracunZaradeConfig>(environment.preduzeceServiceApi+`/api/obracun_zarade_config`, {
       headers: headers
     })
   }
 
-  getTransakcije(): Observable<SifraTransakcije[]>{
+  getTransakcije(): Observable<Pageable<SifraTransakcije>>{
     const headers = { Authorization: `Bearer ${this.jwt}` };
-
-    return this.httpClient.get<SifraTransakcije[]>(environment.preduzeceServiceApi+`/api/sifraTransakcije`, {
+    return this.httpClient.get<Pageable<SifraTransakcije>>(environment.preduzeceServiceApi+`/api/sifraTransakcije`, {
       headers: headers
     })
 
@@ -51,12 +51,12 @@ export class ObracunService {
     })
   }
 
-  update(dan: number, sifraTransakcijeId: string): Observable<any>{
+  update(dan: number, sifraTransakcijeId: number): Observable<any>{
     const headers = { Authorization: `Bearer ${this.jwt}` };
     console.log("POSLATA SIFRA: " + sifraTransakcijeId);
     return this.httpClient.post<any>(environment.preduzeceServiceApi+`api/obracun_zarade_config`, {
       dayOfMonth: dan,
-      SifraTransakcijeId: sifraTransakcijeId
+      sifraTransakcijeId: sifraTransakcijeId
     }, {headers: headers})
   }
 

@@ -8,7 +8,7 @@ const knjizenjeServiceApi = 'http://localhost:8080';
 const preduzeceServiceApi = 'http://localhost:8080';
 
 export const environment = {
-	production: false,
+  production: false,
 
   userServiceApi: userServiceApi,
   nabavkaServiceApi: nabavkaServiceApi,
@@ -32,7 +32,10 @@ export const environment = {
 
   profitniCentriApi: knjizenjeServiceApi + '/api/profitni-centri',
 
-  troskovni_centar: knjizenjeServiceApi + '/api/troskovni-centri'
+  troskovni_centar: knjizenjeServiceApi + '/api/troskovni-centri',
+
+  lokacijeApi: nabavkaServiceApi + '/api/lokacije',
+  zaposleniApi: preduzeceServiceApi + '/api/zaposleni'
 
 };
 
