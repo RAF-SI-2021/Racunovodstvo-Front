@@ -30,6 +30,6 @@ export interface SifraTransakcije{
 }
 
 export interface ObracunZaradeConfig{
-  dayOfMonth: number;
-  SifraTransakcijeId: number;
+  "dayOfMonth": number,
+  "sifraTransakcije": SifraTransakcije
 }

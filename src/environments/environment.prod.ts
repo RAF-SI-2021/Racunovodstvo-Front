@@ -10,6 +10,8 @@ export const environment = {
   nabavkaServiceApi: nabavkaServiceApi,
   knjizenjeServiceApi: knjizenjeServiceApi,
   preduzeceServiceApi: preduzeceServiceApi,
+  APIEndpoint: 'http://localhost:8080',
+  APIEndpoint1: 'http://localhost:8081',
 
   add_upd_del_user: userServiceApi + 'api/users/',
   list_users: userServiceApi + 'api/users/all',

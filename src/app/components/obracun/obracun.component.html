@@ -3,20 +3,21 @@
   <div class="col-sm-5"></div>
   <div class="card col-sm-5" style="width: 18rem; text-align: center">
     <div class="card-body">
+      <h6 class="card-title">Obračun će se generisati svakog {{zakazanDan}} u mesecu pod šifrom {{zakazanaSifra}}</h6>
+
       <h5 class="card-title">Dan</h5>
       <!-- dan     sifra: naziv-->
-      <h5 class="card-title">Obračun će se generisati svakog {{zakazanDan}} u mesecu pod šifrom {{zakazanaSifra}}</h5>
 
       <div [formGroup]="obracun">
         <input type="text" class="form-control"  [formControlName]="'dan'">
       </div>
       <br>
-      <label class="labelClass">Šifra transakcije</label>
-      <select class="form-control" [ngModel]="selectovanaSifra">
+      <h5 class="card-title">Šifra transakcije</h5>
+      <select class="form-control" [(ngModel)]="selectovanaSifra">
         <option *ngFor="let sifra of sifreTransakcija" [value]="sifra.sifraTransakcijeId">{{sifra.sifra + ": " + sifra.nazivTransakcije}}</option>
       </select>
-
-      <button class="btn btn-sm btn-primary" (click)="zakazi()">Zakaži</button>
+      <br>
+      <button class="btn btn-sm btn-primary" (click)="zakazi()">Promeni</button>
 
     </div>
   </div>
@@ -60,10 +61,10 @@
                   <td>{{ obracun2.zaposleni.zaposleniId }}</td>
                   <td>{{ obracun2.zaposleni.ime }} {{obracun2.zaposleni.prezime}}</td>
                   <td><input size="4" maxlength="3" min="1" max="100" type="text" [(ngModel)]="obracun2.netoPlata"></td>
-                  <td>{{ obracun2.porez}}</td>
-                  <td>{{ obracun2.doprinos1}}</td>
-                  <td>{{ obracun2.brutoPlata}}</td>
-                  <td>{{ obracun2.doprinos2}}</td>
+                  <td>{{ obracun2.porez.toFixed(2)}}</td>
+                  <td>{{ obracun2.doprinos1.toFixed(2)}}</td>
+                  <td>{{ obracun2.brutoPlata.toFixed(2)}}</td>
+                  <td>{{ obracun2.doprinos2.toFixed(2)}}</td>
                   <td><input size="4" maxlength="3" min="1" max="100" type="text" [(ngModel)]="obracun2.ucinak"></td>
                   <td>
                     <button class="btn btn-warning"
