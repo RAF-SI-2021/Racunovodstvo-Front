@@ -28,6 +28,9 @@ export const environment = {
 
   profitniCentriApi: knjizenjeServiceApi + 'api/profitni-centri',
 
-  troskovni_centar: knjizenjeServiceApi + 'api/troskovni-centri'
+  troskovni_centar: knjizenjeServiceApi + 'api/troskovni-centri',
+
+  lokacijeApi: 'http://localhost:8080/api/lokacije',,
+  zaposleniApi: 'http://localhost:8080/api/zaposleni'
 
 };

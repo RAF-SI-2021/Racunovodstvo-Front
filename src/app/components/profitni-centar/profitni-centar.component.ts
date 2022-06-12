@@ -6,6 +6,8 @@ import {BookkeepingJournal} from "../../shared/bookkeeping-journal.model";
 import {BookkeepingJournalService} from "../../services/bookkeeping-journal/bookkeeping-journal.service";
 import {ProfitniCentarService} from "../../services/profitni-centar/profitni-centar.service";
 import {Konto} from "../../shared/invoice.model";
+import {Zaposleni} from "../../shared/profile.model";
+import {Lokacija} from "../../shared/konverzija.model";
 
 @Component({
   selector: 'app-profitni-centar',
@@ -19,8 +21,8 @@ export class ProfitniCentarComponent implements OnInit {
   dataSource = new MatTreeNestedDataSource<ProfitniCentar>();
   knjizenja: BookkeepingJournal[];
   selectedProfitniCentar: ProfitniCentar;
-  odgovornaLica: number[] = [];
-  lokacije: number[] = [];
+  odgovornaLica: Zaposleni[] = [];
+  lokacije: Lokacija[] = [];
 
   constructor(private knjizenjeService: BookkeepingJournalService, private profitniCentarService: ProfitniCentarService) {
   }
@@ -38,16 +40,18 @@ export class ProfitniCentarComponent implements OnInit {
       this.formatData();
       this.dataSource.data = this.profitniCentri;
     })
+
+    this.profitniCentarService.getAllLokacije().subscribe(data => {
+      this.lokacije = data;
+    })
+
+    this.profitniCentarService.getAllOdgovornaLica().subscribe(data => {
+      this.odgovornaLica = data;
+    })
   }
 
   formatData(): void {
     this.profitniCentri.forEach(item => {
-      if (!this.odgovornaLica.includes(item.odgovornoLiceId)) {
-        this.odgovornaLica.push(item.odgovornoLiceId);
-      }
-      if (!this.lokacije.includes(item.lokacijaId)) {
-        this.lokacije.push(item.lokacijaId);
-      }
       item.profitniCentarList = this.profitniCentri.filter(function (element) {
           return element.parentProfitniCentar && element.parentProfitniCentar.id == item.id;
         }
@@ -129,8 +133,8 @@ export class ProfitniCentarComponent implements OnInit {
       sifra: newProfCentarSifra.value,
       naziv: newProfCentarNaziv.value,
       ukupniTrosak: 0,
-      lokacijaId: this.lokacije[newProfCentarLokacijaId.selectedIndex],
-      odgovornoLiceId: this.odgovornaLica[newProfCentarOdgLiceId.selectedIndex],
+      lokacijaId: this.lokacije[newProfCentarLokacijaId.selectedIndex].lokacijaId,
+      odgovornoLiceId: this.odgovornaLica[newProfCentarOdgLiceId.selectedIndex].zaposleniId,
       parentProfitniCentar: this.profitniCentri[newProfCentarRoditelj.selectedIndex],
       kontoList: []
     }
@@ -142,8 +146,8 @@ export class ProfitniCentarComponent implements OnInit {
   izmeniProfitniCentar(profCentar: ProfitniCentar, editableNazivCentra: HTMLInputElement, editableOdgLice: HTMLSelectElement,
                        editablelokacijaId: HTMLSelectElement): void {
     profCentar.naziv = editableNazivCentra.value;
-    profCentar.odgovornoLiceId = this.odgovornaLica[editableOdgLice.selectedIndex];
-    profCentar.lokacijaId = this.lokacije[editablelokacijaId.selectedIndex];
+    profCentar.odgovornoLiceId = this.odgovornaLica[editableOdgLice.selectedIndex].zaposleniId;
+    profCentar.lokacijaId = this.lokacije[editablelokacijaId.selectedIndex].lokacijaId;
     this.profitniCentarService.update(profCentar).subscribe(data => {
       this.fetchAllProfitniCentri()
     });

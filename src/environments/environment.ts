@@ -8,22 +8,22 @@ const knjizenjeServiceApi = 'http://localhost:8080/';
 const preduzeceServiceApi = 'http://localhost:8080/';
 
 export const environment = {
-	production: false,
+  production: false,
 
   userServiceApi: userServiceApi,
   nabavkaServiceApi: nabavkaServiceApi,
   knjizenjeServiceApi: knjizenjeServiceApi,
   preduzeceServiceApi: preduzeceServiceApi,
 
-	add_upd_del_user: userServiceApi + 'api/users/',
-	list_users: userServiceApi + 'api/users/all',
+  add_upd_del_user: userServiceApi + 'api/users/',
+  list_users: userServiceApi + 'api/users/all',
 
-	authApi: userServiceApi + 'auth',
-	permissionApi: userServiceApi + 'api/permissions',
-	userApi: userServiceApi + 'api/users',
+  authApi: userServiceApi + 'auth',
+  permissionApi: userServiceApi + 'api/permissions',
+  userApi: userServiceApi + 'api/users',
 
-	kontnaGrupaApi: knjizenjeServiceApi + 'api/konto',
-	brutoBilansApi: knjizenjeServiceApi + 'api/bilans',
+  kontnaGrupaApi: knjizenjeServiceApi + 'api/konto',
+  brutoBilansApi: knjizenjeServiceApi + 'api/bilans',
   izvestajiApi: knjizenjeServiceApi + 'api/izvestaji',
   analitkceKarticeApi: knjizenjeServiceApi + 'api/knjizenje/analitickeKartice',
 
@@ -32,7 +32,9 @@ export const environment = {
 
   profitniCentriApi: knjizenjeServiceApi + 'api/profitni-centri',
 
-  troskovni_centar: knjizenjeServiceApi + 'api/troskovni-centri'
+  troskovni_centar: knjizenjeServiceApi + 'api/troskovni-centri',
+  lokacijeApi: 'http://localhost:8080/api/lokacije',
+  zaposleniApi: 'http://localhost:8080/api/zaposleni'
 
 };
 
