@@ -1,7 +1,7 @@
-const userServiceApi = 'http://racunovodstvo/user-service/';
-const nabavkaServiceApi = 'http://racunovodstvo/nabavka-service/';
-const knjizenjeServiceApi = 'http://racunovodstvo/knjizenje-service/';
-const preduzeceServiceApi = 'http://racunovodstvo/preduzece-service/';
+const userServiceApi = 'http://racunovodstvo/user-service';
+const nabavkaServiceApi = 'http://racunovodstvo/nabavka-service';
+const knjizenjeServiceApi = 'http://racunovodstvo/knjizenje-service';
+const preduzeceServiceApi = 'http://racunovodstvo/preduzece-service';
 
 export const environment = {
   production: true,
@@ -11,23 +11,26 @@ export const environment = {
   knjizenjeServiceApi: knjizenjeServiceApi,
   preduzeceServiceApi: preduzeceServiceApi,
 
-  add_upd_del_user: userServiceApi + 'api/users/',
-  list_users: userServiceApi + 'api/users/all',
+  add_upd_del_user: userServiceApi + '/api/users/',
+  list_users: userServiceApi + '/api/users/all',
 
-  authApi: userServiceApi + 'auth',
-  permissionApi: userServiceApi + 'api/permissions',
-  userApi: userServiceApi + 'api/users',
+  authApi: userServiceApi + '/auth',
+  permissionApi: userServiceApi + '/api/permissions',
+  userApi: userServiceApi + '/api/users',
 
-  kontnaGrupaApi: knjizenjeServiceApi + 'api/konto',
-  brutoBilansApi: knjizenjeServiceApi + 'api/bilans',
-  izvestajiApi: knjizenjeServiceApi + 'api/izvestaji',
-  analitkceKarticeApi: knjizenjeServiceApi + 'api/knjizenje/analitickeKartice',
+  kontnaGrupaApi: knjizenjeServiceApi + '/api/konto',
+  brutoBilansApi: knjizenjeServiceApi + '/api/bilans',
+  izvestajiApi: knjizenjeServiceApi + '/api/izvestaji',
+  analitkceKarticeApi: knjizenjeServiceApi + '/api/knjizenje/analitickeKartice',
 
-  bilans_stanja: knjizenjeServiceApi + 'api/izvestaji/stanje',
-  bilans_uspeha: knjizenjeServiceApi + 'api/izvestaji/uspeh',
+  bilans_stanja: knjizenjeServiceApi + '/api/izvestaji/stanje',
+  bilans_uspeha: knjizenjeServiceApi + '/api/izvestaji/uspeh',
 
-  profitniCentriApi: knjizenjeServiceApi + 'api/profitni-centri',
+  profitniCentriApi: knjizenjeServiceApi + '/api/profitni-centri',
 
-  troskovni_centar: knjizenjeServiceApi + 'api/troskovni-centri'
+  troskovni_centar: knjizenjeServiceApi + '/api/troskovni-centri',
+
+  lokacijeApi: nabavkaServiceApi + '/api/lokacije',
+  zaposleniApi: preduzeceServiceApi + '/api/zaposleni'
 
 };

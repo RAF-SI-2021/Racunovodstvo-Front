@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IClient } from '../../shared/client.model';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
 	providedIn: 'root',
 })
 export class AddNewClientService {
-	private readonly api = 'http://localhost:8080/api/preduzece';
+	private readonly api = environment.preduzeceServiceApi + '/api/preduzece';
 	private readonly options = { headers: { Authorization: 'Bearer ' } };
 
 	constructor(private httpClient: HttpClient) {

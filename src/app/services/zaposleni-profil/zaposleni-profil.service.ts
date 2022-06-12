@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Plata, Zaposleni } from '../../shared/profile.model';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
 	providedIn: 'root',
@@ -14,7 +15,7 @@ export class ZaposleniProfilService {
 			Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
 		};
 		return this.httpClient.get<Zaposleni>(
-			`http://localhost:8080/api/zaposleni/${id}`,
+			environment.preduzeceServiceApi + `/api/zaposleni/${id}`,
 			{
 				headers: headers,
 			}
@@ -26,7 +27,7 @@ export class ZaposleniProfilService {
 			Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
 		};
 		return this.httpClient.get<Plata[]>(
-			`http://localhost:8080/api/zaposleni/${id}/plata`,
+			environment.preduzeceServiceApi + `/api/zaposleni/${id}/plata`,
 			{
 				headers: headers,
 			}
@@ -38,7 +39,7 @@ export class ZaposleniProfilService {
 			Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
 		};
 		return this.httpClient.post<Plata>(
-			`http://localhost:8080/api/plata/`,
+			environment.preduzeceServiceApi + `/api/plata/`,
 			{
 				datum: new Date(),
 				netoPlata: plata,
@@ -71,7 +72,7 @@ export class ZaposleniProfilService {
 			Authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
 		};
 		return this.httpClient.put<Zaposleni>(
-			`http://localhost:8080/api/zaposleni/${zaposleniId}`,
+			environment.preduzeceServiceApi + `/api/zaposleni/${zaposleniId}`,
 			{
 				zaposleniId: zaposleniId,
 				ime: ime,
