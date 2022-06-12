@@ -15,7 +15,7 @@ export class TransakcijaService {
   constructor(private http: HttpClient) {}
 
   getAllTransactions(): Observable<Pageable<Transakcija>> {
-    return this.http.get<Pageable<Transakcija>>(environment.APIEndpoint + `/api/transakcije`, {
+    return this.http.get<Pageable<Transakcija>>(environment.knjizenjeServiceApi + `/api/transakcije`, {
         headers: new HttpHeaders({
           Authorization: 'Bearer ' + sessionStorage.getItem('jwt'),
         }),
@@ -30,7 +30,7 @@ export class TransakcijaService {
       let value2 = date.getTime() / 1000 + 24 * 60 * 60;
       value = '' + date.getTime() / 1000;
 
-      return this.http.get<Pageable<Transakcija>>(environment.APIEndpoint + `/api/transakcije?search=` +
+      return this.http.get<Pageable<Transakcija>>(environment.knjizenjeServiceApi + `/api/transakcije?search=` +
         filter + `\>${value},` +
         filter + `\<${value2}`,
         {
@@ -41,7 +41,7 @@ export class TransakcijaService {
       );
     }
 
-    return this.http.get<Pageable<Transakcija>>(environment.APIEndpoint + `/api/transakcije?search=` +
+    return this.http.get<Pageable<Transakcija>>(environment.knjizenjeServiceApi + `/api/transakcije?search=` +
       filter + ':' + value,
       {
         headers: new HttpHeaders({

@@ -17,13 +17,13 @@ export class TroskovniPovratniCentriService {
   }
 
   getTroskovniCentri(){
-    return this.http.get<Pageable2<TroskovniCentar>>(environment.APIEndpoint + '/api/troskovni-centri?page=&size=&sort=', {
+    return this.http.get<Pageable2<TroskovniCentar>>(environment.knjizenjeServiceApi + '/api/troskovni-centri?page=&size=&sort=', {
       headers: this.httpHeaders
     });
   }
 
   getProfitniCentri(){
-    return this.http.get<Pageable2<ProfitniCentar>>(environment.APIEndpoint + '/api/profitni-centri?page=&size=&sort=', {
+    return this.http.get<Pageable2<ProfitniCentar>>(environment.knjizenjeServiceApi + '/api/profitni-centri?page=&size=&sort=', {
       headers: this.httpHeaders
     });
   }

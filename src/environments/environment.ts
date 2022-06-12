@@ -2,30 +2,37 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const userServiceApi = 'http://localhost:8080/';
+const nabavkaServiceApi = 'http://localhost:8080/';
+const knjizenjeServiceApi = 'http://localhost:8080/';
+const preduzeceServiceApi = 'http://localhost:8080/';
+
 export const environment = {
 	production: false,
 
-	APIEndpoint: 'http://localhost:8080',
-	APIEndpoint1: 'http://localhost:8081',
+  userServiceApi: userServiceApi,
+  nabavkaServiceApi: nabavkaServiceApi,
+  knjizenjeServiceApi: knjizenjeServiceApi,
+  preduzeceServiceApi: preduzeceServiceApi,
 
-	add_upd_del_user: 'http://localhost:8080/api/users/',
-	list_users: 'http://localhost:8080/api/users/all',
+	add_upd_del_user: userServiceApi + 'api/users/',
+	list_users: userServiceApi + 'api/users/all',
 
-	authApi: 'http://localhost:8080/auth',
-	permissionApi: 'http://localhost:8080/api/permissions',
-	userApi: 'http://localhost:8080/api/users',
+	authApi: userServiceApi + 'auth',
+	permissionApi: userServiceApi + 'api/permissions',
+	userApi: userServiceApi + 'api/users',
 
-	kontnaGrupaApi: 'http://localhost:8080/api/konto',
-	brutoBilansApi: 'http://localhost:8080/api/bilans',
-  izvestajiApi: 'http://localhost:8080/api/izvestaji',
-  analitkceKarticeApi: 'http://localhost:8080/api/knjizenje/analitickeKartice',
+	kontnaGrupaApi: knjizenjeServiceApi + 'api/konto',
+	brutoBilansApi: knjizenjeServiceApi + 'api/bilans',
+  izvestajiApi: knjizenjeServiceApi + 'api/izvestaji',
+  analitkceKarticeApi: knjizenjeServiceApi + 'api/knjizenje/analitickeKartice',
 
-  bilans_stanja: 'http://localhost:8080/api/izvestaji/stanje',
-  bilans_uspeha: 'http://localhost:8080/api/izvestaji/uspeh',
+  bilans_stanja: knjizenjeServiceApi + 'api/izvestaji/stanje',
+  bilans_uspeha: knjizenjeServiceApi + 'api/izvestaji/uspeh',
 
-  profitniCentriApi: 'http://localhost:8080/api/profitni-centri',
+  profitniCentriApi: knjizenjeServiceApi + 'api/profitni-centri',
 
-  troskovni_centar: 'http://localhost:8080/api/troskovni-centri'
+  troskovni_centar: knjizenjeServiceApi + 'api/troskovni-centri'
 
 };
 

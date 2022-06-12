@@ -16,7 +16,7 @@ export class ZaposleniService {
 
 	getAllZaposleni() {
 		return this.http.get<Zaposleni[]>(
-			environment.APIEndpoint + `/api/zaposleni?search=all`,
+			environment.preduzeceServiceApi + `/api/zaposleni?search=all`,
 			{
 				headers: this.httpHeaders,
 			}
@@ -25,7 +25,7 @@ export class ZaposleniService {
 
 	filterZaposleni(query: string) {
 		return this.http.get<Zaposleni[]>(
-			environment.APIEndpoint + `/api/zaposleni?search=` + query,
+			environment.preduzeceServiceApi + `/api/zaposleni?search=` + query,
 			{
 				headers: this.httpHeaders,
 				observe: 'response',
@@ -43,7 +43,7 @@ export class ZaposleniService {
 		preduzece: Company
 	) {
 		return this.http.post(
-			environment.APIEndpoint + `/api/zaposleni`,
+			environment.preduzeceServiceApi + `/api/zaposleni`,
 			{
 				ime: ime,
 				prezime: prezime,

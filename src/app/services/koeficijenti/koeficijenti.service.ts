@@ -15,7 +15,7 @@ export class KoeficijentiService {
 
 	getAllKoeficijenti() {
 		return this.http.get<Koeficijent[]>(
-			environment.APIEndpoint + `/api/koeficijenti`,
+			environment.preduzeceServiceApi + `/api/koeficijenti`,
 			{
 				headers: this.httpHeaders,
 			}
@@ -32,7 +32,7 @@ export class KoeficijentiService {
 		zdravstvenoOsiguranje2: number
 	) {
 		return this.http.put(
-			environment.APIEndpoint + `/api/koeficijenti`,
+			environment.preduzeceServiceApi + `/api/koeficijenti`,
 			{
 				koeficijentId: koeficijent.koeficijentId,
 				najnizaOsnovica: najnizaOsnovica,
