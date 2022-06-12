@@ -4,6 +4,8 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {BookkeepingJournal} from "../../shared/bookkeeping-journal.model";
 import {PageableProfitniCentar, ProfitniCentar} from "../../shared/profitni-centar.model";
+import {Lokacija} from "../../shared/konverzija.model";
+import {Zaposleni} from "../../shared/profile.model";
 
 
 @Injectable({
@@ -84,6 +86,31 @@ export class ProfitniCentarService {
       headers: {
         Authorization: 'Bearer '.concat(jwt.toString()),
       },
+    });
+  }
+
+  getAllLokacije(): Observable<Lokacija[]> {
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${environment.lokacijeApi}`;
+    return this.httpClient.get<Lokacija[]>(url, {
+      headers: {
+        Authorization: 'Bearer '.concat(jwt.toString()),
+      },
+    });
+  }
+
+  getAllOdgovornaLica(): Observable<Zaposleni[]> {
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${environment.zaposleniApi}`;
+
+    let params = new HttpParams();
+    params = params.append('search', '');
+
+    return this.httpClient.get<Zaposleni[]>(url, {
+      headers: {
+        Authorization: 'Bearer '.concat(jwt.toString()),
+      },
+      params: params
     });
   }
 

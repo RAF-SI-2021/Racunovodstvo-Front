@@ -25,7 +25,10 @@ export const environment = {
 
   profitniCentriApi: 'http://localhost:8080/api/profitni-centri',
 
-  troskovni_centar: 'http://localhost:8080/api/troskovni-centri'
+  troskovni_centar: 'http://localhost:8080/api/troskovni-centri',
+
+  lokacijeApi: 'http://localhost:8080/api/lokacije',
+  zaposleniApi: 'http://localhost:8080/api/zaposleni'
 
 };
 
