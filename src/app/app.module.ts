@@ -59,6 +59,12 @@ import {HomepageComponent} from './components/homepage/homepage.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {MatCardModule} from "@angular/material/card";
 import {ObracunComponent} from './components/obracun/obracun.component';
+import { IzvestajOPromenamaNaKapitaluComponent } from './components/izvestaj-o-promenama-na-kapitalu/izvestaj-o-promenama-na-kapitalu.component';
+import { IopnkComponent } from './components/izvestaj-o-promenama-na-kapitalu/iopnk-popup/iopnk.component';
+import { IzvestajOTransakcijamaKomitentComponent } from './components/izvestaj-o-transakcijama-komitent/izvestaj-o-transakcijama-komitent.component';
+import { IotkComponent } from './components/izvestaj-o-transakcijama-komitent/iotk-popup/iotk.component';
+import { IzvestajOTransakcijamaSifraComponent } from './components/izvestaj-o-transakcijama-sifra/izvestaj-o-transakcijama-sifra.component';
+import { IotsComponent } from './components/izvestaj-o-transakcijama-sifra/iots-popup/iots.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +101,13 @@ import {ObracunComponent} from './components/obracun/obracun.component';
     ProfitniCentarComponent,
     TroskovniCentarComponent,
     ProfileComponent,
-    ObracunComponent
+    ObracunComponent,
+    IzvestajOPromenamaNaKapitaluComponent,
+    IopnkComponent,
+    IzvestajOTransakcijamaKomitentComponent,
+    IotkComponent,
+    IzvestajOTransakcijamaSifraComponent,
+    IotsComponent
   ],
   imports: [
     BrowserModule,

@@ -96,10 +96,10 @@
 
               </ul>
             </div>
-<<<<<<< HEAD
-            <li><a [hidden]="canIzvestaj()" [routerLink]="'izvestaji'" class="nav-link active"
+
+            <li><a [hidden]="!canIzvestaj()" [routerLink]="'izvestaji'" class="nav-link active"
                    aria-current="page">Izvestaji</a></li>
-=======
+
 
             <!-- PRODAJA -->
             <div ngbDropdown class="d-inline-block">
@@ -115,7 +115,6 @@
             </div>
 
 
->>>>>>> main
             <!-- ADMIN -->
             <li><a [hidden]="!isAdmin()" [routerLink]="'manage-users'" class="nav-link active"
                    aria-current="page">Upravljanje korisnicima</a></li>

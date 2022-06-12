@@ -1,4 +1,5 @@
-<ng-template #content let-modal>
+<ng-template let-modal>
+
   <div class="modal-header">
     <h4 class="modal-title"
         id="modal-basic-title">
@@ -13,63 +14,7 @@
             </span>
     </button>
   </div>
-  <div class="modal-body">
-      <div *ngIf="current_type === tipoviIzvestaja[2]">
-        <div class="modal-body">
-          <form>
-            <input type="number" id="god1" [(ngModel)]="godina1" placeholder="unesite prvu godinu">
-            <br>
-            <input type="number" id="god2" [(ngModel)]="godina2" placeholder="unesite drugu godinu">
-            <br>
-            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                      cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" [(ngModel)]="opis"></textarea>
-            <input type="number" id="uc" [(ngModel)]="ucesce" placeholder="unesite učešće">
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="stampajKapital()">stampaj
-          </button>
-        </div>
-      </div>
-      <div *ngIf="current_type === tipoviIzvestaja[3]">
-        <div class="modal-body">
-          <form>
-            <input type="text" id="komitent" [(ngModel)]="komitent" placeholder="unesite komitenta">
-            <br>
-            <input type="text" id="naslovK" [(ngModel)]="naslovKomitet" placeholder="unesite naslov komitenta">
-            <br>
-            <input type="date" id="d1" [(ngModel)]="date1" placeholder="unesite prvi datum">
-            <br>
-            <input type="date" id="d2" [(ngModel)]="date2" placeholder="unesite drugi datum">
-            <br>
-            <mat-radio-group aria-label="Select an option">
-              <mat-radio-button value="1" [ngModel]="radioBtn">Lista transakcija</mat-radio-button>
-              <mat-radio-button value="2" [ngModel]="radioBtn">Pregled obaveza</mat-radio-button>
-            </mat-radio-group>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="stampajTransKomitent()">stampaj
-          </button>
-        </div>
-      </div>
-      <div *ngIf="current_type === tipoviIzvestaja[4]">
-        <div class="modal-body">
-          <form>
-            <input type="text" id="naslovSifra" [(ngModel)]="naslovSifra" placeholder="unesite naslov">
-            <br>
-            <select name="tipSort" id="tipS" #sortType>
-              <option *ngFor="let tip of tipSortiranja" value="tip">{{tip}}</option>
-            </select>
-            <br>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" (click)="stampajTransSifra(sortType.selectedIndex)">stampaj
-          </button>
-        </div>
-      </div>
-  </div>
+
 </ng-template>
 
 <div class="center">
@@ -80,12 +25,17 @@
     </div>
     </thead>
     <tbody>
-    <tr *ngFor="let tip of tipoviIzvestaja; index as i" (click)="tipSelection(tip,content)">
-      <td style="padding: 1rem; font-size: 1em; text-decoration: underline;"><em style="color: blue" class="point">{{ tip }}</em></td>
+    <tr *ngFor="let tip of tipoviIzvestaja; index as i" (click)="tipSelection(tip)">
+      <td style="padding: 1rem; font-size: 1em; text-decoration: underline;">
+        <em style="color: blue" class="point">{{ tip }}</em>
+      </td>
     </tr>
     </tbody>
   </table>
 </div>
 
 <app-bilans-stanja-uspeha [hidden]="true"></app-bilans-stanja-uspeha>
+<app-izvestaj-o-promenama-na-kapitalu [hidden]="true"></app-izvestaj-o-promenama-na-kapitalu>
+<app-izvestaj-o-transakcijama-komitent [hidden]="true"></app-izvestaj-o-transakcijama-komitent>
+<app-izvestaj-o-transakcijama-sifra [hidden]="true"></app-izvestaj-o-transakcijama-sifra>
 
