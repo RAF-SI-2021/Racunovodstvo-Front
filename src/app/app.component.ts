@@ -62,4 +62,14 @@ export class AppComponent {
     }
     return false;
   }
+  canIzvestaj(): boolean {
+    if (this.loggedIn()) {
+      if (sessionStorage.getItem(Authority.IZVESTAJ) != null)
+        return true;
+    }
+    return false;
+  }
+  canBookkeeping() {
+    return false;
+  }
 }

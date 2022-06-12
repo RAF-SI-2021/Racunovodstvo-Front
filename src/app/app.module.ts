@@ -42,6 +42,8 @@ import {BsuPopupComponent} from "./components/bilans-stanja-uspeha/bsu-popup/bsu
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.component';
 import { KonverzijaComponent } from './components/konverzija/konverzija.component';
+import { IzvestajiComponent } from './components/izvestaji/izvestaji.component';
+import {MatRadioModule} from "@angular/material/radio";
 
 
 @NgModule({
@@ -68,24 +70,26 @@ import { KonverzijaComponent } from './components/konverzija/konverzija.componen
     BlagajnaComponent,
     KalkulacijeComponent,
   KonverzijaComponent,
+  IzvestajiComponent,
 	],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        NgbModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        FormsModule,
-        // Mat
-        MatAutocompleteModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatInputModule,
-        MatButtonModule,
-        MatDialogModule,
-    ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    NgbModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    // Mat
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatRadioModule,
+  ],
 	providers: [DatePipe],
 	bootstrap: [AppComponent],
 })

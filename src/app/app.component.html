@@ -76,7 +76,8 @@
 
               </ul>
             </div>
-
+            <li><a [hidden]="canIzvestaj()" [routerLink]="'izvestaji'" class="nav-link active"
+                   aria-current="page">Izvestaji</a></li>
             <!-- ADMIN -->
             <li><a [hidden]="!isAdmin()" [routerLink]="'manage-users'" class="nav-link active"
                    aria-current="page">Upravljanje korisnicima</a></li>

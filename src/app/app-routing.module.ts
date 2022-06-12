@@ -24,6 +24,8 @@ import {AnalitickeKarticeComponent} from "./components/analiticke-kartice/analit
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import {KalkulacijeComponent} from "./components/kalkulacije/kalkulacije.component";
 import {KonverzijaComponent} from "./components/konverzija/konverzija.component";
+import {IzvestajiComponent} from "./components/izvestaji/izvestaji.component";
+import {IzvestajGuard} from "./guards/izvestaj.guard";
 
 const routes: Routes = [
 	{
@@ -130,6 +132,11 @@ const routes: Routes = [
   {
     path: 'konverzije',
     component: KonverzijaComponent
+  },
+  {
+    path: 'izvestaji',
+    component: IzvestajiComponent,
+    canActivate: [IzvestajGuard]
   }
 ];
 
