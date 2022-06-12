@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { KontnaGrupa, Konto } from 'src/app/shared/invoice.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { map, Observable } from 'rxjs';
@@ -57,7 +57,6 @@ export class KnjizenjeWidgetComponent implements OnInit {
 		//   ktnGrp2,
 		//   ktnGrp3)
 		this.knjizenjeGroup = this.formBuilder.group({
-			brojDokumenta: ['', Validators.required],
 			brojNaloga: ['', Validators.required],
 			datum: ['', Validators.required],
 		});
