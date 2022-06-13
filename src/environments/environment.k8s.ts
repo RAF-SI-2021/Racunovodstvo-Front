@@ -1,7 +1,7 @@
-const userServiceApi = 'http://racunovodstvo/user-service';
-const nabavkaServiceApi = 'http://racunovodstvo/nabavka-service';
-const knjizenjeServiceApi = 'http://racunovodstvo/knjizenje-service';
-const preduzeceServiceApi = 'http://racunovodstvo/preduzece-service';
+const userServiceApi = 'http://chrysus.raf/user-service';
+const nabavkaServiceApi = 'http://chrysus.raf/nabavka-service';
+const knjizenjeServiceApi = 'http://chrysus.raf//knjizenje-service';
+const preduzeceServiceApi = 'http://chrysus.raf/preduzece-service';
 
 export const environment = {
   production: true,
