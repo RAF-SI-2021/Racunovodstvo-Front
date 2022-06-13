@@ -3,5 +3,7 @@ describe('manage-users spec', () => {
 		cy.visit('/manage-users');
 	});
 
+	// kako dobiti permisije ?
+
 	it('validation', () => {});
 });

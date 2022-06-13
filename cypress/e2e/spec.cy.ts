@@ -14,5 +14,5 @@ describe('home spec', () => {
 		cy.contains('Prodaja').should('be.visible');
 	});
 
-	// TODO user/manage-users
+	// todo: centri, konverzije, manage-users
 });

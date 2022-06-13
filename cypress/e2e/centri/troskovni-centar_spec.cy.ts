@@ -3,5 +3,7 @@ describe('troskovni-centar spec', () => {
 		cy.visit('/troskovni-centar');
 	});
 
-	it('validation', () => {});
+	it('validation', () => {
+		// ?????????????????
+	});
 });

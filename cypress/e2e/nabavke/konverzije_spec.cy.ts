@@ -3,5 +3,7 @@ describe('konverzije spec', () => {
 		cy.visit('/konverzije');
 	});
 
-	it('validation', () => {});
+	it('validation', () => {
+		// ?????????????????
+	});
 });

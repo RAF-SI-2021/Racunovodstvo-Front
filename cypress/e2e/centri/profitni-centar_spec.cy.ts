@@ -3,5 +3,7 @@ describe('profitni-centar spec', () => {
 		cy.visit('/profitni-centar');
 	});
 
-	it('validation', () => {});
+	it('validation', () => {
+		// ?????????????????
+	});
 });
