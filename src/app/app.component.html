@@ -97,6 +97,10 @@
               </ul>
             </div>
 
+            <li><a [hidden]="!canIzvestaj()" [routerLink]="'izvestaji'" class="nav-link active"
+                   aria-current="page">Izvestaji</a></li>
+
+
             <!-- PRODAJA -->
             <div ngbDropdown class="d-inline-block">
               <a [hidden]="!canProdaja()" ngbDropdownToggle class="nav-link active" aria-current="page">Prodaja</a>

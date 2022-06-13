@@ -35,8 +35,7 @@ export const environment = {
   troskovni_centar: knjizenjeServiceApi + '/api/troskovni-centri',
 
   lokacijeApi: nabavkaServiceApi + '/api/lokacije',
-  zaposleniApi: preduzeceServiceApi + '/api/zaposleni'
-
+  zaposleniApi: preduzeceServiceApi + '/api/zaposleni',
 };
 
 /*

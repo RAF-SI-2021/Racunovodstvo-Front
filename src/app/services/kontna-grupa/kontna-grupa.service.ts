@@ -53,7 +53,6 @@ export class KontnaGrupaService {
 			brojKonta: brojKonta,
 			nazivKonta: naziv,
 		};
-
 		return this.httpClient.put<KontnaGrupa>(url, body, {
 			headers: {
 				Authorization: 'Bearer '.concat(jwt.toString()),
