@@ -1,0 +1,13 @@
+.div_hover {
+  background-color: #FFFFFF;
+}
+
+.div_hover:hover {
+  background-color: whitesmoke;
+}
+
+.mx-10 {
+  margin-left: 15rem;
+  margin-right: 15rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
