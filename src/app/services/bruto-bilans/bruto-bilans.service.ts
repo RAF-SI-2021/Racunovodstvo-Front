@@ -27,17 +27,17 @@ export class BrutoBilansService {
 		let date1 = new Date(datumDo);
 		let date2 = new Date(datumOd);
 		let str1 =
-			date1.getDate() +
-			'/' +
+      date1.getFullYear() +
+			'-' +
 			(date1.getMonth() + 1) +
-			'/' +
-			date1.getFullYear();
+			'-' +
+      date1.getDate();
 		let str2 =
-			date2.getDate() +
-			'/' +
+			date2.getFullYear() +
+			'-' +
 			(date2.getMonth() + 1) +
-			'/' +
-			date2.getFullYear();
+			'-' +
+			date2.getDate();
 
 		console.log(str1);
 		queryParams = queryParams.append('brojKontaDo', kontoDo.brojKonta);

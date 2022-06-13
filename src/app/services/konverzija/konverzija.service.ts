@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Artikal, Konverzija, Lokacija, Preduzece} from "../../shared/konverzija.model";
 import {FormGroup} from "@angular/forms";
+import {environment} from "../../../environments/environment";
 // @ts-ignore
 import {Pageable} from "../../shared/pageable.model";
 import {MainBook} from "../../shared/bookkeeping-journal.model";
@@ -19,7 +20,7 @@ export class KonverzijaService {
       Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
     };
     return this.httpClient.get<Pageable<Konverzija>>(
-      'http://localhost:8080/api/konverzije',
+      environment.nabavkaServiceApi + '/api/konverzije',
       {
         headers: headers,
       }
@@ -31,7 +32,7 @@ export class KonverzijaService {
       Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
     };
     return this.httpClient.get<Pageable<Artikal>>(
-      "http://localhost:8080/api/artikli/" + idKonverzije,
+      environment.nabavkaServiceApi + "/api/artikli/" + idKonverzije,
       {
         headers: headers,
       }
@@ -43,7 +44,7 @@ export class KonverzijaService {
       Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
     };
     return this.httpClient.get<Pageable<Artikal>>(
-      "http://localhost:8080/api/artikli/kalkulacija",
+      environment.nabavkaServiceApi + "/api/artikli/kalkulacija",
       {
         headers: headers,
       }
@@ -55,7 +56,7 @@ export class KonverzijaService {
       Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
     };
     return this.httpClient.get<Lokacija[]>(
-      'http://localhost:8080/api/lokacije',
+      environment.nabavkaServiceApi + '/api/lokacije',
       {
         headers: headers,
       }
@@ -67,7 +68,7 @@ export class KonverzijaService {
       Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
     };
     return this.httpClient.get<Preduzece[]>(
-      'http://localhost:8080/api/preduzece/all',
+      environment.preduzeceServiceApi + '/api/preduzece/all',
       {
         headers: headers,
       }
@@ -80,7 +81,7 @@ export class KonverzijaService {
       Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
     };
     return this.httpClient.post<Artikal>(
-      'http://localhost:8080/api/artikli',
+      environment.nabavkaServiceApi + '/api/artikli',
       artikal,
       {
         headers: headers,
@@ -93,7 +94,7 @@ export class KonverzijaService {
       Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
     };
     return this.httpClient.post<Konverzija>(
-      'http://localhost:8080/api/konverzije/',
+      environment.nabavkaServiceApi + '/api/konverzije/',
       konverzija,
       {
         headers: headers,
@@ -106,7 +107,7 @@ export class KonverzijaService {
       Authorization: `Bearer ${sessionStorage.getItem('jwt')}`,
     };
     return this.httpClient.delete(
-      'http://localhost:8080/api/konverzije/'+id,
+      environment.nabavkaServiceApi + '/api/konverzije/'+id,
       {
         headers: headers,
       }
@@ -132,7 +133,7 @@ export class KonverzijaService {
     }
 
     return this.httpClient.get<Pageable<Artikal>>(
-      'http://localhost:8080/api/artikli' + s.substring(0, s.length - 1),
+      environment.nabavkaServiceApi + '/api/artikli' + s.substring(0, s.length - 1),
       {headers: headers}
     );
   }
@@ -143,7 +144,7 @@ export class KonverzijaService {
     };
     console.log(artikal)
     return this.httpClient.put<Artikal>(
-      'http://localhost:8080/api/artikli/',
+      environment.nabavkaServiceApi + '/api/artikli/',
       {
         "artikalId": artikal.artikalId,
         "sifraArtikla": artikal.sifraArtikla,

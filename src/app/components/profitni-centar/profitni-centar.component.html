@@ -10,13 +10,17 @@
   </div>
 
   <div class="col-2 text-center">
-    <label>Lokacija id:</label><br>
-    <input type="text" #newProfCentarLokacijaId>
+    <label for="lokacije">Lokacija id:</label><br>
+    <select name="lokacije" id="lokacije" #newProfCentarLokacijaId>
+      <option *ngFor="let lokacija of lokacije">{{lokacija}}</option>
+    </select>
   </div>
 
   <div class="col-2 text-center">
-    <label>Odg. lice id:</label><br>
-    <input type="text" #newProfCentarOdgLiceId>
+    <label for="odgLice">Odg. lice id:</label><br>
+    <select name="odgLica" id="odgLice" #newProfCentarOdgLiceId>
+      <option *ngFor="let odgLice of odgovornaLica">{{odgLice}}</option>
+    </select>
   </div>
 
   <div class="col-2 text-center">
@@ -86,8 +90,8 @@
         <i>Šifra:</i> <b><i>{{node.sifra}}</i></b> <br>
         <i>Ukupni trošak:</i> <b><i>{{node.ukupniTrosak}}</i></b> <br>
         <i>Naziv: </i> <input type="text" value="{{node.naziv}}" #editableNazivCentra> <br>
-        <i>Odgovorno lice: </i> <input type="text" value="{{node.odgovornoLiceId}}" #editableOdgLice> <br>
-        <i>Lokacija: </i> <input type="text" value="{{node.lokacijaId}}" #editablelokacijaId> <br>
+        <i>Odgovorno lice: </i><select #editableOdgLice><option *ngFor="let odgLice of odgovornaLica">{{odgLice}}</option></select> <br>
+        <i>Lokacija: </i><select #editablelokacijaId><option *ngFor="let lokacija of lokacije">{{lokacija}}</option></select> <br>
       </ng-container>
     </div>
 
@@ -116,12 +120,12 @@
       <td class="text-center">{{konto.brojNalogaKnjizenja}}</td>
       <td class="text-center">{{konto.kontnaGrupa.brojKonta}}</td>
       <td class="text-center">{{konto.kontnaGrupa.nazivKonta}}</td>
-      <td class="text-center"><input type="number" value="{{getSaldo(konto.duguje, konto.potrazuje)}}" #editableSaldo></td>
+      <td class="text-center">{{getSaldo(konto.duguje, konto.potrazuje)}}</td>
       <td class="text-center">{{getAsDate(konto.datumKnjizenja)}}</td>
       <td class="text-center"><textarea rows="1" #editableKomentar>{{konto.komentarKnjizenja}}</textarea></td>
       <td class="text-center">
         <button type="button" class="btn btn-sm btn-outline-warning"
-                (click)="izmeniKonto(konto, editableSaldo, editableKomentar)">Izmeni
+                (click)="izmeniKonto(konto, editableKomentar)">Izmeni
         </button>
         <button type="button" class="btn btn-sm btn-outline-danger" (click)="obrisiKonto(konto)">Obriši</button>
       </td>

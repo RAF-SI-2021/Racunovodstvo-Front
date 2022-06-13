@@ -40,6 +40,16 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
+          build-args: configuration=production
           platforms: linux/amd64
           push: true
           tags: ghcr.io/raf-si-2021/racunovodstvo-front:latest
+
+      - name: Build and Push racunovodstvo-front image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          build-args: configuration=k8s
+          platforms: linux/amd64
+          push: true
+          tags: ghcr.io/raf-si-2021/racunovodstvo-front:k8s

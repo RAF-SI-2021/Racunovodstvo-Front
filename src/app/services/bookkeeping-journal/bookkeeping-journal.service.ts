@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {environment} from "../../../environments/environment";
 import { Observable } from 'rxjs';
 import { BookkeepingJournal } from 'src/app/shared/bookkeeping-journal.model';
 
@@ -16,7 +17,7 @@ export class BookkeepingJournalService {
 			accept: 'application/json',
 		};
 		return this.httpClient.get<BookkeepingJournal[]>(
-			'http://localhost:8080/api/knjizenje/all',
+			environment.knjizenjeServiceApi + '/api/knjizenje/all',
 			{ headers: headers }
 		);
 	}
@@ -82,7 +83,7 @@ export class BookkeepingJournalService {
 		};
 
 		return this.httpClient.get<BookkeepingJournal[]>(
-			'http://localhost:8080/api/knjizenje' + s.substring(0, s.length - 1),
+			environment.knjizenjeServiceApi + '/api/knjizenje' + s.substring(0, s.length - 1),
 			{ headers: headers }
 		);
 	}

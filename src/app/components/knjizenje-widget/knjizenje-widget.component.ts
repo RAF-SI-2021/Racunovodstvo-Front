@@ -57,7 +57,6 @@ export class KnjizenjeWidgetComponent implements OnInit {
 		//   ktnGrp2,
 		//   ktnGrp3)
 		this.knjizenjeGroup = this.formBuilder.group({
-			brojDokumenta: ['', Validators.required],
 			brojNaloga: ['', Validators.required],
 			datum: ['', Validators.required],
 		});

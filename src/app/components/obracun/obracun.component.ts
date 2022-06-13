@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {Plata} from "../../shared/plata.model";
-import {Zaposleni} from "../../shared/profile.model";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ObracunService} from "../../services/obracun/obracun.service";
 import {Obracun, ObracunZaposleni, ObracunZaradeConfig, SifraTransakcije} from "../../shared/obracun.model";
@@ -26,7 +25,7 @@ export class ObracunComponent implements OnInit {
   sifreTransakcija: SifraTransakcije[] = [];
   zakazanaSifra: string = '';
   zakazanDan: number = 0;
-  selectovanaSifra: string ='';
+  selectovanaSifra: number = 0;
 
   constructor(private formBuilder : FormBuilder, private service : PlateZaposlenihService, private obracunService: ObracunService, private router: Router) {
     this.obracun = formBuilder.group({
@@ -49,21 +48,14 @@ export class ObracunComponent implements OnInit {
 
     this.obracunService.getDanSifraTransakcijeId().subscribe( ozc =>{
 
-      console.log("Zakazan id: " +ozc.SifraTransakcijeId + "\nZakazan dan: " + ozc.dayOfMonth);
       this.zakazanDan = ozc.dayOfMonth;
-
-      for(let i =0; i<this.sifreTransakcija.length; i++){
-        if(this.sifreTransakcija[i].sifraTransakcijeId == ozc.SifraTransakcijeId){
-          this.zakazanaSifra = this.sifreTransakcija[i].sifra + ": " + this.sifreTransakcija[i].nazivTransakcije;
-        }
-      }
+      this.zakazanaSifra = ozc.sifraTransakcije.sifra + ": " + ozc.sifraTransakcije.nazivTransakcije;
     })
 
 
 
     this.obracunService.getTransakcije().subscribe( sifre =>{
-      this.sifreTransakcija = sifre;
-      console.log(sifre);
+      this.sifreTransakcija = sifre.content;
     })
 
     this.service.getAllPlate().subscribe((response) =>{
@@ -113,6 +105,7 @@ export class ObracunComponent implements OnInit {
   zakazi() {
     this.obracunService.update(this.obracun.get('dan')?.value, this.selectovanaSifra).subscribe(e=>{
       this.obracun.get('dan')?.setValue('');
+      this.selectovanaSifra = 0;
     })
   }
 
@@ -130,7 +123,7 @@ export class ObracunComponent implements OnInit {
 
   izvrsiTransakciju(id: number){
     this.obracunService.izvrsiTransakciju(id).subscribe(e=>{
-      this.router.navigate(['/obracun']);
+      location.reload()
     })
   }
 }
