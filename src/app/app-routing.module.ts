@@ -16,35 +16,39 @@ import { AdminGuard } from './guards/admin.guard';
 import { FinansijskaOperativaGuard } from './guards/finansijska-operativa.guard';
 import { FinansijskoKnjigovodstvoGuard } from './guards/finansijsko-knjigovodstvo.guard';
 import { ObracunZaradeGuard } from './guards/obracun-zarade.guard';
-import {KnjizenjeWidgetComponent} from "./components/knjizenje-widget/knjizenje-widget.component";
-import {AnalitickeKarticeComponent} from "./components/analiticke-kartice/analiticke-kartice.component";
-import {HomepageComponent} from "./components/homepage/homepage.component";
-import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
-import {KalkulacijeComponent} from "./components/kalkulacije/kalkulacije.component";
-import {KonverzijaComponent} from "./components/konverzija/konverzija.component";
-import {MpFakturaComponent} from "./components/mp-faktura/mp-faktura.component";
-import {ProdajaGuard} from "./guards/prodaja.guard";
-import {PovracajComponent} from "./components/povracaj/povracaj.component";
-import {EvidencijeComponent} from "./components/evidencije/evidencije.component";
-import {ArtikalComponent} from "./components/artikal/artikal.component";
-import {ProfitniCentarComponent} from "./components/profitni-centar/profitni-centar.component";
+import { KnjizenjeWidgetComponent } from './components/knjizenje-widget/knjizenje-widget.component';
+import { AnalitickeKarticeComponent } from './components/analiticke-kartice/analiticke-kartice.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { BlagajnaComponent } from './components/blagajna/blagajna.component';
+import { KalkulacijeComponent } from './components/kalkulacije/kalkulacije.component';
+import { KonverzijaComponent } from './components/konverzija/konverzija.component';
 
-import {AccountPlanComponent} from "./components/account-plan/account-plan.component";
-import {ProfilZaposlenogComponent} from "./components/profil-zaposlenog/profil-zaposlenog.component";
-import {SvaKnjizenjaComponent} from "./components/sva-knjizenja/sva-knjizenja.component";
-import {TroskovniCentarComponent} from "./components/troskovni-centar/troskovni-centar.component";
+import { IzvestajiComponent } from './components/izvestaji/izvestaji.component';
+import { IzvestajGuard } from './guards/izvestaj.guard';
 
-import {ProfileComponent} from "./components/profile/profile.component";
-import {ProfileGuard} from "./guards/profile.guard";
-import {NabavkeGuard} from "./guards/nabavke.guard";
-import {ObracunComponent} from "./components/obracun/obracun.component";
+import { MpFakturaComponent } from './components/mp-faktura/mp-faktura.component';
+import { ProdajaGuard } from './guards/prodaja.guard';
+import { PovracajComponent } from './components/povracaj/povracaj.component';
+import { EvidencijeComponent } from './components/evidencije/evidencije.component';
+import { ArtikalComponent } from './components/artikal/artikal.component';
+import { ProfitniCentarComponent } from './components/profitni-centar/profitni-centar.component';
 
+import { AccountPlanComponent } from './components/account-plan/account-plan.component';
+import { ProfilZaposlenogComponent } from './components/profil-zaposlenog/profil-zaposlenog.component';
+import { SvaKnjizenjaComponent } from './components/sva-knjizenja/sva-knjizenja.component';
+import { TroskovniCentarComponent } from './components/troskovni-centar/troskovni-centar.component';
+
+import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileGuard } from './guards/profile.guard';
+import { NabavkeGuard } from './guards/nabavke.guard';
+import { ObracunComponent } from './components/obracun/obracun.component';
 
 const routes: Routes = [
 	{
 		path: '',
 		component: HomepageComponent,
 	},
+	// USER
 	{
 		path: 'login',
 		component: LoginComponent,
@@ -54,6 +58,17 @@ const routes: Routes = [
 		path: 'manage-users',
 		component: ManageUsersComponent,
 		canActivate: [AdminGuard],
+	},
+	{
+		path: 'profil',
+		component: ProfileComponent,
+		canActivate: [ProfileGuard],
+	},
+	// WIDGET
+	{
+		path: 'knjizenje-widget',
+		component: KnjizenjeWidgetComponent,
+		canActivate: [FinansijskoKnjigovodstvoGuard],
 	},
 	// FINANSIJSKA_OPERATIVA
 	{
@@ -76,11 +91,11 @@ const routes: Routes = [
 		component: AddNewClientComponent,
 		canActivate: [FinansijskaOperativaGuard],
 	},
-  {
-    path: 'cash-register',
-    component: BlagajnaComponent,
-    canActivate: [FinansijskaOperativaGuard],
-  },
+	{
+		path: 'cash-register',
+		component: BlagajnaComponent,
+		canActivate: [FinansijskaOperativaGuard],
+	},
 	// FINANSIJSKO_KNJIGOVODSTVO
 	{
 		path: 'account-plan',
@@ -102,11 +117,11 @@ const routes: Routes = [
 		component: BrutoBilansComponent,
 		canActivate: [FinansijskoKnjigovodstvoGuard],
 	},
-  {
-    path: 'profitni-centar',
-    component: ProfitniCentarComponent,
-    canActivate: [FinansijskoKnjigovodstvoGuard],
-  },
+	{
+		path: 'profitni-centar',
+		component: ProfitniCentarComponent,
+		canActivate: [FinansijskoKnjigovodstvoGuard],
+	},
 	// OBRACUN_ZARADE
 	{
 		path: 'zaposleni',
@@ -123,73 +138,66 @@ const routes: Routes = [
 		component: PlateZaposlenihComponent,
 		canActivate: [ObracunZaradeGuard],
 	},
-  {
-    path: 'obracun',
-    component: ObracunComponent,
-    canActivate: [ObracunZaradeGuard],
-  },
+	{
+		path: 'obracun',
+		component: ObracunComponent,
+		canActivate: [ObracunZaradeGuard],
+	},
 	{
 		path: 'koeficijenti',
 		component: KoeficijentiComponent,
 		canActivate: [ObracunZaradeGuard],
 	},
-  {
-    path: 'knjizenje-widget',
-    component: KnjizenjeWidgetComponent,
-    canActivate: [FinansijskoKnjigovodstvoGuard],
-  },
-  {
-    path: 'analiticke-kartice',
-    component: AnalitickeKarticeComponent,
-    canActivate: [FinansijskoKnjigovodstvoGuard],
-  },
-  //NABAVKE
-  {
-    path: 'kalkulacije',
-    component: KalkulacijeComponent,
-    canActivate: [NabavkeGuard],
-
-  },
-  {
-    path: 'konverzije',
-    component: KonverzijaComponent,
-    canActivate: [NabavkeGuard],
-  },
-  //PRODAJA
-  {
-    path: 'mp_faktura',
-    component: MpFakturaComponent,
-    canActivate: [ProdajaGuard],
-  },
-  {
-    path: 'povracaj',
-    component: PovracajComponent,
-    canActivate: [ProdajaGuard],
-  },
-  {
-    path: 'evidencije',
-    component: EvidencijeComponent
-  },
-  {
-    path: 'artikal/:id',
-    component: ArtikalComponent
-  },
-  {
-    path:'svaKnjizenja',
-    component: SvaKnjizenjaComponent,
-    // canActivate
-  },
-  {
-    path: "troskovni-centar",
-    component: TroskovniCentarComponent,
-  },
-  //PROFIL
-  {
-    path: 'profil',
-    component: ProfileComponent,
-    canActivate: [ProfileGuard]
-  },
-
+	{
+		path: 'analiticke-kartice',
+		component: AnalitickeKarticeComponent,
+		canActivate: [FinansijskoKnjigovodstvoGuard],
+	},
+	//NABAVKE
+	{
+		path: 'kalkulacije',
+		component: KalkulacijeComponent,
+		canActivate: [NabavkeGuard],
+	},
+	{
+		path: 'konverzije',
+		component: KonverzijaComponent,
+		canActivate: [NabavkeGuard],
+	},
+	{
+		path: 'izvestaji',
+		component: IzvestajiComponent,
+		canActivate: [IzvestajGuard],
+	},
+	//PRODAJA
+	{
+		path: 'mp_faktura',
+		component: MpFakturaComponent,
+		canActivate: [ProdajaGuard],
+	},
+	{
+		path: 'povracaj',
+		component: PovracajComponent,
+		canActivate: [ProdajaGuard],
+	},
+	{
+		path: 'evidencije',
+		component: EvidencijeComponent,
+	},
+	{
+		path: 'artikal/:id',
+		component: ArtikalComponent,
+	},
+	// zasto ovo postoji
+	// {
+	// 	path: 'svaKnjizenja',
+	// 	component: SvaKnjizenjaComponent,
+	// 	// canActivate
+	// },
+	{
+		path: 'troskovni-centar',
+		component: TroskovniCentarComponent,
+	},
 ];
 
 @NgModule({

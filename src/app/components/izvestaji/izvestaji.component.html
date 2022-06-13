@@ -1,0 +1,41 @@
+<ng-template let-modal>
+
+  <div class="modal-header">
+    <h4 class="modal-title"
+        id="modal-basic-title">
+      {{current_type}}
+    </h4>
+    <button type="button" class="close"
+            aria-label="Close" (click)=
+              "modal.dismiss('Cross click')">
+
+            <span aria-hidden="true">
+                ×
+            </span>
+    </button>
+  </div>
+
+</ng-template>
+
+<div class="center">
+  <table>
+    <thead>
+    <div class="center">
+      <h1 style="font-family: Sans-serif, serif; text-align: center; color: black">Izvestaji</h1>
+    </div>
+    </thead>
+    <tbody>
+    <tr *ngFor="let tip of tipoviIzvestaja; index as i" (click)="tipSelection(tip)">
+      <td style="padding: 1rem; font-size: 1em; text-decoration: underline;">
+        <em style="color: blue" class="point">{{ tip }}</em>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-bilans-stanja-uspeha [hidden]="true"></app-bilans-stanja-uspeha>
+<app-izvestaj-o-promenama-na-kapitalu [hidden]="true"></app-izvestaj-o-promenama-na-kapitalu>
+<app-izvestaj-o-transakcijama-komitent [hidden]="true"></app-izvestaj-o-transakcijama-komitent>
+<app-izvestaj-o-transakcijama-sifra [hidden]="true"></app-izvestaj-o-transakcijama-sifra>
+

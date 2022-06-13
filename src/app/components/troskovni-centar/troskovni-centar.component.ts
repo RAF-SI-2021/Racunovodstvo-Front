@@ -8,6 +8,8 @@ import {BookkeepingJournalService} from "../../services/bookkeeping-journal/book
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {BookkeepingJournalComponent} from "../bookkeeping-journal/bookkeeping-journal.component";
 import {KontnaGrupa, Konto} from "../../shared/invoice.model";
+import {Zaposleni} from "../../shared/profile.model";
+import {Lokacija} from "../../shared/konverzija.model";
 
 
 
@@ -32,6 +34,8 @@ export class TroskovniCentarComponent implements OnInit {
   hideKontoList: boolean = true;
 
   //Lists
+  odgovornaLica: Zaposleni[] = [];
+  lokacije: Lokacija[] = [];
   knjizenja: BookkeepingJournal[];
   troskovniCentri: TroskovniCentar[];
   selected_kontos: Konto[] = undefined;
@@ -56,6 +60,8 @@ export class TroskovniCentarComponent implements OnInit {
   // Tree Configuration
   treeControl = new NestedTreeControl<TroskovniCentar>(node => node.troskovniCentarList);
   dataSource = new MatTreeNestedDataSource<TroskovniCentar>();
+  selectedC: any;
+  isNoParentChecked: boolean;
 
 
   ngOnInit(): void {
@@ -70,6 +76,12 @@ export class TroskovniCentarComponent implements OnInit {
       this.troskovniCentri = data;
       this.formatData();
       this.dataSource.data = this.troskovniCentri;
+    })
+    this.centarService.getAllLokacije().subscribe(data => {
+      this.lokacije = data;
+    })
+    this.centarService.getAllOdgovornaLica().subscribe(data => {
+      this.odgovornaLica = data;
     })
   }
 
@@ -153,6 +165,8 @@ export class TroskovniCentarComponent implements OnInit {
     this.selected_centar.kontoList = this.selected_centar.kontoList.filter(data => data != konto);
     this.selected_kontos = this.selected_centar.kontoList.filter(data => data != konto);
     console.log(this.selected_centar.kontoList);
+    this.hideKontoList = true;
+    this.editFormHidden = true;
     this.updateKontoFromCentar(this.selected_centar);
   }
 
@@ -163,7 +177,8 @@ export class TroskovniCentarComponent implements OnInit {
         let newKonto: Konto = this.selected_centar.kontoList[index];
         newKonto.komentarKnjizenja = this.editKomentar;
         this.selected_centar.kontoList[index] = newKonto;
-        this.hideKontoList = !this.hideKontoList;
+        this.hideKontoList = true;
+        this.editFormHidden = true;
         this.updateKontoFromCentar(this.selected_centar);
       }
     }else{
@@ -196,6 +211,11 @@ export class TroskovniCentarComponent implements OnInit {
   }
 
   addToggle(content: TemplateRef<any>){
+    this.editSifra = '';
+    this.editNaziv = '';
+    this.editodgovornoLice = 0;
+    this.editlokacija = 0;
+    this.isNoParentChecked = false;
     this.crud_operation = "add";
     this.modalService.open(content,
       {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
@@ -205,6 +225,7 @@ export class TroskovniCentarComponent implements OnInit {
   }
   editToggle(content: TemplateRef<any>){
     this.crud_operation = "edit";
+    this.editNaziv = '';
     this.modalService.open(content,
       {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
     }, (reason) => {
@@ -212,24 +233,27 @@ export class TroskovniCentarComponent implements OnInit {
     });
   }
 
-  addCentar(modal, index) {
+  addCentar(modal, index, lokacijaIndex: number, OdgLiceIndex: number) {
     if(this.editSifra && this.editNaziv &&
-       this.editukupniTrosak &&
-          this.editodgovornoLice && this.editlokacija){
-          let parent = null
-          if(this.troskovniCentri.length !== 0) {
-                parent = this.troskovniCentri[index];
+       this.editukupniTrosak && lokacijaIndex != -1 && OdgLiceIndex != -1){
+          let parent = null;
+          console.log(this.isNoParentChecked);
+          if(index !== -1) {
+            parent = this.troskovniCentri[index];
+          }
+          if(this.isNoParentChecked){
+            parent = null;
           }
           const newCentar: TroskovniCentar = {
             sifra: this.editSifra,
             naziv: this.editNaziv,
-            ukupniTrosak: 0,
-            lokacijaId: this.editlokacija,
+            ukupniTrosak: this.editukupniTrosak,
+            lokacijaId: this.lokacije[lokacijaIndex].lokacijaId,
             parentTroskovniCentar: parent,
-            odgovornoLiceId: this.editodgovornoLice,
+            odgovornoLiceId: this.odgovornaLica[OdgLiceIndex].zaposleniId,
             kontoList: [],
-      };
-          this.centarService.addCentri(newCentar, this.troskovniCentri[index]).subscribe( res => {
+          };
+          this.centarService.addCentri(newCentar, parent).subscribe( res => {
             alert("Uspesno dodat Troskovni Centar: " + res.naziv);
             this.ngOnInit();
           });
@@ -240,6 +264,11 @@ export class TroskovniCentarComponent implements OnInit {
   }
 
   deleteCentar(modal, index) {
+    console.log(index);
+    if(index === -1){
+      alert('Izaberite centar za brisanje')
+      return;
+    }
     this.centarService.deleteCentri(this.troskovniCentri[index].id).subscribe(() => {
         this.fetchTroskovniCentri();
         alert('Uspesno brisanje.');
@@ -250,11 +279,17 @@ export class TroskovniCentarComponent implements OnInit {
     modal.close();
   }
 
-  editCentar(modal, index) {
+  editCentar(modal, index, lokacijaIndex: number, odgLiceIndex: number) {
+    if(index === -1 || lokacijaIndex === -1 || odgLiceIndex === -1 || this.editNaziv === ''){
+      alert('Izaberite sve potrebne paramentre')
+      return;
+    }
     console.log(this.selected_centar);
+    this.editFormHidden = true;
+    this.hideKontoList = true;
     this.troskovniCentri[index].naziv =  this.editNaziv;
-    this.troskovniCentri[index].lokacijaId = this.editlokacija;
-    this.troskovniCentri[index].odgovornoLiceId = this.editodgovornoLice;
+    this.troskovniCentri[index].lokacijaId = this.lokacije[lokacijaIndex].lokacijaId;
+    this.troskovniCentri[index].odgovornoLiceId = this.odgovornaLica[odgLiceIndex].zaposleniId;
     this.centarService.editCentri(this.troskovniCentri[index]).subscribe(res => {
       this.fetchTroskovniCentri();
       alert('Uspesno izmenjen centar')

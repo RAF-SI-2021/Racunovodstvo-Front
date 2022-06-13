@@ -5,6 +5,7 @@ import {
   BookkeepingJournal,
   MainBook,
 } from '../../shared/bookkeeping-journal.model';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root',
@@ -74,7 +75,7 @@ export class GlavnaKnjigaService {
     };
 
     return this.httpClient.get<MainBook[]>(
-      'http://localhost:8080/api/glavna-knjiga' + s.substring(0, s.length - 1),
+      environment.knjizenjeServiceApi + '/api/glavna-knjiga' + s.substring(0, s.length - 1),
       {headers: headers}
     );
   }
@@ -86,7 +87,7 @@ export class GlavnaKnjigaService {
       accept: 'application/json',
     };
     return this.httpClient.get<MainBook[]>(
-      'http://localhost:8080/api/glavna-knjiga/all',
+      environment.knjizenjeServiceApi + '/api/glavna-knjiga/all',
       {headers: headers}
     );
   }

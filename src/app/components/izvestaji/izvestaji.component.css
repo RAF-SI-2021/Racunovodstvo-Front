@@ -1,0 +1,40 @@
+*,
+*::before,
+*::after{
+  margin:0;
+  padding:0;
+  border-sizing: border-box;
+}
+.center{
+  margin: auto;
+  width: fit-content;
+}
+.table-border{
+  padding: 1rem;
+  border-radius: 25px;
+  border: 1px solid black;
+  text-align: center;
+  opacity: 1;
+}
+.point{
+  cursor: pointer;
+}
+table {
+  border-collapse:separate;
+  border:solid black 1px;
+  border-radius:30px;
+}
+
+td, th {
+  border-left:solid black 1px;
+  border-top:solid black 1px;
+}
+
+th {
+  background-color: blue;
+  border-top: none;
+}
+
+td:first-child, th:first-child {
+  border-left: none;
+}
