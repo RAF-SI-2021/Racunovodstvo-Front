@@ -28,14 +28,22 @@
   </div>
 <div>
   <div>
-      <div *ngIf="crud_operation=='delete' || crud_operation=='edit'" >
-        <select name="centri" id="centri1" #centarSelect style="margin: 2rem" [(ngModel)]="selected_centar" >
+      <div>
+        <label [hidden]="crud_operation!='add'" for="centri1">Roditelj:</label>
+        <select name="centri" id="centri1" selected="" #centarSelect style="margin: 2rem" [(ngModel)]="selected_centar" >
           <option *ngFor="let centar of troskovniCentri" name="centarOption" ngDefaultControl value="centar">{{centar.naziv}}</option>
         </select>
+        <div *ngIf="crud_operation==='add'" class="form-check">
+          <input [(ngModel)]="this.isNoParentChecked" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            Nema roditelja
+          </label>
+          <br>
+        </div>
       </div>
       <div>
         <div>
-          <div [hidden]="crud_operation!='add'">
+          <div *ngIf="crud_operation=='add'">
             <label for="sifra">Sifra:</label>
             <input size="20" class="form-group" [(ngModel)]="editSifra" id="sifra" type="text" class="form-control" placeholder="unesi sifru" >
             <br>
@@ -48,25 +56,20 @@
             <input class="form-group" [(ngModel)]="editNaziv" value="editNaziv" id="nazivCentar"type="text" class="form-control" placeholder="unesi naziv centra" >
             <br>
             <label for="odgovornoLice">Odgovorno Lice:</label>
-            <input class="form-group" [(ngModel)]="editodgovornoLice" id="odgovornoLice"type="number" class="form-control" placeholder="unesi odgovorno lice" >
+            <select id="odgovornoLice" #editableOdgLice><option *ngFor="let odgLice of odgovornaLica">{{odgLice.zaposleniId}}</option></select>
             <br>
             <label for="lokacija">Lokacija:</label>
-            <input class="form-group" [(ngModel)]="editlokacija" id="lokacija"type="number" class="form-control" placeholder="unesi lokaciju" >
+            <select id="lokacija" #editablelokacijaId><option *ngFor="let lokacija of lokacije">{{lokacija.naziv}}</option></select>
             <br>
-          </div>
-          <label [hidden]="crud_operation!='add'" for="parentId">Roditelj:</label>
-          <select [hidden]="crud_operation!='add'" name="centri" id="parentId" #centarSelectionCRUD>
-            <option *ngFor="let centar of troskovniCentri" value="centar">{{centar.naziv}}</option>
-          </select>
-
-          <button *ngIf="crud_operation=='delete'" type="button" class="btn btn-outline-dark" (click)="deleteCentar(modal, centarSelectionCRUD.selectedIndex)">
-            izbrisi
-          </button>
-          <button *ngIf="crud_operation=='add'" type="button" class="btn btn-outline-dark" (click)="addCentar(modal, centarSelectionCRUD.selectedIndex)">
+            <button *ngIf="crud_operation=='add'" type="button" class="btn btn-outline-dark" (click)="addCentar(modal, centarSelect.selectedIndex,editablelokacijaId.selectedIndex,editableOdgLice.selectedIndex)">
             dodaj
-          </button>
-          <button *ngIf="crud_operation=='edit'" type="button" class="btn btn-outline-dark" (click)="editCentar(modal, centarSelectionCRUD.selectedIndex)">
+            </button>
+            <button *ngIf="crud_operation=='edit'" type="button" class="btn btn-outline-dark" (click)="editCentar(modal, centarSelect.selectedIndex,editablelokacijaId.selectedIndex,editableOdgLice.selectedIndex)">
             izmeni
+            </button>
+          </div>
+          <button *ngIf="crud_operation=='delete'" type="button" class="btn btn-outline-dark" (click)="deleteCentar(modal, centarSelect.selectedIndex)">
+            izbrisi
           </button>
         </div>
       </div>
@@ -91,7 +94,7 @@
       <ng-container matTreeNodeOutlet>
         <i>Šifra:</i> <b><i>{{node.sifra}}</i></b> <br>
         <i>Ukupni trošak:</i> <b><i>{{node.ukupniTrosak}}</i></b> <br>
-        <i>Naziv: </i> {{node.naziv}}> <br>
+        <i>Naziv: </i> {{node.naziv}} <br>
         <i>Odgovorno lice: </i> {{node.odgovornoLiceId}} <br>
         <i>Lokacija: </i> {{node.lokacijaId}}<br>
       </ng-container>

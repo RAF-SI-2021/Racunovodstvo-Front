@@ -33,7 +33,6 @@ export class User {
   permissions: Permission[];
   preduzeceId: number
 
-
   constructor(
     userId: number,
     username: string,

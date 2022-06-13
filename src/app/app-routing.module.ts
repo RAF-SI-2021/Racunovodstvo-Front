@@ -22,6 +22,10 @@ import {HomepageComponent} from "./components/homepage/homepage.component";
 import {BlagajnaComponent} from "./components/blagajna/blagajna.component";
 import {KalkulacijeComponent} from "./components/kalkulacije/kalkulacije.component";
 import {KonverzijaComponent} from "./components/konverzija/konverzija.component";
+
+import {IzvestajiComponent} from "./components/izvestaji/izvestaji.component";
+import {IzvestajGuard} from "./guards/izvestaj.guard";
+
 import {MpFakturaComponent} from "./components/mp-faktura/mp-faktura.component";
 import {ProdajaGuard} from "./guards/prodaja.guard";
 import {PovracajComponent} from "./components/povracaj/povracaj.component";
@@ -38,6 +42,7 @@ import {ProfileComponent} from "./components/profile/profile.component";
 import {ProfileGuard} from "./guards/profile.guard";
 import {NabavkeGuard} from "./guards/nabavke.guard";
 import {ObracunComponent} from "./components/obracun/obracun.component";
+
 
 
 const routes: Routes = [
@@ -153,7 +158,12 @@ const routes: Routes = [
   {
     path: 'konverzije',
     component: KonverzijaComponent,
-    canActivate: [NabavkeGuard],
+    canActivate: [NabavkeGuard]
+  },
+  {
+    path: 'izvestaji',
+    component: IzvestajiComponent,
+    canActivate: [IzvestajGuard]
   },
   //PRODAJA
   {

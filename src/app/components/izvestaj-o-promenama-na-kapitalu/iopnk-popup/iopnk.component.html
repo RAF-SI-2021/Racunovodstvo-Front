@@ -1,0 +1,57 @@
+
+  <div class="row mt-1">
+    <div class="col">
+      <button class="btn btn-close float-end" (click)="close()"></button>
+    </div>
+  </div>
+
+  <div class="row mt-1 text-center">
+    <h2 class="text-center">{{title}}</h2>
+  </div>
+
+  <div class="row mt-1 text-center">
+    <div class="col-2"></div>
+    <div class="col-4">
+      <label>Godina 1: </label>
+    </div>
+    <div class="col-4">
+      <input type="number" #godina1>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <div class="row mt-1 text-center">
+    <div class="col-2"></div>
+    <div class="col-4">
+      <label>Godina 2: </label>
+    </div>
+    <div class="col-4">
+      <input type="number" #godina2>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <div class="row mt-1 text-center">
+    <div class="col-2"></div>
+    <div class="col-4">
+      <label>Opis: </label>
+    </div>
+    <div class="col-4">
+      <textarea name="opis" id="opis" rows="2" #opis></textarea>
+    </div>
+    <div class="col-2"></div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+  <div class="row mt-1 text-center">
+    <div class="col-4"></div>
+    <div class="col-4">
+      <button (click)="stampaj(godina1, godina2, opis)" class="btn btn-primary">štampaj</button>
+    </div>
+    <div class="col-4"></div>
+  </div>
+
+  <app-izvestaj-o-promenama-na-kapitalu hidden="true"></app-izvestaj-o-promenama-na-kapitalu>
