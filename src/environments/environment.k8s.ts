@@ -1,7 +1,7 @@
-const userServiceApi = 'http://racunovodstvo.k8s.elab.rs/user-service';
-const nabavkaServiceApi = 'http://racunovodstvo.k8s.elab.rs/nabavka-service';
-const knjizenjeServiceApi = 'http://racunovodstvo.k8s.elab.rs/knjizenje-service';
-const preduzeceServiceApi = 'http://racunovodstvo.k8s.elab.rs/preduzece-service';
+const userServiceApi = 'http://racunovodstvo.k8s.elab.rs:32264/user-service';
+const nabavkaServiceApi = 'http://racunovodstvo.k8s.elab.rs:32264/nabavka-service';
+const knjizenjeServiceApi = 'http://racunovodstvo.k8s.elab.rs:32264/knjizenje-service';
+const preduzeceServiceApi = 'http://racunovodstvo.k8s.elab.rs:32264/preduzece-service';
 
 export const environment = {
   production: true,
