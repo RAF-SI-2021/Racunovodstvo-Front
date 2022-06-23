@@ -9,6 +9,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {MatTreeModule} from '@angular/material/tree';
+import {CommonModule} from "@angular/common";
 
 // Mat
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -128,7 +129,8 @@ import { IotsComponent } from './components/izvestaj-o-transakcijama-sifra/iots-
     MatRadioModule,
     MatTreeModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    CommonModule
   ],
 
   providers: [DatePipe],

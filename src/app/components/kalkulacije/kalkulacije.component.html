@@ -29,7 +29,7 @@
 
         <div class="row">
           <div class="col-sm-4">
-            <label class="labelClass">Dobavljac:</label>
+            <label class="labelClass">Dobavljač:</label>
             <select class="form-control" type="text">
               <option *ngFor="let company of companies; index as i">{{ company.naziv}} </option>
             </select>
@@ -58,7 +58,7 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Sacuvaj</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Sačuvaj</button>
     </div>
   </ng-template>
   <div>
@@ -78,7 +78,7 @@
           <input class="form-control" type="date" [formControlName]="'datumDo'">
         </div>
         <div class="col-sm-3">
-          <label class="labelClass">Dobavljac:</label>
+          <label class="labelClass">Dobavljač:</label>
           <select class="form-control" type="text" [formControlName]="'dobavljac'">
             <option *ngFor="let company of companies; index as i"
                     [value]="company.preduzeceId">{{ company.naziv}} </option>
@@ -128,7 +128,7 @@
       <th scope="col">Broj Kalkulacije</th>
       <th scope="col">Tip</th>
       <th scope="col">Datum</th>
-      <th scope="col">Trosak nabavke</th>
+      <th scope="col">Trošak nabavke</th>
       <th scope="col">Fakturna cena</th>
       <th scope="col">Nabavna vrednost</th>
       <th scope="col">Prodajna vrednost</th>
@@ -209,7 +209,7 @@
 
       <div class="row">
         <div class="col-sm-4">
-          <label class="labelClass">Dobavljac:</label>
+          <label class="labelClass">Dobavljač:</label>
           <select class="form-control" type="text" [formControlName]="'dobavljac'">
             <option *ngFor="let company of companies; index as i"
                     [value]="company.preduzeceId">{{ company.naziv}} </option>
@@ -232,7 +232,7 @@
 
       <div class="row">
         <div class="col-sm-5">
-          <label class="labelClass">Troskovi nabavke:</label>
+          <label class="labelClass">Troškovi nabavke:</label>
           <div *ngFor="let trosak of troskoviNabavke; index as i">
             <form class="form-control" [formGroup]="trosakForm[i]">
               <div class="row">
@@ -242,7 +242,7 @@
                 </div>
                 <div class="col-sm-2"></div>
                 <div class="col-sm-5">
-                  <label class="labelClass">Trosak:</label>
+                  <label class="labelClass">Trošak:</label>
                   <input class="form-control" type="number" [formControlName]="'trosak'">
                 </div>
               </div>
@@ -265,7 +265,7 @@
             <div class="col-sm-4">
             </div>
             <div class="col-sm-4">
-              <button class="btn btn-sm btn-success" (click)="createNewKalkApi()">Sacuvaj</button>
+              <button class="btn btn-sm btn-success" (click)="createNewKalkApi()">Sačuvaj</button>
             </div>
             <div class="col-sm-4">
             </div>
@@ -274,7 +274,7 @@
             <div class="col-sm-4">
             </div>
             <div class="col-sm-4">
-              <button class="btn btn-sm btn-danger" (click)="cancelNewKalk()">Otkazi</button>
+              <button class="btn btn-sm btn-danger" (click)="cancelNewKalk()">Otkaži</button>
             </div>
             <div class="col-sm-4">
             </div>
@@ -308,7 +308,7 @@
 
       <div class="row">
         <div class="col-sm-4">
-          <label class="labelClass">Dobavljac:</label>
+          <label class="labelClass">Dobavljač:</label>
           <select class="form-control" type="text" [formControlName]="'dobavljac'">
             <option *ngFor="let company of companies; index as i"
                     [value]="company.preduzeceId">{{ company.naziv}} </option>
@@ -364,7 +364,7 @@
             <div class="col-sm-4">
             </div>
             <div class="col-sm-4">
-              <button class="btn btn-sm btn-success" (click)="updateKalk(kalkulacija.id)">Sacuvaj</button>
+              <button class="btn btn-sm btn-success" (click)="updateKalk(kalkulacija.id)">Sačuvaj</button>
             </div>
             <div class="col-sm-4">
             </div>
@@ -378,18 +378,18 @@
   <table *ngIf="selected" class="table table-striped table-responsive-sm">
     <thead>
     <tr>
-      <th>Sifra</th>
+      <th>Šifra</th>
       <th>Naziv</th>
-      <th>Kolicina</th>
+      <th>Količina</th>
       <th>Jedinica mere</th>
       <th>Nabavna cena</th>
       <th>Rabat %</th>
       <th>Rabat</th>
       <th>Nabavna cena posle rabata</th>
       <th>Ukupna nabavna vrednost</th>
-      <th>Marza procenat</th>
-      <th>Marza</th>
-      <th>Prodajna Osnovica</th>
+      <th>Marža procenat</th>
+      <th>Marža</th>
+      <th>Prodajna osnovica</th>
       <th>Porez %</th>
       <th>Porez</th>
       <th>Prodajna cena</th>
@@ -454,7 +454,7 @@
       <h3 class="text-center">Novi artikal</h3>
       <div class="row">
         <div class="col-sm-2">
-          <label class="labelClass">Sifra:</label>
+          <label class="labelClass">Šifra:</label>
           <input class="form-control" type="text" [formControlName]="'sifraArtikla'">
         </div>
 
@@ -464,7 +464,7 @@
         </div>
 
         <div class="col-sm-2">
-          <label class="labelClass">Kolicina:</label>
+          <label class="labelClass">Količina:</label>
           <input class="form-control" type="number" [formControlName]="'kolicina'">
         </div>
 
@@ -486,7 +486,7 @@
 
       <div class="row">
         <div class="col-sm-3">
-          <label class="labelClass">Marza %:</label>
+          <label class="labelClass">Marža %:</label>
           <input class="form-control" type="number" min="0" max="100"  [formControlName]="'marzaProcenat'">
         </div>
 
@@ -508,7 +508,7 @@
 
       <div class="row">
         <div class="col-sm-3">
-          <label class="labelClass">Marza:</label>
+          <label class="labelClass">Marža:</label>
           <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'marza'">
         </div>
 
@@ -550,7 +550,7 @@
       <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4 text-center">
-          <button class="btn btn-sm btn-success m-2" [disabled]="!artForm.valid" (click)="createNewArtApi()">Sacuvaj</button>
+          <button class="btn btn-sm btn-success m-2" [disabled]="!artForm.valid" (click)="createNewArtApi()">Sačuvaj</button>
           <button class="btn btn-sm btn-danger m-2" (click)="cancelNewArt()" >Otkazi</button>
         </div>
         <div class="col-sm-4"></div>
@@ -562,7 +562,7 @@
       <h3 class="text-center">Izmena artikla</h3>
       <div class="row">
         <div class="col-sm-2">
-          <label class="labelClass">Sifra:</label>
+          <label class="labelClass">Šifra:</label>
           <input class="form-control" type="text" [formControlName]="'sifraArtikla'">
         </div>
 
@@ -572,7 +572,7 @@
         </div>
 
         <div class="col-sm-2">
-          <label class="labelClass">Kolicina:</label>
+          <label class="labelClass">Količina:</label>
           <input class="form-control" type="number" [formControlName]="'kolicina'">
         </div>
 
@@ -594,7 +594,7 @@
 
       <div class="row">
         <div class="col-sm-3">
-          <label class="labelClass">Marza %:</label>
+          <label class="labelClass">Marža %:</label>
           <input class="form-control" type="number" min="0" max="100"  [formControlName]="'marzaProcenat'">
         </div>
 
@@ -616,7 +616,7 @@
 
       <div class="row">
         <div class="col-sm-3">
-          <label class="labelClass">Marza:</label>
+          <label class="labelClass">Marža:</label>
           <input class="form-control" type="number" [attr.disabled]="true" [formControlName]="'marza'">
         </div>
 
@@ -657,7 +657,7 @@
       <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4 text-center">
-          <button class="btn btn-sm btn-success m-2" [disabled]="!artForm.valid" (click)="updateArt(artikal.artikalId)">Sacuvaj</button>
+          <button class="btn btn-sm btn-success m-2" [disabled]="!artForm.valid" (click)="updateArt(artikal.artikalId)">Sačuvaj</button>
         </div>
         <div class="col-sm-4"></div>
       </div>

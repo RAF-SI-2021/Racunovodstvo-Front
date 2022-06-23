@@ -23,6 +23,11 @@ export class AddNewClientComponent implements OnInit {
 	}
 
 	addNewClient(client: IClient): void {
+    if(client.pib.length !== 9){
+      alert("Pib mora biti devetocifren broj!");
+      return;
+    }
+
 		this.addNewClientService
 			.addNewClient(client)
 			.subscribe((response: any) => {
@@ -32,6 +37,11 @@ export class AddNewClientComponent implements OnInit {
 	}
 
 	updateClient(client: IClient): void {
+    if(client.pib.length !== 9){
+      alert("Pib mora biti devetocifren broj!");
+      return;
+    }
+
 		this.addNewClientService
 			.updateClient(client)
 			.subscribe((response: any) => {

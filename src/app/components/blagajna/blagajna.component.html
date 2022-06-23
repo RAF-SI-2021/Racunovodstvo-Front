@@ -1,4 +1,5 @@
 <div class="row filter">
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Blagajna</h1>
   <div class="col-sm-12 d-flex justify-content-start m-3">
 
     <label for="opcije" class="margin-s">Filter:</label>
@@ -7,8 +8,8 @@
       <option value="datumTransakcije">Datum</option>
       <option value="tipTransakcije">Tip</option>
       <option value="iznos">Iznos</option>
-      <option value="sifraTransakcije">Sifra</option>
-      <option value="sadrzaj">Sadrzaj</option>
+      <option value="sifraTransakcije">Šifra</option>
+      <option value="sadrzaj">Sadržaj</option>
       <option value="komentar">Komentar</option>
     </select>
 
@@ -44,7 +45,7 @@
         <th scope="col">Naziv transakcije</th>
         <th scope="col">Šifra transakcije</th>
         <th scope="col">Komentar</th>
-        <th scope="col">Proknjizeno</th>
+        <th scope="col">Proknjiženo</th>
         <th scope="col">Akcija</th>
       </tr>
       </thead>
@@ -71,7 +72,7 @@
           <input class="form-check-input" type="checkbox" value="">
         </td>
         <td class="text-center align-middle">
-          <button type="button" class="btn btn-sm btn-primary" (click)="knjizi(transakcija)">Knjizi</button>
+          <button type="button" class="btn btn-sm btn-primary" (click)="knjizi(transakcija)">Knjiži</button>
         </td>
       </tr>
       </tbody>

@@ -26,6 +26,7 @@ export class ObracunComponent implements OnInit {
   zakazanaSifra: string = '';
   zakazanDan: number = 0;
   selectovanaSifra: number = 0;
+  dayExist: boolean = false;
 
   constructor(private formBuilder : FormBuilder, private service : PlateZaposlenihService, private obracunService: ObracunService, private router: Router) {
     this.obracun = formBuilder.group({
@@ -49,6 +50,8 @@ export class ObracunComponent implements OnInit {
     this.obracunService.getDanSifraTransakcijeId().subscribe( ozc =>{
 
       this.zakazanDan = ozc.dayOfMonth;
+      if(this.zakazanDan !== 0)
+        this.dayExist = true;
       this.zakazanaSifra = ozc.sifraTransakcije.sifra + ": " + ozc.sifraTransakcije.nazivTransakcije;
     })
 

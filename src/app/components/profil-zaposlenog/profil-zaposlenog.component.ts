@@ -78,7 +78,7 @@ export class ProfilZaposlenogComponent implements OnInit {
 	}
 
 	edit() {
-		alert(this.addingForm.get('datumPocetka')?.value);
+
 		// if(this.addingForm.valid){
 		this.profilService
 			.updateZaposleni(

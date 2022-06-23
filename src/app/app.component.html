@@ -12,7 +12,7 @@
                aria-current="page" [routerLink]="'profil'">Profil</a>
 
 			<a style="padding-left: 10px; padding-right: 10px" [hidden]="!canIzvestaji()" class="nav-link active"
-               aria-current="page" [routerLink]="'izvestaji'">Izvestaji</a>
+               aria-current="page" [routerLink]="'izvestaji'">Izveštaji</a>
 
             <!-- FINANSIJSKA_OPERATIVA -->
             <div style="padding-left: 10px; padding-right: 10px" ngbDropdown class="d-inline-block">
@@ -20,7 +20,6 @@
                  class="nav-link active" aria-current="page">Finansijska operativa</a>
               <ul ngbDropdownMenu>
                 <a ngbDropdownItem [routerLink]="'KUF'">Knjiga ulaznih faktura</a>
-                <a [hidden]="!canFinOp()" ngbDropdownItem [routerLink]="'knjizenje-widget'">Knjiženje</a>
                 <a ngbDropdownItem [routerLink]="'KIF'">Knjiga izlaznih faktura</a>
                 <a ngbDropdownItem [routerLink]="'add-new-invoice'">Dodaj fakturu</a>
                 <a ngbDropdownItem [routerLink]="'add-new-client'">Komitenti</a>
@@ -38,7 +37,7 @@
                 <a ngbDropdownItem [routerLink]="'sva-knjizenja'">Glavna knjiga</a>
                 <a ngbDropdownItem [routerLink]="'knjizenje-widget'">Knjiženje</a>
                 <a ngbDropdownItem [routerLink]="'bruto-bilans'">Bruto bilans</a>
-                <a ngbDropdownItem [routerLink]="'analiticke-kartice'">Analiticke Kartice</a>
+                <a ngbDropdownItem [routerLink]="'analiticke-kartice'">Analitičke kartice</a>
               </ul>
             </div>
 
@@ -46,9 +45,8 @@
             <div style="padding-left: 10px; padding-right: 10px" ngbDropdown class="d-inline-block">
               <a [hidden]="!canObrZa()" ngbDropdownToggle class="nav-link active" aria-current="page">Obračun zarade</a>
               <ul ngbDropdownMenu>
-                <a ngbDropdownItem [routerLink]="'zaposleni/:id'">Profil zaposlenog</a>
                 <a ngbDropdownItem [routerLink]="'zaposleni'">Zaposleni</a>
-                <a ngbDropdownItem [routerLink]="'plate'">Plata</a>
+                <a ngbDropdownItem [routerLink]="'plate'">Plate</a>
                 <a ngbDropdownItem [routerLink]="'koeficijenti'">Koeficijenti za obračun poreza i doprinosa</a>
                 <a ngbDropdownItem [routerLink]="'obracun'">Obračun</a>
               </ul>
@@ -68,7 +66,7 @@
               <a [hidden]="!canProdaja()" ngbDropdownToggle class="nav-link active" aria-current="page">Prodaja</a>
               <ul ngbDropdownMenu>
                 <a ngbDropdownItem [routerLink]="'mp_faktura'">Maloprodajna faktura</a>
-                <a ngbDropdownItem [routerLink]="'povracaj'">Povraćaj</a>
+                <a ngbDropdownItem [routerLink]="'povracaj'">Povraćaji</a>
                 <a ngbDropdownItem [routerLink]="'evidencije'">Evidencije</a>
               </ul>
             </div>
@@ -77,7 +75,7 @@
               <a [hidden]="!canProdaja()" ngbDropdownToggle class="nav-link active" aria-current="page">Centri</a>
               <ul ngbDropdownMenu>
 				<a ngbDropdownItem [routerLink]="'profitni-centar'">Profitni centar</a>
-					<a ngbDropdownItem [routerLink]="'troskovni-centar'">Troskovni Centar</a>
+					<a ngbDropdownItem [routerLink]="'troskovni-centar'">Troškovni Centar</a>
               </ul>
             </div>
 

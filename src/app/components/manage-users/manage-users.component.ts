@@ -32,6 +32,11 @@ export class ManageUsersComponent implements OnInit {
       finknj: [false],
       obrza: [false],
       finop: [false],
+      nabavke: [false],
+      profil: [false],
+      evidencije: [false],
+      izvestaji: [false],
+      prodaja: [false]
     });
     this.userAddForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
@@ -41,6 +46,11 @@ export class ManageUsersComponent implements OnInit {
       finknj: [false],
       obrza: [false],
       finop: [false],
+      nabavke: [false],
+      profil: [false],
+      evidencije: [false],
+      izvestaji: [false],
+      prodaja: [false],
     });
   }
 
@@ -99,6 +109,12 @@ export class ManageUsersComponent implements OnInit {
     this.userEditForm.controls['finknj'].setValue(this.findPermissions(this.userToEdit, "finknj"));
     this.userEditForm.controls['obrza'].setValue(this.findPermissions(this.userToEdit, "obrza"));
     this.userEditForm.controls['finop'].setValue(this.findPermissions(this.userToEdit, "finop"));
+
+    this.userEditForm.controls['nabavke'].setValue(this.findPermissions(this.userToEdit, "nabavke"));
+    this.userEditForm.controls['profil'].setValue(this.findPermissions(this.userToEdit, "profil"));
+    this.userEditForm.controls['evidencije'].setValue(this.findPermissions(this.userToEdit, "evidencije"));
+    this.userEditForm.controls['izvestaji'].setValue(this.findPermissions(this.userToEdit, "izvestaji"));
+    this.userEditForm.controls['prodaja'].setValue(this.findPermissions(this.userToEdit, "prodaja"));
     this.hiddenEdit = !this.hiddenEdit;
   }
 
@@ -119,6 +135,12 @@ export class ManageUsersComponent implements OnInit {
     this.userAddForm.controls['finknj'].setValue(false);
     this.userAddForm.controls['obrza'].setValue(false);
     this.userAddForm.controls['finop'].setValue(false);
+
+    this.userAddForm.controls['nabavke'].setValue(false);
+    this.userAddForm.controls['profil'].setValue(false);
+    this.userAddForm.controls['evidencije'].setValue(false);
+    this.userAddForm.controls['izvestaji'].setValue(false);
+    this.userAddForm.controls['prodaja'].setValue(false);
     this.hiddenAdd = !this.hiddenAdd;
   }
 

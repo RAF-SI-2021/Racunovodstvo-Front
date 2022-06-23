@@ -79,6 +79,18 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "dev-k8s": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.k8s.ts"
+              }]
             }
           },
           "defaultConfiguration": "production"
@@ -89,11 +101,14 @@
             "production": {
               "browserTarget": "racunovodstvo:build:production"
             },
-            "development": {
+            "dev": {
               "browserTarget": "racunovodstvo:build:development"
+            },
+            "k8s": {
+              "browserTarget": "racunovodstvo:build:dev-k8s"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "k8s"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

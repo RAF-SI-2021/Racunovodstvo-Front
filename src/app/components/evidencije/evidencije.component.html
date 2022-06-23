@@ -1,11 +1,12 @@
 <div class="mx-10">
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Evidencije</h1>
   <section class="search-sec">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
           <div class="row" [formGroup]="filterForm">
             <div class="col-lg-2 col-md-3 col-sm-12 p-0">
-              <input [formControlName]="'sifraArtikla'" type="text" placeholder="sifraArtikla"
+              <input [formControlName]="'sifraArtikla'" type="text" placeholder="šifraArtikla"
                      class="form-control search-slt">
             </div>
             <div class="col-lg-2 col-md-3 col-sm-12 p-0">
@@ -17,7 +18,7 @@
                      placeholder="jedinicaMere">
             </div>
             <div class="col-lg-2 col-md-3 col-sm-12 p-0">
-              <input [formControlName]="'kolicina'" type="text" class="form-control search-slt" placeholder="kolicina">
+              <input [formControlName]="'kolicina'" type="text" class="form-control search-slt" placeholder="količina">
             </div>
             <div class="col-lg-2 col-md-3 col-sm-12 p-0">
               <button (click)="pretrazi()" type="button" class="btn btn-danger wrn-btn">Pretraži</button>
@@ -31,10 +32,10 @@
     <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Sifra artikla</th>
+      <th scope="col">Šifra artikla</th>
       <th scope="col">Naziv artikla</th>
       <th scope="col">Jedinica mere</th>
-      <th scope="col">Kolicina</th>
+      <th scope="col">Količina</th>
     </tr>
     </thead>
     <tbody *ngFor="let artikal of artikli; index as i">

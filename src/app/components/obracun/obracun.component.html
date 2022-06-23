@@ -1,9 +1,10 @@
 <!--https://www.geeksforgeeks.org/angular-ng-bootstrap-collapse-component/-->
 <div class="row">
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Obračun</h1>
   <div class="col-sm-5"></div>
   <div class="card col-sm-5" style="width: 18rem; text-align: center">
     <div class="card-body">
-      <h6 class="card-title">Obračun će se generisati svakog {{zakazanDan}} u mesecu pod šifrom {{zakazanaSifra}}</h6>
+      <h6 class="card-title" *ngIf="dayExist">Obračun će se generisati svakog {{zakazanDan}} u mesecu pod šifrom {{zakazanaSifra}}</h6>
 
       <h5 class="card-title">Dan</h5>
       <!-- dan     sifra: naziv-->
@@ -53,7 +54,7 @@
                   <th>Doprinos 1</th>
                   <th>Bruto plata</th>
                   <th>Doprinos 2</th>
-                  <th>Ucinak %(decimalni broj)</th>
+                  <th>Učinak %(decimalni broj)</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -69,11 +70,11 @@
                   <td>
                     <button class="btn btn-warning"
                             (click)="updateZaposleni(obracun2.obracunZaposleniId, obracun2.netoPlata, obracun2.ucinak, i, j)">
-                      Update
+                      Izmeni
                     </button>
                   </td>
                   <td>
-                    <button class="btn btn-danger" (click)="deleteZaposleni(obracun2.obracunZaposleniId, i, j)">Delete
+                    <button class="btn btn-danger" (click)="deleteZaposleni(obracun2.obracunZaposleniId, i, j)">Obriši
                     </button>
                   </td>
                 </tr>
@@ -92,7 +93,7 @@
             </div>
           </div>
 
-          <button [disabled]="obracuni[i].obradjen" (click)="izvrsiTransakciju(obracun.obracunId)" class="btn btn-danger mx-5">Izvrsi transakciju</button>
+          <button [disabled]="obracuni[i].obradjen" (click)="izvrsiTransakciju(obracun.obracunId)" class="btn btn-danger mx-5">Izvrši transakciju</button>
         </div>
       </div>
     </div>

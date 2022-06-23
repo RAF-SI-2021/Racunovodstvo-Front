@@ -7,11 +7,11 @@
     {{artikal.controls['nazivArtikla'].value}}
   </div>
   <div class="card-body" style="text-align: center">
-    <label>Sifra artikla - {{artikal.controls['sifraArtikla'].value}}</label><br>
-    <label>JedinicaMere - {{artikal.controls['jedinicaMere'].value}}</label><br>
-    <label>Kolicina - {{artikal.controls['kolicina'].value}}</label><br>
+    <label>Šifra artikla - {{artikal.controls['sifraArtikla'].value}}</label><br>
+    <label>Jedinica mere - {{artikal.controls['jedinicaMere'].value}}</label><br>
+    <label>Količina - {{artikal.controls['kolicina'].value}}</label><br>
     <form [formGroup]="artikal" (ngSubmit)="updateCena()">
-      <label>ProdajnaCena -
+      <label>Prodajna cena -
         <!--      {{artikal.controls['nabavnaCena'].value}}-->
         <input [formControlName]="'prodajnaCena'" type="text" size="9"/>
       </label><br>
@@ -20,7 +20,7 @@
     <label>Rabat - {{artikal.controls['rabat'].value}}</label><br>
     <label>Nabavna cena posle rabata - {{artikal.controls['nabavnaCenaPosleRabata'].value}}</label><br>
     <label>Ukupna nabavna vrednost - {{artikal.controls['ukupnaNabavnaVrednost'].value}}</label><br>
-      <button class="btn btn-primary">Submit</button>
+      <button class="btn btn-primary">Potvrdi</button>
     </form>
 
   </div>

@@ -1,4 +1,5 @@
 <div class="row mt-2 creating-block">
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Profitni centar</h1>
   <div class="col-2 text-center">
     <label>Naziv:</label><br>
     <input type="text" #newProfCentarNaziv>
@@ -57,7 +58,7 @@
   </div>
 
   <div class="col-4 text-center">
-    <label for="centri">Profitni Centri:</label><br>
+    <label for="centri">Profitni centri:</label><br>
     <select name="centri" id="centri" #centarSelect>
       <option *ngFor="let centar of profitniCentri" value="centar">{{centar.naziv}}</option>
     </select>

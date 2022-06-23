@@ -206,9 +206,10 @@
                 <div>
                   <br>
                   <div class="form-outline">
-                    <input [(ngModel)]="plata" type="text" class="form-control form-control-lg"/>
                     <label class="form-label">Nova plata</label><br>
+                    <input [(ngModel)]="plata" type="text" class="form-control form-control-lg"/>
                     <button (click)="put()" class="btn btn-danger">Dodaj novu platu</button>
+                    <br>
                   </div>
                 </div>
               </div>
@@ -233,8 +234,8 @@
         <tbody>
         <tr *ngFor="let plata of plate; index as i">
           <th scope="row">{{ i + 1 }}</th>
-          <td id="brojNaloga">{{ plata.datumOd }}</td>
-          <td>{{ plata.datumDo }}</td>
+          <td id="brojNaloga">{{ plata.datumOd | date : 'dd/MM/yyyy' }}</td>
+          <td>{{ plata.datumDo | date : 'dd/MM/yyyy'}}</td>
           <td>{{plata.netoPlata}}</td>
           <td>{{ plata.komentar}}</td>
         </tr>

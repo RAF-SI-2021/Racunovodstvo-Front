@@ -52,7 +52,7 @@ export class ObracunService {
 	getTransakcije(): Observable<Pageable<SifraTransakcije>> {
 		const headers = { Authorization: `Bearer ${this.jwt}` };
 		return this.httpClient.get<Pageable<SifraTransakcije>>(
-			environment.preduzeceServiceApi + `/api/sifraTransakcije`,
+			environment.knjizenjeServiceApi + `/api/sifraTransakcije`,
 			{
 				headers: headers,
 			}

@@ -1,4 +1,5 @@
 <div class="row"[hidden]="!hideKontoList" >
+  <h1 style="font-family: Sans-serif, serif; text-align: center" class="mb-4 pb-2 pb-md-0 mb-md-5">Troškovni centar</h1>
   <div class="col-4 text-center">
     <label for="knjizenja">Knjiženja:</label><br>
     <select name="knjizenja" id="knjizenja" #knjizenjeSelect>
@@ -11,7 +12,7 @@
   </div>
 
   <div class="col-4 text-center">
-    <label for="centri">Troskovni Centri:</label><br>
+    <label for="centri">Troškovni centri:</label><br>
     <select name="centri" id="centri" #centarSelect>
       <option *ngFor="let centar of troskovniCentri" value="centar">{{centar.naziv}}</option>
     </select>

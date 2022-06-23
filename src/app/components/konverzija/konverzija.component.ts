@@ -135,7 +135,6 @@ export class KonverzijaComponent implements OnInit {
 
   delete(idKonverzije: number) {
     this.konverzijaService.deleteKonverzija(idKonverzije).subscribe(any => {
-      alert("OBRISAO")
       for (let i = 0; i < this.konverzije.length; i++) {
         if (this.konverzije[i].konverzijaId == idKonverzije) {
           this.konverzije.splice(i, 1);
