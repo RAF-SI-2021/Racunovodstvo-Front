@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Invoice, Company } from 'src/app/shared/invoice.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InvoiceService } from 'src/app/services/invoice/invoice.service';
+import {CurrencyService} from "../../services/currency/currency.service";
+import {CurrencyResponse, CurrencyResult} from "../../shared/currency.model";
 
 @Component({
 	selector: 'app-kif',
@@ -13,9 +15,12 @@ export class KifComponent implements OnInit {
 	updateGroup: FormGroup;
 	vrednost: string = '';
 
+  currencyResponse: CurrencyResponse;
+
 	constructor(
 		private formBuilder: FormBuilder,
-		private service: InvoiceService
+		private service: InvoiceService,
+    private currency: CurrencyService
 	) {
 		this.filterGroup = this.formBuilder.group({
 			pretraga: ['', [Validators.required]],
@@ -45,6 +50,18 @@ export class KifComponent implements OnInit {
 			naplata: [this.selektovanaFaktura.naplata, [Validators.required]],
 			komentar: [this.selektovanaFaktura.komentar],
 		});
+
+    this.updateGroup.get('valuta')?.valueChanges.subscribe(value => {
+      this.updateGroup.patchValue({
+        kurs: this.currencyResponse.result[value]
+      })
+    })
+
+    let date = new Date();
+    let string = date.getDate() + ".0" + (date.getMonth() + 1) + "." + date.getFullYear();
+    currency.getCurencies(string).subscribe((response) => {
+      this.currencyResponse = response;
+    });
 	}
 
 	inputAsDate: string = 'text';

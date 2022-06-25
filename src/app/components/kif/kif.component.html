@@ -153,12 +153,14 @@
 
         <div class="col-4">
           <label class="labelClass" for="valuta">Valuta:</label>
-          <input class="" id="valuta" type="text" [formControlName]="'valuta'" [value]="selektovanaFaktura.valuta">
+          <select class="" id="valuta" [formControlName]="'valuta'">
+            <option *ngFor="let currency of currencyResponse.currencies" [value]="currency">{{ currency }}</option>
+          </select>
         </div>
 
         <div class="col-4">
           <label class="labelClass" for="kurs">Kurs:</label>
-          <input class="" id="kurs" min="0" type="number" [formControlName]="'kurs'" [value]="selektovanaFaktura.kurs">
+          <input [disabled]="true" class="" id="kurs" min="0" type="number" [formControlName]="'kurs'" [value]="selektovanaFaktura.kurs">
         </div>
       </div>
 
