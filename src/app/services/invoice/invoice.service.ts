@@ -243,7 +243,7 @@ export class InvoiceService {
 			environment.knjizenjeServiceApi + '/api/knjizenje',
 			{
 				datumKnjizenja: datum,
-				brojNaloga: dokumentId,
+				brojNaloga: brojNaloga,
 				dokument: {
 					brojDokumenta: dokumentId,
 					tipDokumenta: 'FAKTURA',

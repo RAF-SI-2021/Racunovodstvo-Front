@@ -443,19 +443,19 @@ export class KalkulacijeComponent implements OnInit {
     let pVrednost2 = this.filterForm.get('pVrednost2')?.value;
     let komentar = this.filterForm.get('komentar')?.value;
 
-    if(brojKalkulacije !== ""){
+    if(brojKalkulacije !== "" && brojKalkulacije){
       filter += 'brojKalkulacije:' + brojKalkulacije + ',';
     }
 
-    if(dobavljac !== ""){
+    if(dobavljac !== "" && dobavljac){
       filter += 'dobavljacId:' + dobavljac + ',';
     }
 
-    if(lokacija !== ""){
-      filter += 'lokacijaId:' + lokacija + ',';
+    if(lokacija !== "" && lokacija){
+      filter += 'lokacija:' + lokacija.lokacijaId + ',';
     }
 
-    if(datumOd !== ""){
+    if(datumOd !== "" && datumOd){
       let date = new Date(datumOd).getTime()/1000;
       filter += 'datum>' + date + ',';
       if(datumDo === ""){
@@ -480,7 +480,7 @@ export class KalkulacijeComponent implements OnInit {
       }
     }
 
-    if(datumDo !== ""){
+    if(datumDo !== "" && datumDo){
       let date = new Date(datumDo).getTime()/1000 + 86400;
       filter += 'datum<' + date + ',';
       if(datumOd === ""){
@@ -488,35 +488,35 @@ export class KalkulacijeComponent implements OnInit {
       }
     }
 
-    if(nVrednost1 !== ""){
+    if(nVrednost1 !== "" && nVrednost1){
       filter += 'nabavnaVrednost>' + nVrednost1 + ',';
       if(nVrednost2 === ""){
-        filter += 'nabavnaVrednost<' + Number.MAX_SAFE_INTEGER + ',';
+        filter += 'nabavnaVrednost<' + 9007199254740991 + ',';
       }
     }
 
-    if(nVrednost2 !== ""){
+    if(nVrednost2 !== "" && nVrednost2){
       filter += 'nabavnaVrednost<' + nVrednost2 + ',';
       if(nVrednost1 === ""){
         filter += 'nabavnaVrednost>' + 0 + ',';
       }
     }
 
-    if(pVrednost1 !== ""){
-      filter += 'prodajnaVrednost>' + pVrednost1 + ',';
+    if(pVrednost1 !== "" && pVrednost1){
+      filter += 'prodajnaCena>' + pVrednost1 + ',';
       if(pVrednost2 === ""){
-        filter += 'prodajnaVrednost<' + Number.MAX_SAFE_INTEGER + ',';
+        filter += 'prodajnaCena<' + 9007199254740991 + ',';
       }
     }
 
-    if(pVrednost2 !== ""){
-      filter += 'nabavnaVrednost<' + pVrednost2 + ',';
+    if(pVrednost2 !== "" && pVrednost2){
+      filter += 'prodajnaCena<' + pVrednost2 + ',';
       if(pVrednost1 === ""){
-        filter += 'nabavnaVrednost>' + 0 + ',';
+        filter += 'prodajnaCena>' + 0 + ',';
       }
     }
 
-    if(komentar !== ""){
+    if(komentar !== "" && komentar){
       filter+= 'komentar:' + komentar;
     }
 

@@ -308,7 +308,7 @@ export class KnjizenjeWidgetComponent implements OnInit {
 				this.dugujeUkupnoNum,
 				this.potrazujeUkupnoNum,
 				this.dugujeUkupnoNum - this.potrazujeUkupnoNum,
-				this.knjizenjeGroup.get('brojDokumenta')?.value,
+				this.brojDokumenta,
 				this.knjizenjeGroup.get('brojNaloga')?.value,
 				this.knjizenjeGroup.get('datum')?.value,
         centar
