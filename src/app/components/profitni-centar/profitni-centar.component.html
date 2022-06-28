@@ -73,21 +73,19 @@
   <ng-template #recursiveList let-profitniCentri>
     <li *ngFor="let centar of profitniCentri" class="mb-3 centar">
 
-      <div class="container-fluid">
-        <b (click)="centar.showDetails = !centar.showDetails" class="centar-title">{{centar.naziv}}</b>
-        <button type="button" class="btn btn-sm btn-outline-primary" (click)="setSelected(centar)"><i>lista-konta</i></button>
-        <button type="button" class="btn btn-sm btn-outline-danger" (click)="obrisiProfitniCentar(centar)">Obriši</button>
-      </div>
+      <b (click)="centar.showDetails = !centar.showDetails" class="centar-title">{{centar.naziv}}</b>
+      <button type="button" class="btn btn-sm btn-outline-primary" (click)="setSelected(centar)"><i>lista-konta</i></button>
+      <button type="button" class="btn btn-sm btn-outline-danger" (click)="obrisiProfitniCentar(centar)">Obriši</button>
 
       <div *ngIf="centar.showDetails">
 
         <ul class="centar-props mb-2">
-            <p><i>Šifra:</i> <b><i>{{centar.sifra}}</i></b></p>
-            <p><i>Ukupni trošak:</i> <b><i>{{centar.ukupniTrosak}}</i></b></p>
-            <p><i>Naziv: </i> <input type="text" value="{{centar.naziv}}" #editableNazivCentra></p>
-            <p><i>Odgovorno lice: </i><select #editableOdgLice><option *ngFor="let odgLice of odgovornaLica">{{odgLice.ime}}</option></select></p>
-            <p><i>Lokacija: </i><select #editablelokacijaId><option *ngFor="let lokacija of lokacije">{{lokacija.naziv}}</option></select></p>
-            <button type="button" class="btn btn-sm btn-outline-warning" (click)="izmeniProfitniCentar(centar, editableNazivCentra, editableOdgLice, editablelokacijaId)">Izmeni podatke</button>
+          <p><i>Šifra:</i> <b><i>{{centar.sifra}}</i></b></p>
+          <p><i>Ukupni trošak:</i> <b><i>{{centar.ukupniTrosak}}</i></b></p>
+          <p><i>Naziv: </i> <input type="text" value="{{centar.naziv}}" #editableNazivCentra></p>
+          <p><i>Odgovorno lice: </i><select #editableOdgLice><option *ngFor="let odgLice of odgovornaLica">{{odgLice.ime}}</option></select></p>
+          <p><i>Lokacija: </i><select #editablelokacijaId><option *ngFor="let lokacija of lokacije">{{lokacija.naziv}}</option></select></p>
+          <button type="button" class="btn btn-sm btn-outline-warning" (click)="izmeniProfitniCentar(centar, editableNazivCentra, editableOdgLice, editablelokacijaId)">Izmeni podatke</button>
         </ul>
 
         <ul *ngIf="centar.profitniCentarList.length > 0">
