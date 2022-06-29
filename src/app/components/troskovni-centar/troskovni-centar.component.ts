@@ -20,67 +20,36 @@ import {Lokacija} from "../../shared/konverzija.model";
 })
 export class TroskovniCentarComponent implements OnInit {
 
-
-  constructor(private modalService: NgbModal,private centarService: TroskovniCentarService, private knjizenjeService: BookkeepingJournalService) {
-  }
-  closeResult = '';
-
-  //Selected values
-  selected_centar: TroskovniCentar;
-  kontoToEdit: Konto;
-
-  //FLAGS
-  editFormHidden: boolean = true;
-  hideKontoList: boolean = true;
-
-  //Lists
-  odgovornaLica: Zaposleni[] = [];
-  lokacije: Lokacija[] = [];
-  knjizenja: BookkeepingJournal[];
   troskovniCentri: TroskovniCentar[];
-  selected_kontos: Konto[] = undefined;
-
-  crud_operation: string = undefined;
-
-  // Edit parameters
-  editSifra: string;
-  editNaziv: string;
-  editukupniTrosak: number;
-  editodgovornoLice: number;
-  editlokacija: number;
-  editParentId: TroskovniCentar;
-
-  //editbrojNaloga: string;
-  //editbrojKonta: string;
-  editNazivKonta: string;
-  //editSaldo: number;
-  //editDatumKnjizenja: string;
-  editKomentar: string;
-
-  // Tree Configuration
   treeControl = new NestedTreeControl<TroskovniCentar>(node => node.troskovniCentarList);
   dataSource = new MatTreeNestedDataSource<TroskovniCentar>();
-  selectedC: any;
-  isNoParentChecked: boolean;
+  knjizenja: BookkeepingJournal[];
+  selectedTroskovniCentar: TroskovniCentar;
+  odgovornaLica: Zaposleni[] = [];
+  lokacije: Lokacija[] = [];
 
+  constructor(private knjizenjeService: BookkeepingJournalService, private troskovniCentarService: TroskovniCentarService) {
+  }
 
   ngOnInit(): void {
-    this.fetchTroskovniCentri();
+    this.fetchAllTroskovniCentri();
     this.knjizenjeService.getKnjizenja().subscribe((data) => {
       this.knjizenja = data;
     });
   }
 
-  fetchTroskovniCentri(){
-    this.centarService.getCentri().subscribe(data => {
+  fetchAllTroskovniCentri(): void {
+    this.troskovniCentarService.getCentri().subscribe(data => {
       this.troskovniCentri = data;
       this.formatData();
       this.dataSource.data = this.troskovniCentri;
     })
-    this.centarService.getAllLokacije().subscribe(data => {
+
+    this.troskovniCentarService.getAllLokacije().subscribe(data => {
       this.lokacije = data;
     })
-    this.centarService.getAllOdgovornaLica().subscribe(data => {
+
+    this.troskovniCentarService.getAllOdgovornaLica().subscribe(data => {
       this.odgovornaLica = data;
     })
   }
@@ -91,15 +60,14 @@ export class TroskovniCentarComponent implements OnInit {
           return element.parentTroskovniCentar && element.parentTroskovniCentar.id == item.id;
         }
       );
+      item.showDetails = false;
     })
 
     for (let i = 0; i < this.troskovniCentri.length; i++) {
       this.troskovniCentri[i] = this.dfsReassignment(this.troskovniCentri[i]);
     }
   }
-  getIcon(node: TroskovniCentar): string {
-    return this.treeControl.isExpanded(node) ? '-' : '+';
-  }
+
   reassignObject(source: TroskovniCentar): TroskovniCentar {
     return Object.assign({}, source);
   }
@@ -114,7 +82,6 @@ export class TroskovniCentarComponent implements OnInit {
     return sum;
   }
 
-
   dfsReassignment(curr: TroskovniCentar): TroskovniCentar {
     curr = this.reassignObject(curr);
     if (curr.troskovniCentarList) {
@@ -124,13 +91,14 @@ export class TroskovniCentarComponent implements OnInit {
     }
     return curr;
   }
+
   popup(knjizenjeIndex: number, troskovniCentarIndex: number): void {
     let text = 'Da li zelite da iz knjiženja(' +
       this.knjizenja[knjizenjeIndex].brojNaloga +
       ') dodelite listu konta troskovnom centru(' +
       this.troskovniCentri[troskovniCentarIndex].naziv + ')?';
     if (confirm(text) == true) {
-      this.centarService.assignKnizenje(this.knjizenja[knjizenjeIndex], this.troskovniCentri[troskovniCentarIndex]).subscribe(
+      this.troskovniCentarService.assignKnizenje(this.knjizenja[knjizenjeIndex], this.troskovniCentri[troskovniCentarIndex]).subscribe(
         data => {
 
           // const dummyKontoList = [
@@ -146,164 +114,85 @@ export class TroskovniCentarComponent implements OnInit {
           // data.kontoList.forEach(item => {
           //   item.knjizenje = this.knjizenja[knjizenjeIndex];
           // });
-          this.fetchTroskovniCentri();
+          this.fetchAllTroskovniCentri();
         });
     }
   }
 
-  openKontos(node: TroskovniCentar) {
-    console.log(node.naziv + ' '+ node.sifra);
-    console.log('-----------=-----------');
-
-    this.selected_kontos = node.kontoList;
-    this.selected_centar = node;
-    this.hideKontoList = !this.hideKontoList;
+  izmeniKonto(konto: Konto, editableKomentar: HTMLTextAreaElement): void {
+    let index: number = this.selectedTroskovniCentar.kontoList.findIndex(item => item.bazniKontoId === konto.bazniKontoId);
+    let newKonto: Konto = this.selectedTroskovniCentar.kontoList[index];
+    newKonto.komentarKnjizenja = editableKomentar.value;
+    this.selectedTroskovniCentar.kontoList[index] = newKonto;
+    this.izmeniTroskovniCentarKontos(this.selectedTroskovniCentar);
   }
 
-  deleteKonto(konto: Konto) {
-    console.log(this.selected_centar.kontoList);
-    this.selected_centar.kontoList = this.selected_centar.kontoList.filter(data => data != konto);
-    this.selected_kontos = this.selected_centar.kontoList.filter(data => data != konto);
-    console.log(this.selected_centar.kontoList);
-    this.hideKontoList = true;
-    this.editFormHidden = true;
-    this.updateKontoFromCentar(this.selected_centar);
+  obrisiKonto(konto: Konto): void {
+    this.selectedTroskovniCentar.kontoList = this.selectedTroskovniCentar.kontoList.filter(data => data != konto);
+    this.izmeniTroskovniCentarKontos(this.selectedTroskovniCentar);
   }
 
-  editKonto() {
-    if(this.editKomentar){
-      if(this.kontoToEdit){
-        let index: number = this.selected_centar.kontoList.findIndex(item => item.bazniKontoId === this.kontoToEdit.bazniKontoId);
-        let newKonto: Konto = this.selected_centar.kontoList[index];
-        newKonto.komentarKnjizenja = this.editKomentar;
-        this.selected_centar.kontoList[index] = newKonto;
-        this.hideKontoList = true;
-        this.editFormHidden = true;
-        this.updateKontoFromCentar(this.selected_centar);
-      }
-    }else{
-      alert("Podaci su nevalidni, pokusajte ponovo");
+  sacuvajTroskovniCentar(newTrosCentarNaziv: HTMLInputElement, newTrosCentarSifra: HTMLInputElement,
+                        newTrosCentarLokacijaId: HTMLSelectElement, newTrosCentarOdgLiceId: HTMLSelectElement, newTrosCentarRoditelj: HTMLSelectElement): void {
+    let newTroskovniCentar: TroskovniCentar = {
+      sifra: newTrosCentarSifra.value,
+      naziv: newTrosCentarNaziv.value,
+      ukupniTrosak: 0,
+      lokacijaId: this.lokacije[newTrosCentarLokacijaId.selectedIndex].lokacijaId,
+      odgovornoLiceId: this.odgovornaLica[newTrosCentarOdgLiceId.selectedIndex].zaposleniId,
+      parentTroskovniCentar: this.troskovniCentri[newTrosCentarRoditelj.selectedIndex],
+      kontoList: []
     }
-  }
-  updateKontoFromCentar(centar: TroskovniCentar){
-    this.centarService.editCentri(centar).subscribe(data => {
-      alert("Uspesna izmena")
-      this.fetchTroskovniCentri();
-    },error => {
-      alert("Doslo je do greske izmene");
+    this.troskovniCentarService.save(newTroskovniCentar).subscribe(() => {
+      this.fetchAllTroskovniCentri();
     });
   }
 
-  toggleEdit(konto: Konto) {
-    this.kontoToEdit = konto;
-    this.editFormHidden = !this.editFormHidden;
-
-    this.editKomentar = konto.komentarKnjizenja;
-  }
-
-  deleteToggle(content: TemplateRef<any>){
-    this.crud_operation = "delete";
-    this.modalService.open(content,
-      {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-    }, (reason) => {
-      alert("Operacija nije primenjena");
+  izmeniTroskovniCentar(troskovniCentar: TroskovniCentar, editableNazivCentra: HTMLInputElement, editableOdgLice: HTMLSelectElement,
+                       editablelokacijaId: HTMLSelectElement): void {
+    troskovniCentar.naziv = editableNazivCentra.value;
+    troskovniCentar.odgovornoLiceId = this.odgovornaLica[editableOdgLice.selectedIndex].zaposleniId;
+    troskovniCentar.lokacijaId = this.lokacije[editablelokacijaId.selectedIndex].lokacijaId;
+    this.troskovniCentarService.update(troskovniCentar).subscribe(data => {
+      this.fetchAllTroskovniCentri()
     });
   }
 
-  addToggle(content: TemplateRef<any>){
-    this.editSifra = '';
-    this.editNaziv = '';
-    this.editodgovornoLice = 0;
-    this.editlokacija = 0;
-    this.isNoParentChecked = false;
-    this.crud_operation = "add";
-    this.modalService.open(content,
-      {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-    }, (reason) => {
-      alert("Operacija nije primenjena");
-    });
-  }
-  editToggle(content: TemplateRef<any>){
-    this.crud_operation = "edit";
-    this.editNaziv = '';
-    this.modalService.open(content,
-      {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-    }, (reason) => {
-      alert("Operacija nije primenjena");
+  izmeniTroskovniCentarKontos(troskCentar: TroskovniCentar): void {
+    this.troskovniCentarService.update(troskCentar).subscribe(data => {
+      this.fetchAllTroskovniCentri()
     });
   }
 
-  addCentar(modal, index, lokacijaIndex: number, OdgLiceIndex: number) {
-    if(this.editSifra && this.editNaziv &&
-       this.editukupniTrosak && lokacijaIndex != -1 && OdgLiceIndex != -1){
-          let parent = null;
-          console.log(this.isNoParentChecked);
-          if(index !== -1) {
-            parent = this.troskovniCentri[index];
-          }
-          if(this.isNoParentChecked){
-            parent = null;
-          }
-          const newCentar: TroskovniCentar = {
-            sifra: this.editSifra,
-            naziv: this.editNaziv,
-            ukupniTrosak: this.editukupniTrosak,
-            lokacijaId: this.lokacije[lokacijaIndex].lokacijaId,
-            parentTroskovniCentar: parent,
-            odgovornoLiceId: this.odgovornaLica[OdgLiceIndex].zaposleniId,
-            kontoList: [],
-          };
-          this.centarService.addCentri(newCentar, parent).subscribe( res => {
-            alert("Uspesno dodat Troskovni Centar: " + res.naziv);
-            this.ngOnInit();
-          });
-    }else{
-      alert("Sva polja su obavezna.");
-    }
-    modal.close();
-  }
-
-  deleteCentar(modal, index) {
-    console.log(index);
-    if(index === -1){
-      alert('Izaberite centar za brisanje')
-      return;
-    }
-    this.centarService.deleteCentri(this.troskovniCentri[index].id).subscribe(() => {
-        this.fetchTroskovniCentri();
-        alert('Uspesno brisanje.');
-      },error => {
-        alert('Doslo je do greske.');
+  obrisiTroskovniCentar(troskCentar: TroskovniCentar): void {
+    this.troskovniCentarService.delete(troskCentar.id).subscribe(() => {
+        this.troskovniCentri = [];
+        this.fetchAllTroskovniCentri();
       }
     );
-    modal.close();
   }
 
-  editCentar(modal, index, lokacijaIndex: number, odgLiceIndex: number) {
-    if(index === -1 || lokacijaIndex === -1 || odgLiceIndex === -1 || this.editNaziv === ''){
-      alert('Izaberite sve potrebne paramentre')
-      return;
+  calculateUkupniTrosak(node: TroskovniCentar): number {
+    let sum: number = node.ukupniTrosak;
+    if (node.troskovniCentarList) {
+      for (let i = 0; i < node.troskovniCentarList.length; i++) {
+        sum = this.dfsCalculation(node.troskovniCentarList[i], sum);
+      }
     }
-    console.log(this.selected_centar);
-    this.editFormHidden = true;
-    this.hideKontoList = true;
-    this.troskovniCentri[index].naziv =  this.editNaziv;
-    this.troskovniCentri[index].lokacijaId = this.lokacije[lokacijaIndex].lokacijaId;
-    this.troskovniCentri[index].odgovornoLiceId = this.odgovornaLica[odgLiceIndex].zaposleniId;
-    this.centarService.editCentri(this.troskovniCentri[index]).subscribe(res => {
-      this.fetchTroskovniCentri();
-      alert('Uspesno izmenjen centar')
-    }, error => {
-      alert('Doslo je do greske');
-    })
-    modal.close();
+
+    if (node.kontoList) {
+      node.kontoList.forEach(konto => {
+        sum += (konto.duguje + konto.potrazuje);
+      })
+    }
+    return sum;
   }
 
-  getSaldo(duguje: number, potrazuje: number): number {
-    return duguje - potrazuje;
+  getIcon(node: TroskovniCentar): string {
+    return this.treeControl.isExpanded(node) ? '-' : '+';
   }
 
-  getAsDate(date: string) {
+  getAsDate(date: string): string {
     let newDate = new Date(date);
     return (
       newDate.getDate() +
@@ -313,5 +202,15 @@ export class TroskovniCentarComponent implements OnInit {
       newDate.getFullYear()
     );
   }
+
+  getSaldo(duguje: number, potrazuje: number): number {
+    return duguje - potrazuje;
+  }
+
+  setSelected(selected: TroskovniCentar): void {
+    this.selectedTroskovniCentar = selected;
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
 }
 
