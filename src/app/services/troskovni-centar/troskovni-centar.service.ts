@@ -28,37 +28,24 @@ export class TroskovniCentarService {
       headers: headers,
     });
   }
-  deleteCentri(id: number): Observable<any>{
+  delete(id: number): Observable<any>{
     const headers = { Authorization: `Bearer ${this.jwt}` };
     return this.httpClient.delete<any>(this.endpoint+ '/'+ id, {
       headers: headers
     })
   }
 
-  addCentri(centar: TroskovniCentar, parent: TroskovniCentar): Observable<TroskovniCentar>{
-    const headers = { Authorization: `Bearer ${this.jwt}` };
-    let id = null;
-    if(parent){
-      id = parent.id;
-    }
-   // if(centar.parentTroskovniCentar !== undefined || centar.parentTroskovniCentar !== null ){
-   //   id = centar.parentTroskovniCentar.id;
-   // parent = centar.parentTroskovniCentar;
-   // }
-    const body= {
-      "sifra": centar.sifra,
-      "naziv": centar.naziv,
-      "ukupniTrosak": centar.ukupniTrosak,
-      "lokacijaId": centar.lokacijaId,
-      "parentId": id,
-      "odgovornoLiceId": centar.odgovornoLiceId,
-      "parentTroskovniCentar": parent,
-    }
-    return this.httpClient.post<TroskovniCentar>(this.endpoint, body,{
-      headers: headers
+  save(troskovniCentar: TroskovniCentar): Observable<TroskovniCentar> {
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${environment.troskovni_centar}`;
+    return this.httpClient.post<TroskovniCentar>(url, troskovniCentar,{
+      headers: {
+        Authorization: 'Bearer '.concat(jwt.toString()),
+      },
     });
   }
-  editCentri(centar: TroskovniCentar): Observable<TroskovniCentar>{
+
+  update(centar: TroskovniCentar): Observable<TroskovniCentar>{
     const headers = { Authorization: `Bearer ${this.jwt}` };
     return this.httpClient.put<TroskovniCentar>(this.endpoint,centar,{
       headers: headers
@@ -77,17 +64,25 @@ export class TroskovniCentarService {
     });
   }
   getAllLokacije(): Observable<Lokacija[]> {
-    const headers = { Authorization: `Bearer ${this.jwt}` };
-    return this.httpClient.get<Lokacija[]>('http://localhost:8080/api/lokacije', {
-      headers: headers,
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${environment.lokacijeApi}`;
+    return this.httpClient.get<Lokacija[]>(url, {
+      headers: {
+        Authorization: 'Bearer '.concat(jwt.toString()),
+      },
     });
   }
   getAllOdgovornaLica(): Observable<Zaposleni[]> {
-    const headers = { Authorization: `Bearer ${this.jwt}` };
+    let jwt = String(sessionStorage.getItem('jwt'));
+    let url = `${environment.zaposleniApi}`;
+
     let params = new HttpParams();
     params = params.append('search', '');
-    return this.httpClient.get<Zaposleni[]>('http://localhost:8080/api/zaposleni', {
-      headers: headers,
+
+    return this.httpClient.get<Zaposleni[]>(url, {
+      headers: {
+        Authorization: 'Bearer '.concat(jwt.toString()),
+      },
       params: params
     });
   }

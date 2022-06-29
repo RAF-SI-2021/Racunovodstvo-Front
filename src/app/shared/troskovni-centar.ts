@@ -10,6 +10,7 @@ export interface TroskovniCentar{
   parentTroskovniCentar: TroskovniCentar;
   kontoList: Konto[];
   troskovniCentarList?: TroskovniCentar[];
+  showDetails?: boolean;
 }
 
 export interface PageableTroskovniCentar {

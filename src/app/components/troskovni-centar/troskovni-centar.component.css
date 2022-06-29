@@ -23,28 +23,46 @@
 }
 
 .mat-tree-node {
-  border-bottom: 2px solid blue;
-  background: white;
+  border-top: 1px solid #007bff;
+  border-left: 1px solid #007bff;
 }
-.tree-node-border{
-  margin: 2rem;
-  border-top: 2px solid blue;
-  border-left: 2px solid blue;
-  border-right: 2px solid blue;
-  background: white;
-}
-.crud-btn{
-  margin-left: 2rem;
-}
-.white-text{
-  color: white;
-}
-.table-border{
-  border: 2px solid blue;
-}
-.cursor-point{
-  cursor: pointer;
-}
-button {
+
+.plusminus {
   font-weight: bold
+}
+
+.btn-outline-primary, .btn-outline-warning, .btn-outline-danger {
+  margin-left: 10px;
+  color: black;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.creating-block, .adding-kontos-block, .kontos-table {
+  background: honeydew;
+  padding: 10px;
+}
+
+.centar {
+  border-left: 2px solid blue
+}
+
+.centar-title {
+  border: 1px solid black;
+  padding: 3px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.centar-props {
+  border-left: 1px solid orange;
+  padding: 10px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.btn-outline-warning {
+  border: 1px solid orange;
 }
