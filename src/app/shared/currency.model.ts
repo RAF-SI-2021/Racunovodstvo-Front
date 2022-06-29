@@ -2,8 +2,6 @@ export interface CurrencyResponse {
 
   result: CurrencyResult;
   status: string;
-  currencies: ["RSD", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
-                "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
 
 }
 

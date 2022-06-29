@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InvoiceService } from 'src/app/services/invoice/invoice.service';
 import {CurrencyService} from "../../services/currency/currency.service";
 import {CurrencyResponse, CurrencyResult} from "../../shared/currency.model";
+import {environment} from "../../../environments/environment";
 
 @Component({
 	selector: 'app-kif',
@@ -14,7 +15,7 @@ export class KifComponent implements OnInit {
 	filterGroup: FormGroup;
 	updateGroup: FormGroup;
 	vrednost: string = '';
-
+  currencies: string[];
   currencyResponse: CurrencyResponse;
 
 	constructor(
@@ -26,6 +27,7 @@ export class KifComponent implements OnInit {
 			pretraga: ['', [Validators.required]],
 			vrednost: ['', [Validators.required]],
 		});
+
 		this.updateGroup = this.formBuilder.group({
 			brojFakture: [this.selektovanaFaktura.brojFakture],
 			datumIzdavanja: [this.selektovanaFaktura.datumIzdavanja],
@@ -50,18 +52,15 @@ export class KifComponent implements OnInit {
 			naplata: [this.selektovanaFaktura.naplata, [Validators.required]],
 			komentar: [this.selektovanaFaktura.komentar],
 		});
-
     this.updateGroup.get('valuta')?.valueChanges.subscribe(value => {
-      this.updateGroup.patchValue({
-        kurs: this.currencyResponse.result[value]
-      })
+      console.log(this.updateGroup.get('valuta')?.value);
+
     })
 
-    let date = new Date();
-    let string = date.getDate() + ".0" + (date.getMonth() + 1) + "." + date.getFullYear();
-    currency.getCurencies(string).subscribe((response) => {
-      this.currencyResponse = response;
-    });
+    this.currencies = ["RSD", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+      "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
+
+
 	}
 
 	inputAsDate: string = 'text';
@@ -132,6 +131,9 @@ export class KifComponent implements OnInit {
 		this.service.sveKifFakture().subscribe((response) => {
 			this.kif = response
 		});
+    this.currency.getCurencies().subscribe((response) => {
+      this.currencyResponse = response;
+    });
 	}
 
 	setInputAsDate() {
@@ -367,4 +369,19 @@ export class KifComponent implements OnInit {
 			}
 		});
 	}
+
+
+  promeniKurs() {
+    let curr = this.updateGroup.get('valuta')?.value.toLowerCase()
+    if(curr == 'rsd') {
+      this.updateGroup.patchValue({
+        kurs: 1.00
+      })
+    } else {
+      this.updateGroup.patchValue({
+        kurs: this.currencyResponse.result[curr].sre
+      })
+    }
+  }
+
 }
