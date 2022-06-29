@@ -10,6 +10,7 @@ export interface ProfitniCentar{
   parentProfitniCentar: ProfitniCentar;
   kontoList: Konto[];
   profitniCentarList?: ProfitniCentar[];
+  showDetails?: boolean;
 }
 
 export interface PageableProfitniCentar {

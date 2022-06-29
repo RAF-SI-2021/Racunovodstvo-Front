@@ -56,6 +56,7 @@ export class ProfitniCentarComponent implements OnInit {
           return element.parentProfitniCentar && element.parentProfitniCentar.id == item.id;
         }
       );
+      item.showDetails = false;
     })
 
     for (let i = 0; i < this.profitniCentri.length; i++) {
