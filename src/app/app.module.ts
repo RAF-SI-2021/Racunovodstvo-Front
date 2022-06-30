@@ -66,6 +66,7 @@ import { IzvestajOTransakcijamaKomitentComponent } from './components/izvestaj-o
 import { IotkComponent } from './components/izvestaj-o-transakcijama-komitent/iotk-popup/iotk.component';
 import { IzvestajOTransakcijamaSifraComponent } from './components/izvestaj-o-transakcijama-sifra/izvestaj-o-transakcijama-sifra.component';
 import { IotsComponent } from './components/izvestaj-o-transakcijama-sifra/iots-popup/iots.component';
+import { Konverzija2Component } from './components/konverzija2/konverzija2.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +109,8 @@ import { IotsComponent } from './components/izvestaj-o-transakcijama-sifra/iots-
     IzvestajOTransakcijamaKomitentComponent,
     IotkComponent,
     IzvestajOTransakcijamaSifraComponent,
-    IotsComponent
+    IotsComponent,
+    Konverzija2Component
   ],
   imports: [
     BrowserModule,

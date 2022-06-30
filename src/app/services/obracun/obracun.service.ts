@@ -39,6 +39,18 @@ export class ObracunService {
 			}
 		);
 	}
+
+	napraviObracun(idTransakcije: number): Observable<Obracun>{
+		const headers = { Authorization: `Bearer ${this.jwt}` };
+		console.log('POSLATA SIFRA: ' + idTransakcije);
+		return this.httpClient.post<Obracun>(
+			environment.preduzeceServiceApi + `/api/obracun_zarade_config/create`,
+			{
+				idTransakcije: idTransakcije,
+			},
+			{ headers: headers }
+		);
+	}
 	getDanSifraTransakcijeId(): Observable<ObracunZaradeConfig> {
 		const headers = { Authorization: `Bearer ${this.jwt}` };
 		return this.httpClient.get<ObracunZaradeConfig>(

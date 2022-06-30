@@ -129,4 +129,11 @@ export class ObracunComponent implements OnInit {
       location.reload()
     })
   }
+
+  napravi() {
+    // this.selectovanaSifra
+    this.obracunService.napraviObracun(this.selectovanaSifra).subscribe(e=>{
+      this.obracuni.push(e);
+    })
+  }
 }
