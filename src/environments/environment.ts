@@ -36,6 +36,9 @@ export const environment = {
 
   lokacijeApi: nabavkaServiceApi + '/api/lokacije',
   zaposleniApi: preduzeceServiceApi + '/api/zaposleni',
+
+  currencies: ["RSD", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+    "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"]
 };
 
 /*

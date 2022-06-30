@@ -43,6 +43,8 @@ export class KnjizenjeWidgetComponent implements OnInit {
   newSubBrDok: number = -1;
   newSubDatum: string = '';
 
+  useCentar: boolean = false;
+
 	constructor(
 		public formBuilder: FormBuilder,
 		private service: InvoiceService,
@@ -57,6 +59,7 @@ export class KnjizenjeWidgetComponent implements OnInit {
 		//   ktnGrp2,
 		//   ktnGrp3)
 		this.knjizenjeGroup = this.formBuilder.group({
+		  brojDokumenta: ['', Validators.required],
 			brojNaloga: ['', Validators.required],
 			datum: ['', Validators.required],
 		});
@@ -297,18 +300,21 @@ export class KnjizenjeWidgetComponent implements OnInit {
 			});
 		});
     let centar;
-    if(this.checkbox){
-      centar = 	this.centarForm.get('centar2')?.value
-    }else{
-      centar = 	this.centarForm.get('centar1')?.value
+    if(this.useCentar){
+        if(this.checkbox){
+          centar = 	this.centarForm.get('centar2')?.value
+        }else{
+          centar = 	this.centarForm.get('centar1')?.value
+        }
     }
+
 		this.service
 			.knjizenje(
 				this.kontos,
 				this.dugujeUkupnoNum,
 				this.potrazujeUkupnoNum,
 				this.dugujeUkupnoNum - this.potrazujeUkupnoNum,
-				this.brojDokumenta,
+				this.knjizenjeGroup.get('brojDokumenta')?.value,
 				this.knjizenjeGroup.get('brojNaloga')?.value,
 				this.knjizenjeGroup.get('datum')?.value,
         centar
@@ -338,5 +344,13 @@ export class KnjizenjeWidgetComponent implements OnInit {
 
 	saldo() {
 		return this.dugujeUkupnoNum - this.potrazujeUkupnoNum;
+	}
+
+	toggleUseCentar() {
+	  if(this.useCentar) {
+	    this.useCentar = false;
+	  } else {
+	    this.useCentar = true;
+	  }
 	}
 }

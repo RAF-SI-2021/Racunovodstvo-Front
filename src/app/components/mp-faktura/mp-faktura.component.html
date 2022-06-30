@@ -7,7 +7,6 @@
           <th scope="col">Broj fakture</th>
           <th scope="col">Datum izdavanja</th>
           <th scope="col">Komitent</th>
-          <th scope="col">Rok za plaćanje</th>
           <th scope="col">Datum plaćanja</th>
           <th scope="col">Prodajna vrednost</th>
           <th scope="col">Rabat%</th>
@@ -26,7 +25,6 @@
         <td>{{ faktura.brojFakture }}</td>
         <td>{{ getAsDate(faktura.datumIzdavanja) }}</td>
         <td>{{ faktura.preduzece.naziv }}</td>
-        <td>{{ getAsDate(faktura.rokZaPlacanje) }}</td>
         <td>{{ getAsDate(faktura.datumPlacanja) }}</td>
         <td>{{ faktura.prodajnaVrednost }}</td>
         <td>{{ filterOfNull(faktura.rabatProcenat) }}</td>
@@ -43,7 +41,6 @@
       </tbody>
       <tfoot>
       <td colspan="2"><a><b>Ukupno (DIN)</b></a></td>
-      <td></td>
       <td></td>
       <td></td>
       <td><a><b> {{ ukupnaProdajnaVrednost() }}</b> </a></td>
@@ -77,16 +74,12 @@
             </select>
           </div>
           <div class="col-sm-3">
-            <label class="labelClass">Rok za plaćanje:</label>
-            <input class="form-control" type="date" [formControlName]="'rokZaPlacanje'">
+            <label class="labelClass">Datum plaćanja:</label>
+            <input class="form-control" type="date" [formControlName]="'datumPlacanja'">
           </div>
         </div>
 
         <div class="row mt-2">
-          <div class="col-sm-3">
-            <label class="labelClass">Datum plaćanja:</label>
-            <input class="form-control" type="date" [formControlName]="'datumPlacanja'">
-          </div>
           <div class="col-sm-3">
             <label class="labelClass">Prodajna vrednost:</label>
             <input class="form-control" type="number" [formControlName]="'prodajnaVrednost'">
@@ -99,22 +92,24 @@
             <label class="labelClass">Porez %:</label>
             <input class="form-control" type="number" [formControlName]="'porezProcenat'">
           </div>
+          <div class="col-sm-3">
+            <label class="labelClass" for="valuta">Valuta:</label>
+            <select class="form-control" id="valuta" [formControlName]="'valuta'" (change)="promeniKurs()">
+              <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+            </select>
+          </div>
         </div>
 
         <div class="row mt-2">
           <div class="col-sm-3">
-            <label class="labelClass">Valuta:</label>
-            <input class="form-control" type="text" [formControlName]="'valuta'">
-          </div>
-          <div class="col-sm-3">
             <label class="labelClass">Kurs:</label>
-            <input class="form-control" type="number" [formControlName]="'kurs'">
+            <input [attr.disabled]="true" class="form-control" type="number" [formControlName]="'kurs'">
           </div>
           <div class="col-sm-3">
             <label class="labelClass">Naplata:</label>
             <input class="form-control" type="number" [formControlName]="'naplata'">
           </div>
-          <div class="col-sm-3">
+          <div class="col-sm-6">
             <label class="labelClass">Komentar:</label>
             <textarea rows="3" class="form-control" type="text" [formControlName]="'komentar'"></textarea>
           </div>

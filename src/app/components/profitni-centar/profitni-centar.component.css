@@ -44,3 +44,25 @@ html {
   background: honeydew;
   padding: 10px;
 }
+
+.centar {
+  border-left: 2px solid blue
+}
+
+.centar-title {
+  border: 1px solid black;
+  padding: 3px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.centar-props {
+  border-left: 1px solid orange;
+  padding: 10px;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.btn-outline-warning {
+  border: 1px solid orange;
+}

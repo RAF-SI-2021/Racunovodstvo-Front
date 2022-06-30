@@ -3,6 +3,8 @@ import {Company, Invoice} from "../../shared/invoice.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {InvoiceService} from "../../services/invoice/invoice.service";
 import {IClient} from "../../shared/client.model";
+import {CurrencyService} from "../../services/currency/currency.service";
+import {CurrencyResponse, CurrencyResult} from "../../shared/currency.model";
 
 @Component({
   selector: 'app-mp-faktura',
@@ -14,15 +16,17 @@ export class MpFakturaComponent implements OnInit {
   fakture: Invoice[] = [];
   preduzeca: IClient[] = [];
 
+  currencies: string[];
+  currencyResponse: CurrencyResponse;
+
 
   fakturaForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private service: InvoiceService) {
+  constructor(private formBuilder: FormBuilder, private service: InvoiceService, private currency: CurrencyService) {
     this.fakturaForm = formBuilder.group({
       brojFakture: ['', Validators.required],
       datumIzdavanja: ['', Validators.required],
       komitent: ['', Validators.required],
-      rokZaPlacanje: ['', Validators.required],
       datumPlacanja: [''],
       prodajnaVrednost: [0, Validators.required],
       rabatProcenat: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -41,6 +45,10 @@ export class MpFakturaComponent implements OnInit {
       komentar: [''],
 
     })
+
+    this.currencies = ["DIN", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+              "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
+
     let faktura1: Invoice = new Invoice(
       1,
       '3',
@@ -97,6 +105,9 @@ export class MpFakturaComponent implements OnInit {
     this.service.svaPreduzecaIClient().subscribe((preduzeca) => {
       this.preduzeca = preduzeca;
     });
+    this.currency.getCurencies().subscribe((response) => {
+              this.currencyResponse = response;
+        });
   }
 
   ukupnaProdajnaVrednost() {
@@ -153,7 +164,6 @@ export class MpFakturaComponent implements OnInit {
   sacuvaj() {
     let brojFakture = this.fakturaForm.get('brojFakture')?.value;
     let datumIzdavanja = this.fakturaForm.get('datumIzdavanja')?.value;
-    let rokZaPlacanje = this.fakturaForm.get('rokZaPlacanje')?.value;
     let komitent = this.fakturaForm.get('komitent')?.value;
     let datumPlacanja = this.fakturaForm.get('datumPlacanja')?.value;
     let prodajnaVrednost = this.fakturaForm.get('prodajnaVrednost')?.value;
@@ -163,7 +173,7 @@ export class MpFakturaComponent implements OnInit {
     let kurs = this.fakturaForm.get('kurs')?.value;
     let naplata = this.fakturaForm.get('naplata')?.value;
     let komentar = this.fakturaForm.get('komentar')?.value;
-    this.service.novaFaktura(brojFakture, datumIzdavanja, komitent,rokZaPlacanje, datumPlacanja, prodajnaVrednost, rabatProcenat, porezProcenat, valuta,
+    this.service.novaFaktura(brojFakture, datumIzdavanja, komitent, datumPlacanja, prodajnaVrednost, rabatProcenat, porezProcenat, valuta,
       kurs, naplata, komentar, "MALOPRODAJNA_FAKTURA").subscribe(response => {
       this.ngOnInit();
     })
@@ -175,4 +185,17 @@ export class MpFakturaComponent implements OnInit {
       this.ngOnInit();
     })
   }
+
+  promeniKurs() {
+        let curr = this.fakturaForm.get('valuta')?.value.toLowerCase()
+        if(curr == 'din') {
+          this.fakturaForm.patchValue({
+            kurs: 1.00
+          })
+        } else {
+          this.fakturaForm.patchValue({
+            kurs: this.currencyResponse.result[curr].sre
+          })
+        }
+      }
 }
