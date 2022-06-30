@@ -12,8 +12,14 @@ export class BookkeepingJournalComponent implements OnInit {
 	knjizenja: BookkeepingJournal[] = [];
 
   filterForm : FormGroup;
-
+  // glavna knjiga
 	pretrazi() {
+    if(this.filterForm.get('od')?.value != '' && this.filterForm.get('od')?.value != null){
+      if(this.filterForm.get('doo')?.value == '' || this.filterForm.get('doo')?.value == null){
+        alert("Unesite datum do")
+        return;
+      }
+    }
 		this.knjizenejService
 			.pretrazi(
 				this.filterForm.get('brojNaloga')?.value,

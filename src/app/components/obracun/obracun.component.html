@@ -22,7 +22,25 @@
 
     </div>
   </div>
+</div>
 
+<div class="row">
+  <div class="col-sm-5"></div>
+
+  <div class="card col-sm-5" style="width: 18rem; text-align: center">
+    <div class="card-body">
+
+      <h5 class="card-title">Napravi obračun odmah</h5>
+      <br>
+      <h5 class="card-title">Šifra transakcije</h5>
+      <select class="form-control" [(ngModel)]="selectovanaSifra">
+        <option *ngFor="let sifra of sifreTransakcija" [value]="sifra.sifraTransakcijeId">{{sifra.sifra + ": " + sifra.nazivTransakcije}}</option>
+      </select>
+      <br>
+      <button class="btn btn-sm btn-primary" (click)="napravi()">Napravi</button>
+
+    </div>
+  </div>
 </div>
 <br><br>
 <div>
