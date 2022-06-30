@@ -26,7 +26,6 @@ export class ObracunComponent implements OnInit {
   zakazanaSifra: string = '';
   zakazanDan: number = 0;
   selectovanaSifra: number = 0;
-  selectovanaSifra2: number = 0;
   dayExist: boolean = false;
 
   constructor(private formBuilder : FormBuilder, private service : PlateZaposlenihService, private obracunService: ObracunService, private router: Router) {
@@ -133,7 +132,7 @@ export class ObracunComponent implements OnInit {
 
   napravi() {
     // this.selectovanaSifra
-    this.obracunService.napraviObracun(this.selectovanaSifra2).subscribe(e=>{
+    this.obracunService.napraviObracun(this.selectovanaSifra).subscribe(e=>{
       this.obracuni.push(e);
     })
   }
