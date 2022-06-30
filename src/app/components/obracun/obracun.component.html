@@ -33,7 +33,7 @@
       <h5 class="card-title">Napravi obračun odmah</h5>
       <br>
       <h5 class="card-title">Šifra transakcije</h5>
-      <select class="form-control" [(ngModel)]="selectovanaSifra">
+      <select class="form-control" [(ngModel)]="selectovanaSifra2">
         <option *ngFor="let sifra of sifreTransakcija" [value]="sifra.sifraTransakcijeId">{{sifra.sifra + ": " + sifra.nazivTransakcije}}</option>
       </select>
       <br>
