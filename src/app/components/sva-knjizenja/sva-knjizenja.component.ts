@@ -13,7 +13,7 @@ export class SvaKnjizenjaComponent implements OnInit {
 
   filterForm : FormGroup;
 
-
+  // dnevnik knjizenja
 
 	constructor(public knjizenejService: GlavnaKnjigaService, private formBuilder: FormBuilder) {
     this.filterForm = this.formBuilder.group({
@@ -32,6 +32,12 @@ export class SvaKnjizenjaComponent implements OnInit {
 	}
 
 	pretrazi() {
+    if(this.filterForm.get('od')?.value != '' && this.filterForm.get('od')?.value != null){
+      if(this.filterForm.get('doo')?.value == '' || this.filterForm.get('doo')?.value == null){
+        alert("Unesite datum do")
+        return;
+      }
+    }
 		this.knjizenejService
 			.pretrazi(
 				this.filterForm.get('od')?.value,

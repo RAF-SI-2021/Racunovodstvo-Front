@@ -42,6 +42,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ProfileGuard } from './guards/profile.guard';
 import { NabavkeGuard } from './guards/nabavke.guard';
 import { ObracunComponent } from './components/obracun/obracun.component';
+import {Konverzija2Component} from "./components/konverzija2/konverzija2.component";
 
 const routes: Routes = [
 	{
@@ -161,9 +162,14 @@ const routes: Routes = [
 	},
 	{
 		path: 'konverzije',
-		component: KonverzijaComponent,
+		component: Konverzija2Component,
 		canActivate: [NabavkeGuard],
 	},
+  // { ZA TEST ******
+  //   path: 'knv',
+  //   component: Konverzija2Component,
+  //   canActivate: [NabavkeGuard],
+  // },
 	{
 		path: 'izvestaji',
 		component: IzvestajiComponent,

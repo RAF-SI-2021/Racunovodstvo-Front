@@ -37,7 +37,7 @@ export interface Preduzece{
 }
 
 export interface TrosakNabavke{
-  troskoviNabavkeId: number;
+  troskoviNabavkeId?: number;
   cena: number;
   naziv: string;
 }

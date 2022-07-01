@@ -37,10 +37,10 @@ export class EvidencijeComponent implements OnInit {
     this.konverzijaService.pretrazi(this.filterForm.get('sifraArtikla')?.value, this.filterForm.get('nazivArtikla')?.value,
       this.filterForm.get('jedinicaMere')?.value, this.filterForm.get('kolicina')?.value).subscribe(pageable => {
       this.artikli = pageable.content;
-      this.filterForm.get('jedinicaMere')?.setValue('');
-      this.filterForm.get('sifraArtikla')?.setValue('');
-      this.filterForm.get('nazivArtikla')?.setValue('');
-      this.filterForm.get('kolicina')?.setValue('');
+      // this.filterForm.get('jedinicaMere')?.setValue('');
+      // this.filterForm.get('sifraArtikla')?.setValue('');
+      // this.filterForm.get('nazivArtikla')?.setValue('');
+      // this.filterForm.get('kolicina')?.setValue('');
     })
   }
 }
