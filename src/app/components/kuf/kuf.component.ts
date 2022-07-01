@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Invoice, Company } from 'src/app/shared/invoice.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InvoiceService } from 'src/app/services/invoice/invoice.service';
+import {CurrencyService} from "../../services/currency/currency.service";
+import {CurrencyResponse, CurrencyResult} from "../../shared/currency.model";
 
 @Component({
 	selector: 'app-kuf',
@@ -12,10 +14,13 @@ export class KufComponent implements OnInit {
 	filterGroup: FormGroup;
 	updateGroup: FormGroup;
 	vrednost: string = '';
+  currencies: string[];
+  currencyResponse: CurrencyResponse;
 
 	constructor(
 		private formBuilder: FormBuilder,
-		private service: InvoiceService
+		private service: InvoiceService,
+		private currency: CurrencyService
 	) {
 		this.filterGroup = this.formBuilder.group({
 			pretraga: ['', [Validators.required]],
@@ -24,10 +29,9 @@ export class KufComponent implements OnInit {
 		this.updateGroup = this.formBuilder.group({
 			brojFakture: [this.selektovanaFaktura.brojFakture],
 			datumIzdavanja: [this.selektovanaFaktura.datumIzdavanja],
-			komitent: [
-				this.selektovanaFaktura.preduzece.naziv,
-				[Validators.required],
-			],
+			komitent: [this.selektovanaFaktura.preduzece ? this.selektovanaFaktura.preduzece : '-',
+          [Validators.required],
+      ],
 			datumPlacanja: [this.selektovanaFaktura.datumPlacanja],
 			rokZaPlacanje: [this.selektovanaFaktura.rokZaPlacanje],
 			prodajnaVrednost: [this.selektovanaFaktura.prodajnaVrednost],
@@ -45,6 +49,9 @@ export class KufComponent implements OnInit {
 			naplata: [this.selektovanaFaktura.naplata, [Validators.required]],
 			komentar: [this.selektovanaFaktura.komentar],
 		});
+
+		this.currencies = ["DIN", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+          "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
 	}
 
 	inputAsDate: string = 'text';
@@ -115,6 +122,9 @@ export class KufComponent implements OnInit {
 		this.service.sveKufFakture().subscribe((response) => {
 			this.kuf = response
 		});
+		this.currency.getCurencies().subscribe((response) => {
+          this.currencyResponse = response;
+    });
 	}
 
 	setInputAsDate() {
@@ -172,6 +182,13 @@ export class KufComponent implements OnInit {
 		);
 	}
 
+	getCompanyName(faktura: Invoice) {
+  	  if(faktura.preduzece) {
+  	    return faktura.preduzece
+  	  }
+  	  return null
+  	}
+
 	filterOfNull(procenat: number) {
 		if (procenat === null) {
 			return 0;
@@ -186,7 +203,7 @@ export class KufComponent implements OnInit {
 			datumIzdavanja: [new Date(this.selektovanaFaktura.datumIzdavanja)],
 			rokZaPlacanje: [new Date(this.selektovanaFaktura.rokZaPlacanje)],
 			komitent: [
-				this.selektovanaFaktura.preduzece.naziv,
+				this.selektovanaFaktura.preduzece ? this.selektovanaFaktura.preduzece : '-',
 				[Validators.required],
 			],
 			datumPlacanja: [new Date(this.selektovanaFaktura.datumIzdavanja)],
@@ -296,13 +313,14 @@ export class KufComponent implements OnInit {
 		this.selektovanaFaktura.rokZaPlacanje = rokZaPlacanje;
 
 		console.log(komitent);
-		if (komitent !== this.selektovanaFaktura.preduzece.naziv) {
-			this.preduzeca.forEach((value) => {
-				if (komitent === value.naziv) {
-					this.selektovanaFaktura.preduzece = value;
-				}
-			});
-		}
+		this.selektovanaFaktura.preduzece = komitent;
+// 		if (komitent !== this.selektovanaFaktura.preduzece.naziv) {
+// 			this.preduzeca.forEach((value) => {
+// 				if (komitent === value.naziv) {
+// 					this.selektovanaFaktura.preduzece = value;
+// 				}
+// 			});
+// 		}
 		this.selektovanaFaktura.datumPlacanja = datumPlacanja;
 		this.selektovanaFaktura.prodajnaVrednost = prodajnaVrednost;
 
@@ -353,4 +371,17 @@ export class KufComponent implements OnInit {
 			}
 		);
 	}
+
+	promeniKurs() {
+      let curr = this.updateGroup.get('valuta')?.value.toLowerCase()
+      if(curr == 'din') {
+        this.updateGroup.patchValue({
+          kurs: 1.00
+        })
+      } else {
+        this.updateGroup.patchValue({
+          kurs: this.currencyResponse.result[curr].sre
+        })
+      }
+    }
 }

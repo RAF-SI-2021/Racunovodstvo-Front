@@ -3,6 +3,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { IClient } from 'src/app/shared/client.model';
 import { AddNewClientService } from '../../services/add-new-client/add-new-client.service';
 import { AddNewInvoiceService } from 'src/app/services/add-new-invoice/add-new-invoice.service';
+import {CurrencyService} from "../../services/currency/currency.service";
+import {CurrencyResponse, CurrencyResult} from "../../shared/currency.model";
 
 @Component({
 	selector: 'app-add-new-invoice',
@@ -13,11 +15,18 @@ export class AddNewInvoiceComponent implements OnInit {
 	public addingForm!: FormGroup;
 	public clients: IClient[] = [];
 
+	currencies: string[];
+  currencyResponse: CurrencyResponse;
+
 	constructor(
 		private formBuilder: FormBuilder,
 		private addNewClientService: AddNewClientService,
-		private addNewInvoiceService: AddNewInvoiceService
-	) {}
+		private addNewInvoiceService: AddNewInvoiceService,
+		private currency: CurrencyService
+	) {
+        this.currencies = ["DIN", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+      "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
+    }
 
 	ngOnInit(): void {
 		this.addingForm = this.formBuilder.group({
@@ -39,6 +48,10 @@ export class AddNewInvoiceComponent implements OnInit {
 				this.clients.push(client);
 			});
 		});
+
+		this.currency.getCurencies().subscribe((response) => {
+          this.currencyResponse = response;
+        });
 	}
 
 	addNewInvoice(invoice: any): void {
@@ -50,4 +63,17 @@ export class AddNewInvoiceComponent implements OnInit {
 				this.ngOnInit();
 			});
 	}
+
+	promeniKurs() {
+      let curr = this.addingForm.get('valutaV')?.value.toLowerCase()
+      if(curr == 'din') {
+        this.addingForm.patchValue({
+          kursV: 1.00
+        })
+      } else {
+        this.addingForm.patchValue({
+          kursV: this.currencyResponse.result[curr].sre
+        })
+      }
+    }
 }

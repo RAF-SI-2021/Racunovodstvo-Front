@@ -85,21 +85,21 @@
     </tfoot>
   </table>
   <div>
-    <form class="" [formGroup]="centarForm">
+    <form class="text-center" [formGroup]="centarForm">
        <div class="row">
-         <div class="col-sm-3">
+         <div class="col-sm-2">
 
          </div>
 
-         <div class="col-sm-3">
-            <input class="btn btn-sm" type="checkbox" (click)="changeCB()"> Trosak/Profit
+         <div class="col-sm-2">
+            <input class="btn btn-sm" type="checkbox" (click)="changeCB()"> Trošak/Profit
          </div>
 
 
          <div class="col-sm-3">
             <div *ngIf="!checkbox">
               <div>
-                <label class="form-label">Trosak:</label>
+                <label class="form-label">Trošak:</label>
                 <select class="form-control" [formControlName]="'centar1'">
                   <option *ngFor="let trosak of troskovi" [value]="trosak.id">{{ trosak.naziv }}</option>
                 </select>
@@ -115,14 +115,23 @@
            </div>
          </div>
 
-
          <div class="col-sm-3">
+           <input class="btn btn-sm" type="checkbox" (click)="toggleUseCentar()"> Sačuvaj u centar
+         </div>
+
+         <div class="col-sm-1">
 
          </div>
        </div>
     </form>
   </div>
-  <div class="mt-4">
-    <button class="btn btn-success" [disabled]="!knjizenjeGroup.valid" (click)="knjizenje()">Kniženje</button>
+  <div class="row mt-4">
+    <div class="col-sm-5">
+    </div>
+    <div class="col-sm-2 text-center">
+      <button class="btn btn-success" [disabled]="!knjizenjeGroup.valid" (click)="knjizenje()">Kniženje</button>
+    </div>
+    <div class="col-sm-5">
+    </div>
   </div>
 </div>
