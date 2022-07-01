@@ -11,16 +11,16 @@
   </div>
 
   <div class="col-2 text-center">
-    <label for="lokacije">Lokacija id:</label><br>
+    <label for="lokacije">Lokacija:</label><br>
     <select name="lokacije" id="lokacije" #newProfCentarLokacijaId>
       <option *ngFor="let lokacija of lokacije">{{lokacija.naziv}}</option>
     </select>
   </div>
 
   <div class="col-2 text-center">
-    <label for="odgLice">Odg. lice id:</label><br>
+    <label for="odgLice">Odg. lice:</label><br>
     <select name="odgLica" id="odgLice" #newProfCentarOdgLiceId>
-      <option *ngFor="let odgLice of odgovornaLica">{{odgLice.ime}}</option>
+      <option *ngFor="let odgLice of odgovornaLica">{{odgLice.ime}} {{ odgLice.prezime }}</option>
     </select>
   </div>
 

@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InvoiceService } from 'src/app/services/invoice/invoice.service';
 import {CurrencyService} from "../../services/currency/currency.service";
 import {CurrencyResponse, CurrencyResult} from "../../shared/currency.model";
-import {environment} from "../../../environments/environment";
 
 @Component({
 	selector: 'app-kif',
@@ -30,12 +29,13 @@ export class KifComponent implements OnInit {
 
 		this.updateGroup = this.formBuilder.group({
 			brojFakture: [this.selektovanaFaktura.brojFakture],
-			datumIzdavanja: [this.selektovanaFaktura.datumIzdavanja],
+			datumIzdavanja: [this.selektovanaFaktura.datumIzdavanja.split('T')[0]],
 			komitent: [
 				this.selektovanaFaktura.preduzece.naziv,
 				[Validators.required],
 			],
-			datumPlacanja: [this.selektovanaFaktura.datumPlacanja],
+			datumPlacanja: [this.selektovanaFaktura.datumPlacanja.split('T')[0]],
+			rokZaPlacanje: [this.selektovanaFaktura.rokZaPlacanje.split('T')[0]],
 			prodajnaVrednost: [this.selektovanaFaktura.prodajnaVrednost],
 			rabatProcenat: [this.selektovanaFaktura.rabatProcenat],
 			porezProcenat: [this.selektovanaFaktura.porezProcenat],
@@ -52,12 +52,8 @@ export class KifComponent implements OnInit {
 			naplata: [this.selektovanaFaktura.naplata, [Validators.required]],
 			komentar: [this.selektovanaFaktura.komentar],
 		});
-    this.updateGroup.get('valuta')?.valueChanges.subscribe(value => {
-      console.log(this.updateGroup.get('valuta')?.value);
 
-    })
-
-    this.currencies = ["RSD", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+    this.currencies = ["DIN", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
       "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
 
 
@@ -74,8 +70,8 @@ export class KifComponent implements OnInit {
 	faktura1: Invoice = new Invoice(
 		1,
 		'3',
-		'22/03/2222',
-		'20/03/2000',
+		'22-03-2222',
+		'20-03-2000',
 		new Company('NEBITNO', 1),
 		'20/03/2000',
 		10000,
@@ -97,10 +93,10 @@ export class KifComponent implements OnInit {
 	faktura2: Invoice = new Invoice(
 		2,
 		'4',
-		'22/03/2222',
-		'20/03/2000',
+		'2000-03-02',
+		'2000-03-02',
 		new Company('NEBITNO',1),
-		'20/03/2000',
+		'2000-03-02',
 		10000,
 		0,
 		5,
@@ -155,6 +151,13 @@ export class KifComponent implements OnInit {
 		return totalSum;
 	}
 
+	getCompanyName(faktura: Invoice) {
+	  if(faktura.preduzece) {
+	    return faktura.preduzece
+	  }
+	  return null
+	}
+
 	ukupanRabat() {
 		let totalSum = 0;
 		this.kif.forEach(function (value) {
@@ -200,33 +203,10 @@ export class KifComponent implements OnInit {
 
 	setEditable(faktura: Invoice) {
 		this.selektovanaFaktura = faktura;
-		this.updateGroup = this.formBuilder.group({
-			brojFakture: [this.selektovanaFaktura.brojFakture],
-			datumIzdavanja: [new Date(this.selektovanaFaktura.datumIzdavanja)],
-			rokZaPlacanje: [new Date(this.selektovanaFaktura.rokZaPlacanje)],
-			komitent: [
-				this.selektovanaFaktura.preduzece.naziv,
-				[Validators.required],
-			],
-			datumPlacanja: [new Date(this.selektovanaFaktura.datumIzdavanja)],
-			prodajnaVrednost: [
-				this.selektovanaFaktura.prodajnaVrednost,
-				[Validators.required],
-			],
-			rabatProcenat: [this.selektovanaFaktura.rabatProcenat],
-			porezProcenat: [this.selektovanaFaktura.porezProcenat],
-			valuta: [
-				this.selektovanaFaktura.valuta,
-				[
-					Validators.required,
-					Validators.minLength(3),
-					Validators.maxLength(3),
-				],
-			],
-			kurs: [this.selektovanaFaktura.kurs, [Validators.required]],
-			naplata: [this.selektovanaFaktura.naplata, [Validators.required]],
-			komentar: [this.selektovanaFaktura.komentar],
-		});
+		console.log(faktura.datumIzdavanja.substring(0,10).trim());
+		console.log(faktura.rokZaPlacanje.substring(0,10).trim());
+		console.log(faktura.datumPlacanja.substring(0,10).trim());
+
 		if (faktura.editable) {
 			faktura.editable = false;
 			this.edit = false;
@@ -237,6 +217,34 @@ export class KifComponent implements OnInit {
 				if (value !== faktura) value.editable = false;
 			});
 		}
+
+		this.updateGroup = this.formBuilder.group({
+    			brojFakture: [this.selektovanaFaktura.brojFakture],
+    			datumIzdavanja: [this.selektovanaFaktura.datumIzdavanja.split('T')[0]],
+    			rokZaPlacanje: [this.selektovanaFaktura.rokZaPlacanje.split('T')[0]],
+    			komitent: [
+    				this.selektovanaFaktura.preduzece ? this.selektovanaFaktura.preduzece : '-',
+    				[Validators.required],
+    			],
+    			datumPlacanja: [this.selektovanaFaktura.datumPlacanja.split('T')[0]],
+    			prodajnaVrednost: [
+    				this.selektovanaFaktura.prodajnaVrednost,
+    				[Validators.required],
+    			],
+    			rabatProcenat: [this.selektovanaFaktura.rabatProcenat],
+    			porezProcenat: [this.selektovanaFaktura.porezProcenat],
+    			valuta: [
+    				this.selektovanaFaktura.valuta,
+    				[
+    					Validators.required,
+    					Validators.minLength(3),
+    					Validators.maxLength(3),
+    				],
+    			],
+    			kurs: [this.selektovanaFaktura.kurs, [Validators.required]],
+    			naplata: [this.selektovanaFaktura.naplata, [Validators.required]],
+    			komentar: [this.selektovanaFaktura.komentar],
+    		});
 	}
 
 	filterKIF() {
@@ -315,13 +323,14 @@ export class KifComponent implements OnInit {
 		this.selektovanaFaktura.rokZaPlacanje = rokZaPlacanje;
 
 		console.log(komitent);
-		if (komitent !== this.selektovanaFaktura.preduzece.naziv) {
-			this.preduzeca.forEach((value) => {
-				if (komitent === value.naziv) {
-					this.selektovanaFaktura.preduzece = value;
-				}
-			});
-		}
+		this.selektovanaFaktura.preduzece = komitent;
+// 		if (komitent !== '-' && komitent.naziv !== this.selektovanaFaktura.preduzece.naziv) {
+// 			this.preduzeca.forEach((value) => {
+// 				if (komitent === value.naziv) {
+// 					this.selektovanaFaktura.preduzece = value;
+// 				}
+// 			});
+// 		}
 		this.selektovanaFaktura.datumPlacanja = datumPlacanja;
 		this.selektovanaFaktura.prodajnaVrednost = prodajnaVrednost;
 
@@ -342,7 +351,7 @@ export class KifComponent implements OnInit {
 			return;
 		}
 		this.selektovanaFaktura.valuta = valuta;
-		this.selektovanaFaktura.kurs = parseFloat(kurs.toFixed(2));
+		this.selektovanaFaktura.kurs = kurs;
 		this.selektovanaFaktura.naplata = naplata;
 		this.selektovanaFaktura.komentar = komentar;
 
@@ -373,7 +382,7 @@ export class KifComponent implements OnInit {
 
   promeniKurs() {
     let curr = this.updateGroup.get('valuta')?.value.toLowerCase()
-    if(curr == 'rsd') {
+    if(curr == 'din') {
       this.updateGroup.patchValue({
         kurs: 1.00
       })

@@ -5,6 +5,8 @@ import {Company} from "../../shared/invoice.model";
 import {KalkulacijeService} from "../../services/kalkulacije/kalkulacije.service";
 import {InvoiceService} from "../../services/invoice/invoice.service";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
+import {CurrencyService} from "../../services/currency/currency.service";
+import {CurrencyResponse, CurrencyResult} from "../../shared/currency.model";
 
 @Component({
   selector: 'app-kalkulacije',
@@ -18,6 +20,9 @@ export class KalkulacijeComponent implements OnInit {
   artikli: KalkulacijaArtikal[] = [];
 
   troskoviNabavke: TrosakNabavke[] = [];
+
+  currencies: string[];
+  currencyResponse: CurrencyResponse;
 
   companies: Company[] = [];
   lokacije: Lokacija[] = [];
@@ -41,7 +46,7 @@ export class KalkulacijeComponent implements OnInit {
   isNewArt: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private service: KalkulacijeService, private serviceComp: InvoiceService, private modalService: NgbModal,
-              config: NgbModalConfig) {
+              config: NgbModalConfig, private currency: CurrencyService) {
     config.backdrop = 'static';
     config.centered = true;
     this.kalkForm = formBuilder.group({
@@ -94,6 +99,9 @@ export class KalkulacijeComponent implements OnInit {
     this.artForm.get('porezProcenat')?.valueChanges.subscribe(value => {
       this.calculate();
     })
+
+    this.currencies = ["DIN", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+              "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
 
     this.filterForm = formBuilder.group({
       brojKalkulacije: '',
@@ -257,6 +265,9 @@ export class KalkulacijeComponent implements OnInit {
     this.service.getAllLokacije().subscribe(response => {
       this.lokacije = response;
     })
+    this.currency.getCurencies().subscribe((response) => {
+              this.currencyResponse = response;
+    });
   }
 
 
@@ -443,19 +454,19 @@ export class KalkulacijeComponent implements OnInit {
     let pVrednost2 = this.filterForm.get('pVrednost2')?.value;
     let komentar = this.filterForm.get('komentar')?.value;
 
-    if(brojKalkulacije !== ""){
+    if(brojKalkulacije !== "" && brojKalkulacije){
       filter += 'brojKalkulacije:' + brojKalkulacije + ',';
     }
 
-    if(dobavljac !== ""){
+    if(dobavljac !== "" && dobavljac){
       filter += 'dobavljacId:' + dobavljac + ',';
     }
 
-    if(lokacija !== ""){
-      filter += 'lokacijaId:' + lokacija + ',';
+    if(lokacija !== "" && lokacija){
+      filter += 'lokacija:' + lokacija.lokacijaId + ',';
     }
 
-    if(datumOd !== ""){
+    if(datumOd !== "" && datumOd){
       let date = new Date(datumOd).getTime()/1000;
       filter += 'datum>' + date + ',';
       if(datumDo === ""){
@@ -480,7 +491,7 @@ export class KalkulacijeComponent implements OnInit {
       }
     }
 
-    if(datumDo !== ""){
+    if(datumDo !== "" && datumDo){
       let date = new Date(datumDo).getTime()/1000 + 86400;
       filter += 'datum<' + date + ',';
       if(datumOd === ""){
@@ -488,35 +499,35 @@ export class KalkulacijeComponent implements OnInit {
       }
     }
 
-    if(nVrednost1 !== ""){
+    if(nVrednost1 !== "" && nVrednost1){
       filter += 'nabavnaVrednost>' + nVrednost1 + ',';
       if(nVrednost2 === ""){
-        filter += 'nabavnaVrednost<' + Number.MAX_SAFE_INTEGER + ',';
+        filter += 'nabavnaVrednost<' + 9007199254740991 + ',';
       }
     }
 
-    if(nVrednost2 !== ""){
+    if(nVrednost2 !== "" && nVrednost2){
       filter += 'nabavnaVrednost<' + nVrednost2 + ',';
       if(nVrednost1 === ""){
         filter += 'nabavnaVrednost>' + 0 + ',';
       }
     }
 
-    if(pVrednost1 !== ""){
-      filter += 'prodajnaVrednost>' + pVrednost1 + ',';
+    if(pVrednost1 !== "" && pVrednost1){
+      filter += 'prodajnaCena>' + pVrednost1 + ',';
       if(pVrednost2 === ""){
-        filter += 'prodajnaVrednost<' + Number.MAX_SAFE_INTEGER + ',';
+        filter += 'prodajnaCena<' + 9007199254740991 + ',';
       }
     }
 
-    if(pVrednost2 !== ""){
-      filter += 'nabavnaVrednost<' + pVrednost2 + ',';
+    if(pVrednost2 !== "" && pVrednost2){
+      filter += 'prodajnaCena<' + pVrednost2 + ',';
       if(pVrednost1 === ""){
-        filter += 'nabavnaVrednost>' + 0 + ',';
+        filter += 'prodajnaCena>' + 0 + ',';
       }
     }
 
-    if(komentar !== ""){
+    if(komentar !== "" && komentar){
       filter+= 'komentar:' + komentar;
     }
 

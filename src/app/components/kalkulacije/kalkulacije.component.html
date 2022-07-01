@@ -226,7 +226,9 @@
 
         <div class="col-sm-4">
           <label class="labelClass">Valuta:</label>
-          <input class="form-control" type="text" [formControlName]="'valuta'">
+          <select class="form-control" id="valuta" [formControlName]="'valuta'">
+            <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+          </select>
         </div>
       </div>
 
@@ -295,7 +297,7 @@
         <div class="col-sm-4">
           <label class="labelClass">Tip:</label>
           <select class="form-control" type="text" [formControlName]="'tipKalkulacije'">
-            <option value="MALOPRODAJA" [defaultSelected]="true">Maloprodaja</option>
+            <option value="MALOPRODAJA">Maloprodaja</option>
             <option value="VELEPRODAJA">Veleprodaja</option>
           </select>
         </div>
@@ -318,6 +320,9 @@
         <div class="col-sm-4">
           <label class="labelClass">Lokacija:</label>
           <select class="form-control" type="text" [formControlName]="'lokacija'">
+            <option [ngValue]="kalkulacija.lokacija" selected disabled hidden>
+              {{ kalkulacija.lokacija.naziv }} - {{ kalkulacija.lokacija.adresa }}
+            </option>
             <option *ngFor="let lokacija of lokacije; index as i" [ngValue]="lokacija">{{ lokacija.naziv }}
               - {{ lokacija.adresa}} </option>
           </select>
@@ -325,7 +330,9 @@
 
         <div class="col-sm-4">
           <label class="labelClass">Valuta:</label>
-          <input class="form-control" type="text" [formControlName]="'valuta'">
+          <select class="form-control" [formControlName]="'valuta'">
+            <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+          </select>
         </div>
       </div>
 
@@ -470,7 +477,11 @@
 
         <div class="col-sm-2">
           <label class="labelClass">Jedinica mere:</label>
-          <input class="form-control" type="text" [formControlName]="'jedinicaMere'">
+          <select class="form-control" [formControlName]="'jedinicaMere'">
+            <option value="KOMAD">KOMAD</option>
+            <option value="KILOGRAM">KILOGRAM</option>
+            <option value="LITAR">LITAR</option>
+          </select>
         </div>
 
         <div class="col-sm-2">
@@ -578,7 +589,11 @@
 
         <div class="col-sm-2">
           <label class="labelClass">Jedinica mere:</label>
-          <input class="form-control" type="text" [formControlName]="'jedinicaMere'">
+          <select class="form-control" [formControlName]="'jedinicaMere'">
+            <option value="KOMAD">KOMAD</option>
+            <option value="KILOGRAM">KILOGRAM</option>
+            <option value="LITAR">LITAR</option>
+          </select>
         </div>
 
         <div class="col-sm-2">
