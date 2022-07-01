@@ -5,6 +5,8 @@ import {Company} from "../../shared/invoice.model";
 import {KalkulacijeService} from "../../services/kalkulacije/kalkulacije.service";
 import {InvoiceService} from "../../services/invoice/invoice.service";
 import {NgbModal, NgbModalConfig} from "@ng-bootstrap/ng-bootstrap";
+import {CurrencyService} from "../../services/currency/currency.service";
+import {CurrencyResponse, CurrencyResult} from "../../shared/currency.model";
 
 @Component({
   selector: 'app-kalkulacije',
@@ -18,6 +20,9 @@ export class KalkulacijeComponent implements OnInit {
   artikli: KalkulacijaArtikal[] = [];
 
   troskoviNabavke: TrosakNabavke[] = [];
+
+  currencies: string[];
+  currencyResponse: CurrencyResponse;
 
   companies: Company[] = [];
   lokacije: Lokacija[] = [];
@@ -41,7 +46,7 @@ export class KalkulacijeComponent implements OnInit {
   isNewArt: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private service: KalkulacijeService, private serviceComp: InvoiceService, private modalService: NgbModal,
-              config: NgbModalConfig) {
+              config: NgbModalConfig, private currency: CurrencyService) {
     config.backdrop = 'static';
     config.centered = true;
     this.kalkForm = formBuilder.group({
@@ -94,6 +99,9 @@ export class KalkulacijeComponent implements OnInit {
     this.artForm.get('porezProcenat')?.valueChanges.subscribe(value => {
       this.calculate();
     })
+
+    this.currencies = ["DIN", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+              "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
 
     this.filterForm = formBuilder.group({
       brojKalkulacije: '',
@@ -257,6 +265,9 @@ export class KalkulacijeComponent implements OnInit {
     this.service.getAllLokacije().subscribe(response => {
       this.lokacije = response;
     })
+    this.currency.getCurencies().subscribe((response) => {
+              this.currencyResponse = response;
+    });
   }
 
 

@@ -1,5 +1,5 @@
 <div class="row mt-2 creating-block">
-  <h1 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Troskovni centar</h1>
+  <h1 class="mb-4 pb-2 pb-md-0 mb-md-5 text-center">Troškovni centar</h1>
   <div class="col-2 text-center">
     <label>Naziv:</label><br>
     <input type="text" #newTroskCentarNaziv>
@@ -11,16 +11,16 @@
   </div>
 
   <div class="col-2 text-center">
-    <label for="lokacije">Lokacija id:</label><br>
+    <label for="lokacije">Lokacija:</label><br>
     <select name="lokacije" id="lokacije" #newTroskCentarLokacijaId>
       <option *ngFor="let lokacija of lokacije">{{lokacija.naziv}}</option>
     </select>
   </div>
 
   <div class="col-2 text-center">
-    <label for="odgLice">Odg. lice id:</label><br>
+    <label for="odgLice">Odg. lice:</label><br>
     <select name="odgLica" id="odgLice" #newTroskCentarOdgLiceId>
-      <option *ngFor="let odgLice of odgovornaLica">{{odgLice.ime}}</option>
+      <option *ngFor="let odgLice of odgovornaLica">{{odgLice.ime}} {{ odgLice.prezime }}</option>
     </select>
   </div>
 
@@ -58,7 +58,7 @@
   </div>
 
   <div class="col-4 text-center">
-    <label for="centri">Troskovni centri:</label><br>
+    <label for="centri">Troškovni centri:</label><br>
     <select name="centri" id="centri" #centarSelect>
       <option *ngFor="let centar of troskovniCentri" value="centar">{{centar.naziv}}</option>
     </select>
