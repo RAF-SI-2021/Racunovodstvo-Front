@@ -351,7 +351,7 @@ export class KifComponent implements OnInit {
 			return;
 		}
 		this.selektovanaFaktura.valuta = valuta;
-		this.selektovanaFaktura.kurs = parseFloat(kurs.toFixed(2));
+		this.selektovanaFaktura.kurs = kurs;
 		this.selektovanaFaktura.naplata = naplata;
 		this.selektovanaFaktura.komentar = komentar;
 

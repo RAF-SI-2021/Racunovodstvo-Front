@@ -92,14 +92,14 @@
          </div>
 
          <div class="col-sm-2">
-            <input class="btn btn-sm" type="checkbox" (click)="changeCB()"> Trosak/Profit
+            <input class="btn btn-sm" type="checkbox" (click)="changeCB()"> Trošak/Profit
          </div>
 
 
          <div class="col-sm-3">
             <div *ngIf="!checkbox">
               <div>
-                <label class="form-label">Trosak:</label>
+                <label class="form-label">Trošak:</label>
                 <select class="form-control" [formControlName]="'centar1'">
                   <option *ngFor="let trosak of troskovi" [value]="trosak.id">{{ trosak.naziv }}</option>
                 </select>
@@ -116,7 +116,7 @@
          </div>
 
          <div class="col-sm-3">
-           <input class="btn btn-sm" type="checkbox" (click)="toggleUseCentar()"> Sacuvaj u centar
+           <input class="btn btn-sm" type="checkbox" (click)="toggleUseCentar()"> Sačuvaj u centar
          </div>
 
          <div class="col-sm-1">
