@@ -343,7 +343,7 @@ export class Konverzija2Component implements OnInit {
   }
 
   getAsDate(datum: string) {
-    return new Date(datum).toLocaleDateString('it-IT');
+    return new Date(datum).toLocaleDateString('en-US');
   }
 
   cancelNewKalk(){
@@ -926,7 +926,6 @@ export class Konverzija2Component implements OnInit {
 
   dodajKonverziju() {
 
-    alert(this.addingForm.get('brojKonverzije').value)
     let lokacija : Lokacija = {adresa: "", naziv: ""}
     lokacija.naziv = this.addingForm.get('nazivLokacije')?.value
     lokacija.adresa = this.addingForm.get('adresaLokacije')?.value
