@@ -28,7 +28,7 @@
   </div>
   <div [hidden]="hiddenEdit">
     <hr>
-    <form [formGroup]="userEditForm" (submit)="edit()">
+    <form [formGroup]="userEditForm" (submit)="edit(preduzecaEdit)">
       <div>
         <h3 style="text-align: center">Ažuriranje</h3>
       </div>
@@ -45,6 +45,12 @@
         <div class="form-group">
           <input type="text" class="form-control item" id="InputSurname" placeholder="Unesi prezime"
                  [formControlName]="'surname'">
+        </div>
+        <div class="form-group">
+          <label for="preduzeca">Preduzeca:</label><br>
+          <select name="preduzeca" id="preduzeca" #preduzecaEdit>
+            <option *ngFor="let preduzece of preduzeca">{{preduzece.naziv}}</option>
+          </select>
         </div>
         <div class="d-flex justify-content-evenly">
           <div class="d-flex flex-column">
@@ -75,7 +81,7 @@
           </div>
         </div>
         <div class="form-group d-flex gap-2 align-self-center">
-          <button type="button" [disabled]="!this.userEditForm.valid" (click)="edit()"
+          <button type="button" [disabled]="!this.userEditForm.valid" (click)="edit(preduzecaEdit)"
                   class="btn btn-primary">Ažuriraj</button>
           <button type="button" class="btn btn-danger" (click)="this.hiddenEdit = !this.hiddenEdit">Poništi</button>
         </div>
@@ -85,7 +91,7 @@
 
   <div [hidden]="hiddenAdd">
     <hr>
-    <form [formGroup]="userAddForm" (submit)="add()" class="d-flex flex-column gap-2">
+    <form [formGroup]="userAddForm" (submit)="add(preduzecaAdd)" class="d-flex flex-column gap-2">
       <div>
         <h3 style="text-align: center">Dodavanje korisnika</h3>
       </div>
@@ -105,7 +111,12 @@
         <input type="password" class="form-control item" id="InputPassword" placeholder="Lozinka"
                [formControlName]="'password'">
       </div>
-
+      <div class="form-group">
+        <label for="preduzecaAdd">Preduzeca:</label><br>
+        <select name="preduzeca" id="preduzecaAdd" #preduzecaAdd>
+          <option *ngFor="let preduzece of preduzeca">{{preduzece.naziv}}</option>
+        </select>
+      </div>
       <div class="d-flex justify-content-evenly">
         <div class="d-flex flex-column">
           <div>
@@ -121,7 +132,7 @@
       </div>
 
       <div class="form-group d-flex gap-2 align-self-center">
-        <button type="button" [disabled]="!this.userAddForm.valid" (click)="add()"
+        <button type="button" [disabled]="!this.userAddForm.valid" (click)="add(preduzecaAdd)"
                 class="btn btn-primary create-account">Dodaj</button>
         <button type="button" class="btn btn-danger" (click)="this.hiddenAdd = !this.hiddenAdd">Poništi</button>
       </div>
