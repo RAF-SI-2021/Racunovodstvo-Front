@@ -13,7 +13,7 @@
   <div class="col-2 text-center">
     <label for="lokacije">Lokacija:</label><br>
     <select name="lokacije" id="lokacije" #newTroskCentarLokacijaId>
-      <option *ngFor="let lokacija of lokacije">{{lokacija.naziv}}</option>
+      <option *ngFor="let lokacija of lokacije">{{lokacija.naziv}} - {{ lokacija.adresa }}</option>
     </select>
   </div>
 

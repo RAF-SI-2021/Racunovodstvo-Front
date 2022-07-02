@@ -46,7 +46,7 @@ export class MpFakturaComponent implements OnInit {
 
     })
 
-    this.currencies = ["DIN", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+    this.currencies = ["RSD", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
               "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
 
     let faktura1: Invoice = new Invoice(
@@ -188,7 +188,7 @@ export class MpFakturaComponent implements OnInit {
 
   promeniKurs() {
         let curr = this.fakturaForm.get('valuta')?.value.toLowerCase()
-        if(curr == 'din') {
+        if(curr == 'rsd') {
           this.fakturaForm.patchValue({
             kurs: 1.00
           })
