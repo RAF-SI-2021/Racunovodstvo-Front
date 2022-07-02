@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Permission, User } from '../../shared/manage-users';
+import {Company} from "../../shared/invoice.model";
 
 @Injectable({
   providedIn: 'root',
@@ -35,11 +36,13 @@ export class ManageUsersService {
     firstName: string,
     lastName: string,
     password: string,
-    permissions: Permission[]
+    permissions: Permission[],
+    preduzeceId
   ): Observable<User> {
     const headers = { Authorization: `Bearer ${this.jwt}` };
     const permis = JSON.stringify(permissions);
     console.log(permis);
+    console.log(usrname + ' '+ firstName + ' '+ lastName)
     return this.httpClient.post<User>(
       this.add_upd_del_user,
       {
@@ -48,6 +51,7 @@ export class ManageUsersService {
         firstName: firstName,
         lastName: lastName,
         permissions: permissions,
+        preduzeceId: preduzeceId
       },
       { headers: headers }
     );
@@ -58,8 +62,10 @@ export class ManageUsersService {
     firstName: string,
     lastName: string,
     id: number,
-    permissions: Permission[]
+    permissions: Permission[],
+    preduzeceId
   ): Observable<User> {
+    console.log(permissions)
     const headers = { Authorization: `Bearer ${this.jwt}` };
     //const permis = JSON.stringify(permissions);
     return this.httpClient.put<User>(
@@ -70,6 +76,7 @@ export class ManageUsersService {
         firstName: firstName,
         lastName: lastName,
         permissions: permissions,
+        preduzeceId: preduzeceId
       },
       { headers: headers }
     );
@@ -84,5 +91,14 @@ export class ManageUsersService {
     return this.httpClient.delete<any>(this.add_upd_del_user + id, {
       headers: headers,
     });
+  }
+  svaPreduzeca() {
+    const headers = { Authorization: `Bearer ${this.jwt}` };
+    return this.httpClient.get<Company[]>(
+    environment.preduzeceServiceApi + `/api/preduzece/all`,
+      {
+        headers: headers,
+      }
+    );
   }
 }
