@@ -312,6 +312,9 @@
         <div class="col-sm-4">
           <label class="labelClass">Dobavljač:</label>
           <select class="form-control" type="text" [formControlName]="'dobavljac'">
+<!--            <option [value]="kalkulacija.dobavljacId" selected disabled hidden>-->
+<!--              {{ getCompanyName(kalkulacija.dobavljacId) }}-->
+<!--            </option>-->
             <option *ngFor="let company of companies; index as i"
                     [value]="company.preduzeceId">{{ company.naziv}} </option>
           </select>

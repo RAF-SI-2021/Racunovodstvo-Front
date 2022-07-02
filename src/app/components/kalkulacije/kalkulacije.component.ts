@@ -100,7 +100,7 @@ export class KalkulacijeComponent implements OnInit {
       this.calculate();
     })
 
-    this.currencies = ["DIN", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+    this.currencies = ["RSD", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
               "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
 
     this.filterForm = formBuilder.group({
@@ -284,7 +284,7 @@ export class KalkulacijeComponent implements OnInit {
   }
 
   getAsDate(datum: string) {
-    return new Date(datum).toLocaleDateString('it-IT');
+    return new Date(datum).toLocaleDateString('en-US');
   }
 
   cancelNewKalk(){
@@ -535,6 +535,20 @@ export class KalkulacijeComponent implements OnInit {
       this.kalkulacije = response.content;
     })
 
+  }
+
+  getCompanyName(id: number) {
+    let comp;
+    console.log(id)
+    this.companies.forEach(value => {
+        console.log(value)
+        if(value.preduzeceId == id) {
+          console.log("nasao " + value)
+          comp = value;
+        }
+
+    })
+    return comp;
   }
 
 
