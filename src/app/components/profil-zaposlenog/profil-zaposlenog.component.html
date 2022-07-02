@@ -155,7 +155,7 @@
                 <!--&lt;!&ndash;PETI RED ******************************************************************************************************&ndash;&gt;-->
 
                 <div class="row">
-                  <div class="col-md-9">
+                  <div class="col-md-8">
 
                     <div class="form-outline">
                       <input [formControlName]="'brojRadneKnjizice'" type="text" class="form-control form-control-lg"/>
@@ -163,11 +163,15 @@
                     </div>
 
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
 
                     <div class="form-outline">
-                      <input  [formControlName]="'status'"  type="text"
-                             class="form-control form-control-lg"/>
+<!--                      <input  [formControlName]="'status'"  type="text"-->
+<!--                             class="form-control form-control-lg"/>-->
+                      <select id="tipFakture" [formControlName]="'status'"  class="form-control form-control-lg" aria-label="Default select example">
+                        <option value="ZAPOSLEN">ZAPOSLEN</option>
+                        <option value="NEZAPOSLEN">NEZAPOSLEN</option>
+                      </select>
                       <span class="text-danger"
                             *ngIf="addingForm.controls['status'].dirty && addingForm.hasError('required','status')">Status
                 je obavezan</span>

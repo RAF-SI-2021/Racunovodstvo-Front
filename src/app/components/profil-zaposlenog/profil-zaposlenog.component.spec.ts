@@ -40,10 +40,12 @@ describe('ProfilZaposlenogComponent', () => {
 	});
 
 	it('should create', () => {
-		expect(component).toBeTruthy();
+		// @ts-ignore
+    expect(component).toBeTruthy();
 	});
 
 	it('should od field be type of Date', () => {
-		expect(component.plate instanceof Array).toBe(true);
+		// @ts-ignore
+    expect(component.plate instanceof Array).toBe(true);
 	});
 });

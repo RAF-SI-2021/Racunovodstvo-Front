@@ -72,19 +72,19 @@
                   <th>Doprinos 1</th>
                   <th>Bruto plata</th>
                   <th>Doprinos 2</th>
-                  <th>Učinak %(decimalni broj)</th>
+                  <th>Učinak %</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let obracun2 of obracuni[i].obracunZaposleniList; index as j">
                   <td>{{ obracun2.zaposleni.zaposleniId }}</td>
                   <td>{{ obracun2.zaposleni.ime }} {{obracun2.zaposleni.prezime}}</td>
-                  <td><input size="4" maxlength="3" min="1" max="100" type="text" [(ngModel)]="obracun2.netoPlata"></td>
+                  <td><input size="4" type="text" [(ngModel)]="obracun2.netoPlata"></td>
                   <td>{{ obracun2.porez.toFixed(2)}}</td>
                   <td>{{ obracun2.doprinos1.toFixed(2)}}</td>
                   <td>{{ obracun2.brutoPlata.toFixed(2)}}</td>
                   <td>{{ obracun2.doprinos2.toFixed(2)}}</td>
-                  <td><input size="4" maxlength="3" min="1" max="100" type="text" [(ngModel)]="obracun2.ucinak"></td>
+                  <td><input size="4" type="text" [(ngModel)]="obracun2.ucinak"></td>
                   <td>
                     <button class="btn btn-warning"
                             (click)="updateZaposleni(obracun2.obracunZaposleniId, obracun2.netoPlata, obracun2.ucinak, i, j)">
