@@ -20,7 +20,7 @@ export class BookkeepingJournalComponent implements OnInit {
         return;
       }
     }
-		this.knjizenejService
+    this.knjizenejService
 			.pretrazi(
 				this.filterForm.get('brojNaloga')?.value,
 				this.filterForm.get('od')?.value,
@@ -29,7 +29,11 @@ export class BookkeepingJournalComponent implements OnInit {
 				this.filterForm.get('komentar')?.value
 			)
 			.subscribe((data: any) => {
-				this.knjizenja = data.content;
+        if (data instanceof Array){
+          this.knjizenja = data;
+        }else{
+          this.knjizenja = data.content;
+        }
 			});
 	}
 
