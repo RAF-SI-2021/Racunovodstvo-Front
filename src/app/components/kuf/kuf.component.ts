@@ -50,7 +50,7 @@ export class KufComponent implements OnInit {
 			komentar: [this.selektovanaFaktura.komentar],
 		});
 
-		this.currencies = ["DIN", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+		this.currencies = ["RSD", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
           "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
 	}
 
@@ -374,7 +374,7 @@ export class KufComponent implements OnInit {
 
 	promeniKurs() {
       let curr = this.updateGroup.get('valuta')?.value.toLowerCase()
-      if(curr == 'din') {
+      if(curr == 'rsd') {
         this.updateGroup.patchValue({
           kurs: 1.00
         })

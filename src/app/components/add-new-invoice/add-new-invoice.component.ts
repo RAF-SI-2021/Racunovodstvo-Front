@@ -24,7 +24,7 @@ export class AddNewInvoiceComponent implements OnInit {
 		private addNewInvoiceService: AddNewInvoiceService,
 		private currency: CurrencyService
 	) {
-        this.currencies = ["DIN", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
+        this.currencies = ["RSD", "EUR", "USD", "CHF", "GBP", "AUD", "CAD", "SEK", "DKK", "NOK",
       "JPY", "RUB", "CNY", "HRK", "KWD", "PLN", "CZK", "HUF", "BAM"];
     }
 
@@ -66,7 +66,7 @@ export class AddNewInvoiceComponent implements OnInit {
 
 	promeniKurs() {
       let curr = this.addingForm.get('valutaV')?.value.toLowerCase()
-      if(curr == 'din') {
+      if(curr == 'rsd') {
         this.addingForm.patchValue({
           kursV: 1.00
         })
