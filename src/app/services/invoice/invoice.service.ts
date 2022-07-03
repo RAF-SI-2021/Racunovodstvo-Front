@@ -22,7 +22,7 @@ export class InvoiceService {
 	filterKUF(pretraga: string, value: string) {
 		if (pretraga.includes('datum') || pretraga.includes('rokZa')) {
 			let date = new Date(value);
-			let value2 = date.getTime() / 1000 + 24 * 60 * 60;
+			let value2 = date.getTime() / 1000 + 24 * 60 * 60 - 1;
 			value = '' + date.getTime() / 1000;
 			return this.http.get<Invoice[]>(
 				environment.knjizenjeServiceApi +
@@ -52,7 +52,7 @@ export class InvoiceService {
 	filterKIF(pretraga: string, value: string) {
 		if (pretraga.includes('datum') || pretraga.includes('rokZa')) {
 			let date = new Date(value);
-			let value2 = date.getTime() / 1000 + 24 * 60 * 60;
+			let value2 = date.getTime() / 1000 + 24 * 60 * 60 - 1;
 			value = '' + date.getTime() / 1000;
 			return this.http.get<Invoice[]>(
 				environment.knjizenjeServiceApi +
