@@ -104,12 +104,12 @@ export class ManageUsersComponent implements OnInit {
   delete(user: User) {
     for (let i = 0; i < user.permissions.length; i++) {
       if(user.permissions[i].name === Authority.ADMIN){
-        alert("Ne mosete da brisete admin-a");
+        alert("Admin ne može biti obrisan!");
         return;
       }
     }
     if(this.loggedUser.userId === user.userId){
-      alert("Ne smete da brisete samog sebe");
+      alert("Trenutno ulogovan korisnik ne može biti obrisan!");
       return;
     }
     this.serviceBack.deleteUser(user.userId).subscribe(
