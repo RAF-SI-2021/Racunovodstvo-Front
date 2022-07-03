@@ -38,7 +38,7 @@ export class BlagajnaComponent implements OnInit {
   filter(filter: string, vrednost: string) {
     this.filterZaTip = false;
 
-    if (filter === 'brojTransakcije' || filter === 'iznosTransakcije') {
+    if (filter === 'iznosTransakcije') {
       let proveraVrednosti = parseInt(vrednost);
       if (isNaN(proveraVrednosti)) {
         alert('Morate uneti broj kako bi pretrazili po ovom filteru');
