@@ -83,8 +83,8 @@
           <p><i>Šifra:</i> <b><i>{{centar.sifra}}</i></b></p>
           <p><i>Ukupni trošak:</i> <b><i>{{centar.ukupniTrosak}}</i></b></p>
           <p><i>Naziv: </i> <input type="text" value="{{centar.naziv}}" #editableNazivCentra></p>
-          <p><i>Odgovorno lice: </i><select #editableOdgLice><option *ngFor="let odgLice of odgovornaLica">{{odgLice.ime}}</option></select></p>
-          <p><i>Lokacija: </i><select #editablelokacijaId><option *ngFor="let lokacija of lokacije">{{lokacija.naziv}}</option></select></p>
+          <p><i>Odgovorno lice: </i><select #editableOdgLice><option *ngFor="let odgLice of odgovornaLica" [selected]="odgLice.zaposleniId === centar.odgovornoLiceId">{{odgLice.ime}}</option></select></p>
+          <p><i>Lokacija: </i><select #editablelokacijaId><option *ngFor="let lokacija of lokacije" [selected]="lokacija.lokacijaId === centar.lokacijaId">{{lokacija.naziv}}</option></select></p>
           <button type="button" class="btn btn-sm btn-outline-warning" (click)="izmeniTroskovniCentar(centar, editableNazivCentra, editableOdgLice, editablelokacijaId)">Izmeni podatke</button>
         </ul>
 
