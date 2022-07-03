@@ -84,7 +84,7 @@ export class BlagajnaComponent implements OnInit {
 
     if (this.input === 'datumTransakcije') { // @ts-ignore
       element.setAttribute('type', 'date');
-    } else if (this.input === 'brojTransakcije' || this.input === 'iznosTransakcije') { // @ts-ignore
+    } else if (this.input === 'iznosTransakcije') { // @ts-ignore
       element.setAttribute('type', 'number');
     } else { // @ts-ignore
       element.setAttribute('type', 'text');
