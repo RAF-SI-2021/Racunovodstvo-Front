@@ -24,7 +24,13 @@ export class IopnkComponent {
     }
   }
 
+
   stampaj(godina1: HTMLInputElement, godina2: HTMLInputElement, opis: HTMLTextAreaElement) {
+    if(+godina2.value === 2022) {
+      alert("Vrednost za Godina 2 mora biti manja od vrednosti za tekuću godinu.")
+      return;
+    }
+
     this.service.getIzvestajOPromenamaNaKapitalu(+godina1.value, +godina2.value, opis.value).subscribe( res => {
       let file = new Blob([res], { type: 'application/pdf' });
       var fileURL = URL.createObjectURL(file);
