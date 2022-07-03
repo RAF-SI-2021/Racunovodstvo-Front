@@ -3,6 +3,7 @@ import { Permission, User } from '../../shared/manage-users';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManageUsersService } from '../../services/manage-users/manage-users.service';
 import { Authority } from 'src/app/shared/enums/permissions';
+import {UserService} from "../../services/login/user.service";
 
 @Component({
   selector: 'app-manage-users',
@@ -13,6 +14,7 @@ export class ManageUsersComponent implements OnInit {
   userEditForm: FormGroup;
   userAddForm: FormGroup;
 
+  loggedUser: User;
   userToEdit: User | undefined;
   users: User[] = [];
   permissions: Permission[] = [];
@@ -23,7 +25,8 @@ export class ManageUsersComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private serviceBack: ManageUsersService
+    private serviceBack: ManageUsersService,
+    private userService: UserService
   ) {
     this.userEditForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
@@ -58,6 +61,9 @@ export class ManageUsersComponent implements OnInit {
     this.serviceBack.listAllPermissions().subscribe( res =>{
       this.permissions = res;
     });
+    this.userService.getLoggedInUser().subscribe((user) => {
+      this.loggedUser = user;
+    });
     this.serviceBack.listAllUsers().subscribe(
       (res) => {
         this.users = res;
@@ -87,6 +93,16 @@ export class ManageUsersComponent implements OnInit {
   }
 
   delete(user: User) {
+    for (let i = 0; i < user.permissions.length; i++) {
+      if(user.permissions[i].name === Authority.ADMIN){
+        alert("Ne mozete da brisete admin-a");
+        return;
+      }
+    }
+    if(this.loggedUser.userId === user.userId){
+      alert("Ne mozete da izbrisete samog sebe");
+      return;
+    }
     this.serviceBack.deleteUser(user.userId).subscribe(
       (res) => {
         this.hiddenEdit = true;
