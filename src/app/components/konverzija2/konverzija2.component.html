@@ -113,7 +113,7 @@
         <input type="checkbox" class="form-check-input">
       </td>
       <td>
-        <button class="btn btn-danger btn-sm" (click)="delete(kalkulacija.konverzijaId)">Delete</button>
+        <button class="btn btn-danger btn-sm" (click)="delete(kalkulacija.konverzijaId)">Obriši</button>
       </td>
     </tr>
     </tbody>
@@ -151,28 +151,6 @@
 
       <div class="row">
         <div class="col-sm-4">
-          <label class="labelClass">Naziv lokacije:</label>
-          <input class="form-control" type="text" [formControlName]="'adresaLokacije'">
-        </div>
-
-        <div class="col-sm-4">
-          <label class="labelClass">Adresa lokacije:</label>
-          <input class="form-control" type="text" [formControlName]="'valuta'">
-        </div>
-
-        <div class="col-sm-4">
-          <label class="labelClass">Lokacija:</label>
-          <select class="form-control" type="text" [formControlName]="'lokacija'">
-            <option *ngFor="let lokacija of lokacije; index as i" [ngValue]="lokacija.lokacijaId">{{ lokacija.naziv }}
-              - {{ lokacija.adresa}} </option>
-          </select>
-
-        </div>
-
-      </div>
-
-      <div class="row">
-        <div class="col-sm-4">
           <label class="labelClass">Valuta:</label>
           <select class="form-control" id="valuta" [formControlName]="'valuta'">
             <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
@@ -191,7 +169,8 @@
       </div>
 
       <div class="row">
-        <div class="col-sm-5">
+
+        <div class="col-sm-8">
           <label class="labelClass">Troškovi nabavke:</label>
           <div *ngFor="let trosak of troskoviNabavke; index as i">
             <form class="form-control" [formGroup]="trosakForm[i]">
@@ -215,6 +194,20 @@
           </div>
         </div>
 
+        <div class="col-sm-4">
+          <label class="labelClass">Lokacija:</label>
+          <select class="form-control" type="text" [formControlName]="'lokacija'">
+            <option *ngFor="let lokacija of lokacije; index as i" [ngValue]="lokacija.lokacijaId">{{ lokacija.naziv }}
+              - {{ lokacija.adresa}} </option>
+          </select>
+
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-sm-3"></div>
         <div class="col-sm-5">
           <label class="labelClass">Komentar:</label>
           <textarea class="form-control" type="text" [formControlName]="'komentar'"></textarea>

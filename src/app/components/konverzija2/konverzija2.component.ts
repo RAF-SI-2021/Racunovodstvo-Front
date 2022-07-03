@@ -343,7 +343,7 @@ export class Konverzija2Component implements OnInit {
   }
 
   getAsDate(datum: string) {
-    return new Date(datum).toLocaleDateString('it-IT');
+    return new Date(datum).toLocaleDateString('en-US');
   }
 
   cancelNewKalk(){
@@ -525,7 +525,7 @@ export class Konverzija2Component implements OnInit {
     }
 
     if(lokacija !== ""){
-      filter += 'lokacijaId:' + lokacija + ',';
+      filter += 'lokacija_lokacijaId:' + lokacija + ',';
     }
 
     if(datumOd !== ""){
@@ -926,7 +926,6 @@ export class Konverzija2Component implements OnInit {
 
   dodajKonverziju() {
 
-    alert(this.addingForm.get('brojKonverzije').value)
     let lokacija : Lokacija = {adresa: "", naziv: ""}
     lokacija.naziv = this.addingForm.get('nazivLokacije')?.value
     lokacija.adresa = this.addingForm.get('adresaLokacije')?.value
@@ -936,7 +935,13 @@ export class Konverzija2Component implements OnInit {
       this.troskoviNabavke[i].cena = value.get('trosak')?.value;
       this.troskoviNabavke[i++].naziv = value.get('naziv')?.value;
     })
+
     let troskoviNabavke = this.troskoviNabavke.filter(value => value.cena !== 0 && value.naziv.trim() !== "");
+    let nabVr = 0;
+    if(this.addingForm.get('nabavnaVrednost')?.value !== '')
+      nabVr = this.addingForm.get('nabavnaVrednost')?.value;
+
+
     // @ts-ignore
     this.konverzijaService.postKonverzija({
       brojKonverzije: this.addingForm.get('brojKonverzije')?.value,
@@ -945,7 +950,8 @@ export class Konverzija2Component implements OnInit {
       lokacija: lokacija,
       troskoviNabavke:troskoviNabavke,
       fakturnaCena: this.addingForm.get('fakturnaCena')?.value,
-      nabavnaVrednost: this.addingForm.get('nabavnaVrednost')?.value,
+      //nabavnaVrednost: this.addingForm.get('nabavnaVrednost')?.value,
+      nabavnaVrednost:nabVr,
       valuta: this.addingForm.get('valuta')?.value,
       komentar: this.addingForm.get('komentar')?.value
     }).subscribe(konverzija => {

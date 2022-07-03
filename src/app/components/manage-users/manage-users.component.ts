@@ -3,6 +3,10 @@ import { Permission, User } from '../../shared/manage-users';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManageUsersService } from '../../services/manage-users/manage-users.service';
 import { Authority } from 'src/app/shared/enums/permissions';
+import {Company} from "../../shared/invoice.model";
+
+import {UserService} from "../../services/login/user.service";
+
 
 @Component({
   selector: 'app-manage-users',
@@ -12,7 +16,9 @@ import { Authority } from 'src/app/shared/enums/permissions';
 export class ManageUsersComponent implements OnInit {
   userEditForm: FormGroup;
   userAddForm: FormGroup;
+  loggedUser: User;
 
+  preduzeca: Company[] = [];
   userToEdit: User | undefined;
   users: User[] = [];
   permissions: Permission[] = [];
@@ -23,7 +29,8 @@ export class ManageUsersComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private serviceBack: ManageUsersService
+    private serviceBack: ManageUsersService,
+    private userService: UserService
   ) {
     this.userEditForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
@@ -58,6 +65,14 @@ export class ManageUsersComponent implements OnInit {
     this.serviceBack.listAllPermissions().subscribe( res =>{
       this.permissions = res;
     });
+    this.serviceBack.svaPreduzeca().subscribe((preduzeca) => {
+      this.preduzeca = preduzeca;
+    });
+
+    this.userService.getLoggedInUser().subscribe((user) => {
+      this.loggedUser = user
+    });
+
     this.serviceBack.listAllUsers().subscribe(
       (res) => {
         this.users = res;
@@ -87,6 +102,16 @@ export class ManageUsersComponent implements OnInit {
   }
 
   delete(user: User) {
+    for (let i = 0; i < user.permissions.length; i++) {
+      if(user.permissions[i].name === Authority.ADMIN){
+        alert("Admin ne može biti obrisan!");
+        return;
+      }
+    }
+    if(this.loggedUser.userId === user.userId){
+      alert("Trenutno ulogovan korisnik ne može biti obrisan!");
+      return;
+    }
     this.serviceBack.deleteUser(user.userId).subscribe(
       (res) => {
         this.hiddenEdit = true;
@@ -144,10 +169,11 @@ export class ManageUsersComponent implements OnInit {
     this.hiddenAdd = !this.hiddenAdd;
   }
 
-  edit() {
+  edit(preduzeceIndex: HTMLSelectElement) {
     let usrname = this.userEditForm.get('username')?.value;
     let firstName = this.userEditForm.get('name')?.value;
     let lastName = this.userEditForm.get('surname')?.value;
+    let preduzeceId = this.preduzeca[preduzeceIndex.selectedIndex].preduzeceId
     if (this.userToEdit !== undefined) {
       let permissions: Permission[] = this.populatePermissionsEdit();
       if (usrname != '' && firstName != '' && lastName != '') {
@@ -157,7 +183,8 @@ export class ManageUsersComponent implements OnInit {
             firstName,
             lastName,
             this.userToEdit.userId,
-            permissions
+            permissions,
+            preduzeceId
           )
           .subscribe(
             (res) => {
@@ -174,16 +201,18 @@ export class ManageUsersComponent implements OnInit {
     }
   }
 
-  add() {
+  add(preduzecaAdd: HTMLSelectElement) {
     let usrname = this.userAddForm.get('username')?.value;
     let firstName = this.userAddForm.get('name')?.value;
     let lastName = this.userAddForm.get('surname')?.value;
     let password = this.userAddForm.get('password')?.value;
+    let preduzece = this.preduzeca[preduzecaAdd.selectedIndex].preduzeceId;
     if (
       usrname != '' &&
       firstName != '' &&
       lastName != '' &&
-      password != ''
+      password != '' &&
+      preduzece
     ) {
       let permissions: Permission[] = this.populatePermissionsAdd();
       //console.log(permissions);
@@ -194,7 +223,7 @@ export class ManageUsersComponent implements OnInit {
         }
       }
       this.serviceBack
-        .addUser(usrname, firstName, lastName, password, permissions)
+        .addUser(usrname, firstName, lastName, password, permissions, preduzece)
         .subscribe(() => {
           this.hiddenAdd = !this.hiddenAdd;
           this.ngOnInit();
@@ -224,6 +253,41 @@ export class ManageUsersComponent implements OnInit {
     if (this.userEditForm.get(Authority.FINANSIJSKA_OPERATIVA)?.value) {
       for (let i = 0; i < this.permissions.length; i++) {
         if(this.permissions[i].name === Authority.FINANSIJSKA_OPERATIVA){
+          toReturn.push(this.permissions[i]);
+        }
+      }
+    }
+    if (this.userEditForm.get(Authority.NABAVKE)?.value) {
+      for (let i = 0; i < this.permissions.length; i++) {
+        if(this.permissions[i].name === Authority.NABAVKE){
+          toReturn.push(this.permissions[i]);
+        }
+      }
+    }
+    if (this.userEditForm.get(Authority.PROFIL)?.value) {
+      for (let i = 0; i < this.permissions.length; i++) {
+        if(this.permissions[i].name === Authority.PROFIL){
+          toReturn.push(this.permissions[i]);
+        }
+      }
+    }
+    if (this.userEditForm.get(Authority.EVIDENCIJE)?.value) {
+      for (let i = 0; i < this.permissions.length; i++) {
+        if(this.permissions[i].name === Authority.EVIDENCIJE){
+          toReturn.push(this.permissions[i]);
+        }
+      }
+    }
+    if (this.userEditForm.get(Authority.IZVESTAJI)?.value) {
+      for (let i = 0; i < this.permissions.length; i++) {
+        if(this.permissions[i].name === Authority.IZVESTAJI){
+          toReturn.push(this.permissions[i]);
+        }
+      }
+    }
+    if (this.userEditForm.get(Authority.PRODAJA)?.value) {
+      for (let i = 0; i < this.permissions.length; i++) {
+        if(this.permissions[i].name === Authority.PRODAJA){
           toReturn.push(this.permissions[i]);
         }
       }

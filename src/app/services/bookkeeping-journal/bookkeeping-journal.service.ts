@@ -70,7 +70,7 @@ export class BookkeepingJournalService {
     }
 
 		if (brDokFak != '') {
-			s += 'dokument:' + brDokFak + ',';
+			s += 'dokument_brojDokumenta:' + brDokFak + ',';
 		}
 
 		if (komentar != '') {

@@ -41,17 +41,18 @@ export class ObracunService {
 	}
 
 	napraviObracun(idTransakcije: number): Observable<Obracun>{
-    let params = new HttpParams();
-    params = params.append('idTransakcije', idTransakcije);
-
 		const headers = { Authorization: `Bearer ${this.jwt}` };
 		console.log('POSLATA SIFRA: ' + idTransakcije);
 		return this.httpClient.post<Obracun>(
 			environment.preduzeceServiceApi + `/api/obracun_zarade_config/create`,
+			{},
 			{
-			},
-      { headers: headers, params: params }
-    );
+        headers: headers,
+        params: {
+          "idTransakcije" : idTransakcije
+        }
+      }
+		);
 	}
 	getDanSifraTransakcijeId(): Observable<ObracunZaradeConfig> {
 		const headers = { Authorization: `Bearer ${this.jwt}` };

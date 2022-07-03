@@ -171,10 +171,9 @@ export class MpFakturaComponent implements OnInit {
     let porezProcenat = this.fakturaForm.get('porezProcenat')?.value;
     let valuta = this.fakturaForm.get('valuta')?.value;
     let kurs = this.fakturaForm.get('kurs')?.value;
-    let naplata = this.fakturaForm.get('naplata')?.value;
     let komentar = this.fakturaForm.get('komentar')?.value;
     this.service.novaFaktura(brojFakture, datumIzdavanja, komitent, datumPlacanja, prodajnaVrednost, rabatProcenat, porezProcenat, valuta,
-      kurs, naplata, komentar, "MALOPRODAJNA_FAKTURA").subscribe(response => {
+      kurs, komentar, "MALOPRODAJNA_FAKTURA").subscribe(response => {
       this.ngOnInit();
     })
   }
