@@ -33,7 +33,7 @@ export class TransakcijaService {
 	): Observable<Pageable<Transakcija>> {
 		if (filter === 'datumTransakcije') {
 			let date = new Date(value);
-			let value2 = date.getTime() / 1000 + 24 * 60 * 60;
+			let value2 = date.getTime() / 1000 + 24 * 60 * 60 - 1;
 			value = '' + date.getTime() / 1000;
 
 			return this.http.get<Pageable<Transakcija>>(
