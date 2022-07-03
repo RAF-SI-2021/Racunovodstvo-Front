@@ -110,6 +110,7 @@ export class MpFakturaComponent implements OnInit {
         });
   }
 
+
   ukupnaProdajnaVrednost() {
     let totalSum = 0;
     this.fakture.forEach(function (value) {
@@ -176,6 +177,27 @@ export class MpFakturaComponent implements OnInit {
       kurs, komentar, "MALOPRODAJNA_FAKTURA").subscribe(response => {
       this.ngOnInit();
     })
+    this.fakturaForm = this.formBuilder.group({
+          brojFakture: ['', Validators.required],
+          datumIzdavanja: ['', Validators.required],
+          komitent: ['', Validators.required],
+          datumPlacanja: [''],
+          prodajnaVrednost: [0, Validators.required],
+          rabatProcenat: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
+          porezProcenat: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
+          valuta: [
+            '',
+            [
+              Validators.required,
+              Validators.minLength(3),
+              Validators.maxLength(3),
+              Validators.pattern('^[A-Z]+$')
+            ],
+          ],
+          kurs: [0, Validators.required],
+          naplata: [0, [Validators.required]],
+          komentar: [''],
+      });
   }
 
 
