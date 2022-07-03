@@ -134,22 +134,22 @@ export class PlateZaposlenihComponent implements OnInit {
 			query += 'zaposleni_prezime:' + prezime + ',';
 		}
 		if (netoPlata !== '') {
-			query += 'netoPlata:' + netoPlata + ',';
+			query += 'netoPlata>' + netoPlata + ',' + 'netoPlata<' + (netoPlata + 1) + ',';
 		}
 		if (porez !== '') {
-			query += 'porez:' + porez + ',';
+			query += 'porez>' + porez + ',' + 'porez<' + (porez + 1) + ',';
 		}
 		if (doprinos1 !== '') {
-			query += 'doprinos1:' + doprinos1 + ',';
+			query += 'doprinos1>' + doprinos1 + ',' + 'doprinos1<' + (doprinos1 + 1) + ',';
 		}
 		if (doprinos2 !== '') {
-			query += 'doprinos2:' + doprinos2 + ',';
+			query += 'doprinos2>' + doprinos2 + ','  + 'doprinos2<' + (doprinos2 + 1) + ',';
 		}
 		if (brutoPlata !== '') {
-			query += 'brutoPlata:' + brutoPlata + ',';
+			query += 'brutoPlata>' + brutoPlata + ',' + 'brutoPlata<' + (brutoPlata + 1) + ',';
 		}
 		if (ukupanTrosakZarade !== '') {
-			query += 'ukupanTrosakZarade:' + ukupanTrosakZarade + ',';
+			query += 'ukupanTrosakZarade>' + ukupanTrosakZarade + ',' + 'ukupanTrosakZarade<' + (ukupanTrosakZarade + 3) + ',';
 		}
 		if (komentar !== '') {
 			query += 'komentar:' + komentar + ',';
