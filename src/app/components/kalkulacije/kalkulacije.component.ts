@@ -463,7 +463,7 @@ export class KalkulacijeComponent implements OnInit {
     }
 
     if(lokacija !== "" && lokacija){
-      filter += 'lokacija:' + lokacija.lokacijaId + ',';
+      filter += 'lokacija_lokacijaId:' + lokacija.lokacijaId + ',';
     }
 
     if(datumOd !== "" && datumOd){

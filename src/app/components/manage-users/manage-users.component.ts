@@ -4,7 +4,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManageUsersService } from '../../services/manage-users/manage-users.service';
 import { Authority } from 'src/app/shared/enums/permissions';
 import {Company} from "../../shared/invoice.model";
+
 import {UserService} from "../../services/login/user.service";
+
 
 @Component({
   selector: 'app-manage-users',
@@ -15,6 +17,7 @@ export class ManageUsersComponent implements OnInit {
   userEditForm: FormGroup;
   userAddForm: FormGroup;
   loggedUser: User;
+
   preduzeca: Company[] = [];
   userToEdit: User | undefined;
   users: User[] = [];
@@ -65,9 +68,11 @@ export class ManageUsersComponent implements OnInit {
     this.serviceBack.svaPreduzeca().subscribe((preduzeca) => {
       this.preduzeca = preduzeca;
     });
+
     this.userService.getLoggedInUser().subscribe((user) => {
       this.loggedUser = user
     });
+
     this.serviceBack.listAllUsers().subscribe(
       (res) => {
         this.users = res;

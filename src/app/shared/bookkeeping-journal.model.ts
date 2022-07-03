@@ -29,6 +29,7 @@ export class BookkeepingJournal {
 	dokumentId: number;
 	saldo: number;
 	komentar: string;
+  brojDokumenta: string;
 
 	constructor(
 		knjizenjeId: number,

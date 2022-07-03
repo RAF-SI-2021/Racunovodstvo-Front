@@ -190,7 +190,7 @@ export class InvoiceService {
 	}
 
   novaFaktura(brojFakture: string, datumIzdavanja: string, komitent: IClient, datumPlacanja: string, prodajnaVrednost: number,
-              rabatProcenat: number, porezProcenat: number, valuta: string, kurs: number, naplata: number, komentar: string, tipFakture: string){
+              rabatProcenat: number, porezProcenat: number, valuta: string, kurs: number, komentar: string, tipFakture: string){
     return this.http.post<Response>(
       environment.knjizenjeServiceApi + `/api/faktura`,
       {
@@ -202,7 +202,6 @@ export class InvoiceService {
         porezProcenat: porezProcenat === null ? 0 : porezProcenat > 100 ? 100 : porezProcenat,
         valuta: valuta,
         kurs: kurs,
-        naplata: naplata,
         tipFakture: tipFakture,
         komentar: komentar === null ? '' : komentar,
         rabatProcenat: rabatProcenat === null ? 0 : rabatProcenat > 100 ? 100 : rabatProcenat,

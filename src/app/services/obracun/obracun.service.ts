@@ -45,10 +45,13 @@ export class ObracunService {
 		console.log('POSLATA SIFRA: ' + idTransakcije);
 		return this.httpClient.post<Obracun>(
 			environment.preduzeceServiceApi + `/api/obracun_zarade_config/create`,
+			{},
 			{
-				idTransakcije: idTransakcije,
-			},
-			{ headers: headers }
+        headers: headers,
+        params: {
+          "idTransakcije" : idTransakcije
+        }
+      }
 		);
 	}
 	getDanSifraTransakcijeId(): Observable<ObracunZaradeConfig> {
