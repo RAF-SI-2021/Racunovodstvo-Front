@@ -427,17 +427,18 @@ export class KalkulacijeComponent implements OnInit {
 
   deleteKalkulacija(id: number){
     this.service.deleteKalkulacija(id).subscribe( value => {
-      let index = -1;
-      for(let i = 0; i < this.kalkulacije.length; i++){
-        if(this.kalkulacije[i].id === id){
-          index = i;
-          break;
-        }
-        if(index !== -1){
-          this.kalkulacije.slice(index, 1);
-        }
-        window.location.reload();
-      }
+//       let index = -1;
+//       for(let i = 0; i < this.kalkulacije.length; i++){
+//         if(this.kalkulacije[i].id === id){
+//           index = i;
+//           break;
+//         }
+//         if(index !== -1){
+//           this.kalkulacije.slice(index, 1);
+//         }
+//         window.location.reload();
+//       }
+        this.ngOnInit();
     })
   }
 
