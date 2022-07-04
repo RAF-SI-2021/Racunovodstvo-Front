@@ -52,8 +52,8 @@ describe('cash-register spec', () => {
 		cy.get('.btn:nth-child(6)').click();
 	});
 
-	it('add to knjizenje widget', () => {
-		cy.get('tr:nth-child(1) > .text-center > .btn').click();
-		cy.get('#brojDok').should('have.value', '1123L');
-	});
+	// it('add to knjizenje widget', () => {
+	// 	cy.get('tr:nth-child(1) > .text-center > .btn').click();
+	// 	cy.get('#brojDok').should('have.value', '1123L');
+	// });
 });

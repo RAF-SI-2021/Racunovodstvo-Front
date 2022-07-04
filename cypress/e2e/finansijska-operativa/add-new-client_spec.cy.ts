@@ -11,7 +11,7 @@ describe('add-new-client spec', () => {
 
 	it('accordion', () => {
 		cy.get('ngb-accordion').should('be.visible');
-		cy.get('.accordion-button').should('contain', 'Preduzece A');
+		cy.get('.accordion-button').should('contain', 'Universal UK');
 		cy.get('.accordion-button').find('input');
 		cy.get('.accordion-button').find('button').contains('Obriši');
 	});

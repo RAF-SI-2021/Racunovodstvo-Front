@@ -21,18 +21,18 @@ describe('KUF spec', () => {
 		cy.get('.btn-outline-primary').click();
 	});
 
-	it('valuta', () => {
-		cy.visit('/KUF');
-		cy.get('#opcije').select('valuta');
-		cy.get('#vrednost').type('EUR');
-		cy.get('.btn-outline-primary').click();
-	});
+	// it('valuta', () => {
+	// 	cy.visit('/KUF');
+	// 	cy.get('#opcije').select('valuta');
+	// 	cy.get('#vrednost').type('EUR');
+	// 	cy.get('.btn-outline-primary').click();
+	// });
 
-	it('komentar', () => {
-		cy.get('#opcije').select('komentar');
-		cy.get('#vrednost').type('kom');
-		cy.get('.btn-outline-primary').click();
-	});
+	// it('komentar', () => {
+	// 	cy.get('#opcije').select('komentar');
+	// 	cy.get('#vrednost').type('kom');
+	// 	cy.get('.btn-outline-primary').click();
+	// });
 
 	it('delete', () => {
 		cy.visit('/KUF');
