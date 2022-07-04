@@ -19,7 +19,6 @@ describe('knjizenje-widget spec', () => {
 		cy.get('.btn-warning').click();
 	});
 
-	// ne radi
 	it('knjizenje', () => {
 		cy.get('.btn-success').last().click();
 	});
@@ -27,9 +26,5 @@ describe('knjizenje-widget spec', () => {
 	it('promeni na profitni centar i knjizi', () => {
 		cy.get('[type="checkbox"]').check();
 		cy.get('.btn-success').last().click();
-	});
-
-	it('izbrisi', () => {
-		cy.get('.btn-danger').first().click();
 	});
 });

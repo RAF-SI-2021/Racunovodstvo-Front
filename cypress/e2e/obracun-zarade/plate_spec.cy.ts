@@ -55,7 +55,7 @@ describe('plate spec', () => {
 	it('filter ukupan trosak zarade', () => {
 		cy.get(
 			'.row:nth-child(3) > .col-sm-4:nth-child(2) > .form-control'
-		).type('?????????????');
+		).type('6138200.66667');
 		cy.get('.btn-primary').last().click();
 	});
 
