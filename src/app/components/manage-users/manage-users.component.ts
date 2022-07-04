@@ -318,6 +318,41 @@ export class ManageUsersComponent implements OnInit {
         }
       }
     }
+    if (this.userAddForm.get(Authority.NABAVKE)?.value) {
+          for (let i = 0; i < this.permissions.length; i++) {
+            if(this.permissions[i].name === Authority.NABAVKE){
+              toReturn.push(this.permissions[i]);
+            }
+          }
+        }
+        if (this.userAddForm.get(Authority.PROFIL)?.value) {
+          for (let i = 0; i < this.permissions.length; i++) {
+            if(this.permissions[i].name === Authority.PROFIL){
+              toReturn.push(this.permissions[i]);
+            }
+          }
+        }
+        if (this.userAddForm.get(Authority.EVIDENCIJE)?.value) {
+          for (let i = 0; i < this.permissions.length; i++) {
+            if(this.permissions[i].name === Authority.EVIDENCIJE){
+              toReturn.push(this.permissions[i]);
+            }
+          }
+        }
+        if (this.userAddForm.get(Authority.IZVESTAJI)?.value) {
+          for (let i = 0; i < this.permissions.length; i++) {
+            if(this.permissions[i].name === Authority.IZVESTAJI){
+              toReturn.push(this.permissions[i]);
+            }
+          }
+        }
+        if (this.userAddForm.get(Authority.PRODAJA)?.value) {
+          for (let i = 0; i < this.permissions.length; i++) {
+            if(this.permissions[i].name === Authority.PRODAJA){
+              toReturn.push(this.permissions[i]);
+            }
+          }
+        }
     return toReturn;
   }
 

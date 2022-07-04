@@ -3,7 +3,7 @@
   <div class="col-sm-12 d-flex justify-content-start m-3">
 
     <label for="opcije" class="margin-s">Filter:</label>
-    <select name="opcije" id="opcije" [(ngModel)]="input" class="margin-l" #filterEl>
+    <select name="opcije" id="opcije" [(ngModel)]="input" (change)="setInputType()" class="margin-l" #filterEl>
       <option value="brojTransakcije">Broj Transakcije</option>
       <option value="datumTransakcije">Datum</option>
       <option value="tipTransakcije">Tip</option>
@@ -14,7 +14,7 @@
     </select>
 
     <label for="vrednost" class="margin-s">Vrednost:</label>
-    <input id="vrednost" [(ngModel)]="vrednost" class="margin-l" (click)="setInputType()" #vrednostEl>
+    <input id="vrednost" [(ngModel)]="vrednost" class="margin-l" #vrednostEl>
 
     <button class="btn btn-sm btn-outline-primary margin-l" type="submit" (click)="filter(filterEl.value, vrednostEl.value)">
       Filter
@@ -61,8 +61,8 @@
             <textarea class="form-control">{{transakcija.sadrzaj}}</textarea>
           </div>
         </td>
-        <td class="text-center align-middle">{{transakcija.sifraTransakcije.nazivTransakcije}}</td>
-        <td class="text-center align-middle">{{transakcija.sifraTransakcije.sifra}}</td>
+        <td class="text-center align-middle">{{transakcija.sifraTransakcije ? transakcija.sifraTransakcije.nazivTransakcije : ''}}</td>
+        <td class="text-center align-middle">{{transakcija.sifraTransakcije ? transakcija.sifraTransakcije.sifra : ''}}</td>
         <td class="text-center align-middle">
           <div class="form-floating">
             <textarea class="form-control">{{transakcija.komentar}}</textarea>

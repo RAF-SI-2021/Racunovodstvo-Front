@@ -38,7 +38,7 @@ export class BlagajnaComponent implements OnInit {
   filter(filter: string, vrednost: string) {
     this.filterZaTip = false;
 
-    if (filter === 'iznosTransakcije') {
+    if (filter === 'iznos' || filter === 'sifraTransakcije') {
       let proveraVrednosti = parseInt(vrednost);
       if (isNaN(proveraVrednosti)) {
         alert('Morate uneti broj kako bi pretrazili po ovom filteru');
@@ -84,7 +84,7 @@ export class BlagajnaComponent implements OnInit {
 
     if (this.input === 'datumTransakcije') { // @ts-ignore
       element.setAttribute('type', 'date');
-    } else if (this.input === 'iznosTransakcije') { // @ts-ignore
+    } else if (this.input === 'iznos' || this.input === 'sifraTransakcije') { // @ts-ignore
       element.setAttribute('type', 'number');
     } else { // @ts-ignore
       element.setAttribute('type', 'text');
