@@ -18,6 +18,7 @@ describe('povracaj spec', () => {
 	});
 
 	it('obrisi', () => {
-		cy.get('.btn-warning').first().click();
+		cy.visit('/povracaj');
+		cy.get('.btn-danger').last().click();
 	});
 });

@@ -3,7 +3,11 @@ describe('sva-knjizenja spec', () => {
 		cy.visit('/sva-knjizenja');
 	});
 
-	it('datumi', () => {}); // ne radi
+	it('datumi', () => {
+		cy.get('.col-lg-2:nth-child(1) > .form-control').type('2021-06-04');
+		cy.get('.col-lg-2:nth-child(2) > .form-control').type('2021-06-10');
+		cy.get('.btn-danger').click();
+	});
 
 	it('broj konta', () => {
 		cy.get('.col-lg-2:nth-child(3) > .form-control').type('309');

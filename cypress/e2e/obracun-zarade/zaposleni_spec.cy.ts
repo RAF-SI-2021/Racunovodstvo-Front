@@ -32,18 +32,18 @@ describe('zaposleni spec', () => {
 	});
 
 	it('kreiraj zaposlenog', () => {
-		cy.get('.col-sm-4:nth-child(1) > .form-control').type('Stefan');
-		cy.get('.col-sm-4:nth-child(2) > .form-control').type('Stefanovic');
+		cy.get('.col-sm-4:nth-child(1) > .form-control').type('Ime');
+		cy.get('.col-sm-4:nth-child(2) > .form-control').type('Prezime');
 		cy.get('.col-sm-4:nth-child(3) > .ng-untouched').type('2022-06-13');
 		cy.get('.col-sm-3:nth-child(1) > .form-control').type('1234567891234');
 		cy.get('.col-sm-3:nth-child(2) > .form-control').select('MUSKO');
-		cy.get('.col-sm-3:nth-child(3) > .form-control').select('Preduzece B');
+		cy.get('.col-sm-3:nth-child(3) > .form-control').select(0);
 		cy.get('.col-sm-3:nth-child(4) > .ng-untouched').select('MENADZER');
 		cy.get('.btn-success').click();
 	});
 
 	it('izmeni profil zaposlenog', () => {
-		cy.visit('/zaposleni/4');
+		cy.visit('/zaposleni/6');
 		cy.get('.row:nth-child(1) > .col-md-3:nth-child(3) .form-control').type(
 			'Roditelj'
 		);
@@ -53,12 +53,11 @@ describe('zaposleni spec', () => {
 		);
 		cy.get('.row:nth-child(7) > .col-md-9 .form-control').type('123456789');
 		cy.get('.row:nth-child(7) > .col-md-3 .form-control').type('VII');
-		cy.get('.row:nth-child(8) > .col-md-9 .form-control').type('321654987');
+		cy.get('.row:nth-child(8) > .col-md-8 .form-control').type('321654987');
 		cy.get('#txtArea').type('komentar');
 		cy.get('.btn-primary').last().click();
 		//plata
 		cy.get('.form-outline:nth-child(2) > .form-control').type('100000');
 		cy.get('.btn-danger').click();
 	});
-	// sta se desi sa porezom nakon dodavanja plate?
 });
